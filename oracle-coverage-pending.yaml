@@ -2,6 +2,6 @@
 # The OECD TaxBEN Israel description is a reference, not an executable oracle,
 # so this pilot declares no oracle coverage rather than overstating it.
 version: 1
-issue: "https://github.com/TheAxiomFoundation/rulespec-il/issues/1"
+issue: "https://github.com/TheAxiomFoundation/rulespec-il/issues/2"
 ceiling: 0
 entries: []

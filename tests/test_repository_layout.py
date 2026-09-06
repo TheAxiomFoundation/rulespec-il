@@ -138,7 +138,7 @@ def test_empty_ratchets_have_current_shapes() -> None:
     pending = yaml.safe_load((ROOT / "oracle-coverage-pending.yaml").read_text())
     assert pending == {
         "version": 1,
-        "issue": "https://github.com/TheAxiomFoundation/rulespec-il/issues/1",
+        "issue": "https://github.com/TheAxiomFoundation/rulespec-il/issues/2",
         "ceiling": 0,
         "entries": [],
     }
