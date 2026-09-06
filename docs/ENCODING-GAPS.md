@@ -172,6 +172,18 @@ Only paragraph (2) of the הסכום הבסיסי definition is encoded — the 
 governs the child allowance. Paragraphs (1) and (3), covering maternity,
 work-injury, disability and residual benefits, are not.
 
+### `ito-section-121-reduced-rates-are-a-person-level-switch`
+§121(ב)(1) applies the reduced rates to "הכנסה חייבת בשנת המס מיגיעה אישית" — to
+income of that character — and §121(ב)(2) withdraws them from income for which
+acceptable books were not kept. Both are properties of INCOME. The encoding
+collapses them into a single person-level switch, `reduced_rates_apply`, so a
+taxpayer with both personal-exertion and other income is taxed wholly on one
+schedule rather than having the schedules applied to the respective parts.
+Every pilot fixture has income of a single character, so none exercises the
+difference.
+**Resolution:** split the taxable-income input by character and apply each
+schedule to its own part.
+
 ### `ito-section-121b-subsections-b-to-e-not-encoded`
 Only §121ב(א) and §121ב(א1) are encoded. §121ב(ב) (no §91(ד) advances on income
 bearing the additional tax), §121ב(ג) (notwithstanding any enactment), §121ב(ד)

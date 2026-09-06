@@ -3,15 +3,20 @@ imports:
 - il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils
 - il:statutes/income-tax-ordinance/section-121b#additional_tax_ils
 - il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax
-- il:statutes/income-tax-ordinance/section-34#resident_credit_points
-- il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points
-- il:statutes/income-tax-ordinance/section-36a#woman_credit_points
+- il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed
+- il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed
+- il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed
 - il:statutes/income-tax-ordinance/section-66#mother_points_birth_year
 - il:statutes/income-tax-ordinance/section-66#mother_points_age_1_to_2
 - il:statutes/income-tax-ordinance/section-66#mother_points_age_3
 - il:statutes/income-tax-ordinance/section-66#mother_points_age_4_to_5
 - il:statutes/income-tax-ordinance/section-66#mother_points_age_6_to_pre_maturity
 - il:statutes/income-tax-ordinance/section-66#mother_points_maturity_year
+- il:statutes/income-tax-ordinance/section-66#father_points_birth_year
+- il:statutes/income-tax-ordinance/section-66#father_points_age_1_to_2
+- il:statutes/income-tax-ordinance/section-66#father_points_age_3
+- il:statutes/income-tax-ordinance/section-66#father_points_age_4_to_5
+- il:statutes/income-tax-ordinance/section-66#father_points_age_6_to_pre_maturity
 - il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_first_and_fifth_plus_child_ils
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_second_third_fourth_child_ils
@@ -40,18 +45,24 @@ module:
     \ — §33א states 504 ILS nominal.\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module)\
     \ — §121ב\n    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1\
     \ states 150/188/140 nominal.\nEach fixture records where its supplied number came from. None of them\
-    \ is law\nas stated here.\n\nBOUNDS. At most two children; one earner; separate calculation (חישוב\
-    \ נפרד)\nassumed elected, which is what makes §66(ג)(4) apply; the mother's schedule\nonly. It wires\
-    \ NII §66 (entitlement) and the §68(א)/§1(2) birth-order structure;\nit does NOT wire NII §67 (whose\
-    \ count a child falls into) or §68(ב)/(ג) — the\ncapstone assumes both children fall in this parent's\
-    \ count, and no fixture there\nis on income support or has a child born before June 2003. §67 and\
-    \ §68 are\nencoded and tested in their own modules. `child_1_credit_points` and `child_2_credit_points`\
-    \ repeat the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation\
-    \ —\nthe right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope\
-    \ here. Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי\
-    \ במקור deduction rules, which are not encoded.\n\nNational Insurance and health contributions are\
-    \ NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is\
-    \ not take-home\npay. See docs/ENCODING-GAPS.md."
+    \ is law\nas stated here.\n\nHOW THE COUPLING IS WIRED. `monthly_child_allowance_ils` gates on the\
+    \ IMPORTED\n§121ב judgment `liable_to_additional_tax`, which is itself derived from the\nsupplied\
+    \ annual income and threshold. The exclusion therefore follows from\nincome through §121ב, not from\
+    \ a fixture-maintained flag. NII §66's own\n`entitled_to_child_allowance` is imported as well and\
+    \ carries the insurance\ncondition.\n\nBOUNDS. At most two children; one earner; separate calculation\
+    \ (חישוב נפרד)\nassumed elected, which is what makes §66(ג)(4)-(5) apply. Both ladders are\ncarried\
+    \ and selected by `taxpayer_is_a_woman`, because §66(ג)(4)(א) and\n§66(ג)(5) diverge from age six\
+    \ (two points against one) and in the maturity year\n(half a point against none). It wires NII §66\
+    \ (entitlement) and the\n§68(א)/§1(2) birth-order structure;\nit does NOT wire NII §67 (whose count\
+    \ a child falls into) or §68(ב)/(ג) — the\ncapstone assumes both children fall in this parent's count,\
+    \ and no fixture there\nis on income support or has a child born before June 2003. §67 and §68 are\n\
+    encoded and tested in their own modules. `child_1_credit_points` and `child_2_credit_points` repeat\
+    \ the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation —\n\
+    the right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope here.\
+    \ Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי במקור\
+    \ deduction rules, which are not encoded.\n\nNational Insurance and health contributions are NOT deducted,\
+    \ so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is not take-home\n\
+    pay. See docs/ENCODING-GAPS.md."
 rules:
 - name: child_1_credit_points
   kind: derived
@@ -67,21 +78,22 @@ rules:
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: לנקודות זיכוי בעד ילדיה כלהלן
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: הגבר יהא זכאי, כנגד המס החל על הכנסתו מיגיעה אישית, לנקודות זיכוי בעד כל אחד מילדיו,
+            כלהלן
   versions:
   - effective_from: '2025-01-01'
-    formula: 'if number_of_children < 1: 0
-
-      elif child_1_is_in_birth_year: mother_points_birth_year
-
-      elif child_1_is_in_maturity_year: mother_points_maturity_year
-
-      elif child_1_age_years <= 2: mother_points_age_1_to_2
-
-      elif child_1_age_years == 3: mother_points_age_3
-
-      elif child_1_age_years <= 5: mother_points_age_4_to_5
-
-      else: mother_points_age_6_to_pre_maturity'
+    formula: "if number_of_children < 1: 0\nelif child_1_is_in_birth_year:\n  (if taxpayer_is_a_woman:\
+      \ mother_points_birth_year else: father_points_birth_year)\nelif child_1_is_in_maturity_year:\n\
+      \  (if taxpayer_is_a_woman: mother_points_maturity_year else: 0)\nelif child_1_age_years <= 2:\n\
+      \  (if taxpayer_is_a_woman: mother_points_age_1_to_2 else: father_points_age_1_to_2)\nelif child_1_age_years\
+      \ == 3:\n  (if taxpayer_is_a_woman: mother_points_age_3 else: father_points_age_3)\nelif child_1_age_years\
+      \ <= 5:\n  (if taxpayer_is_a_woman: mother_points_age_4_to_5 else: father_points_age_4_to_5)\nelif\
+      \ child_1_age_years <= 17:\n  (if taxpayer_is_a_woman: mother_points_age_6_to_pre_maturity\n   else:\
+      \ father_points_age_6_to_pre_maturity)\nelse: 0"
 - name: child_2_credit_points
   kind: derived
   entity: Person
@@ -96,21 +108,22 @@ rules:
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: לנקודות זיכוי בעד ילדיה כלהלן
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: הגבר יהא זכאי, כנגד המס החל על הכנסתו מיגיעה אישית, לנקודות זיכוי בעד כל אחד מילדיו,
+            כלהלן
   versions:
   - effective_from: '2025-01-01'
-    formula: 'if number_of_children < 2: 0
-
-      elif child_2_is_in_birth_year: mother_points_birth_year
-
-      elif child_2_is_in_maturity_year: mother_points_maturity_year
-
-      elif child_2_age_years <= 2: mother_points_age_1_to_2
-
-      elif child_2_age_years == 3: mother_points_age_3
-
-      elif child_2_age_years <= 5: mother_points_age_4_to_5
-
-      else: mother_points_age_6_to_pre_maturity'
+    formula: "if number_of_children < 2: 0\nelif child_2_is_in_birth_year:\n  (if taxpayer_is_a_woman:\
+      \ mother_points_birth_year else: father_points_birth_year)\nelif child_2_is_in_maturity_year:\n\
+      \  (if taxpayer_is_a_woman: mother_points_maturity_year else: 0)\nelif child_2_age_years <= 2:\n\
+      \  (if taxpayer_is_a_woman: mother_points_age_1_to_2 else: father_points_age_1_to_2)\nelif child_2_age_years\
+      \ == 3:\n  (if taxpayer_is_a_woman: mother_points_age_3 else: father_points_age_3)\nelif child_2_age_years\
+      \ <= 5:\n  (if taxpayer_is_a_woman: mother_points_age_4_to_5 else: father_points_age_4_to_5)\nelif\
+      \ child_2_age_years <= 17:\n  (if taxpayer_is_a_woman: mother_points_age_6_to_pre_maturity\n   else:\
+      \ father_points_age_6_to_pre_maturity)\nelse: 0"
 - name: annual_credit_points
   kind: derived
   entity: Person
@@ -137,11 +150,11 @@ rules:
           excerpt: בחישוב המס של אשה תובא בחשבון 1⁄2 נקודת זיכוי
   versions:
   - effective_from: '2025-01-01'
-    formula: 'resident_credit_points
+    formula: 'resident_credit_points_claimed
 
-      + travel_to_place_of_earning_credit_points
+      + travel_to_place_of_earning_credit_points_claimed
 
-      + (if taxpayer_is_a_woman: woman_credit_points else: 0)
+      + woman_credit_points_claimed
 
       + child_1_credit_points
 
@@ -211,9 +224,9 @@ rules:
             לגביו
   versions:
   - effective_from: '2025-01-01'
-    formula: "if entitled_to_child_allowance:\n  (if number_of_children >= 1: current_basic_amount_first_and_fifth_plus_ils\
-      \ else: 0)\n  + (if number_of_children >= 2: current_basic_amount_second_third_fourth_ils else:\
-      \ 0)\nelse: 0"
+    formula: "if liable_to_additional_tax: 0\nelif entitled_to_child_allowance:\n  (if number_of_children\
+      \ >= 1: current_basic_amount_first_and_fifth_plus_ils else: 0)\n  + (if number_of_children >= 2:\
+      \ current_basic_amount_second_third_fourth_ils else: 0)\nelse: 0"
 - name: monthly_net_income_ils
   kind: derived
   entity: Person

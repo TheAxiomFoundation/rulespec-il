@@ -16,6 +16,12 @@
 #
 # §121ב(א) says "עלתה על" — exceeded — so income exactly at the threshold is not
 # liable, and one fixture pins that boundary.
+#
+# annual_taxable_income_from_capital_sources_ils never exceeds
+# annual_taxable_income_ils in any fixture: §121ב(ה) defines the capital-source
+# base as taxable income LESS §2(1)/(2) and personal-exertion income, so it is a
+# subset. That definition is NOT encoded — the base is a supplied input — so the
+# fixtures respect the containment rather than proving it.
 
 - name: below_the_threshold_no_additional_tax
   period:
@@ -27,7 +33,7 @@
     il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
     il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
   output:
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
 - name: exactly_at_the_threshold_is_not_liable
   period:
@@ -39,7 +45,7 @@
     il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
     il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
   output:
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
 - name: three_percent_on_the_excess_over_the_threshold
   period:
@@ -51,7 +57,7 @@
     il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
     il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
   output:
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 2353.2
 - name: capital_source_income_adds_the_two_percent_of_subsection_a1
   period:
@@ -63,17 +69,17 @@
     il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 750000
     il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
   output:
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 2922.0
-- name: capital_source_income_alone_can_trigger_liability
+- name: capital_source_income_carries_most_of_the_charge
   period:
     period_kind: tax_year
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 500000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 750000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 730000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 730000
     il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
   output:
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 568.8
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 422.0

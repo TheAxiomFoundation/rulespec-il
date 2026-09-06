@@ -10,7 +10,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: false
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: true
@@ -22,7 +22,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: false
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: false
@@ -34,7 +34,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: true
@@ -46,7 +46,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: false
@@ -58,7 +58,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: false
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: false
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: true
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: false
@@ -70,7 +70,7 @@
     start: '2025-01-01'
     end: '2025-12-31'
   input:
-    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_insured_parents: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: false
     il:statutes/national-insurance-law-1995/section-67#input.child_is_with_the_mother_only: false
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_insured: false
     il:statutes/national-insurance-law-1995/section-67#input.this_parent_is_the_father: false

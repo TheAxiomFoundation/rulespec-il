@@ -240,7 +240,9 @@ rules:
 
       elif child_age_years <= 5: mother_points_age_4_to_5
 
-      else: mother_points_age_6_to_pre_maturity'
+      elif child_age_years <= 17: mother_points_age_6_to_pre_maturity
+
+      else: 0'
 - name: father_child_credit_points
   kind: derived
   entity: Person
@@ -268,4 +270,6 @@ rules:
 
       elif child_age_years <= 5: father_points_age_4_to_5
 
-      else: father_points_age_6_to_pre_maturity'
+      elif child_age_years <= 17: father_points_age_6_to_pre_maturity
+
+      else: 0'

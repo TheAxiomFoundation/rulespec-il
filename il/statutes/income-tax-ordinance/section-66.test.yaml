@@ -119,3 +119,15 @@
   output:
     il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 0.5
     il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 0
+- name: past_the_maturity_year_neither_parent_gets_points
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 19
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 0
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 0

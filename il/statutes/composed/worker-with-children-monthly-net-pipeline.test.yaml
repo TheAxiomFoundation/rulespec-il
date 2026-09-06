@@ -17,6 +17,14 @@
 # The pipeline cannot compute it, because an imported module's inputs are
 # supplied, not derived — the same constraint the rulespec-dk capstone documents.
 #
+# ON THE IMPORTED §66 ASSERTIONS: `mother_child_credit_points` and
+# `father_child_credit_points` belong to the §66 module and are a property of the
+# §66 inputs supplied here (child_age_years and the two year flags), NOT of
+# number_of_children. In the no-children case those inputs still describe a
+# hypothetical child, so the imported rules return that child's points while the
+# capstone's own child_1_credit_points and child_2_credit_points correctly return
+# 0. The composed total uses the capstone's rules.
+#
 # The last case is the point of the whole pilot: raise the wage past the §121ב
 # threshold and the child allowance goes to zero, because NII §66 excludes a
 # parent liable to that tax. Nothing models that — the captured statutory text
@@ -65,7 +73,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
@@ -118,7 +126,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
@@ -171,7 +179,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 7056.024
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
@@ -224,7 +232,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
@@ -277,7 +285,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
@@ -287,12 +295,12 @@
     il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
     il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 8.75
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 25410.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 1
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 7.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 22506.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 2886.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15383.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15142.5
 - name: high_earner_loses_the_child_allowance_under_nii_section_66_2025
   period:
     period_kind: month
@@ -330,7 +338,7 @@
   output:
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 284869.2
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
     il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 3553.2
     il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
     il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25

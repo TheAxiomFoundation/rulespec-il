@@ -104,7 +104,7 @@ rules:
 - name: liable_to_additional_tax
   kind: derived
   entity: Person
-  dtype: Boolean
+  dtype: Judgment
   period: Year
   source: סעיף 121ב(א) ו־(א1)
   metadata:
@@ -122,8 +122,8 @@ rules:
           excerpt: יחיד אשר הכנסתו החייבת ממקורות הוניים בשנת המס עלתה על הסכום הקבוע באותו סעיף קטן
   versions:
   - effective_from: '2025-01-01'
-    formula: 'if annual_taxable_income_ils > additional_tax_threshold_for_tax_year_ils: true elif annual_taxable_income_from_capital_sources_ils
-      > additional_tax_threshold_for_tax_year_ils: true else: false'
+    formula: annual_taxable_income_ils > additional_tax_threshold_for_tax_year_ils or annual_taxable_income_from_capital_sources_ils
+      > additional_tax_threshold_for_tax_year_ils
 - name: additional_tax_ils
   kind: derived
   entity: Person

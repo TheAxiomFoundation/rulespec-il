@@ -15,6 +15,13 @@ module:
     with the insured father, unless the child is with the mother alone.
 
 
+    The input is `child_has_two_parents`, matching the statute''s own "ילד שיש לו שני
+
+    הורים". The section then routes the child to "האב המבוטח" — the INSURED father —
+
+    so insurance enters through the father, not through the two-parent test.
+
+
     The second limb of §67(ב) — a child with one natural parent and one other
 
     parent, both insured, counted with the parent the child is with — is encoded
@@ -46,6 +53,6 @@ rules:
           excerpt: ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד
   versions:
   - effective_from: '1995-01-01'
-    formula: "if child_has_two_insured_parents:\n  if child_is_with_the_mother_only:\n    (if this_parent_is_the_father:\
+    formula: "if child_has_two_parents:\n  if child_is_with_the_mother_only:\n    (if this_parent_is_the_father:\
       \ false else: true)\n  else: (if this_parent_is_the_father: true else: false)\nelse: (if this_parent_is_insured:\
       \ true else: false)"
