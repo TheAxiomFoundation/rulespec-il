@@ -68,11 +68,12 @@ rules:
     versions:
       - effective_from: '0001-01-01'
         formula: |-
-          (child_has_two_parents
-          and ((current_insured_parent_is_father
-          and not child_is_with_mother_alone)
-          or ((not current_insured_parent_is_father)
-          and child_is_with_mother_alone)))
-          or (child_has_natural_and_other_parent
+          (child_has_natural_and_other_parent
           and child_other_parent_is_insured
           and child_is_with_current_insured_parent)
+          or (child_has_two_parents
+          and not child_has_natural_and_other_parent
+          and ((current_insured_parent_is_father
+          and not child_is_with_mother_alone)
+          or (child_is_with_mother_alone
+          and not current_insured_parent_is_father)))

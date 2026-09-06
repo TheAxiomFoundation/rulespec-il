@@ -29,7 +29,7 @@
 # instruments ask different questions about it. ITO §66(ג)(4)-(5) reads age bands that run
 # to the maturity year, for the annual credit points. NII §65(א) defines ”ילד“ for the whole
 # child-allowance chapter and admits a child only `ובלבד שהילד נמצא בישראל ולא מלאו לו 18 שנים`,
-# so `child_N_is_present_in_israel` and `child_N_age_years < 18` decide
+# so `child_N_is_present_in_israel` and `child_N_age_at_month_years < 18` decide
 # `children_in_parent_child_count`, and THAT is what the §68(א)/§1(2) birth-order amounts are
 # read against. Where the elder child fails the §65 test the younger becomes the FIRST child
 # in the count and draws the first-child amount, which is 173 paid / 150 nominal, not 219/188.
@@ -76,10 +76,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -121,10 +123,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -165,10 +169,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -209,10 +215,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -257,10 +265,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -304,10 +314,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 18
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 18
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -349,10 +361,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 18
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 18
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -392,10 +406,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 3
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -437,10 +453,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 19
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 19
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -486,10 +504,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: false
@@ -533,10 +553,12 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 17
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 17
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
@@ -557,3 +579,102 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14909.5
+- name: working_mother_child_turning_three_this_year_and_child_aged_eight
+  # The two ages diverge around a birthday. The younger child is two at the allowance month
+  # but turns three later in the tax year: ITO §66(ג)(4)(א) reads the age ATTAINED in the tax
+  # year, so it draws the year-turning-three points — 3.5 for a mother — not the 4.5 of the
+  # year after birth through age two, while NII §65(א) reads the age at the month and still
+  # counts it. Points 2 + 0.25 + 0.5 + 3.5 + 2 = 8.25; 8.25 x 2,904 = 23,958, against 25,392 of
+  # tax, leaving 1,434 for the year, 119.5 a month. Allowance 173 + 219 = 392 (338 nominal).
+  # Net 15,000 - 119.5 + 392 = 15,272.5.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 3.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 8.25
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 23958.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 1434.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#children_in_parent_child_count: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15272.5
+- name: working_mother_maturity_year_child_before_its_eighteenth_birthday
+  # The same two children as the maturity-year case, in a month BEFORE the elder child's
+  # eighteenth birthday. ITO §66(ג)(4)(א) still grants the maturity-year half point either
+  # way (5.75 points, 16,698, tax after credits 8,694), but NII §65(א) now still counts the
+  # elder child — it has not yet reached 18 at the month — so the count is two and the
+  # allowance is 173 + 219 = 392 (338 nominal). Net 15,000 - 724.5 + 392 = 14,667.5. Compare
+  # 14,448.5 in the month after the birthday.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 18
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 17
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 5.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 16698.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 8694.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#children_in_parent_child_count: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14667.5

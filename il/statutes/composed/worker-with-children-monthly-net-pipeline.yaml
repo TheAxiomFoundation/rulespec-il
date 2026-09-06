@@ -38,7 +38,7 @@ module:
     and carries an apply manifest under .axiom/encoding-manifests/. A composition
     declares imports of those encoded rules and the wiring between them. It states one
     statutory quantity of its own, and only one: the age 18 in NII §65(א)'s definition of
-    ”ילד“, written out as `child_N_age_years < 18`. It is here rather than in an encoded
+    ”ילד“, written out as `child_N_age_at_month_years < 18`. It is here rather than in an encoded
     module because the test has to be asked once per child and this pilot declares no
     Child entity, so §65 has no single-answer shape an atomic module could take. §65 IS in
     the corpus and IS encodable; not encoding it is a limitation of this pilot's entity
@@ -67,6 +67,17 @@ module:
            parent's count, where a child is one who is in Israel and has not reached
            18 — NII §65(א) — which is a NARROWER test than the ITO §66(ג) credit-point
            ladder applies, and a different one
+
+    TWO AGES PER CHILD, BECAUSE THE TWO INSTRUMENTS ASK DIFFERENT QUESTIONS. ITO §66(ג)
+    grants credit points by the age a child ATTAINS in the tax year (the year it turns
+    three, the years it turns four and five, …), so `child_N_age_years` is the age the
+    child reaches during the tax year. NII §65(א) asks, month by month, whether the child
+    has not yet reached 18, so `child_N_age_at_month_years` is the child's age at the
+    allowance month. They differ around a birthday: a child who is two at the month and
+    turns three later in the year draws the year-turning-three points (3.5 for a mother),
+    not the 4.5 of the year after birth through age two; a child who turns eighteen later
+    in the year still counts for the allowance in the months before the birthday and stops
+    counting after it, while ITO §66 grants the maturity-year half point either way.
         -> which §66 of that Law denies outright to a parent liable to the §121ב
            additional tax
         = monthly net
@@ -168,6 +179,22 @@ module:
     contributions are NOT deducted, so this "net" is net of income tax and inclusive of
     child allowance only. It is not take-home pay. See docs/ENCODING-GAPS.md.
 rules:
+- name: months_in_tax_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: הרכבה — שנת המס היא שנה קלנדרית בת שנים־עשר חודשים; המקדם שבו מוכפל שכר חודשי לשנה ומחולק מס שנתי לחודש
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
+  versions:
+  - effective_from: '2026-01-01'
+    formula: '12'
 - name: taxable_income
   kind: derived
   entity: Person
@@ -185,7 +212,7 @@ rules:
           excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils * 12
+    formula: monthly_gross_wage_ils * months_in_tax_year
 - name: taxable_income_for_section_121b
   kind: derived
   entity: Person
@@ -203,7 +230,7 @@ rules:
           excerpt: על חלק הכנסתו החייבת העולה על 640,000 שקלים חדשים
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils * 12
+    formula: monthly_gross_wage_ils * months_in_tax_year
 - name: taxable_income_from_personal_exertion_not_under_section_2_1_or_2
   kind: derived
   entity: Person
@@ -244,7 +271,7 @@ rules:
           excerpt: השתכרות או ריווח מעבודה
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils * 12
+    formula: monthly_gross_wage_ils * months_in_tax_year
 - name: individual_is_woman
   kind: derived
   entity: Person
@@ -313,7 +340,7 @@ rules:
           excerpt: לגבי הכנסה חייבת בשנת המס מיגיעה אישית
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils * 12
+    formula: monthly_gross_wage_ils * months_in_tax_year
 - name: individual_has_reached_age_sixty
   kind: derived
   entity: Person
@@ -348,7 +375,7 @@ rules:
           excerpt: לא יחולו על הכנסה שחייבים לגביה בניהול פנקסי חשבונות ולא נוהלו לגביה פנקסים קבילים
   versions:
   - effective_from: '2026-01-01'
-    formula: 'if books_of_account_required_but_not_kept: monthly_gross_wage_ils * 12 else: 0'
+    formula: 'if books_of_account_required_but_not_kept: monthly_gross_wage_ils * months_in_tax_year else: 0'
 - name: other_taxable_income_requiring_books_without_acceptable_books
   kind: derived
   entity: Person
@@ -548,7 +575,7 @@ rules:
     formula: |-
       number_of_children >= 1
       and child_1_is_present_in_israel
-      and child_1_age_years < 18
+      and child_1_age_at_month_years < 18
 - name: child_2_is_a_child_under_section_65
   kind: derived
   entity: Person
@@ -568,7 +595,7 @@ rules:
     formula: |-
       number_of_children >= 2
       and child_2_is_present_in_israel
-      and child_2_age_years < 18
+      and child_2_age_at_month_years < 18
 - name: children_in_parent_child_count
   kind: derived
   entity: Person
@@ -674,4 +701,4 @@ rules:
           excerpt: קצבת הילדים לחודש בעד כל ילד שבמנין ילדיו של ההורה
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / 12) + monthly_child_allowance_ils
+    formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / months_in_tax_year) + monthly_child_allowance_ils
