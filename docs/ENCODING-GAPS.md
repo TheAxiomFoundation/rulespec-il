@@ -295,6 +295,33 @@ undated rules before 2025. A direct call to the §121ב module for a 2024 period
 **Resolution:** the pinned-ref re-encode (Path R) after the corpus release, with this entry as
 its findings file; if that encoder also declines to date the rules, the encoder's handling of
 amendment commencement is the defect to file against axiom-encode, not this module.
+
+### `section-66-proof-excerpts-quote-the-earlier-corpus-render`
+
+The corpus adapter's rendering of a mixed number changed on the ingest branch (axiom-corpus
+#646, commit 3c41ce39): OpenLaw's superscript-over-subscript typesetting had been flattened
+into a glued digit run ("21⁄2"), and now keeps the boundary ("2 1⁄2"). The installed §66
+module (run 565292ca) quotes fifteen proof excerpts in the old spelling — the credit-point
+ladders of §66(ג)(4)(א) and §66(ג)(5) — so those atoms no longer resolve against the corrected
+corpus body. The values were never wrong (two and a half, three and a half, four and a half);
+the excerpts are.
+
+Two supervised re-encode rounds against the corrected corpus were run with the module's full
+original findings plus an addendum instructing the encoder to reproduce the installed module
+and change only the excerpts (`ops/il-lane/encoder-regen-v2/review/ito-section-66-findings-r3.md`).
+Run fb46174e (gpt-6-astra) was blocked at apply and had dropped fifteen rules including both
+ladders; run 4f363fd3 (gpt-6-astra) applied cleanly and had dropped the same rules again (21
+rules against the installed 36, five parameters renamed with underscore prefixes, the twelve
+`*_credit_points_*` rules the composed pipeline consumes by name gone). That output was declined
+and reverted. Under the encoding regime the excerpts are not edited by hand.
+
+Scope of the harm: none at run time — the module's rules and companion cases are unchanged
+and pass; only proof resolution against the corrected corpus fails for those fifteen atoms.
+
+**Resolution:** the pinned-ref re-encode (Path R) against the published corpus release, which
+regenerates every module and quotes the corpus as released; if the pinned encoder also fails to
+reproduce the ladders, the defect is the encoder's reproduction of a 36-rule module and is
+filed against axiom-encode.
 ### `nii-68c-increment-not-reconcilable-with-the-published-figure` — `unexplained`
 NII §68(ג) states the income-support addition as 70% of the §1(2)(ג) basic amount, which
 §1(2)(ג) states nominally as 140 — so the statute, taken alone, gives 98. The National
