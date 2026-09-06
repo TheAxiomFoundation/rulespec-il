@@ -20,6 +20,8 @@ imports:
 - il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_first_and_fifth_plus_child_ils
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_second_third_fourth_child_ils
+- il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils
+- il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils
 module:
   proof_validation:
     required: true
@@ -65,9 +67,7 @@ module:
     \ the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation —\n\
     the right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope here.\
     \ Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי במקור\
-    \ deduction rules, which are not encoded.\n\nNational Insurance and health contributions are NOT deducted,\
-    \ so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is not take-home\n\
-    pay. See docs/ENCODING-GAPS.md."
+    \ deduction rules, which are not encoded.\n\nTHE EMPLOYEE’S CONTRIBUTIONS ARE NOW DEDUCTED. An earlier revision of this capstone said they were not, and that this \"net\" was net of income tax only. It now subtracts the employee’s national insurance contribution, from the סך הכל row of לוח י׳ (1.04% on the part of the wage up to the reduced-collection step, 7% above it), and the employee’s health insurance contribution, from §14(ו1) and §14(ב)(1) of the National Health Insurance Law (3.23% and 5.17% on the same two bands). Both are capped by NII §348(א).\n\nIT IS STILL NOT TAKE-HOME PAY, and must not be presented as such. The employER’s contributions are not modelled, because they are not the employee’s money. Neither the pension-contribution credit nor מס הכנסה שלילי (EITC) nor any other instrument is encoded. The two contribution thresholds are supplied inputs taken from the Institute’s published table, because neither the Law nor NII §341 states an amount. Annual tax is still divided by twelve for presentation and is not a model of the monthly ניכוי במקור rules. See docs/ENCODING-GAPS.md."
 rules:
 - name: child_1_credit_points
   kind: derived
@@ -252,6 +252,19 @@ rules:
         source:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-68
           excerpt: קצבת הילדים לחודש בעד כל ילד שבמנין ילדיו של ההורה
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: הניכוי משכר העובד לענין סעיף 342(ג) באחוזים
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד
   versions:
   - effective_from: '2025-01-01'
-    formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / 12) + monthly_child_allowance_ils
+    formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / 12)
+      - monthly_national_insurance_employee_contribution_ils
+      - monthly_health_insurance_employee_contribution_ils
+      + monthly_child_allowance_ils

@@ -1,0 +1,100 @@
+# Companion fixtures for לוח י׳, the employee's national insurance contribution.
+#
+# WHERE THE SUPPLIED THRESHOLDS COME FROM — neither is stated in the Law:
+#   reduced_collection_step_ils            7,522 (2025) / 7,703 (2026)
+#   maximum_monthly_income_for_contributions_ils  50,695 (2025) / 51,910 (2026)
+# Both are the National Insurance Institute's published figures, encoded in
+# il/policies/national-insurance-institute/contribution-rates.yaml. They are
+# official captures, not references.
+#
+# The rates are the schedule's own סך הכל row: 1.04% on the part of the wage not
+# exceeding the reduced-collection step, 7% above it up to the ceiling.
+
+- name: minimum_wage_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 61.152208
+- name: minimum_wage_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7703
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 61.152208
+- name: fifteen_thousand_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 601.6888
+- name: fifteen_thousand_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7703
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 590.9012
+- name: at_the_step_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 78.2288
+- name: at_the_step_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7703
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 78.2288
+- name: above_the_ceiling_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 3100.3388
+- name: above_the_ceiling_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7703
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 3174.6012

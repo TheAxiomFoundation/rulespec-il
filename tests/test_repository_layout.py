@@ -191,6 +191,12 @@ def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> Non
     for path in rulespec_files():
         if path.parent.name == "composed" or "policies" in path.parts:
             continue
+        # Schedules are addressed as schedule-<ordinal>, per CITATION-SCHEME.md,
+        # and the corpus lands them the same way (לוח י׳ -> schedule-j).
+        schedule = re.fullmatch(r"schedule-([a-z]+\d*)", path.stem)
+        if schedule is not None:
+            assert schedule.group(1)[0] in allowed, path
+            continue
         match = re.fullmatch(r"section-(\d+)([a-z]*)", path.stem)
         assert match is not None, path
         suffix = match.group(2)
@@ -200,12 +206,9 @@ def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> Non
 def test_source_map_names_only_sections_that_are_encoded() -> None:
     """The coverage map must not list a section with no module on disk."""
     payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
-    instrument_dirs = {
-        "income-tax-ordinance": ROOT / "il/statutes/income-tax-ordinance",
-        "national-insurance-law-1995": ROOT / "il/statutes/national-insurance-law-1995",
-    }
     for instrument in payload["instruments"]:
-        directory = instrument_dirs[instrument["id"]]
+        directory = ROOT / "il/statutes" / instrument["id"]
+        assert directory.is_dir(), instrument["id"]
         on_disk = {
             path.stem
             for path in directory.glob("*.yaml")
@@ -213,9 +216,17 @@ def test_source_map_names_only_sections_that_are_encoded() -> None:
         }
         for section in instrument["encoded_sections"]:
             number = section.split(" ")[0]
-            slug = "section-" + "".join(
-                HEBREW_SUFFIX_ORDINALS.get(character, character) for character in number
-            )
+            if number.startswith("לוח"):
+                letter = section.split(" ", 1)[1].strip("׳\u05f4")
+                slug = "schedule-" + "".join(
+                    HEBREW_SUFFIX_ORDINALS.get(character, character)
+                    for character in letter
+                )
+            else:
+                slug = "section-" + "".join(
+                    HEBREW_SUFFIX_ORDINALS.get(character, character)
+                    for character in number
+                )
             assert slug in on_disk, (instrument["id"], section, slug)
 
 
@@ -239,3 +250,11 @@ def test_policy_modules_carry_an_official_publisher_capture() -> None:
         assert len(item["sha256"]) == 64, item["id"]
         assert item["url"].startswith("https://"), item["id"]
         assert item["retrieved_at"].endswith("Z"), item["id"]
+        # A capture delivered by an archive must say so, and must still name the
+        # publisher's own URL in `url`, so the document is identified by its
+        # source and not by the mirror it was fetched from.
+        if "archive_url" in item:
+            assert item["sha256_is_of"] == "archive_url", item["id"]
+            assert "delivery" in item, item["id"]
+        else:
+            assert "sha256_is_of" not in item, item["id"]

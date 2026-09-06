@@ -22,14 +22,25 @@ every number against the Hebrew statute:
 | `il/statutes/income-tax-ordinance/section-36a.yaml` | §36א | woman's credit — ½ credit point |
 | `il/statutes/income-tax-ordinance/section-66.yaml` | §66(ג)(4)–(5) | child credit points by age band under separate calculation (חישוב נפרד) |
 | `il/statutes/national-insurance-law-1995/section-1.yaml` | חוק הביטוח הלאומי §1 | the הסכום הבסיסי definition, paragraph (2), for child allowance |
-| `il/policies/national-insurance-institute/child-allowance-rates.yaml` | ביטוח לאומי publication | the published monthly allowance amounts, effective 1 January 2026 — the only official current-year capture in this pilot |
+| `il/policies/national-insurance-institute/child-allowance-rates.yaml` | ביטוח לאומי publication | the published monthly allowance amounts for 2025 and 2026, and the §68(ג) income-support increment (111 and 113) |
 | `il/statutes/national-insurance-law-1995/section-66.yaml` | §66 | right to child allowance, and its exclusion of parents liable to the ITO §121ב additional tax |
 | `il/statutes/national-insurance-law-1995/section-67.yaml` | §67 | which parent a child is counted with |
 | `il/statutes/national-insurance-law-1995/section-68.yaml` | §68 | monthly allowance per child, the pre-2003 fourth/fifth-child multipliers, and the §68(ג) income-support increment |
-| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → child allowance → monthly net |
+| `il/statutes/national-insurance-law-1995/schedule-j.yaml` | לוח י׳ | the employee's share of the national insurance contribution — 1.04% up to the reduced-collection step, 7% above it, capped by §348(א) |
+| `il/statutes/national-health-insurance-law-1994/section-14.yaml` | חוק ביטוח בריאות ממלכתי §14 | the employee's health insurance contribution — 3.23% under §14(ו1) and 5.17% under §14(ב)(1), on the same two bands |
+| `il/policies/national-insurance-institute/contribution-rates.yaml` | ביטוח לאומי publication | the published employee contribution rates and the two income thresholds, 2025 and 2026 |
+| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → the employee's national insurance and health contributions → child allowance → monthly net |
 
 Every module has a companion `.test.yaml` in which **every** local `#input`
-fact is assigned, including the false ones.
+fact is assigned, including the false ones. 17 modules, 108 fixtures, 129 proof
+atoms.
+
+**Three instruments, and only two of them are in the corpus.** The National
+Health Insurance Law was captured for this pilot because the employee's
+deduction is split between two acts and encoding only half of it would have
+produced a number that looks like take-home pay and is not. The Israel corpus
+scope does not contain that Law; see `docs/ENCODING-GAPS.md`,
+`health-insurance-law-not-in-corpus`.
 
 ## Hebrew is the only authentic language
 
@@ -104,11 +115,18 @@ for either year. That mismatch is recorded, not papered over.
 
 Proof excerpts quote the captured snapshots, because no signed `il-rulespec-*`
 corpus release exists. The Israel ingest does exist as an unmerged branch, so the
-re-anchor pass has been run against it read-only: **82 of 100 proof excerpts are
-already verbatim in the corpus body.** The remaining 18 are two structural gaps,
-not excerpt defects — the corpus has no `il/policy` scope for the Institute's
-publication (14 atoms), and it holds only the 2026 expression of §121 while this
-pilot's validation year is 2025 (4 atoms). Both are written up in
+re-anchor pass has been run against it read-only: **91 of 129 proof excerpts are
+already verbatim in the corpus body.** The remaining 38 are three structural
+gaps, not excerpt defects — the corpus has no `il/policy` scope for the
+Institute's publications (28 atoms), it does not contain the National Health
+Insurance Law at all (6 atoms), and it holds only the 2026 expression of §121
+while this pilot's validation year is 2025 (4 atoms).
+
+One gap found this way has already been closed upstream. לוח י׳, the schedule
+carrying the contribution rates, was arriving in the corpus as its own heading
+and nothing else; that was reported to the corpus lane and fixed, and this
+repository's independently rendered text of that schedule and the corpus body now
+agree byte for byte. Both are written up in
 `docs/ENCODING-GAPS.md` under `corpus-anchor`, together with the seven
 `source_sha256` pins that will need repinning and the digests to repin them to.
 

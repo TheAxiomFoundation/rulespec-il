@@ -1,0 +1,41 @@
+# Companion fixtures for the Institute's published employee contribution grid.
+# These assert the PUBLICATION. The statutory rules that agree with it are in
+# il/statutes/national-insurance-law-1995/schedule-j.yaml and
+# il/statutes/national-health-insurance-law-1994/section-14.yaml.
+
+- name: full_rate_total_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/contribution-rates#input.wage_is_above_the_reduced_collection_step: true
+  output:
+    il:policies/national-insurance-institute/contribution-rates#published_total_employee_contribution_rate: 0.1217
+- name: reduced_rate_total_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/contribution-rates#input.wage_is_above_the_reduced_collection_step: false
+  output:
+    il:policies/national-insurance-institute/contribution-rates#published_total_employee_contribution_rate: 0.0427
+- name: full_rate_total_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/contribution-rates#input.wage_is_above_the_reduced_collection_step: true
+  output:
+    il:policies/national-insurance-institute/contribution-rates#published_total_employee_contribution_rate: 0.1217
+- name: reduced_rate_total_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/contribution-rates#input.wage_is_above_the_reduced_collection_step: false
+  output:
+    il:policies/national-insurance-institute/contribution-rates#published_total_employee_contribution_rate: 0.0427

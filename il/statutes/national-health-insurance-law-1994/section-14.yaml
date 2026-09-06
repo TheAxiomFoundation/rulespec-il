@@ -1,0 +1,79 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+    source_sha256: 060f3be12ebea43974f9b3440fee49a33b41098129d9cf5c3454123da8b4cf86
+  summary: |-
+    סעיף 14 לחוק ביטוח בריאות ממלכתי, התשנ״ד-1994 — the employee's health insurance contribution.
+
+    A NEW INSTRUMENT IN THIS PILOT. The National Health Insurance Law is the third act the pilot reads, and the axiom-corpus Israel ingest does NOT contain it: the ingest has two documents, and this Law appears in them only as a cross-referenced defined term. The instrument slug `national-health-insurance-law-1994` extends the fixed list in ops/il-lane/CITATION-SCHEME.md and is flagged to the corpus lane rather than assumed. See docs/ENCODING-GAPS.md, `health-insurance-law-not-in-corpus`.
+
+    TWO RATES, BOTH STATED IN THE SECTION. §14(ב)(1) puts the employer under a duty to pay 5.17% of the employee's income and to deduct it from the employee's wage. §14(ו1) overrides that for the part of income not exceeding the reduced amount fixed under NII §341, where the rate is 3.23%. Neither the reduced amount nor a ceiling is stated here as a figure, so both are supplied inputs; the ceiling reaches health contributions through §15(א), which applies the National Insurance Law's collection provisions "כאילו היו דמי ביטוח לאומי".
+
+    SCOPE. Only the employed-person case is encoded: §14(ב)(1) and §14(ו1). The self-employed and not-working cases (§14(ג)), the benefit-recipient cases (§14(ד)-(ה1)), the minimum amount, and the §14(ז) exemptions are not encoded. See docs/ENCODING-GAPS.md.
+rules:
+- name: employee_health_insurance_rate_full
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 14(ב)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: בשיעור של 5.17% מהכנסת העובד; המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0517'
+- name: employee_health_insurance_rate_reduced
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 14(ו1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ישלמו על החלק מההכנסה שאינו עולה על הסכום המופחת שנקבע לפי סעיף 341 לחוק הביטוח הלאומי,
+            דמי ביטוח בריאות בשיעור של 3.23%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0323'
+- name: monthly_health_insurance_employee_contribution_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 14(ב)(1) ו־(ו1), עם סעיף 15(א) לענין התקרה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: מעביד חייב לשלם למוסד דמי ביטוח בריאות בעד כל עובד מעובדיו
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ישלמו על החלק מההכנסה שאינו עולה על הסכום המופחת שנקבע לפי סעיף 341 לחוק הביטוח הלאומי,
+            דמי ביטוח בריאות בשיעור של 3.23%
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-15
+          excerpt: לענין הגביה והתשלום של דמי ביטוח הבריאות יחולו הוראות חוק הביטוח הלאומי, בשינויים המחויבים
+            לפי הענין, כאילו היו דמי ביטוח לאומי
+  versions:
+  - effective_from: '2025-01-01'
+    formula: |-
+      employee_health_insurance_rate_reduced * min(monthly_gross_wage_ils, reduced_collection_step_ils)
+      + employee_health_insurance_rate_full * max(0, min(monthly_gross_wage_ils, maximum_monthly_income_for_contributions_ils) - reduced_collection_step_ils)

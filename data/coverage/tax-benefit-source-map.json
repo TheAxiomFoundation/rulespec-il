@@ -3,7 +3,7 @@
   "generated_at": "2026-09-06",
   "jurisdiction": "il",
   "validation_year": 2025,
-  "note": "Bounded pilot inventory. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers and a repository test enforces that every listed section has a module on disk. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
+  "note": "Bounded pilot inventory. THREE instruments: the Income Tax Ordinance, the National Insurance Law and — added for the contributions leg — the National Health Insurance Law, which the Israel corpus scope does NOT contain. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers and a repository test enforces that every listed section has a module on disk. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
   "corpus_scopes": [],
   "release_candidate": {
     "name": "il-rulespec-2026-09-06",
@@ -60,13 +60,15 @@
       "official_name": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
       "knesset_israel_law_id": 2000198,
       "policy_surfaces": [
-        "child_allowance"
+        "child_allowance",
+        "employee_national_insurance_contributions"
       ],
       "encoded_sections": [
         "1",
         "66",
         "67",
-        "68"
+        "68",
+        "לוח י׳"
       ],
       "temporal_coverage": "bounded_2025_and_2026",
       "expressions": [
@@ -78,10 +80,40 @@
         }
       ],
       "not_encoded": [
+        "§348 as a module of its own — §348(א) is CITED, as the authority for the contribution ceiling, by a proof atom in schedule-j.yaml, but the ceiling amount is a supplied input from the Institute's published table and no rule derives it",
         "§65 definitions beyond what §66-§68 need",
-        "national insurance and health contributions (§335 and Health Insurance Law §14)",
+        "the employER side of the contribution, and the self-employed and not-working columns of לוח י׳",
+        "§334, §337, §341 and §342 themselves — the contribution machinery is encoded from לוח י׳ and §348(א) only",
         "every other benefit chapter"
       ]
+    },
+    {
+      "id": "national-health-insurance-law-1994",
+      "official_name": "חוק ביטוח בריאות ממלכתי, התשנ\"ד-1994",
+      "knesset_israel_law_id": 2000111,
+      "policy_surfaces": [
+        "employee_health_insurance_contributions"
+      ],
+      "encoded_sections": [
+        "14"
+      ],
+      "temporal_coverage": "bounded_2025_and_2026",
+      "expressions": [
+        {
+          "expression_from": "2025-01-01",
+          "expression_to_exclusive": null,
+          "source_tier": "consolidation-wikisource",
+          "source": "he.wikisource current revision, captured 2026-09-06"
+        }
+      ],
+      "not_encoded": [
+        "§14(ג) self-employed and not-working contributions",
+        "§14(ד)-(ה1) contributions from benefits and early pensions",
+        "§14(ז) and §14(ז1) exemptions, and the סכום המינימום floor",
+        "§15 except (א), which is cited only to carry the NII ceiling across",
+        "every other section, including the health basket itself"
+      ],
+      "corpus_status": "NOT INGESTED. The Israel corpus scope has two documents and this is not one of them; see docs/ENCODING-GAPS.md, `health-insurance-law-not-in-corpus`."
     }
   ],
   "policy_publications": [
@@ -90,10 +122,46 @@
       "publisher": "המוסד לביטוח לאומי",
       "module": "il/policies/national-insurance-institute/child-allowance-rates.yaml",
       "url": "https://www.btl.gov.il/benefits/children/Pages/%D7%A9%D7%99%D7%A2%D7%95%D7%A8%D7%99%20%D7%94%D7%A7%D7%A6%D7%91%D7%94.aspx",
-      "sha256": "4bbf76244b622d4925e88cab0193dd4df56c8a1f59961c24122bee72dbb63785",
+      "sha256": "44adddfc88acdc0fa5fecb1fba9c66c657871867049ba8dcb6555b68a67ffeb5",
       "retrieved_at": "2026-09-06T12:10:00Z",
       "states": "סכום הקצבה עבור ילדים לפי מיקומם במשפחה (החל מ- 01.01.2026)",
-      "covers": "2026 only; the 2025 amounts were not officially captured"
+      "covers": "2026 from the live page; 2025 from the archived snapshot below. Both snapshots also state the §68(ג) increment (113 and 111)."
+    },
+    {
+      "id": "btl-child-allowance-rates-2025",
+      "publisher": "המוסד לביטוח לאומי",
+      "module": "il/policies/national-insurance-institute/child-allowance-rates.yaml",
+      "url": "https://www.btl.gov.il/benefits/children/Pages/%D7%A9%D7%99%D7%A2%D7%95%D7%A8%D7%99%20%D7%94%D7%A7%D7%A6%D7%91%D7%94.aspx",
+      "sha256": "3985123f0d5dfc54d3bd5ef971b23f9ecd59a6f47dd79990ac383ed70b024e64",
+      "retrieved_at": "2026-09-06T13:00:00Z",
+      "states": "סכום הקצבה עבור ילדים לפי מיקומם במשפחה (החל ב- 01.01.2025)",
+      "covers": "2025 only",
+      "delivery": "Internet Archive snapshot of the publisher's own page, 2025-04-20. The publisher is the Institute; the archive is the delivery channel.",
+      "archive_url": "http://web.archive.org/web/20250420005113id_/https://www.btl.gov.il/benefits/children/pages/%D7%A9%D7%99%D7%A2%D7%95%D7%A8%D7%99%20%D7%94%D7%A7%D7%A6%D7%91%D7%94.aspx",
+      "sha256_is_of": "archive_url"
+    },
+    {
+      "id": "btl-employee-contribution-rates",
+      "publisher": "המוסד לביטוח לאומי",
+      "module": "il/policies/national-insurance-institute/contribution-rates.yaml",
+      "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%A9%D7%9B%D7%99%D7%A8%D7%99%D7%9D.aspx",
+      "sha256": "d4e5cbce4dee6811b776077e3c9c5c71b6eaeda50480525a33e0aae8369855c0",
+      "retrieved_at": "2026-09-06T14:00:00Z",
+      "states": "שיעורי דמי ביטוח לאומי ודמי ביטוח בריאות עבור עובדים שכירים; מדרגת גביה מופחתת 7,703 ש\"ח, הכנסה מרבית 51,910 ש\"ח (החל ב- 01.01.2026)",
+      "covers": "2026 thresholds; employee rates 1.04%/7% and 3.23%/5.17%"
+    },
+    {
+      "id": "btl-employee-contribution-rates-2025",
+      "publisher": "המוסד לביטוח לאומי",
+      "module": "il/policies/national-insurance-institute/contribution-rates.yaml",
+      "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%A9%D7%9B%D7%99%D7%A8%D7%99%D7%9D.aspx",
+      "sha256": "cf8a9ae2bf5baab81a38868d22e746f74e0aa9fd3a9359a5f340cb4a728d3e3c",
+      "retrieved_at": "2026-09-06T14:00:00Z",
+      "states": "מדרגת גביה מופחתת 7522 ש\"ח (החל ב- 01.01.2024), הכנסה מרבית 50695 ש\"ח (החל ב- 01.01.2025)",
+      "covers": "2025 thresholds; the same employee rates",
+      "delivery": "Internet Archive snapshot of the publisher's own page, 2025-06-09.",
+      "archive_url": "http://web.archive.org/web/20250609081347id_/https://www.btl.gov.il/Insurance/Rates/Pages/%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%A9%D7%9B%D7%99%D7%A8%D7%99%D7%9D.aspx",
+      "sha256_is_of": "archive_url"
     }
   ]
 }

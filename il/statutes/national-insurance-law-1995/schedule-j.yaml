@@ -1,0 +1,93 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+    source_sha256: 4c7815a39e49359010836d3ccfade9f8283305f1e9f80ca68a1c51c4e6e07931
+  summary: |-
+    לוח י׳ לחוק הביטוח הלאומי — the employee's share of the national insurance contribution.
+
+    THE SCHEDULE PRINTS TWO TABLES. The captured consolidation carries a 2025–2026 temporary-order version and then the permanent text, one after the other. Both are in the captured provision body; this module encodes the FIRST, whose סך הכל row reads "… | 7.00 | 1.04 | 0.67". The permanent table's total row reads "… | 7.00 | 0.40 | 0.67" — the same full rate and a different reduced one — so the excerpt containing 1.04 identifies which table is being quoted without relying on the editorial note that labels it.
+
+    WHY THE TOTAL ROW AND NOT THE TEN BRANCH ROWS. The schedule breaks the contribution down by insurance branch and then states a total. In the captured rendering the ten branch figures in the employee column do not sum to the stated total (4.67 against 7.00). This module encodes the figure the schedule itself states as the total, which is also the figure the National Insurance Institute publishes. The discrepancy in the branch column is recorded in docs/ENCODING-GAPS.md as `nii-schedule-10-branch-rows-do-not-sum`.
+
+    THE TWO BANDS ARE THE SCHEDULE'S OWN COLUMN HEADINGS, and they are not phrased consistently: the reduced column says "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)" while the full column says "60% מהשכר הממוצע". Neither threshold is stated as an amount anywhere in the Law, so `reduced_collection_step_ils` is a supplied input and every fixture says where its number came from. The ceiling comes from §348(א).
+
+    THE CORPUS DROPPED THIS TABLE AND THEN GOT IT BACK. When this module was written the Israel ingest rendered this provision as its own heading and nothing else, 40 characters, because an adapter heuristic treated a block whose only non-note content is a table as editorial in full. The provision text behind these excerpts was therefore rendered independently, from the same captured HTML the corpus ingested, by ops/il-lane/extract/contributions_sources.py. The corpus has since fixed it, and the two renderings agree byte for byte — this module's source_sha256 is also the sha256 of the corpus body. See docs/ENCODING-GAPS.md, `nii-schedule-10-was-dropped-by-the-corpus-adapter`.
+rules:
+- name: employee_national_insurance_rate_full
+  kind: parameter
+  dtype: Decimal
+  source: לוח י׳, טור ד׳, שורת סך הכל
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: סך הכל | 14.50 | 12.83 | 7.00 | 5.55 | 4.47 | 6.92 | 7.00 | 1.04 | 0.67
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר העולה על 60% מהשכר הממוצע
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.07'
+- name: employee_national_insurance_rate_reduced
+  kind: parameter
+  dtype: Decimal
+  source: לוח י׳, טור ד׳, שורת סך הכל
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: סך הכל | 14.50 | 12.83 | 7.00 | 5.55 | 4.47 | 6.92 | 7.00 | 1.04 | 0.67
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר שאינו עולה על מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0104'
+- name: monthly_national_insurance_employee_contribution_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: לוח י׳ (טור ד׳) וסעיף 348(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: הניכוי משכר העובד לענין סעיף 342(ג) באחוזים
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר שאינו עולה על מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר העולה על 60% מהשכר הממוצע
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+          excerpt: לא יבוא בחשבון סכום ההכנסה של המבוטח העולה על הסכום המרבי המתקבל לפי האמור בלוח י״א
+  versions:
+  - effective_from: '2025-01-01'
+    formula: |-
+      employee_national_insurance_rate_reduced * min(monthly_gross_wage_ils, reduced_collection_step_ils)
+      + employee_national_insurance_rate_full * max(0, min(monthly_gross_wage_ils, maximum_monthly_income_for_contributions_ils) - reduced_collection_step_ils)

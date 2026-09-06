@@ -1,0 +1,177 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+    source_sha256: 95f12b6dad5c7d9b17bf2053f3cfa745cfc0c56b16477308b317f74de492f74c
+  summary: |-
+    המוסד לביטוח לאומי — published employee contribution rates and the two income thresholds, 2025 and 2026.
+
+    THE THRESHOLDS EXIST ONLY HERE. לוח י׳ splits the wage at "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)" and §348(א) caps it at "הסכום המרבי המתקבל לפי האמור בלוח י״א", but neither is stated in the Law as an amount. The Institute publishes both, and this module carries that publication — the only admissible source for a current-year regulated amount under this repository's source rules.
+
+    THE RATES ARE CARRIED TOO, AND THEY AGREE WITH THE STATUTE. This is worth saying plainly because most of this pilot's published-amount comparisons end in a divergence and this one does not: the Institute publishes the employee's national insurance rate as 1.04% reduced and 7% full, which is exactly the סך הכל row of לוח י׳, and the health rate as 3.23% and 5.17%, which is exactly §14(ו1) and §14(ב)(1) of the National Health Insurance Law. Statute and publication are independently encoded and they match.
+
+    TWO SNAPSHOTS OF ONE OFFICIAL PAGE: the live page captured 2026-09-06 for the 2026 thresholds, and the same page as it stood 2025-06-09, retrieved from the Internet Archive, for the 2025 ones. Publisher is the Institute; the archive is the delivery channel. `source_sha256` names the current snapshot, as it does for §121 and the child-allowance page.
+
+    ONE DATE CAVEAT. The 2025 page dates the whole grid "החל ב- 01.02.2025" and dates the full national-insurance rate from that day too, so the published grid does not speak for January 2025. The versions here start 2025-01-01 because that is the earliest date this pilot speaks for, not because the publication says so. See docs/ENCODING-GAPS.md, `published-contribution-grid-starts-in-february-2025`.
+rules:
+- name: published_reduced_collection_step_ils
+  kind: parameter
+  dtype: Money
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — מדרגת גביה מופחתת
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: (שיעור מופחת) - 7522 ש"ח (החל ב- 01.01.2024)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: (שיעור מופחת) - 7,703 ש"ח (החל ב- 01.01.2026)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '7522'
+  - effective_from: '2026-01-01'
+    formula: '7703'
+  unit: ILS
+- name: published_maximum_monthly_income_for_contributions_ils
+  kind: parameter
+  dtype: Money
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — ההכנסה המרבית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: (שיעור מלא) - 50695 ש"ח (החל ב- 01.01.2025)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: (שיעור מלא) - 51,910 ש"ח (החל ב- 01.01.2026)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '50695'
+  - effective_from: '2026-01-01'
+    formula: '51910'
+  unit: ILS
+- name: published_employee_national_insurance_rate_reduced
+  kind: parameter
+  dtype: Decimal
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — דמי ביטוח לאומי, עובד, מופחת
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 1.04% (החל ב- 01.01.2025)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 1.04% (החל ב- 01.01.2025)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0104'
+  - effective_from: '2026-01-01'
+    formula: '0.0104'
+- name: published_employee_national_insurance_rate_full
+  kind: parameter
+  dtype: Decimal
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — דמי ביטוח לאומי, עובד, מלא
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 7% (החל ב- 01.02.2025)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 7% (החל ב- 01.01.2006)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.07'
+  - effective_from: '2026-01-01'
+    formula: '0.07'
+- name: published_employee_health_insurance_rate_reduced
+  kind: parameter
+  dtype: Decimal
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — דמי ביטוח בריאות, עובד, מופחת
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 3.23% (החל ב- 01.01.2025)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 3.23% (החל ב- 01.01.2025)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0323'
+  - effective_from: '2026-01-01'
+    formula: '0.0323'
+- name: published_employee_health_insurance_rate_full
+  kind: parameter
+  dtype: Decimal
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — דמי ביטוח בריאות, עובד, מלא
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 5.17% (החל ב- 01.02.2025)
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 5.17% (החל ב- 01.02.2025)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.0517'
+  - effective_from: '2026-01-01'
+    formula: '0.0517'
+- name: published_total_employee_contribution_rate
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Month
+  source: המוסד לביטוח לאומי, שיעורי דמי ביטוח לעובדים שכירים — שורת סך הכול, טור עובד
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 4.27% (החל ב- 01.01.2025)
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/contribution-rates
+          excerpt: 12.17% (החל ב- 01.02.2025)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: |-
+      if wage_is_above_the_reduced_collection_step:
+        published_employee_national_insurance_rate_full + published_employee_health_insurance_rate_full
+      else: published_employee_national_insurance_rate_reduced + published_employee_health_insurance_rate_reduced

@@ -27,23 +27,26 @@ pass this gap asks for has been RUN against it, read-only, by
 `ops/il-lane/extract/reanchor_check.py`. Result:
 
 ```
-atoms checked: 100   re-anchored OK: 82   path-missing: 14   text-missing: 4
+atoms checked: 129   re-anchored OK: 91   path-missing: 34   text-missing: 4
 ```
 
-**82 of 100 proof excerpts are already verbatim NFC substrings of the corpus
-body.** The 18 that are not fall into two groups, neither of which an excerpt
+**91 of 129 proof excerpts are already verbatim NFC substrings of the corpus
+body.** The 38 that are not fall into three groups, none of which an excerpt
 edit can honestly fix:
 
-* **14 atoms — `il/policy/...` is not in the Israel corpus scope.** The whole of
-  `il/policies/national-insurance-institute/child-allowance-rates.yaml` cites
-  `il/policy/national-insurance-institute/child-allowance-rates`, and the Israel
-  ingest is statute-only. The path SHAPE is the org-wide precedent — `policy` is
+* **28 atoms — `il/policy/...` is not in the Israel corpus scope.** Both policy
+  modules — `child-allowance-rates.yaml` and `contribution-rates.yaml` — cite
+  `il/policy/national-insurance-institute/…`, and the Israel ingest is
+  statute-only. The path SHAPE is the org-wide precedent — `policy` is
   a first-class corpus `DocumentClass` and the corpus maps the RuleSpec
   `policies/` bucket to a `policy` citation bucket, exactly as
   `ug/policy/mglsd-scg/sage-handbook` and `rw/policy/loda-vup/...` do — so
   nothing here needs renaming. The publication simply has not been ingested.
-  **Resolution:** ingest the two captured National Insurance Institute snapshots
+  **Resolution:** ingest the four captured National Insurance Institute snapshots
   as an `il/policy` scope.
+
+* **6 atoms — the National Health Insurance Law is not in the corpus at all.**
+  See `health-insurance-law-not-in-corpus` below.
 
 * **4 atoms — the corpus holds one expression of ITO §121, and it is the 2026
   one.** `il/statute/income-tax-ordinance/section-121` has `expression_date`
@@ -78,7 +81,7 @@ Against the ingest branch, 5 modules already match byte-for-byte and 7 do not:
 
 | module | pinned | corpus body |
 |---|---|---|
-| ITO §34, §36, §36א; NII §66, §67 | — | **match** |
+| ITO §34, §36, §36א; NII §66, §67, לוח י׳ | — | **match** |
 | ITO §33א | `e72f45b6e51f…` | `c9bc12dcdd1a…` |
 | ITO §66 | `7b9a686f8137…` | `53e658c5b3dd…` |
 | ITO §120ב | `d77a820b8e0e…` | `879d9901d1ec…` |
@@ -103,14 +106,14 @@ after the release is signed and registered. The pass is mechanical from here.
 `axiom-encode validate` and `axiom-encode proof-validate` both require
 `.axiom/toolchain.toml` and a signed corpus release, neither of which can
 honestly exist yet. What WAS run, and what it proves:
-* `axiom-encode test` — all 88 companion cases pass against an engine build
+* `axiom-encode test` — all 108 companion cases pass against an engine build
   carrying the ILS currency seed.
 * `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
   `require_policy_proofs=True`, invoked directly with the captured provision
-  texts as `source_texts` — 100 proof atoms checked across 14 modules, all pass,
-  plus 33 atoms re-checked against the specific expression their version speaks
+  texts as `source_texts` — 129 proof atoms checked across 17 modules, all pass,
+  plus 47 atoms re-checked against the specific expression their version speaks
   for (see `proof-check-concatenates-expressions-except-where-pinned`).
-* `find_missing_money_proof_atoms` — 0 missing money atoms across 14 modules.
+* `find_missing_money_proof_atoms` — 0 missing money atoms across 17 modules.
 * `ops/il-lane/extract/reanchor_check.py` — the same excerpts re-checked against
   the axiom-corpus Israel ingest branch; see `corpus-anchor`.
 The validator code is the same; only the source of the provision text differs.
@@ -137,10 +140,10 @@ version the modules properly.
 ### `proof-check-concatenates-expressions-except-where-pinned`
 `ops/il-lane/extract/proofcheck.py` builds `source_texts` by concatenating every
 captured expression of a citation path, so an excerpt validates if it appears in
-ANY expression of that provision. Two citation paths have two captured
-expressions each — ITO §121 (2025 and current) and the National Insurance
-Institute rate page (2025 and 2026) — and for those, concatenation is weaker than
-the real gate. The script therefore runs a second, explicit pass asserting that
+ANY expression of that provision. Three citation paths have two captured
+expressions each — ITO §121 (2025 and current), the National Insurance Institute
+child-allowance page and its contribution-rate page (2025 and 2026 for both) —
+and for those, concatenation is weaker than the real gate. The script therefore runs a second, explicit pass asserting that
 atoms on `versions[0]` appear in the earlier expression and atoms on
 `versions[1]` in the later one (33 atoms). No other module has more than one
 captured expression.
@@ -391,12 +394,102 @@ relation aggregation; the correct shape is a Child entity with
 `sum(children.credit_points)`. Annual tax is divided by twelve for presentation
 and is NOT a model of the monthly ניכוי במקור deduction rules.
 
-### `no-contributions-so-net-is-not-take-home-pay`
-National Insurance and health contributions (NII Law §335, Health Insurance Law
-§14) are not encoded. `monthly_net_income_ils` is net of income tax and inclusive
-of child allowance ONLY. It is not take-home pay and must not be presented as
-such. Neither are the pension-contribution credit, מס הכנסה שלילי (EITC), or any
-other instrument.
+### `capstone-net-is-not-take-home-pay` — narrower than it was, still not take-home pay
+This entry previously read "National Insurance and health contributions are not
+encoded". They now are, for the employee: `monthly_net_income_ils` is net of
+income tax, net of the employee's national insurance contribution (לוח י׳) and
+net of the employee's health insurance contribution (§14), and inclusive of the
+child allowance.
+
+It is still **not take-home pay**. The employer's contributions are not modelled;
+neither is the pension-contribution credit, nor מס הכנסה שלילי (EITC), nor any
+other instrument; and the annual tax is divided by twelve for presentation rather
+than computed under the monthly ניכוי במקור rules. See
+`contribution-scope-is-the-employee-only`.
+
+## Contributions
+
+### `nii-schedule-10-branch-rows-do-not-sum` — the schedule contradicts itself
+לוח י׳ states the employee's deduction per insurance branch and then states a
+total. In the captured rendering the ten branch figures in the employee's
+full-rate column are
+
+> 0.87, –, –, –, 0.07, 0.21, –, 1.86, 0.14, 1.52
+
+which sum to **4.67**, while the schedule's own `סך הכל` row for that column
+reads **7.00**. The reduced column does sum correctly (1.04). This repository
+encodes the figure the schedule states as the total, which is also the figure the
+National Insurance Institute publishes; it does not encode the branch rows.
+
+An earlier draft of this module summed the branch column and would have shipped
+4.67% as the employee's national insurance rate. That is recorded here because
+the mistake is instructive: the branch breakdown looks like the authoritative
+detail and is not.
+**Resolution:** determine from the amending acts whether the branch figures or
+the total were amended, and by which act. `unexplained` until then.
+
+### `nii-schedule-10-was-dropped-by-the-corpus-adapter` — found here, fixed upstream
+When this leg started, `il/statute/national-insurance-law-1995/schedule-j/sign-1`
+had a body of 40 characters equal to its own heading, and none of the ten rate
+rows was citable: an adapter heuristic treated a block whose only non-note
+content is a table as editorial in full — a rule written to suppress ITO §121's
+editorial comparison tables, with לוח י׳ as collateral damage. The employee
+contribution rates were therefore not provable from the corpus at all.
+
+Reported to the corpus lane in `ops/il-lane/RULES-LANE-TO-CORPUS.md`. It has
+since been fixed on the ingest branch, and this module's independently rendered
+provision text and the corpus body now agree **byte for byte** — the module's
+`source_sha256` is also the sha256 of the corpus body. No action outstanding.
+
+### `health-insurance-law-not-in-corpus`
+`il/statutes/national-health-insurance-law-1994/section-14.yaml` encodes an act
+the Israel corpus scope does not contain. The ingest has two documents; the
+National Health Insurance Law appears in them only as a cross-referenced defined
+term. Its 6 proof atoms (5 on §14, 1 on §15) cannot resolve, and the module
+carries no corpus-matched `source_sha256`.
+
+The instrument slug `national-health-insurance-law-1994` also extends the fixed
+slug list in `ops/il-lane/CITATION-SCHEME.md`. That extension is flagged to the
+corpus lane, not assumed.
+**Resolution:** ingest חוק ביטוח בריאות ממלכתי, התשנ״ד-1994 (Knesset
+IsraelLawID 2000111) as a third document of the Israel scope.
+
+### `published-contribution-grid-starts-in-february-2025`
+The Institute's 2025 page dates the whole grid "החל ב- 01.02.2025", and dates the
+full national-insurance rate from that day too, so the published grid does not
+speak for January 2025. The versions in
+`il/policies/national-insurance-institute/contribution-rates.yaml` start
+2025-01-01 because that is the earliest date this pilot speaks for — the general
+`effective-from-dates-are-pilot-scope-not-commencement` rule — not because the
+publication says so. No fixture is in January 2025.
+**Resolution:** capture the grid that was in force in January 2025.
+
+### `contribution-thresholds-are-supplied`
+Neither threshold is stated as an amount in either Law. לוח י׳ splits the wage at
+"מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)" and §348(א) caps it at "הסכום המרבי
+המתקבל לפי האמור בלוח י״א"; the health side reaches the same two boundaries
+through §14(ו1)'s reference to NII §341 and §15(א)'s "כאילו היו דמי ביטוח לאומי".
+`reduced_collection_step_ils` and `maximum_monthly_income_for_contributions_ils`
+are therefore inputs, supplied from the Institute's published table — 7,522 and
+50,695 for 2025, 7,703 and 51,910 for 2026. Those are **official** captures.
+§334, §337, §341 and §342 themselves are not encoded.
+
+### `contribution-scope-is-the-employee-only`
+Only the employee's own deduction is encoded, for an employed resident between
+18 and retirement age. Not encoded: the employer's contribution (7.6% full /
+4.51% reduced, published and captured but not modelled, because it is not the
+employee's money); the self-employed and not-working columns of לוח י׳;
+§14(ג)-(ה1) of the Health Insurance Law; the סכום המינימום floor; the §14(ז)
+exemptions; §348(ב)'s minimum-income rule; and §350's exempt income.
+
+### `contribution-rates-agree-with-the-publication` — recorded because agreement is also a result
+Unusually for this pilot, the statute and the publication match. The Institute
+publishes the employee's national insurance rate as 1.04% reduced and 7% full,
+which is exactly the `סך הכל` row of לוח י׳, and the health rate as 3.23% and
+5.17%, which is exactly §14(ו1) and §14(ב)(1). Both were encoded from the
+statutes and the publication was encoded separately; nothing was reconciled by
+hand. The OECD TaxBEN Israel description's employee total of 12.17% is the sum of
+the two full rates.
 
 ## Oracles
 

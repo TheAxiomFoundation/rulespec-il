@@ -70,7 +70,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 601.6888
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 629.5732
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
@@ -88,7 +96,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15383.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14151.738
 - name: working_mother_two_children_fifteen_thousand_a_month_2026
   period:
     period_kind: month
@@ -123,7 +131,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7703
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 51910
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7703
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 51910
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 590.9012
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 626.0618
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
@@ -141,7 +157,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15392.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14175.037
 - name: minimum_wage_working_mother_two_children_2025
   period:
     period_kind: month
@@ -176,7 +192,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 61.152208
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 189.924646
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 7056.024
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
@@ -194,7 +218,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 6263.02
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 6011.943146
 - name: single_woman_no_children_fifteen_thousand_a_month_2025
   period:
     period_kind: month
@@ -229,7 +253,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 601.6888
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 629.5732
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
@@ -247,7 +279,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 7986.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 17406.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 13549.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 12318.238
 - name: working_father_two_children_fifteen_thousand_a_month_2025
   period:
     period_kind: month
@@ -282,7 +314,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 601.6888
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 629.5732
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
@@ -300,7 +340,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 22506.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 2886.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15142.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 13911.238
 - name: high_earner_loses_the_child_allowance_under_nii_section_66_2025
   period:
     period_kind: month
@@ -335,7 +375,15 @@
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
     il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
     il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+    il:statutes/national-insurance-law-1995/schedule-j#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-insurance-law-1995/schedule-j#input.reduced_collection_step_ils: 7522
+    il:statutes/national-insurance-law-1995/schedule-j#input.maximum_monthly_income_for_contributions_ils: 50695
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
   output:
+    il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils: 3100.3388
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 2475.0047
     il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
     il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 284869.2
     il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
@@ -353,4 +401,4 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 261560.4
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 48203.3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 42627.9565

@@ -1,0 +1,97 @@
+# Companion fixtures for §14 of the National Health Insurance Law, the
+# employee's health insurance contribution.
+#
+# Rates are stated in the section itself: 5.17% under §14(ב)(1), and 3.23% under
+# §14(ו1) on the part of income not exceeding the reduced amount fixed under NII
+# §341. The two thresholds are supplied and come from the National Insurance
+# Institute's published table (official capture), because neither the Law nor
+# NII §341 states an amount.
+
+- name: minimum_wage_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 189.924646
+- name: minimum_wage_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7703
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 189.924646
+- name: fifteen_thousand_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 629.5732
+- name: fifteen_thousand_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7703
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 626.0618
+- name: at_the_step_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 242.9606
+- name: at_the_step_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7703
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 242.9606
+- name: above_the_ceiling_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7522
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 50695
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 2475.0047
+- name: above_the_ceiling_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/national-health-insurance-law-1994/section-14#input.monthly_gross_wage_ils: 70000
+    il:statutes/national-health-insurance-law-1994/section-14#input.reduced_collection_step_ils: 7703
+    il:statutes/national-health-insurance-law-1994/section-14#input.maximum_monthly_income_for_contributions_ils: 51910
+  output:
+    il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils: 2534.3088
