@@ -1,85 +1,101 @@
 {
-  "schema_version": 1,
-  "generated_at": "2026-09-06",
-  "jurisdiction": "il",
-  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers and a repository test enforces that every listed section has a module on disk. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
-  "corpus_scopes": [],
-  "release_candidate": {
-    "name": "il-rulespec-2026-09-06",
-    "status": "not_cut",
-    "note": "Planned name only. No ingest PR merged, no release signed, no registration, no mirror. Nothing in this repository is bound to it."
-  },
-  "instruments": [
+ "schema_version": 1,
+ "generated_at": "2026-09-06",
+ "jurisdiction": "il",
+ "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers as a module on disk, and applied_without_a_module names provisions a shipped number depends on that have NO module — both directions are enforced by repository tests. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
+ "corpus_scopes": [],
+ "release_candidate": {
+  "name": "il-rulespec-2026-09-06",
+  "status": "not_cut",
+  "note": "Planned name only. No ingest PR merged, no release signed, no registration, no mirror. Nothing in this repository is bound to it."
+ },
+ "instruments": [
+  {
+   "id": "income-tax-ordinance",
+   "official_name": "פקודת מס הכנסה [נוסח חדש]",
+   "knesset_israel_law_id": 2000944,
+   "policy_surfaces": [
+    "personal_income_tax",
+    "tax_credit_points",
+    "additional_tax_on_high_income",
+    "statutory_indexation"
+   ],
+   "encoded_sections": [
+    "33א",
+    "34",
+    "36",
+    "36א",
+    "66",
+    "120ב",
+    "121",
+    "121ב"
+   ],
+   "temporal_coverage": "current_expression_only",
+   "expressions": [
     {
-      "id": "income-tax-ordinance",
-      "official_name": "פקודת מס הכנסה [נוסח חדש]",
-      "knesset_israel_law_id": 2000944,
-      "policy_surfaces": [
-        "personal_income_tax",
-        "tax_credit_points",
-        "additional_tax_on_high_income",
-        "statutory_indexation"
-      ],
-      "encoded_sections": [
-        "33א",
-        "34",
-        "36",
-        "36א",
-        "66",
-        "120ב",
-        "121",
-        "121ב"
-      ],
-      "temporal_coverage": "current_expression_only",
-      "expressions": [
-        {
-          "expression_date": "2026-06-08",
-          "source_tier": "consolidation-knesset-linked",
-          "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/income-tax-ordinance/*"
-        }
-      ],
-      "not_encoded": [
-        "every other section of the Ordinance",
-        "§35 עולה credit",
-        "§37-§39 credits",
-        "§40(א) נקודות קיצבה and §40(ב) single-parent credit points",
-        "§45א pension contribution credit",
-        "§121א"
-      ]
-    },
-    {
-      "id": "national-insurance-law-1995",
-      "official_name": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
-      "knesset_israel_law_id": 2000198,
-      "policy_surfaces": [
-        "child_allowance"
-      ],
-      "encoded_sections": [
-        "1",
-        "66",
-        "67",
-        "68"
-      ],
-      "temporal_coverage": "current_expression_only",
-      "expressions": [
-        {
-          "expression_date": "2026-06-15",
-          "source_tier": "consolidation-knesset-linked",
-          "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/national-insurance-law-1995/*"
-        }
-      ],
-      "not_encoded": [
-        "§65 definitions beyond what §66-§68 need",
-        "national insurance and health contributions (§335 and Health Insurance Law §14)",
-        "every other benefit chapter"
-      ]
+     "expression_date": "2026-06-08",
+     "source_tier": "consolidation-knesset-linked",
+     "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/income-tax-ordinance/*"
     }
-  ],
-  "policy_publications": [],
-  "corpus_expression_dates": {
-    "income-tax-ordinance": "2026-06-08",
-    "national-insurance-law-1995": "2026-06-15"
+   ],
+   "not_encoded": [
+    "every other section of the Ordinance",
+    "§35 עולה credit",
+    "§37-§39 credits",
+    "§40(א) נקודות קיצבה and §40(ב) single-parent credit points",
+    "§45א pension contribution credit",
+    "§121א"
+   ],
+   "applied_without_a_module": [
+    {
+     "section": "2",
+     "corpus_citation_path": "il/statute/income-tax-ordinance/section-2",
+     "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule taxable_income_from_sources_under_section_2_1_or_2",
+     "why": "The composition has to say which §121ב(ה) category an employment wage falls in. §2(2) `השתכרות או ריווח מעבודה` is quoted as a definition atom; §2 itself is not encoded as a module."
+    }
+   ]
   },
-  "corpus_expression_note": "The Israel corpus ingest holds ONE expression of each provision, dated by the consolidation's own נוסח עדכני line. This repository therefore encodes the current text and cannot compute a 2025 liability; ITO §121's bands are the post-amendment-288 text.",
-  "policy_publications_note": "Empty deliberately. Every module in this repository is encoder-generated from a corpus citation, and no il/policy scope has been ingested, so no current-year regulated amount is encoded here. The composed pipeline takes those as supplied inputs and its fixtures state where each number came from."
+  {
+   "id": "national-insurance-law-1995",
+   "official_name": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+   "knesset_israel_law_id": 2000198,
+   "policy_surfaces": [
+    "child_allowance"
+   ],
+   "encoded_sections": [
+    "1",
+    "66",
+    "67",
+    "68"
+   ],
+   "temporal_coverage": "current_expression_only",
+   "expressions": [
+    {
+     "expression_date": "2026-06-15",
+     "source_tier": "consolidation-knesset-linked",
+     "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/national-insurance-law-1995/*"
+    }
+   ],
+   "not_encoded": [
+    "§65 as a module — its age-and-presence proviso is applied in the composition, see applied_without_a_module; its maintained-child limb and §65(ב)'s three-month rule are not modelled at all",
+    "national insurance and health contributions (§335 and Health Insurance Law §14)",
+    "every other benefit chapter"
+   ],
+   "applied_without_a_module": [
+    {
+     "section": "65",
+     "corpus_citation_path": "il/statute/national-insurance-law-1995/section-65",
+     "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rules child_1_is_a_child_under_section_65, child_2_is_a_child_under_section_65, children_in_parent_child_count",
+     "why": "§65(א)'s `ובלבד שהילד נמצא בישראל ולא מלאו לו 18 שנים` decides the monthly allowance count. The test has to be asked once per child and this pilot declares no Child entity, so §65 has no single-answer shape an atomic module could take. It IS in the corpus and IS encodable. See docs/ENCODING-GAPS.md, nii-section-65-child-definition-partial."
+    }
+   ]
+  }
+ ],
+ "policy_publications": [],
+ "corpus_expression_dates": {
+  "income-tax-ordinance": "2026-06-08",
+  "national-insurance-law-1995": "2026-06-15"
+ },
+ "corpus_expression_note": "The Israel corpus ingest holds ONE expression of each provision, dated by the consolidation's own נוסח עדכני line. This repository therefore encodes the current text and cannot compute a 2025 liability; ITO §121's bands are the post-amendment-288 text.",
+ "policy_publications_note": "Empty deliberately. Every module in this repository is encoder-generated from a corpus citation, and no il/policy scope has been ingested, so no current-year regulated amount is encoded here. The composed pipeline takes those as supplied inputs and its fixtures state where each number came from."
 }

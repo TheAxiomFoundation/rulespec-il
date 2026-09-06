@@ -239,3 +239,59 @@ def test_policy_modules_carry_an_official_publisher_capture() -> None:
         assert len(item["sha256"]) == 64, item["id"]
         assert item["url"].startswith("https://"), item["id"]
         assert item["retrieved_at"].endswith("Z"), item["id"]
+
+
+def _cited_corpus_paths() -> set[str]:
+    """Every corpus_citation_path reached from any proof atom in any module."""
+    found: set[str] = set()
+
+    def walk(node) -> None:
+        if isinstance(node, dict):
+            value = node.get("corpus_citation_path")
+            if isinstance(value, str):
+                found.add(value)
+            for child in node.values():
+                walk(child)
+        elif isinstance(node, list):
+            for child in node:
+                walk(child)
+
+    for path in rulespec_files():
+        walk(yaml.safe_load(path.read_text(encoding="utf-8")))
+    return found
+
+
+def test_source_map_accounts_for_every_provision_the_modules_cite() -> None:
+    """The other direction: nothing may be cited without being declared.
+
+    `test_source_map_names_only_sections_that_are_encoded` stops the map claiming a
+    module that does not exist. This stops the reverse — a provision a shipped number
+    actually depends on that the map never mentions, so anything built from the map
+    under-reports the law behind the answer. NII §65 and ITO §2 are exactly that case:
+    both are applied in the composition and neither is a module, so both are declared
+    under `applied_without_a_module`.
+    """
+    payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
+    declared = set()
+    for instrument in payload["instruments"]:
+        prefix = f"il/statute/{instrument['id']}"
+        declared.add(prefix)
+        for section in instrument["encoded_sections"]:
+            declared.add(f"{prefix}/section-{section.split(' ')[0]}")
+        for entry in instrument.get("applied_without_a_module") or []:
+            declared.add(entry["corpus_citation_path"])
+
+    # encoded_sections prints Hebrew suffixes (33א); citation paths transliterate (33a).
+    ordinals = {hebrew: latin for hebrew, latin in HEBREW_SUFFIX_ORDINALS.items()}
+    expanded = set(declared)
+    for value in declared:
+        for hebrew, latin in ordinals.items():
+            if value.endswith(hebrew):
+                expanded.add(value[: -len(hebrew)] + latin)
+
+    missing = sorted(_cited_corpus_paths() - expanded)
+    assert not missing, (
+        "these provisions are cited by a proof atom but appear nowhere in "
+        "data/coverage/tax-benefit-source-map.json, so the map under-reports the law "
+        "behind a computed number:\n  " + "\n  ".join(missing)
+    )
