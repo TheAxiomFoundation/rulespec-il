@@ -103,6 +103,19 @@ Because this pilot is **hand-authored** rather than encoder-produced, the shared
 generated-content guard is pinned off. That is a pilot property and is stated
 here rather than hidden.
 
+**CI is red on `pilot-v0`, on purpose.** The shared workflow fails with
+
+```
+RuleSpec toolchain error: a regular .axiom/toolchain.toml is required
+```
+
+because it is fail-closed on the toolchain binding, and that binding cannot
+honestly exist before the Israel corpus release is cut and signed. The check is
+behaving correctly; making it green would mean either pinning a release that does
+not exist or weakening the gate, and neither is acceptable. What the pilot could
+verify locally, it verified — see `docs/ENCODING-GAPS.md`,
+`validators-not-run-as-shipped`, for the commands and their results.
+
 ## Context
 
 Chartered 2026-09-06 for a bounded Israel proof of concept. Lineage:
