@@ -122,14 +122,41 @@ Institute pays. Do not present it as the latter.
 **Resolution:** obtain the commencement and implementation history of תשע״ג־3
 from the gazette and from an Institute publication.
 
-### `child-allowance-special-basic-amount-2025` — `unexplained`
-Two figures for the §1(2)(ג) special basic amount in 2025:
-* **153** — OECD TaxBEN Israel description ("0.7*153 or ILS 107").
-* **158** — the Wikisource editorial annotation on the same definition.
-The pilot's 2025 §68(ג) fixture supplies **153** and labels it as the TaxBEN
-reference. Neither figure comes from an official publication. `unexplained`.
-**Resolution:** capture the National Insurance Institute's published special
-basic amount for 2025.
+### `nii-68c-published-increment-vs-encoded-formula` — `unexplained`
+NII §68(ג) states the income-support addition as a formula:
+
+> תיווסף לקצבת הילדים המשתלמת לו בעד הילד השלישי ובעד הילד הרביעי שבמנין ילדיו תוספת בסכום השווה ל־70% מן הסכום הבסיסי הקבוע בפסקה (2)(ג) שבהגדרה ”הסכום הבסיסי“
+
+— 70% of the §1(2)(ג) basic amount, which §1(2)(ג) states nominally as 140.
+
+The National Insurance Institute publishes the *result* directly, in both
+captured snapshots of its own rate page:
+
+> התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך 111 ש"ח לכל ילד.  (2025)
+> התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך 113 ש"ח לכל ילד.  (2026)
+
+This repository encodes BOTH: the statutory formula in
+`il/statutes/national-insurance-law-1995/section-68.yaml`, and the published
+amounts in `il/policies/national-insurance-institute/child-allowance-rates.yaml`.
+It cannot reconcile them, because no official §1(2)(ג) basic amount has been
+captured for either year. Supplying the nominal 140 gives 0.7 × 140 = 98 against
+a published 111 (2025) and 113 (2026). `unexplained`.
+
+What the published figures DO settle: the OECD TaxBEN Israel description gives
+the special basic amount as 153 ("0.7*153 or ILS 107"), and 0.7 × 153 = 107.1,
+which cannot reach the Institute's published 111 under any rounding convention.
+**The reference figure is inconsistent with the publisher's own number**, and is
+no longer supplied anywhere in this repository. That conclusion does not depend
+on knowing the Institute's rounding rule.
+
+What they do NOT settle: a Wikisource editorial annotation gives 158 for 2025,
+and 0.7 × 158 = 110.6, which rounds to 111. That is *consistent with* the
+published increment under ordinary rounding — it is not proof, the annotation is
+editorial apparatus this repository may not treat as a source for a current
+amount, and no fixture uses it. For 2026 the published 113 does not discriminate:
+0.7 × 161 = 112.7 and 0.7 × 162 = 113.4 both round to 113.
+**Resolution:** capture the Institute's published §1(2)(ג) basic amount, or its
+rounding rule, for each year.
 
 ## Amounts supplied rather than encoded
 
@@ -143,8 +170,9 @@ fixture states its provenance. None of these is law as stated here.
 | `credit_point_value_for_tax_year_ils` | §33א: 504 ILS | 2,904 (2025 and 2026) | OECD TaxBEN Israel 2025 — a reference |
 | `additional_tax_threshold_for_tax_year_ils` | §121ב: 640,000 ILS | 721,560 (2025) | OECD TaxBEN Israel 2025 — a reference |
 | `thirty_five_percent_band_upper_ils` | §121(א)(2), stated as current | 560,280 | current consolidation; supplied because the 2025 expression is defective (above) |
-| `current_basic_amount_*` (2026) | §1(2): 150 / 188 / 140 ILS | 173 / 219 | **official** — the captured ביטוח לאומי publication, effective 01.01.2026 |
-| `current_basic_amount_*` (2025) | §1(2): 150 / 188 / 140 ILS | 169 / 214 / 153 | OECD TaxBEN Israel 2025 — a reference |
+| `current_basic_amount_*` (2026) | §1(2): 150 / 188 ILS | 173 / 219 | **official** — the captured ביטוח לאומי publication, effective 01.01.2026 |
+| `current_basic_amount_*` (2025) | §1(2): 150 / 188 ILS | 169 / 214 | **official** — the same publication as it stood 2025-04-20, via the Internet Archive |
+| `current_basic_amount_income_support_base_ils` (both years) | §1(2)(ג): 140 ILS | 140 | the statute's own nominal figure. NOT an amount payable; the Institute publishes the resulting increment as 111 (2025) / 113 (2026) |
 
 ### `credit-point-current-value-not-captured`
 §33א states the credit point as 504 ILS a year, index-linked under §120א. The
@@ -154,10 +182,30 @@ National Insurance Institute capture but no Tax Authority capture.
 **Resolution:** fetch the Tax Authority notice through a real browser and add an
 `il/policies/tax-authority/` module.
 
-### `child-allowance-2025-amounts-not-officially-captured`
-The captured National Insurance Institute page states amounts "(החל מ- 01.01.2026)"
-only. The 2025 amounts used in fixtures are the OECD TaxBEN figures.
-**Resolution:** capture the Institute's 2025 table.
+### `child-allowance-2025-amounts-not-officially-captured` — CLOSED
+Was: the captured Institute page states amounts "(החל מ- 01.01.2026)" only, so
+the 2025 fixtures took 169 / 214 from the OECD TaxBEN description.
+
+Closed by capturing the same official page as it stood on 2025-04-20 from the
+Internet Archive, where it states "(החל ב- 01.01.2025)" and the same 169 / 214 /
+169 ladder. The publisher is the National Insurance Institute; the archive is the
+delivery channel, not the publisher, and the retrieved bytes carry their own
+provenance record (sha256
+a150c2e4b3237be0b83868fd798e8b00404a41550187645fe95146a5bfaf1287). The 2025
+per-child amounts are now official, and the OECD figures for them are unused.
+
+### `child-allowance-2026-special-basic-amount-not-captured` — WITHDRAWN, IT WAS WRONG
+This repository previously recorded that "the Institute's published table gives
+the per-child amounts but no special basic amount". The captured 2026 page does
+carry the §68(ג) increment — "התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך
+113 ש\"ח לכל ילד" — in a sentence the first extraction pass dropped before the
+provision text was written. The figure was inside the byte-pinned capture the
+whole time the repository said it was not captured.
+
+Both years' increments are now extracted by `ops/il-lane/extract/btl_rates.py`
+and encoded with verbatim proofs. What remains genuinely uncaptured is the
+*basic amount* those increments are 70% of — see
+`nii-68c-published-increment-vs-encoded-formula`.
 
 ## Narrowings inside the encoded sections
 
@@ -232,14 +280,6 @@ capstone fixture is on income support or has a child born before June 2003.
 §66(ג)(4)(א1) lets the mother elect to have one of her birth-year credit points
 counted in the following tax year instead. Not encoded; `child_1_credit_points`
 and `child_2_credit_points` always allot the birth-year points in the birth year.
-
-### `child-allowance-2026-special-basic-amount-not-captured`
-The captured Institute publication gives the per-child amounts but no special
-basic amount for §1(2)(ג)/§68(ג). The 2026 fixtures therefore supply the NOMINAL
-statutory 140 — a figure this repository encodes as a parameter — and none of
-them exercises §68(ג), so it is inert there. It is **not** an amount payable, and
-it is deliberately not the Wikisource editorial annotation (162), because taking a
-current-year amount from editorial apparatus is forbidden by `AGENTS.md`.
 
 ### `additional-tax-threshold-attribution-is-an-inference`
 The OECD TaxBEN Israel description never names the §121ב additional tax. Its 2025
