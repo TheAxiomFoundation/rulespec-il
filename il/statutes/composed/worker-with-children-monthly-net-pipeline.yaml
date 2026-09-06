@@ -26,22 +26,28 @@ module:
     \ times the §34 + §36 + §36א + §66(ג)(4)\n       credit points\n    -> plus the §121ב additional tax\n\
     \    -> plus the National Insurance child allowance, which §66 of that Law\n       denies outright\
     \ to a parent liable to the §121ב additional tax\n    = monthly net\n\nThat last link is the point\
-    \ of the capstone: the benefit is not independent of\nthe tax. A fixture drives income past the additional-tax\
-    \ threshold and the\nallowance goes to zero for a statutory reason, not a modelled one.\n\nSUPPLIED\
-    \ VALUES, AND WHY. Three quantities are inputs rather than parameters,\nbecause the statute states\
-    \ them as nominal amounts under an indexation\nmechanism this repository does not implement and no\
-    \ official current-year\ncapture exists:\n  * `credit_point_value_for_tax_year_ils` — §33א states\
-    \ 504 ILS nominal.\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module) — §121ב\n\
-    \    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1 states 150/188/140\
-    \ nominal.\nEach fixture records where its supplied number came from. None of them is law\nas stated\
-    \ here.\n\nBOUNDS. At most two children; one earner; separate calculation (חישוב נפרד)\nassumed elected,\
-    \ which is what makes §66(ג)(4) apply; the mother's schedule\nonly. `child_1_credit_points` and `child_2_credit_points`\
-    \ repeat the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation\
-    \ —\nthe right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope\
-    \ here. Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי\
-    \ במקור deduction rules, which are not encoded.\n\nNational Insurance and health contributions are\
-    \ NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is\
-    \ not take-home\npay. See docs/ENCODING-GAPS.md."
+    \ of the capstone: in the captured statutory text the\nbenefit is not independent of the tax. A fixture\
+    \ drives income past the\nadditional-tax threshold and the allowance goes to zero for a reason written\
+    \ in\nNII §66, not one modelled here.\n\nREAD THAT FIXTURE CAREFULLY. The OECD TaxBEN Israel description\
+    \ says the child\nallowance \"is not means-tested\", which cannot be reconciled with §66's exclusion\n\
+    of a parent liable to the §121ב additional tax. Nothing captured resolves it —\nwhether the exclusion\
+    \ was ever brought into force or is administered differently\ncannot be determined from the snapshots.\
+    \ The capstone encodes what the statutory\ntext says; it is NOT a verified description of what the\
+    \ National Insurance\nInstitute pays, and must not be presented as one. See docs/ENCODING-GAPS.md,\n\
+    `child-allowance-surtax-exclusion-vs-oecd`.\n\nSUPPLIED VALUES, AND WHY. Three quantities are inputs\
+    \ rather than parameters,\nbecause the statute states them as nominal amounts under an indexation\n\
+    mechanism this repository does not implement and no official current-year\ncapture exists:\n  * `credit_point_value_for_tax_year_ils`\
+    \ — §33א states 504 ILS nominal.\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module)\
+    \ — §121ב\n    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1\
+    \ states 150/188/140 nominal.\nEach fixture records where its supplied number came from. None of them\
+    \ is law\nas stated here.\n\nBOUNDS. At most two children; one earner; separate calculation (חישוב\
+    \ נפרד)\nassumed elected, which is what makes §66(ג)(4) apply; the mother's schedule\nonly. `child_1_credit_points`\
+    \ and `child_2_credit_points` repeat the §66 age-band\nselection because the pilot has no Child entity\
+    \ and no relation aggregation —\nthe right shape is a Child entity with `sum(children.credit_points)`,\
+    \ and that is\nout of scope here. Annual tax is divided by twelve for presentation; this is not\n\
+    a model of the monthly ניכוי במקור deduction rules, which are not encoded.\n\nNational Insurance and\
+    \ health contributions are NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child\
+    \ allowance only. It is not take-home\npay. See docs/ENCODING-GAPS.md."
 rules:
 - name: child_1_credit_points
   kind: derived

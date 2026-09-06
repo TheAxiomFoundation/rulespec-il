@@ -19,7 +19,14 @@
 #
 # The last case is the point of the whole pilot: raise the wage past the §121ב
 # threshold and the child allowance goes to zero, because NII §66 excludes a
-# parent liable to that tax. Nothing models that — the statute says it.
+# parent liable to that tax. Nothing models that — the captured statutory text
+# says it.
+#
+# BUT READ docs/ENCODING-GAPS.md FIRST. The OECD TaxBEN Israel description says
+# this benefit "is not means-tested", which cannot be reconciled with §66's
+# exclusion, and nothing captured resolves the conflict. This fixture shows what
+# the encoded statute says. It is NOT a verified statement of what the National
+# Insurance Institute actually pays a high earner, and must not be shown as one.
 
 - name: working_mother_two_children_fifteen_thousand_a_month_2025
   period:

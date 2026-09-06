@@ -65,8 +65,39 @@ Consequence: the 35%/47% boundary is NOT a parameter. It enters
 `il/statutes/income-tax-ordinance/section-121.yaml` as the supplied input
 `thirty_five_percent_band_upper_ils` (560,280 in every fixture), so that no proof
 atom is attached to text that does not support the value.
+Two independent things corroborate 560,280 as the 2025 boundary without being
+usable as proof: the OECD TaxBEN Israel 2025 table (47% from 560,280), and a
+comparison table in the Wikisource page itself giving 2024–2025 as
+"269,281 עד 560,280 | 35%" and "מעל 721,560 | 3% מס נוסף". The latter is the
+publisher's **editorial apparatus**, not provision text, and this repository
+strips editorial apparatus from proof bodies — so it corroborates the reading
+and the supplied 721,560 surtax threshold, but neither may ground a proof atom.
 **Resolution:** confirm the 2025 boundary from the Knesset consolidated text or a
 Tax Authority עדכון סכומים notice, then encode it as a parameter.
+
+### `child-allowance-surtax-exclusion-vs-oecd` — `unexplained`, and it matters
+The captured consolidated text of NII §66 (amendment תשע״ג־3) reads:
+
+> הורה מבוטח זכאי לקצבת ילדים חודשית לפי פרק זה בעד כל ילד, למעט הורה מבוטח שיש לו הכנסה החייבת במס נוסף כמשמעותה בסעיף 121ב לפקודת מס הכנסה.
+
+— an insured parent is entitled for each child, **except** an insured parent with
+income liable to the ITO §121ב additional tax.
+
+The OECD TaxBEN Israel description says of the same benefit: "It is not
+means-tested and not taxable" (§4.1.4: "The benefit is not means-tested").
+
+These cannot both describe the same operative rule. Nothing in the captured
+material resolves it: whether the exclusion was ever brought into force,
+suspended, or is administered differently cannot be determined from the
+snapshots, and the pilot does not have the amending act's commencement clause.
+`unexplained`.
+
+The pilot **encodes what the captured statutory text says**, and the composed
+capstone's high-earner fixture turns on it. That fixture demonstrates the
+encoded provision, not a verified description of what the National Insurance
+Institute pays. Do not present it as the latter.
+**Resolution:** obtain the commencement and implementation history of תשע״ג־3
+from the gazette and from an Institute publication.
 
 ### `child-allowance-special-basic-amount-2025` — `unexplained`
 Two figures for the §1(2)(ג) special basic amount in 2025:

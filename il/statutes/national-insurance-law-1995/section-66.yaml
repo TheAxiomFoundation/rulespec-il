@@ -27,7 +27,18 @@ module:
 
     `liable_to_additional_tax`, and a fixture exercises the case where the allowance
 
-    is denied for exactly that reason.'
+    is denied for exactly that reason.
+
+
+    UNRESOLVED DIVERGENCE. The OECD TaxBEN Israel description states that this
+
+    benefit "is not means-tested", which cannot be reconciled with the exclusion this
+
+    section states. Nothing in the captured material settles whether the exclusion is
+
+    operative. This module encodes the captured text and the divergence is recorded
+
+    as `unexplained` in docs/ENCODING-GAPS.md.'
 rules:
 - name: entitled_to_child_allowance
   kind: derived
