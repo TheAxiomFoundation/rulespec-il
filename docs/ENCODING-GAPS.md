@@ -79,7 +79,7 @@ detail, which is why the manifest carries it. Three places where the difference 
 
 * **ITO §66.** terra returned `module.status: entity_not_supported` with `rules: []` — the
   claim that the section needs marriage and child-parent relations the entity surface does not
-  have. astra encoded the same provision as thirty-two rules that compile and pass CI.
+  have. astra encoded the same provision as thirty-six rules that compile and pass CI.
 * **ITO §121ב.** Two terra rounds against the same findings file reproduced the same defect:
   proof excerpts containing `...`, which is a substring of nothing. astra fixed both on the
   first round.
