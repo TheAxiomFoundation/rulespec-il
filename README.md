@@ -29,10 +29,11 @@ every number against the Hebrew statute:
 | `il/statutes/national-insurance-law-1995/schedule-j.yaml` | לוח י׳ | the employee's share of the national insurance contribution — 1.04% up to the reduced-collection step, 7% above it, capped by §348(א) |
 | `il/statutes/national-health-insurance-law-1994/section-14.yaml` | חוק ביטוח בריאות ממלכתי §14 | the employee's health insurance contribution — 3.23% under §14(ו1) and 5.17% under §14(ב)(1), on the same two bands |
 | `il/policies/national-insurance-institute/contribution-rates.yaml` | ביטוח לאומי publication | the published employee contribution rates and the two income thresholds, 2025 and 2026 |
+| `il/policies/israel-tax-authority/adjusted-amounts.yaml` | רשות המסים publication | the Tax Authority's own "לוח עזר" booklet for 2025 and 2026 — the §33א credit-point value (242 לחודש), the §121ב threshold (721,560) and the published rate schedule for both years |
 | `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → the employee's national insurance and health contributions → child allowance → monthly net |
 
 Every module has a companion `.test.yaml` in which **every** local `#input`
-fact is assigned, including the false ones. 17 modules, 119 fixtures, 130 proof
+fact is assigned, including the false ones. 18 modules, 121 fixtures, 145 proof
 atoms.
 
 **Three instruments, and only two of them are in the corpus.** The National
@@ -93,9 +94,23 @@ encodes **2026**, because the two differ and the difference is instructive:
 The Ordinance states the credit-point value (§33א) and the §121ב additional-tax
 threshold as **nominal historical amounts** subject to indexation — 504 ILS and
 640,000 ILS respectively — not as current-year figures. This repository does not
-compute indexation and does not carry an official current-year capture, so those
-current values enter the composed pipeline as **supplied inputs**, and the test
-fixtures label where each supplied number came from. See `docs/ENCODING-GAPS.md`.
+compute indexation. It now carries the official current-year figures instead:
+`il/policies/israel-tax-authority/adjusted-amounts.yaml` holds the Tax Authority's
+own annual booklet for 2025 and 2026, which states the credit point as 242 לחודש
+and the §121ב threshold as ₪721,560 in both editions.
+
+The credit-point value is therefore no longer supplied by a fixture at all — the
+composed pipeline imports the published parameter. The threshold is still passed
+in as an input, for a structural reason rather than an evidentiary one: it belongs
+to the imported §121ב module, and a composed module cannot feed an imported
+module's inputs. The fixtures label where every supplied number came from. See
+`docs/ENCODING-GAPS.md`, `ita-booklet-table-extraction`, for what a proof drawn
+from a PDF table can and cannot carry.
+
+Two editions of that booklet a year apart are also the clearest evidence in this
+repository for two things it would otherwise have to assert: 242 and 721,560 are
+identical in both, which is the §120ב(ה)(1) freeze; and the 20% and 31% ceilings
+move (193,800 → 228,000, 269,280 → 301,200), which is amendment 288.
 
 By contrast, the §121 bracket thresholds *are* stated as current amounts in the
 consolidated text and were written into the statute by the 2026 amending act, so
@@ -115,10 +130,10 @@ for either year. That mismatch is recorded, not papered over.
 
 Proof excerpts quote the captured snapshots, because no signed `il-rulespec-*`
 corpus release exists. The Israel ingest does exist as an unmerged branch, so the
-re-anchor pass has been run against it read-only: **92 of 130 proof excerpts are
-already verbatim in the corpus body.** The remaining 38 are three structural
-gaps, not excerpt defects — the corpus has no `il/policy` scope for the
-Institute's publications (28 atoms), it does not contain the National Health
+re-anchor pass has been run against it read-only: **92 of 145 proof excerpts are
+already verbatim in the corpus body.** The remaining 53 are three structural
+gaps, not excerpt defects — the corpus has no `il/policy` scope for the two
+agencies' publications (43 atoms), it does not contain the National Health
 Insurance Law at all (6 atoms), and it holds only the 2026 expression of §121
 while this pilot's validation year is 2025 (4 atoms).
 

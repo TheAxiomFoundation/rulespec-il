@@ -22,6 +22,7 @@ imports:
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_second_third_fourth_child_ils
 - il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils
 - il:statutes/national-health-insurance-law-1994/section-14#monthly_health_insurance_employee_contribution_ils
+- il:policies/israel-tax-authority/adjusted-amounts#published_credit_point_value_annual_ils
 module:
   proof_validation:
     required: true
@@ -46,13 +47,20 @@ module:
     \ was ever brought into force or is administered differently\ncannot be determined from the snapshots.\
     \ The capstone encodes what the statutory\ntext says; it is NOT a verified description of what the\
     \ National Insurance\nInstitute pays, and must not be presented as one. See docs/ENCODING-GAPS.md,\n\
-    `child-allowance-surtax-exclusion-vs-oecd`.\n\nSUPPLIED VALUES, AND WHY. Three quantities are inputs\
-    \ rather than parameters,\nbecause the statute states them as nominal amounts under an indexation\n\
-    mechanism this repository does not implement and no official current-year\ncapture exists:\n  * `credit_point_value_for_tax_year_ils`\
-    \ — §33א states 504 ILS nominal.\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module)\
-    \ — §121ב\n    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1\
-    \ states 150/188/140 nominal.\nEach fixture records where its supplied number came from. None of them\
-    \ is law\nas stated here.\n\nHOW THE COUPLING IS WIRED. `monthly_child_allowance_ils` gates on the\
+    `child-allowance-surtax-exclusion-vs-oecd`.\n\nSUPPLIED VALUES, AND WHY.\
+    \ The statute states several amounts as nominal\nfigures under an indexation mechanism this repository\
+    \ does not implement, so\nthe current-year figure has to come from somewhere else.\n\nThe credit-point\
+    \ value no longer comes from a fixture. It is imported from\n`il/policies/israel-tax-authority/adjusted-amounts`,\
+    \ the Tax Authority's own\n\"לוח עזר\" booklet, which publishes it as 242 לחודש for both 2025 and 2026;\
+    \ the\nmodule derives the annual 2,904 by multiplying by twelve. §33א states only the\nnominal\
+    \ 504.\n\nTwo quantities are still supplied to IMPORTED modules by fixtures, because an\nimported\
+    \ module's inputs are supplied rather than derived — the same constraint\nthe rulespec-dk capstone\
+    \ documents:\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module) — §121ב\n \
+    \   states 640,000 ILS nominal. The supplied 721,560 is now the Tax Authority's\n    published figure,\
+    \ not the OECD TaxBEN description.\n  * `current_basic_amount_*` (on the §68 module) — §1 states 150/188/140\
+    \ nominal,\n    and no official basic amount has been captured for either year. These remain\n \
+    \   the pilot's least well-sourced numbers.\nEach fixture records where its supplied number came\
+    \ from. None of them is law\nas stated here.\n\nHOW THE COUPLING IS WIRED. `monthly_child_allowance_ils` gates on the\
     \ IMPORTED\n§121ב judgment `liable_to_additional_tax`, which is itself derived from the\nsupplied\
     \ annual income and threshold. The exclusion therefore follows from\nincome through §121ב, not from\
     \ a fixture-maintained flag. NII §66's own\n`entitled_to_child_allowance` is imported as well and\
@@ -182,7 +190,7 @@ rules:
             שנה
   versions:
   - effective_from: '2025-01-01'
-    formula: annual_credit_points * credit_point_value_for_tax_year_ils
+    formula: annual_credit_points * published_credit_point_value_annual_ils
 - name: annual_income_tax_after_credits_ils
   kind: derived
   entity: Person

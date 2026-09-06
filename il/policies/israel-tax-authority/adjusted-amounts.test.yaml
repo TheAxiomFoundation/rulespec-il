@@ -1,0 +1,55 @@
+# Companion fixtures for the Tax Authority's published adjusted amounts.
+#
+# These assert the PUBLICATION, not the law. The Ordinance's own rate schedule is
+# encoded in il/statutes/income-tax-ordinance/section-121.yaml and its nominal
+# credit-point and additional-tax amounts in section-33a.yaml and section-121b.yaml.
+#
+# The module has no inputs: every rule is a published amount or, in one case, an
+# amount derived from one by multiplication. Both years are asserted in full, and
+# the pair is the point:
+#
+#   * 242 and 721,560 are IDENTICAL in the 2025 and 2026 fixtures. That is the
+#     ss.120b(e)(1) freeze of tax years 2025-2027, visible in the publisher's own
+#     two booklets rather than inferred here.
+#   * 193,800 -> 228,000 and 269,280 -> 301,200 between the two fixtures. That is
+#     amendment 288 (s.5 of the 2026 Economic Efficiency Law, in force
+#     1 January 2026), which the pilot first read from the gazette. The Tax
+#     Authority's booklet is an independent confirmation of the same change.
+#   * 560,280 is identical in both, and the 2025 figure matters: the captured 2025
+#     expression of ss.121(a)(2) is internally defective (560,280 stated as a lower
+#     bound above an upper bound of 542,160), so the publisher's booklet is the
+#     only source in this repository that states that boundary for 2025 without
+#     the defect.
+#
+# 2,904 is DERIVED here (242 x 12) and is not a figure the booklet contains; see
+# the module summary.
+- name: published_adjusted_amounts_2025
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    il:policies/israel-tax-authority/adjusted-amounts#published_credit_point_value_monthly_ils: 242
+    il:policies/israel-tax-authority/adjusted-amounts#published_additional_tax_threshold_annual_ils: 721560
+    il:policies/israel-tax-authority/adjusted-amounts#published_ten_percent_band_upper_ils: 84120
+    il:policies/israel-tax-authority/adjusted-amounts#published_fourteen_percent_band_upper_ils: 120720
+    il:policies/israel-tax-authority/adjusted-amounts#published_twenty_percent_band_upper_ils: 193800
+    il:policies/israel-tax-authority/adjusted-amounts#published_thirty_one_percent_band_upper_ils: 269280
+    il:policies/israel-tax-authority/adjusted-amounts#published_thirty_five_percent_band_upper_ils: 560280
+    il:policies/israel-tax-authority/adjusted-amounts#published_credit_point_value_annual_ils: 2904
+- name: published_adjusted_amounts_2026
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    il:policies/israel-tax-authority/adjusted-amounts#published_credit_point_value_monthly_ils: 242
+    il:policies/israel-tax-authority/adjusted-amounts#published_additional_tax_threshold_annual_ils: 721560
+    il:policies/israel-tax-authority/adjusted-amounts#published_ten_percent_band_upper_ils: 84120
+    il:policies/israel-tax-authority/adjusted-amounts#published_fourteen_percent_band_upper_ils: 120720
+    il:policies/israel-tax-authority/adjusted-amounts#published_twenty_percent_band_upper_ils: 228000
+    il:policies/israel-tax-authority/adjusted-amounts#published_thirty_one_percent_band_upper_ils: 301200
+    il:policies/israel-tax-authority/adjusted-amounts#published_thirty_five_percent_band_upper_ils: 560280
+    il:policies/israel-tax-authority/adjusted-amounts#published_credit_point_value_annual_ils: 2904

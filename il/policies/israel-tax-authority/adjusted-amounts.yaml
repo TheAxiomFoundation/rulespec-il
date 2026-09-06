@@ -1,0 +1,203 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+    source_sha256: edc68a8ea391a9d298e8dc4119a4bc0e403b0c889156c742845b270d97262d01
+  summary: |-
+    רשות המסים — the Tax Authority's own "לוח עזר לחישוב מס הכנסה ממשכורת ושכר עבודה" booklet, tax years 2025 and 2026.
+
+    WHY THIS MODULE EXISTS. Three quantities this pilot needs are fixed by indexation under §120א/§120ב rather than stated as amounts in the Ordinance, so the consolidation cannot supply them: the §33א credit-point value (the Ordinance states a nominal 504), the §121ב additional-tax threshold (nominal 640,000), and — for 2025 — the upper bound of the 35% band, whose captured 2025 expression of §121(א)(2) is internally defective. Until this capture, all three were supplied to fixtures from the OECD TaxBEN Israel description, which is a reference and not law. They now come from the publisher.
+
+    WHAT THE PUBLISHER SETTLES, AND WHAT IT DOES NOT. This is an official publication of the body that administers the tax, so it is admissible here as a current-year amount under this repository's source rules. It is NOT the statute, it is not a gazette notice, and it is not encoded as law: every rule here is named `published_*` and every proof atom cites this publication, never the Ordinance. Where the booklet and the encoded statute agree, they were arrived at independently.
+
+    THE FREEZE IS VISIBLE IN THE PUBLICATION ITSELF. §120ב(ה)(1) freezes the indexed amounts for tax years 2025 to 2027. Both booklets state the credit point as 242 לחודש and the §121ב threshold as ₪721,560 — identical figures a year apart. That is the publisher demonstrating the freeze the statute states, not this repository inferring it.
+
+    AMENDMENT 288 IS VISIBLE TOO. The 20% and 31% band ceilings move between the two booklets — 193,800 → 228,000 and 269,280 → 301,200 — which is exactly what ס"ח 3511 (חוק ההתייעלות הכלכלית 2026, s.5, in force 1 January 2026) enacted. The pilot read that widening from the gazette first; the Tax Authority's booklet is an independent confirmation.
+
+    THE ANNUAL CREDIT-POINT VALUE IS DERIVED, NOT PUBLISHED. The booklet states 242 לחודש and nowhere states 2,904. `published_credit_point_value_annual_ils` multiplies by twelve. The widely quoted 2,904 is that product, and this module says so rather than citing a figure the publication does not contain.
+
+    EXTRACTION IS LOSSY AND THAT IS ON THE RECORD. A Hebrew PDF table does not survive text extraction unchanged. The registered provision text is the `pdftotext -layout` rendering with bidi controls dropped, NFC-normalized, intra-line whitespace collapsed (ops/il-lane/extract/ita_booklet.py). Excerpts drawn from table rows carry that extractor's column order, not the printed order — `560,280 269,281עד- מ-` is the 35% row of the 2025 annual schedule, upper bound first. Excerpts were chosen only where the label and its number are unambiguous within the extracted line, and every one was accepted by axiom-encode's own evidence matcher, which is stricter than a substring test and rejected several spans a substring test accepted.
+
+    WHAT THE 2025 BAND ATOMS PROVE, EXACTLY. For 2026 the booklet states each changed band in prose and the excerpt carries the bounds AND the rate (`עד 228,000ש"ח – יחול שיעור מס . 20%`). For 2025 the booklet gives the schedule only as a table, and the span the matcher accepts carries the band's bounds without the rate cell, which sits in the same extracted row. So a 2025 band atom proves the boundary, and the rate association rests on the row and on `source`, not on the excerpt alone. That is weaker than the 2026 atoms and is said here rather than glossed. The rates themselves are encoded from the Ordinance in `il/statutes/income-tax-ordinance/section-121.yaml`, which is where they belong; this module exists for the AMOUNTS. See docs/ENCODING-GAPS.md, `ita-booklet-table-extraction`.
+rules:
+- name: published_credit_point_value_monthly_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — פרק סכומים מתואמים, נקודת זיכוי 33א
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: לחודש 242 נקודת זיכוי 33א
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: לחודש 242 נקודת זיכוי 33א
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '242'
+  - effective_from: '2026-01-01'
+    formula: '242'
+  unit: ILS
+- name: published_additional_tax_threshold_annual_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מס נוסף על הכנסות גבוהות
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: הכנסתו החייבת בשנת המס עלתה על ₪ 721,560
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: הכנסתו החייבת בשנת המס עלתה על ₪ 721,560
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '721560'
+  - effective_from: '2026-01-01'
+    formula: '721560'
+  unit: ILS
+- name: published_ten_percent_band_upper_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מדרגות המס על הכנסות מיגיעה אישית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 10% 84,120 עד- 10% 7,010 עד-
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 10% 84,120 עד- 10% 7,010 עד-
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '84120'
+  - effective_from: '2026-01-01'
+    formula: '84120'
+  unit: ILS
+- name: published_fourteen_percent_band_upper_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מדרגות המס על הכנסות מיגיעה אישית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 120,720 עד- 84,121
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 120,720 84,121עד-
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '120720'
+  - effective_from: '2026-01-01'
+    formula: '120720'
+  unit: ILS
+- name: published_twenty_percent_band_upper_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מדרגות המס על הכנסות מיגיעה אישית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 193,800 120,721עד- מ-
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: .1על כל שקל חדש מ 120,721 -ש"ח עד 228,000ש"ח – יחול שיעור מס . 20%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '193800'
+  - effective_from: '2026-01-01'
+    formula: '228000'
+  unit: ILS
+- name: published_thirty_one_percent_band_upper_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מדרגות המס על הכנסות מיגיעה אישית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 269,280 193,801עד-
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: .2על כל שקל חדש מ 228,001 -ש"ח עד 301,200ש"ח – יחול שיעור מס . 31%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '269280'
+  - effective_from: '2026-01-01'
+    formula: '301200'
+  unit: ILS
+- name: published_thirty_five_percent_band_upper_ils
+  kind: parameter
+  dtype: Money
+  source: רשות המסים, לוח עזר — מדרגות המס על הכנסות מיגיעה אישית
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: 560,280 269,281עד- מ-
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: .3על כל שקל חדש מ 301,201 -ש"ח עד 560,280ש"ח – יחול שיעור מס .35%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '560280'
+  - effective_from: '2026-01-01'
+    formula: '560280'
+  unit: ILS
+- name: published_credit_point_value_annual_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Year
+  source: רשות המסים, לוח עזר — נקודת זיכוי 33א, לחודש, כפול שנים עשר
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/policy/israel-tax-authority/adjusted-amounts
+          excerpt: לחודש 242 נקודת זיכוי 33א
+  versions:
+  - effective_from: '2025-01-01'
+    formula: published_credit_point_value_monthly_ils * 12

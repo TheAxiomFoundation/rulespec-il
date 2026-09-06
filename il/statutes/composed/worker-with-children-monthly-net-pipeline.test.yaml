@@ -1,16 +1,30 @@
 
 # Companion fixtures for the composed monthly-net capstone.
 #
-# SUPPLIED VALUES AND THEIR PROVENANCE — none of these is law as stated here:
-#   credit_point_value_for_tax_year_ils = 2,904 (OECD TaxBEN Israel 2025;
-#     §120ב(ה)(1) freezes it at the 2024 level through 2027, so 2026 uses the
-#     same figure).
-#   additional_tax_threshold_for_tax_year_ils = 721,560 (OECD TaxBEN 2025).
-#   thirty_five_percent_band_upper_ils = 560,280 (§121(א)(2) current text;
-#     supplied because the captured 2025 expression of that paragraph is
-#     defective).
-#   child allowance 169 / 214 for 2025 (OECD TaxBEN reference) and 173 / 219 for
-#     2026 (the CAPTURED official ביטוח לאומי publication, effective 01.01.2026).
+# SUPPLIED VALUES AND THEIR PROVENANCE — none of these is law as stated here.
+# Every one of them now traces to a publication by the body that administers the
+# instrument, EXCEPT the last, which is flagged as such.
+#
+#   THE CREDIT-POINT VALUE IS NO LONGER SUPPLIED AT ALL. It is imported from
+#     il/policies/israel-tax-authority/adjusted-amounts, which carries the Tax
+#     Authority's own booklet: 242 לחודש in both the 2025 and the 2026 edition,
+#     x12 = 2,904. The two editions agreeing IS the §120ב(ה)(1) freeze, shown by
+#     the publisher rather than asserted here.
+#   additional_tax_threshold_for_tax_year_ils = 721,560 — the Tax Authority's
+#     booklet, "יחיד אשר הכנסתו החייבת בשנת המס עלתה על ₪ 721,560", stated
+#     identically for 2025 and 2026. Still supplied here only because it is an
+#     input of an IMPORTED module (§121ב) and the capstone cannot feed those.
+#   thirty_five_percent_band_upper_ils = 560,280 — likewise the Tax Authority's
+#     booklet for both years. This one matters: the captured 2025 expression of
+#     §121(א)(2) is internally defective, so the publisher's booklet is the only
+#     source here that states that boundary for 2025 without the defect.
+#   child allowance 169 / 214 for 2025 and 173 / 219 for 2026 — BOTH from
+#     captured official ביטוח לאומי publications (the 2025 figures from the
+#     Institute's own page as it stood 2025-04-20, retrieved via the Internet
+#     Archive; the 2026 figures from the live page).
+#   current_basic_amount_* on the §68 module — THE ONE REMAINING WEAK NUMBER.
+#     §1 states 150/188/140 nominal and no official basic amount has been
+#     captured for either year. See docs/ENCODING-GAPS.md.
 #
 # CONSISTENCY THE FIXTURE MUST MAINTAIN: annual_taxable_income_ils is supplied to
 # the imported §121 module and equals monthly_gross_wage_ils x 12 in every case.
@@ -53,7 +67,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
@@ -114,7 +127,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
@@ -175,7 +187,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
@@ -236,7 +247,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 5880.02
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
@@ -297,7 +307,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
@@ -358,7 +367,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
@@ -419,7 +427,6 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 70000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2

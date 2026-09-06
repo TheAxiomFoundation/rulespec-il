@@ -27,23 +27,23 @@ pass this gap asks for has been RUN against it, read-only, by
 `ops/il-lane/extract/reanchor_check.py`. Result:
 
 ```
-atoms checked: 130   re-anchored OK: 92   path-missing: 34   text-missing: 4
+atoms checked: 145   re-anchored OK: 92   path-missing: 49   text-missing: 4
 ```
 
-**92 of 130 proof excerpts are already verbatim NFC substrings of the corpus
-body.** The 38 that are not fall into three groups, none of which an excerpt
+**92 of 145 proof excerpts are already verbatim NFC substrings of the corpus
+body.** The 53 that are not fall into three groups, none of which an excerpt
 edit can honestly fix:
 
-* **28 atoms — `il/policy/...` is not in the Israel corpus scope.** Both policy
-  modules — `child-allowance-rates.yaml` and `contribution-rates.yaml` — cite
-  `il/policy/national-insurance-institute/…`, and the Israel ingest is
-  statute-only. The path SHAPE is the org-wide precedent — `policy` is
+* **43 atoms — `il/policy/...` is not in the Israel corpus scope.** All three
+  policy modules — `child-allowance-rates.yaml`, `contribution-rates.yaml` and
+  `israel-tax-authority/adjusted-amounts.yaml` — cite an `il/policy/…` path, and
+  the Israel ingest is statute-only. The path SHAPE is the org-wide precedent — `policy` is
   a first-class corpus `DocumentClass` and the corpus maps the RuleSpec
   `policies/` bucket to a `policy` citation bucket, exactly as
   `ug/policy/mglsd-scg/sage-handbook` and `rw/policy/loda-vup/...` do — so
   nothing here needs renaming. The publication simply has not been ingested.
   **Resolution:** ingest the four captured National Insurance Institute snapshots
-  as an `il/policy` scope.
+  and the two Tax Authority booklets as an `il/policy` scope.
 
 * **6 atoms — the National Health Insurance Law is not in the corpus at all.**
   See `health-insurance-law-not-in-corpus` below.
@@ -106,14 +106,14 @@ after the release is signed and registered. The pass is mechanical from here.
 `axiom-encode validate` and `axiom-encode proof-validate` both require
 `.axiom/toolchain.toml` and a signed corpus release, neither of which can
 honestly exist yet. What WAS run, and what it proves:
-* `axiom-encode test` — all 119 companion cases pass against an engine build
+* `axiom-encode test` — all 121 companion cases pass against an engine build
   carrying the ILS currency seed.
 * `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
   `require_policy_proofs=True`, invoked directly with the captured provision
-  texts as `source_texts` — 130 proof atoms checked across 17 modules, all pass,
-  plus 47 atoms re-checked against the specific expression their version speaks
+  texts as `source_texts` — 145 proof atoms checked across 18 modules, all pass,
+  plus 62 atoms re-checked against the specific expression their version speaks
   for (see `proof-check-concatenates-expressions-except-where-pinned`).
-* `find_missing_money_proof_atoms` — 0 missing money atoms across 17 modules.
+* `find_missing_money_proof_atoms` — 0 missing money atoms across 18 modules.
 * `ops/il-lane/extract/reanchor_check.py` — the same excerpts re-checked against
   the axiom-corpus Israel ingest branch; see `corpus-anchor`.
 The validator code is the same; only the source of the provision text differs.
@@ -183,8 +183,17 @@ comparison table in the Wikisource page itself giving 2024–2025 as
 publisher's **editorial apparatus**, not provision text, and this repository
 strips editorial apparatus from proof bodies — so it corroborates the reading
 and the supplied 721,560 surtax threshold, but neither may ground a proof atom.
-**Resolution:** confirm the 2025 boundary from the Knesset consolidated text or a
-Tax Authority עדכון סכומים notice, then encode it as a parameter.
+**Resolution, half met.** The 2025 boundary is now confirmed from an official
+Tax Authority publication: its 2025 booklet states the schedule row
+`560,280 269,281עד- מ-`, and its 2026 booklet states in prose
+`.3על כל שקל חדש מ 301,201 -ש"ח עד 560,280ש"ח – יחול שיעור מס .35%`. Both are
+encoded, with proofs, in `il/policies/israel-tax-authority/adjusted-amounts.yaml`,
+so the supplied 560,280 is no longer corroborated only by a reference and an
+editorial table. What is still outstanding is the STATUTORY text: the defect is
+in the consolidation this pilot encodes §121 from, and an administrative booklet
+does not repair a statute. The value therefore stays a supplied input to §121
+rather than becoming a parameter of it, and the remaining resolution is to
+confirm the paragraph from the Knesset consolidated text or the amending act.
 
 ### `child-allowance-surtax-exclusion-vs-oecd` — `unexplained`, and it matters
 The captured consolidated text of NII §66 (amendment תשע״ג־3) reads:
@@ -255,20 +264,37 @@ fixture states its provenance. None of these is law as stated here.
 
 | Input | Statute's nominal figure | Supplied value | Where it came from |
 |---|---|---|---|
-| `credit_point_value_for_tax_year_ils` | §33א: 504 ILS | 2,904 (2025 and 2026) | OECD TaxBEN Israel 2025 — a reference |
-| `additional_tax_threshold_for_tax_year_ils` | §121ב: 640,000 ILS | 721,560 (2025) | OECD TaxBEN Israel 2025 — a reference |
-| `thirty_five_percent_band_upper_ils` | §121(א)(2), stated as current | 560,280 | current consolidation; supplied because the 2025 expression is defective (above) |
+| ~~`credit_point_value_for_tax_year_ils`~~ | §33א: 504 ILS | — | **no longer supplied.** The capstone imports `published_credit_point_value_annual_ils` from `il/policies/israel-tax-authority/adjusted-amounts`: the Tax Authority publishes 242 לחודש, the module derives 2,904 |
+| `additional_tax_threshold_for_tax_year_ils` | §121ב: 640,000 ILS | 721,560 (2025 and 2026) | **official** — רשות המסים, לוח עזר, both editions: "יחיד אשר הכנסתו החייבת בשנת המס עלתה על ₪ 721,560". Still an input only because it belongs to an imported module |
+| `thirty_five_percent_band_upper_ils` | §121(א)(2), stated as current | 560,280 | **official** — the same Tax Authority booklet, both editions. Supplied rather than parameterised because the captured 2025 expression of the paragraph is defective (above) |
 | `current_basic_amount_*` (2026) | §1(2): 150 / 188 ILS | 173 / 219 | **official** — the captured ביטוח לאומי publication, effective 01.01.2026 |
 | `current_basic_amount_*` (2025) | §1(2): 150 / 188 ILS | 169 / 214 | **official** — the same publication as it stood 2025-04-20, via the Internet Archive |
 | `current_basic_amount_income_support_base_ils` (both years) | §1(2)(ג): 140 ILS | 140 | the statute's own nominal figure. NOT an amount payable; the Institute publishes the resulting increment as 111 (2025) / 113 (2026) |
 
-### `credit-point-current-value-not-captured`
-§33א states the credit point as 504 ILS a year, index-linked under §120א. The
-current value is not in the statute and no Tax Authority עדכון סכומים notice was
-captured (gov.il refuses a plain HTTP client). `il/policies/` therefore holds a
-National Insurance Institute capture but no Tax Authority capture.
-**Resolution:** fetch the Tax Authority notice through a real browser and add an
-`il/policies/tax-authority/` module.
+### `credit-point-current-value-not-captured` — CLOSED
+Was: §33א states the credit point as 504 ILS a year, index-linked under §120א;
+the current value is not in the statute, no Tax Authority publication had been
+captured because gov.il refuses a plain HTTP client, and `il/policies/` therefore
+held a National Insurance Institute capture but no Tax Authority capture.
+
+Closed by capturing the Tax Authority's own annual booklet, "לוח עזר לחישוב מס
+הכנסה ממשכורת ושכר עבודה", for BOTH 2025 and 2026, and encoding it as
+`il/policies/israel-tax-authority/adjusted-amounts.yaml`. It states, verbatim,
+`לחודש 242 נקודת זיכוי 33א` — the §33א credit point at 242 a month — in each
+edition. The capstone no longer takes the value from a fixture at all; it imports
+the published parameter.
+
+**How the block was got round, since the note above says it could not be.**
+gov.il's HTML pages do answer HTTP 403 to `curl` even with a browser
+User-Agent — re-verified this session on `/he/pages/tax-credit-points` and
+`/he/departments/israel_tax_authority`. The `BlobFolder` PDF endpoint on the same
+host answers 200 to the same request. No browser automation was needed; the
+earlier note generalised from the HTML pages to the whole host.
+
+**What it does NOT settle.** The booklet is an administrative publication, not a
+gazette notice, and it nowhere states the annual 2,904 — that figure is derived
+here by multiplying 242 by twelve. See `ita-booklet-table-extraction` for what
+the PDF extraction can and cannot support.
 
 ### `child-allowance-2025-amounts-not-officially-captured` — CLOSED
 Was: the captured Institute page states amounts "(החל מ- 01.01.2026)" only, so
@@ -372,14 +398,70 @@ empty or repealed in the captured expression.
 counted in the following tax year instead. Not encoded; `child_1_credit_points`
 and `child_2_credit_points` always allot the birth-year points in the birth year.
 
-### `additional-tax-threshold-attribution-is-an-inference`
-The OECD TaxBEN Israel description never names the §121ב additional tax. Its 2025
-schedule ends "560 280 – 721 560 | 47" and "Above 721 560 | 50". Reading that 50%
-band as the 47% rate plus this section's 3% — and therefore reading 721,560 as
-the 2025 additional-tax threshold — is an **inference made in this repository**,
-not something TaxBEN states. The Wikisource page's own editorial comparison table
-("מעל 721,560 | 3% מס נוסף") corroborates it and, being editorial apparatus,
-cannot ground a proof atom.
+### `additional-tax-threshold-attribution-is-an-inference` — RESOLVED, the publisher states it
+Was: the OECD TaxBEN Israel description never names the §121ב additional tax. Its
+2025 schedule ends "560 280 – 721 560 | 47" and "Above 721 560 | 50". Reading that
+50% band as the 47% rate plus this section's 3% — and therefore reading 721,560 as
+the 2025 additional-tax threshold — was an **inference made in this repository**.
+The Wikisource page's editorial comparison table ("מעל 721,560 | 3% מס נוסף")
+corroborated it but, being editorial apparatus, could not ground a proof atom.
+
+The inference is no longer load-bearing. The Tax Authority's booklet names the
+section and the amount in one sentence, and it is provision text of an official
+publication rather than a publisher's annotation:
+
+> על פי סעיף 121ב לפקודה ,יחיד אשר הכנסתו החייבת בשנת המס עלתה על ₪ 721,560
+
+That sentence grounds `published_additional_tax_threshold_annual_ils` in
+`il/policies/israel-tax-authority/adjusted-amounts.yaml`, for 2025 and again,
+word for word, for 2026. (The space before the comma is the PDF extractor's, not
+the publisher's; see `ita-booklet-table-extraction`.) What remains an inference
+is only the reading of TaxBEN's own 50% row, which nothing in this repository now
+depends on.
+
+### `ita-booklet-table-extraction` — what a PDF proof can and cannot carry
+`il/policies/israel-tax-authority/adjusted-amounts.yaml` is the pilot's only
+module whose source is a PDF. A Hebrew PDF table does not survive text
+extraction unchanged, so the text its proof excerpts are checked against is a
+NORMALIZATION, and the normalization is part of the record:
+
+```
+pdftotext -enc UTF-8 -layout <pdf>
+  -> drop Unicode category Cf (the bidi controls pdftotext emits)
+  -> NFC
+  -> collapse runs of whitespace inside each line to one space
+  -> strip lines, drop empty lines
+```
+`ops/il-lane/extract/ita_booklet.py` does this and pins the result:
+sha256 `d667e57d467e03f1054d2418f34fafca7fe6b3f936e44a3b6e113482a50d5d38` (2025)
+and `edc68a8ea391a9d298e8dc4119a4bc0e403b0c889156c742845b270d97262d01` (2026).
+
+Three consequences, none of them hidden:
+
+* **Column order is the extractor's, not the page's.** `560,280 269,281עד- מ-`
+  is one row of the 2025 annual schedule with its upper bound first. It is
+  verbatim in the normalized text and it is not how the row is printed.
+* **The 2025 band atoms prove a boundary, not a rate.** For 2026 the booklet
+  states each changed band in prose and the excerpt carries bounds and rate
+  together. For 2025 the schedule is a table, and the span that the proof
+  matcher accepts carries the bounds without the rate cell, which sits in the
+  same extracted row. The rate association rests on the row and on the rule's
+  `source`, not on the excerpt alone. The rates themselves are encoded from the
+  Ordinance in `section-121.yaml`, which is where they belong.
+* **Whitespace artifacts are real and are not edited away.** The extractor emits
+  a space before some commas (`לפקודה ,יחיד`) and merges some tokens
+  (`60,130לחודש`). Excerpts were chosen to avoid the merged tokens; where an
+  artifact falls inside a chosen excerpt it is preserved rather than tidied,
+  because the excerpt must remain a verbatim substring of the pinned text.
+
+Every excerpt in the module was accepted by axiom-encode's own evidence matcher
+at generation time, which is stricter than a substring test — it rejected six
+spans that a plain `in` test accepted, and those were replaced rather than
+forced.
+
+**Resolution:** none available from this source. A machine-readable Tax Authority
+amounts publication, or a Yalkut Pirsumim notice, would remove the extraction
+layer entirely.
 
 ### `credit-conditions-are-inputs-not-derived`
 §34 ("יחיד שהיה תושב ישראל בשנת המס"), §36 ("יחיד תושב ישראל") and §36א ("אשה")
