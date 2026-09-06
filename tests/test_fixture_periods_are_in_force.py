@@ -27,6 +27,13 @@ IL = ROOT / "il"
 # פרק ג׳ "ריווח מדרגות מס הכנסה", §6: תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026).
 SECTION_121_COMMENCEMENT = dt.date(2026, 1, 1)
 
+# The figures ס״ח 3511 §5 actually writes into §121, read from the captured gazette
+# (sha256 4196057aa7d796bf64935647f4f3e3d02511fa00eaa215dc5ad914601b4e6583):
+# §121(א)(1) -> 301,200; §121(א)(2) -> 301,201 עד 560,280 @35%;
+# §121(ב)(1)(ג) upper -> 228,000; §121(ב)(1)(ד) -> 228,001 עד 301,200 @31%.
+# 84,120 and 120,720 are NOT in this set — that act does not touch them.
+AMENDMENT_288_FIGURES = {301200, 301201, 560280, 228000, 228001}
+
 
 def _module_files() -> list[Path]:
     return sorted(
@@ -58,7 +65,14 @@ def _earliest_effective_from(rule: dict) -> dt.date | None:
 
 
 def _case_start(case: dict) -> dt.date:
-    period = case.get("period", "2026-01")
+    """A case with no period is an error, not a 2026 case.
+
+    Defaulting here would let an undated fixture pass every check below while the
+    engine resolved it against whatever period it inferred.
+    """
+    if "period" not in case:
+        raise AssertionError(f"companion case {case.get('name')!r} declares no period")
+    period = case["period"]
     if isinstance(period, dict):
         return _as_date(period["start"])
     text = str(period)
@@ -107,67 +121,114 @@ def _resolve(output_key: str) -> tuple[str, str] | None:
 def test_no_companion_case_predates_the_rules_it_asserts(
     module_path: Path, test_path: Path
 ) -> None:
-    """Including rules the case asserts on OTHER modules it imports.
+    """Every rule the case reaches, whether it asserts it or merely imports it.
 
-    The composed capstone is the case that matters: it imports ITO §121, so it cannot
-    answer a period earlier than §121's own commencement however its own versions are
-    dated.
+    Asserted outputs are not the whole exposure: the composed capstone imports ITO §121
+    and consumes it whether or not a case names `#income_tax` in its `output` map, so a
+    case dated before §121 commences cannot run however its own versions are dated.
+    Checking only `output` would have missed exactly that, which is the defect review
+    round 1 raised.
     """
     commencements = _commencements_by_module()
+    module = _load(module_path) or {}
     cases = _load(test_path) or []
 
+    # Rules this module imports, and therefore reaches in every one of its cases.
+    imported = []
+    for entry in module.get("imports") or []:
+        resolved = _resolve(str(entry))
+        if resolved is not None:
+            imported.append(resolved)
+
     failures = []
+    unresolved = set()
     for case in cases:
         start = _case_start(case)
+        reached = list(imported)
         for output in (case.get("output") or {}):
             resolved = _resolve(str(output))
             if resolved is None:
                 continue
-            module_id, rule_name = resolved
-            commences = (commencements.get(module_id) or {}).get(rule_name)
+            reached.append(resolved)
+        for module_id, rule_name in reached:
+            if module_id not in commencements:
+                unresolved.add(module_id)
+                continue
+            commences = commencements[module_id].get(rule_name)
             if commences is not None and start < commences:
                 failures.append(
                     f"{case.get('name')}: asks for {start}, but "
                     f"{module_id}#{rule_name} commences {commences}"
                 )
+
+    assert not unresolved, (
+        f"{module_path.relative_to(ROOT)} references modules that do not exist on disk, "
+        "so their commencements were never checked: " + ", ".join(sorted(unresolved))
+    )
     assert not failures, (
         f"{module_path.relative_to(ROOT)} has companion cases dated before the rules "
-        "they assert are in force:\n  " + "\n  ".join(failures)
+        "they reach are in force:\n  " + "\n  ".join(sorted(set(failures)))
     )
 
 
-def test_section_121_schedule_is_restricted_to_its_commencement() -> None:
-    """The §121 bands must not claim to have been in force before 2026-01-01."""
+def _section_121_versions():
     module = _load(IL / "statutes/income-tax-ordinance/section-121.yaml")
-    offenders = []
     for rule in module["rules"]:
         for version in rule.get("versions") or []:
-            start = _as_date(version["effective_from"])
-            if start != SECTION_121_COMMENCEMENT:
-                offenders.append(f"{rule['name']}: {start}")
+            yield rule["name"], version, _as_date(version["effective_from"])
+
+
+def _carries_amendment_288_figures(version: dict) -> bool:
+    """Does this version state a figure ס״ח 3511 §5 actually wrote?
+
+    §5 replaces four things and nothing else: §121(א)(1)'s amount -> 301,200;
+    §121(א)(2) -> "מ־301,201 ... עד 560,280 ... 35%"; §121(ב)(1)(ג)'s upper edge ->
+    228,000; §121(ב)(1)(ד) -> "מ־228,001 ... עד 301,200 ... 31%". The 84,120 and
+    120,720 edges and the 10%/14%/20%/47% rates are older text this act left alone,
+    so a version stating only those is NOT dated by amendment 288.
+    """
+    values = version.get("values")
+    if not isinstance(values, dict):
+        return False
+    return bool(AMENDMENT_288_FIGURES & {v for v in values.values()})
+
+
+def test_amendment_288_figures_are_dated_from_its_commencement() -> None:
+    """The figures ס״ח 3511 §5 wrote must carry that act's own commencement.
+
+    This is anchored on the FIGURES, not on the module: a later ingest of the pre-288
+    expression may legitimately add versions dated earlier, carrying the old amounts.
+    What must never happen again is an amendment-288 figure claiming to have been in
+    force before the act that wrote it.
+    """
+    offenders = [
+        f"{name}: {start} states {sorted(AMENDMENT_288_FIGURES & set(version['values'].values()))}"
+        for name, version, start in _section_121_versions()
+        if _carries_amendment_288_figures(version) and start != SECTION_121_COMMENCEMENT
+    ]
     assert not offenders, (
-        "ITO §121 carries the post-amendment-288 schedule, which commenced "
-        f"{SECTION_121_COMMENCEMENT} (ס״ח 3511, פרק ג׳ §6). Every version must say so; "
-        "these do not:\n  " + "\n  ".join(offenders)
+        "ITO §121 versions stating post-amendment-288 figures must commence "
+        f"{SECTION_121_COMMENCEMENT} (ס״ח 3511, פרק ג׳ §6). These do not:\n  "
+        + "\n  ".join(offenders)
     )
 
 
-def test_section_121_has_no_version_covering_an_earlier_year() -> None:
-    """An earlier period must fail to resolve, not receive the 2026 schedule.
+def test_no_earlier_period_receives_the_amendment_288_schedule() -> None:
+    """A pre-2026 request must find the old amounts or nothing — never the new ones.
 
-    The pre-288 amounts are not in this repository's corpus, so the honest behaviour is
-    for a 2025 request to find no version in force rather than to be answered with the
-    2026 bands.
+    Today no pre-288 expression is in this repository's corpus, so a 2025 request finds
+    no version in force at all. That is the honest behaviour, and it is what this test
+    enforces; it does NOT forbid the recorded resolution in docs/ENCODING-GAPS.md
+    (`ito-section-121-dated-from-amendment-288`), which is to ingest the earlier
+    expression and encode it as its own, earlier-dated version.
     """
-    module = _load(IL / "statutes/income-tax-ordinance/section-121.yaml")
     earlier = dt.date(2025, 12, 31)
     covering = [
-        rule["name"]
-        for rule in module["rules"]
-        for version in rule.get("versions") or []
-        if _as_date(version["effective_from"]) <= earlier
+        f"{name}: {start}"
+        for name, version, start in _section_121_versions()
+        if start <= earlier and _carries_amendment_288_figures(version)
     ]
     assert not covering, (
-        "these ITO §121 rules would answer a 2025 request with the 2026 schedule: "
-        + ", ".join(sorted(set(covering)))
+        "these ITO §121 versions would answer a 2025 request with amendment 288's "
+        "figures: " + ", ".join(sorted(set(covering)))
     )
