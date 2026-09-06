@@ -90,6 +90,28 @@ By contrast, the §121 bracket thresholds *are* stated as current amounts in the
 consolidated text and were written into the statute by the 2026 amending act, so
 they are encoded as parameters.
 
+The child allowance amounts are **not** in that supplied category. Both years now
+come from the National Insurance Institute's own rate page: the live capture for
+2026, and the same official page as it stood on 2025-04-20 for 2025, retrieved
+from the Internet Archive because the live page no longer states the earlier
+amounts. The publisher is the Institute; the archive is only the delivery
+channel, and the retrieved bytes carry their own provenance record. Both
+snapshots also state the §68(ג) income-support increment — 111 and 113 — which
+the statute expresses as 70% of a basic amount this repository has not captured
+for either year. That mismatch is recorded, not papered over.
+
+## Corpus anchoring
+
+Proof excerpts quote the captured snapshots, because no signed `il-rulespec-*`
+corpus release exists. The Israel ingest does exist as an unmerged branch, so the
+re-anchor pass has been run against it read-only: **82 of 100 proof excerpts are
+already verbatim in the corpus body.** The remaining 18 are two structural gaps,
+not excerpt defects — the corpus has no `il/policy` scope for the Institute's
+publication (14 atoms), and it holds only the 2026 expression of §121 while this
+pilot's validation year is 2025 (4 atoms). Both are written up in
+`docs/ENCODING-GAPS.md` under `corpus-anchor`, together with the seven
+`source_sha256` pins that will need repinning and the digests to repin them to.
+
 ## Toolchain binding
 
 `.axiom/toolchain.toml` is deliberately **absent**: no signed `il-rulespec-*`

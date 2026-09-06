@@ -16,28 +16,111 @@ OData for both pilot instruments. The pilot therefore encodes from ספר החו
 **Resolution:** capture the Knesset "נוסח מלא" PDFs through a real browser and
 re-anchor every module.
 
-### `corpus-anchor` — citation paths are not corpus-anchored
+### `corpus-anchor` — citation paths are not corpus-anchored, and the re-anchor pass has been run against the ingest branch
 No `il-rulespec-*` corpus release exists. Each module's
 `source_verification.source_sha256` is the sha256 of the captured snapshot's
-provision text, not of a corpus provision, and the `corpus_citation_path` values
-name paths the corpus does not yet contain.
-**Resolution:** re-anchor pass after the Israel ingest lands and the release is
-signed and registered.
+provision text, not of a corpus provision.
+
+The Israel ingest now exists as an unmerged, unsigned branch
+(`axiom-corpus` `ingest/il-taxben-pilot`, 1,414 provisions), so the re-anchor
+pass this gap asks for has been RUN against it, read-only, by
+`ops/il-lane/extract/reanchor_check.py`. Result:
+
+```
+atoms checked: 100   re-anchored OK: 82   path-missing: 14   text-missing: 4
+```
+
+**82 of 100 proof excerpts are already verbatim NFC substrings of the corpus
+body.** The 18 that are not fall into two groups, neither of which an excerpt
+edit can honestly fix:
+
+* **14 atoms — `il/policy/...` is not in the Israel corpus scope.** The whole of
+  `il/policies/national-insurance-institute/child-allowance-rates.yaml` cites
+  `il/policy/national-insurance-institute/child-allowance-rates`, and the Israel
+  ingest is statute-only. The path SHAPE is the org-wide precedent — `policy` is
+  a first-class corpus `DocumentClass` and the corpus maps the RuleSpec
+  `policies/` bucket to a `policy` citation bucket, exactly as
+  `ug/policy/mglsd-scg/sage-handbook` and `rw/policy/loda-vup/...` do — so
+  nothing here needs renaming. The publication simply has not been ingested.
+  **Resolution:** ingest the two captured National Insurance Institute snapshots
+  as an `il/policy` scope.
+
+* **4 atoms — the corpus holds one expression of ITO §121, and it is the 2026
+  one.** `il/statute/income-tax-ordinance/section-121` has `expression_date`
+  2026-06-08 and the amendment-288 amounts (228,000 / 301,200). This pilot's
+  validation year is 2025, whose §121 states 193,800 / 269,280, and that text
+  lives only in the Wikisource rev-2971879 snapshot. The four atoms are on
+  `versions[0]`, the version that speaks for 2025.
+
+  **A shorter excerpt was considered and rejected.** Three of the four could be
+  trimmed until they coincidentally match the 2026 body — `rate_fourth_band`'s
+  `עד 269,280 שקלים חדשים – 31%` shortens to `שקלים חדשים – 31%`, which is
+  verbatim in both years. That would turn the re-anchor number green while
+  making an atom that speaks for 2025 prove itself against 2026 text describing
+  a different band. Making a gate pass by weakening what the proof asserts is
+  the failure mode this repository exists to avoid, so the excerpts are
+  unchanged and the gap is recorded instead.
+  **Resolution:** the corpus ingests the 2025 expression of §121.
+
+One atom in this class WAS repaired, because it was a genuine excerpt bug rather
+than a missing expression: §121ב(א)'s excerpt straddled a space that only this
+pilot's extractor writes (`640,000 שקלים חדשים , בשיעור`, where the corpus reads
+`640,000 שקלים חדשים, בשיעור`). Splitting it into the charge and the rate keeps
+the whole obligation proved and is verbatim in both renderings.
+
+#### `source-sha256-pins-will-need-repinning` — 7 modules, digests known
+`axiom-encode validate` and `proof-validate` never read `source_sha256`. One
+command does: `axiom-encode check-source-staleness`, which compares the pin to
+`sha256(corpus_row.body.encode("utf-8"))` — the raw stored body, no NFC pass, no
+heading (`corpus_resolver._sha256_text`, and `source_hash.check_staleness`).
+
+Against the ingest branch, 5 modules already match byte-for-byte and 7 do not:
+
+| module | pinned | corpus body |
+|---|---|---|
+| ITO §34, §36, §36א; NII §66, §67 | — | **match** |
+| ITO §33א | `e72f45b6e51f…` | `c9bc12dcdd1a…` |
+| ITO §66 | `7b9a686f8137…` | `53e658c5b3dd…` |
+| ITO §120ב | `d77a820b8e0e…` | `879d9901d1ec…` |
+| ITO §121 | `7f8d61ff2d52…` | `e4f23cdd08d5…` |
+| ITO §121ב | `8a9665a0acb2…` | `116f2d6ace2f…` |
+| NII §1 | `cf5a4206e0ac…` | `18f37b3824a8…` |
+| NII §68 | `7e16e68531d2…` | `3bbeb6872e24…` |
+| composed capstone | none declared | `590fa971feee…` |
+
+The differences are the two rendering conventions
+`ops/il-lane/RULES-LANE-HANDOFF.md` predicted — consecutive subsection markers
+on one line, and a space stranded before punctuation by note removal — not
+content differences. The pins are deliberately NOT being changed to the corpus
+digests now: the ingest branch is unmerged, unsigned and still being edited, so
+pinning to it would claim verification against something that can still change,
+and the snapshot digests are the honest record of what this encoding was actually
+made from.
+**Resolution:** repin all seven in the same PR that adds `.axiom/toolchain.toml`,
+after the release is signed and registered. The pass is mechanical from here.
 
 ### `validators-not-run-as-shipped` — `validate` and `proof-validate` are gated
 `axiom-encode validate` and `axiom-encode proof-validate` both require
 `.axiom/toolchain.toml` and a signed corpus release, neither of which can
 honestly exist yet. What WAS run, and what it proves:
-* `axiom-encode test` — all 73 companion cases pass against an engine build
+* `axiom-encode test` — all 88 companion cases pass against an engine build
   carrying the ILS currency seed.
 * `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
   `require_policy_proofs=True`, invoked directly with the captured provision
-  texts as `source_texts` — 91 proof atoms checked across 14 modules, all pass,
-  plus 19 atoms re-checked against the specific expression their version speaks
+  texts as `source_texts` — 100 proof atoms checked across 14 modules, all pass,
+  plus 33 atoms re-checked against the specific expression their version speaks
   for (see `proof-check-concatenates-expressions-except-where-pinned`).
 * `find_missing_money_proof_atoms` — 0 missing money atoms across 14 modules.
+* `ops/il-lane/extract/reanchor_check.py` — the same excerpts re-checked against
+  the axiom-corpus Israel ingest branch; see `corpus-anchor`.
 The validator code is the same; only the source of the provision text differs.
-**Resolution:** run both commands as shipped after the toolchain PR.
+
+One thing running them as shipped would NOT add: neither `validate` nor
+`proof-validate` reads `source_verification.source_sha256` at all. The only
+command that checks a pin is `check-source-staleness`. If pin integrity is
+supposed to be gated for this pilot, that command has to be wired in explicitly —
+see `source-sha256-pins-will-need-repinning`.
+**Resolution:** run all three commands as shipped after the toolchain PR.
 
 ### `effective-from-dates-are-pilot-scope-not-commencement`
 Every module version carries `effective_from: 2025-01-01` unless a captured
@@ -54,11 +137,13 @@ version the modules properly.
 ### `proof-check-concatenates-expressions-except-where-pinned`
 `ops/il-lane/extract/proofcheck.py` builds `source_texts` by concatenating every
 captured expression of a citation path, so an excerpt validates if it appears in
-ANY expression of that provision. For ITO §121, which has two captured
-expressions, that is weaker than the real gate. The script therefore runs a
-second, explicit pass asserting that atoms on `versions[0]` appear in the 2025
-expression and atoms on `versions[1]` in the current one (19 atoms). No other
-module has more than one captured expression.
+ANY expression of that provision. Two citation paths have two captured
+expressions each — ITO §121 (2025 and current) and the National Insurance
+Institute rate page (2025 and 2026) — and for those, concatenation is weaker than
+the real gate. The script therefore runs a second, explicit pass asserting that
+atoms on `versions[0]` appear in the earlier expression and atoms on
+`versions[1]` in the later one (33 atoms). No other module has more than one
+captured expression.
 
 ### `gazette-effective-date-not-a-proof-atom`
 The 2026 `effective_from` dates rest on ס״ח 3511 פרק ג׳ §6
