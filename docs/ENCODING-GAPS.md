@@ -1,9 +1,10 @@
 # Encoding gaps
 
-Everything this pilot does not do, could not verify from primary law, or verified
-against something weaker. Divergences from a reference are recorded here as
-`unexplained` with both numbers; no issue is ever filed against an external
-reference.
+What this pilot does not do, could not verify from primary law, or verified against
+something weaker — as far as its own review rounds have found. This is a record of
+known gaps, not a proof that no others exist; review round 2 added four entries below
+that two earlier rounds had missed. Divergences from a reference are recorded here as
+`unexplained` with both numbers; no issue is ever filed against an external reference.
 
 ## How the content was produced, and what is provisional about that
 
@@ -11,11 +12,16 @@ reference.
 Every atomic module here was produced by `axiom-encode encode <citation> --backend codex
 --apply`, but not by a released axiom-encode. The pinned ref hard-requires a **signed corpus
 release** for the jurisdiction it is encoding, and no `il-rulespec-*` release exists. The only
-refs that can encode without one predate the current engine CLI. The encoder used is therefore
-**0.2.1197.4**: ref `55beb160` (the last ref that reads roots from
-`AXIOM_RULESPEC_REPO_ROOTS`) plus four fixes made in this pilot, with a deliberately four-part
-version so it can never be read as an upstream three-part release. Every apply manifest
-records the exact commit sha as well as the version.
+refs that can encode without one predate the current engine CLI. The base is ref `55beb160`, the
+last ref that reads roots from `AXIOM_RULESPEC_REPO_ROOTS`, plus fixes made in this pilot,
+each carrying a deliberately four-part version so it can never be read as an upstream
+three-part release.
+
+**Not one build: four.** Modules were applied as the fixes landed, so the twelve manifests
+record `0.2.1197` / `55beb160` (3 modules), `0.2.1197.3` / `6e8cfabb` (1), `0.2.1197.4` /
+`dc7baa16` (5) and `0.2.1197.5` / `c08cb0c0` (3 — ITO §121 and NII §67, re-encoded in review
+round 2, and ITO §66). Any statement that "the encoder" here is a single version is wrong;
+the manifest is the authority, and it records the exact commit sha as well as the version.
 
 Two consequences, both harness-only and both disclosed:
 * A shim translates `AXIOM_RULESPEC_REPO_ROOTS` into the engine's `--rulespec-root` flags and
@@ -200,14 +206,32 @@ The Israel ingest holds a single expression of each provision: the Income Tax Or
 2026-06-08 and the National Insurance Law as of 2026-06-15, each the consolidation's own
 "נוסח עדכני נכון ליום" date. **This pilot therefore speaks for the current text and cannot
 speak for an earlier year.** The consequence that matters is ITO §121: the bands encoded here
-— 84,120 / 120,720 / 228,000 / 301,200 / 560,280 — are the text as replaced by ITO amendment
-288 with effect from 1 January 2026. The 2025 schedule (193,800 / 269,280 in the middle bands)
+— 84,120 / 120,720 / 228,000 / 301,200 / 560,280 — are the current expression, which ITO
+amendment 288 produced with effect from 1 January 2026. Read precisely, because the looser
+statement was in this file until review round 2: ס״ח 3511 פרק ג׳ §5 replaces FOUR figures —
+§121(א)(1)'s amount with 301,200, §121(א)(2) with `מ־301,201 ... עד 560,280 ... 35%`,
+§121(ב)(1)(ג)'s upper edge with 228,000, and §121(ב)(1)(ד) with `מ־228,001 ... עד 301,200 ...
+31%`. It does NOT touch 84,120, 120,720 or the 10/14/20/47% rates, which are older text this
+act left alone. What dates the whole module to 2026-01-01 is that the corpus holds one
+expression and §6 commences the act that produced it — not that every figure in it is
+amendment 288's work. The 2025 schedule (193,800 / 269,280 in the middle bands)
 is a different text and is not in the corpus, so no fixture in this repository computes a 2025
 liability, and the OECD TaxBEN Israel 2025 table is not a like-for-like comparison for the
 middle of the schedule. Since review round 1 the §121 module *says* so: its versions commence
 2026-01-01 and an earlier request finds no version in force. See
 `effective-from-is-not-commencement`.
 **Resolution:** ingest the earlier expressions and encode the years separately.
+
+### `amendment-288-indexation-baseline-not-encoded`
+The same act read for its commencement, ס״ח 3511 פרק ג׳, carries a §7 that this pilot has not
+acted on: `לעניין תיאום הסכומים הנקובים בפרק זה לפי סעיף 120ב(ה) לפקודת מס הכנסה (בפרק זה –
+הסכומים), יראו אותם כאילו היו הסכומים המתואמים ליום כ' בטבת התשפ״ד (1 בינואר 2024)` — for
+indexation under §120ב(ה), the new §121 amounts are treated as if adjusted to 1 January 2024.
+ITO §120ב IS encoded here (the §120ב(ה)(1) freeze), so this is a transitional rule about a
+provision in this repository, bearing on exactly the figures in this repository. It is
+neither encoded nor previously recorded; round 2 read the act's §6 and stopped there.
+**Resolution:** encode it with §120ב's indexation whenever that is encoded; until then any
+indexed §121 figure derived from this repository is missing its statutory baseline.
 
 ## Divergences from references
 
@@ -352,15 +376,17 @@ whole while crediting back the reduced-rate part. Its own fixtures exercise mixe
 the books exception on each side. The composed pipeline supplies an employee's whole wage as
 personal-exertion income, so no fixture there exercises the split, but the module does.
 
-Review round 1 additionally found the composition classifying that wage under §121ב(ה)'s
+### `ito-section-121b-subsections-b-to-e-not-encoded`
+Only §121ב(א) and §121ב(א1) are encoded, plus the §121ב(ה) definitional split that separates
+capital-source income from §2(1)/(2) and personal-exertion income.
+
+Review round 1 found the composition classifying an employment wage under §121ב(ה)'s
 paragraph (2) — personal-exertion income that is NOT §2(1)/(2) income — while setting the
 paragraph (1) category to zero. A salary is `השתכרות או ריווח מעבודה`, ITO §2(2)(א), so it is
 paragraph (1) income. The two assignments are now the other way round. §121ב subtracts both
-categories identically, so no computed figure changed; the classification did.
-
-### `ito-section-121b-subsections-b-to-e-not-encoded`
-Only §121ב(א) and §121ב(א1) are encoded, plus the §121ב(ה) definitional split that separates
-capital-source income from §2(1)/(2) and personal-exertion income. §121ב(ב) (no §91(ד)
+categories identically, so no computed figure changed; the classification did. ITO §2 is
+cited for that definition and is not itself encoded — see
+`data/coverage/tax-benefit-source-map.json`, `applied_without_a_module`. §121ב(ב) (no §91(ד)
 advances on income bearing the additional tax), §121ב(ג) (notwithstanding any enactment) and
 §121ב(ד) (the §8(ג) spreading rule) are not. The 5,385,285 ILS residential-dwelling threshold
 IS encoded as a parameter, but nothing consumes it: the module's `deferred_outputs` record
@@ -379,9 +405,46 @@ captured expression and are not encoded.
 §67 decides which parent a child is counted with. The encoding takes the household shape as
 Boolean facts about one child and one "current" insured parent
 (`child_has_two_parents`, `current_insured_parent_is_father`, `child_is_with_mother_alone`,
-`child_has_natural_and_other_parent`, `child_is_with_current_insured_parent`) rather than as
-relations between entities, because this pilot declares no Child entity. The section is
-encoded and tested in its own module; the composed pipeline does not apply it (below).
+`child_has_natural_and_other_parent`, `child_is_with_current_insured_parent`,
+`child_other_parent_is_insured` and `insured_parents_counting_child_in_same_period`) rather
+than as relations between entities, because this pilot declares no Child entity. The last two
+arrived in review round 2; the module now carries 3 rules, 7 local inputs and 8 cases. The
+section is encoded and tested in its own module; the composed pipeline does not apply it
+(below).
+
+### `nii-section-67a-is-audited-not-enforced`
+§67(א) — `לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד` — is encoded as
+`child_counting_complies_with_single_parent_limit`, which reads
+`insured_parents_counting_child_in_same_period <= maximum_insured_parents_counting_same_child`.
+The count on the left is **supplied by the caller**. So the rule checks the caller's own
+number against the constant 1; it does not constrain `child_counted_with_insured_parent`,
+which can return `holds` in the same period in which the limit judgment returns `not_holds`.
+§67(א) is therefore audited, not enforced, and a caller that supplies `1` gets a tautology
+back. Enforcing it needs a Child entity that both parents' modules can see.
+**Resolution:** encode §67 against a Child entity once the pilot declares one; until then a
+consumer must not read `child_counted_with_insured_parent` as satisfying §67(א).
+
+### `nii-section-67a-proof-atom-has-no-excerpt`
+The single proof atom on `child_counting_complies_with_single_parent_limit` carries a
+`corpus_citation_path` and no `excerpt`, so nothing in the module ties that rule's formula to
+statutory text even though `module.proof_validation.required` is true. Round 2's encoder run
+moved the §67(א) excerpt onto the `maximum_insured_parents_counting_same_child` parameter and
+did not leave one behind on the judgment. Two supervised repair rounds were spent on this
+module (the per-module budget), so this is recorded rather than patched — hand-editing an
+encoder module is not available.
+**Resolution:** a third supervised round on §67 whenever the module is next re-encoded.
+
+### `composition-has-no-machine-readable-assembled-marker`
+`il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` is the one assembled
+file here, and nothing in it says so in a form a machine reads. `module.kind: composition` —
+the marker axiom-encode writes into compositions it generates itself — is rejected by the
+engine on this surface: *"atomic RuleSpec module ... must not declare module.kind;
+`composition` is accepted only by the composed-program surface"*. Tried in review round 2 and
+reverted. The only signal is therefore the absence of an apply manifest, which is what
+`axiom-encode guard-generated` reports for this file and its companion, and that report is
+correct rather than a nuisance to be silenced.
+**Resolution:** upstream — either accept `module.kind` on the atomic surface or give
+compositions a manifest of their own kind.
 
 ### `credit-conditions-are-inputs-not-derived`
 ITO §34 ("יחיד שהיה תושב ישראל בשנת המס"), §36 ("יחיד תושב ישראל") and §36א ("אשה") each state

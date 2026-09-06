@@ -67,11 +67,13 @@ gershayim (״), geresh (׳) and maqaf (־) preserved as captured. Section suffix
 transliterate by ordinal, not by sound: §121ב → `section-121b`, §36א →
 `section-36a`.
 
-Getting the encoder to read Hebrew at all took four fixes to it, each found by a module
+Getting the encoder to read Hebrew at all took five fixes to it, each found by a module
 that came out wrong: a maqaf glued to a digit (`מ־84,120` parsed as 120), the Unicode
 fraction slash a printed `2½` flattens to (`21⁄2` parsed as twenty-one halves), Hebrew
-numerals spelled as words (`שתי`, `שלושה`, `הילד הרביעי`), and a `yaml.safe_dump` that
-escaped every non-Latin character out of the file. See `docs/ENCODING-GAPS.md`.
+numerals spelled as words (`שתי`, `שלושה`, `הילד הרביעי`), a `yaml.safe_dump` that
+escaped every non-Latin character out of the file, and — separately — the same escaping
+where the *model* chose to write it, which `--apply` copies verbatim and so no findings
+file can reach. See `docs/ENCODING-GAPS.md`.
 
 ## Source priority
 
@@ -86,7 +88,11 @@ escaped every non-Latin character out of the file. See `docs/ENCODING-GAPS.md`.
 3. **ספר החוקים הפתוח** on he.wikisource — the consolidation the Knesset database's
    own "לחוק המלא" link points to. Tier: `consolidation-knesset-linked`. This is
    the provision source of record for the pilot, and that is a **secondary
-   tier** — recorded as such here, in every module's provenance, and in the PR.
+   tier** — recorded as such here, in `data/coverage/tax-benefit-source-map.json`
+   (`source_tier: consolidation-knesset-linked`) and in the PR. No module records a
+   source tier of its own: a module declares a `corpus_citation_path` and nothing about
+   the tier of the text behind it, so the tier is a property of the ingest, not of the
+   encoding.
 4. **Nevo** (`nevo.co.il`) — commercial consolidation, cross-check only.
 5. **רשות המסים** (Tax Authority) and **המוסד לביטוח לאומי** (National Insurance
    Institute) publications — the only admissible source for current-year regulated
@@ -105,11 +111,18 @@ extracted, and amendment-history brackets are stripped from provision bodies.
 the amending act sets its own commencement: ס״ח 3511, פרק ג׳ "ריווח מדרגות מס הכנסה", §6 —
 `תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026)`. So every version of the §121
 module, and of the composed pipeline that imports it, carries
-`effective_from: '2026-01-01'`, every fixture is evaluated in 2026, and a request for an
-earlier period finds **no version in force** rather than being answered with the wrong
-year's schedule. The 2025 amounts are a different text that is not in this repository's
-corpus. `tests/test_fixture_periods_are_in_force.py` holds that line: no companion case,
-in any module, may be dated before a rule it asserts commences.
+`effective_from: '2026-01-01'`, and a request for an earlier period finds **no version in
+force** rather than being answered with the wrong year's schedule. The 2025 amounts are a
+different text that is not in this repository's corpus.
+
+That applies to §121 and to the pipeline, not to the repository: the other modules are
+dated `0001-01-01` and their fixtures run in the year each was written for, so of 68
+companion cases only the pipeline's 11 and §121's 5 are evaluated in 2026, and §120ב's
+run in 2025 and 2028. `docs/ENCODING-GAPS.md`, `effective-from-is-not-commencement`,
+records why. `tests/test_fixture_periods_are_in_force.py` holds the line that matters:
+no companion case, in any module, may be dated before a rule it **reaches** commences —
+including rules reached through a declared import and never named in the case's own
+`output` map.
 
 Most other modules carry `effective_from: 0001-01-01` — the encoder's way of saying that
 the captured consolidation states no commencement date for the provision it encoded.
@@ -148,10 +161,14 @@ substring of the corpus body.
 **No module pins a digest of the statutory text it encodes.** Each declares
 `source_verification.corpus_citation_path` and no `source_sha256`: that is what the encoder
 writes when it resolves a citation out of a corpus checkout rather than out of a signed
-release, and there is no release digest to pin to yet. The `sha256` values that DO appear in
-this repository — in `.axiom/encoding-manifests/` — are digests of the generated module and
-its companion file. They identify what the encoder produced, not the provision body it read,
-and they would not change if the corpus text did. What anchors an encoding to its text is
+release, and there is no release digest to pin to yet.
+
+`sha256` values do appear here, in two places, and neither is a digest of statutory text.
+In `.axiom/encoding-manifests/` they are digests of the generated module and its companion
+file — what the encoder produced. Inside five module YAMLs they are `import.hash` values
+pinning the imported RULE definition (`sha256:local` where the import is same-module), so
+that a change to an imported rule is detectable by its consumer. Both identify RuleSpec
+artifacts. Neither would change if the corpus text did. What anchors an encoding to its text is
 therefore the citation path plus the named corpus ingest, re-checked by re-running the proof
 check against that ingest; a byte-level anchor arrives with the signed release. Until
 `il-rulespec-2026-09-06` is cut, signed and registered, an excerpt is checked against a branch
