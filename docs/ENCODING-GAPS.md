@@ -270,6 +270,31 @@ and claims nothing about the indexed one.
 **Resolution:** capture a Tax Authority עדכון סכומים notice and encode the current threshold
 as a policy amount.
 
+
+### `section-121b-a1-capital-charge-not-dated-from-2025`
+
+ITO §121ב(א1) — the 2% additional tax on capital-source income above the threshold — was
+inserted by amendment 276 (ס״ח 3342, 26.12.2024), whose §3 commences the act on 1 January 2025
+and applies (א1) "על הכנסה שהופקה או התקבלה ביום התחילה ואילך". The encoded module dates every
+rule, the (א1) rules included, `effective_from: '0001-01-01'`, so a request for a pre-2025
+period receives the capital charge, and its companion cases assert that charge in a 2024 period.
+This was review finding 1 of round 2 (gate 20260906-170741-pr-e770f34c).
+
+Three supervised repair rounds were run with a findings file quoting the commencement clause and
+naming the four rules and the two versions `total_additional_tax` needs (runs 04d8aae9 on
+gpt-5.6-terra, blocked at apply by a mis-cited test path; 44629d85 and 39815ea5 on gpt-6-astra,
+the last applied cleanly). None changed a single `effective_from`; the last also moved every
+fixture to a 2024 period. The applied output of that round was declined (reverted to the
+committed encoding) because it did not fix the finding and changed nothing else for the better.
+Under the encoding regime the module is not edited by hand, so the defect stands here, recorded.
+
+Scope of the harm: the composed pipeline is the only consumer of this module in the repository
+and its own versions start at `2026-01-01`, so no request the pipeline can answer reaches the
+undated rules before 2025. A direct call to the §121ב module for a 2024 period will.
+
+**Resolution:** the pinned-ref re-encode (Path R) after the corpus release, with this entry as
+its findings file; if that encoder also declines to date the rules, the encoder's handling of
+amendment commencement is the defect to file against axiom-encode, not this module.
 ### `nii-68c-increment-not-reconcilable-with-the-published-figure` — `unexplained`
 NII §68(ג) states the income-support addition as 70% of the §1(2)(ג) basic amount, which
 §1(2)(ג) states nominally as 140 — so the statute, taken alone, gives 98. The National
