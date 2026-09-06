@@ -5,14 +5,31 @@ module:
   source_verification:
     corpus_citation_path: il/statute/national-insurance-law-1995/section-67
   summary: |-
-    לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד. ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד.
+    (א) לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד.
+    (ב) ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד; ילד שיש לו הורה טבעי והורה אחר והם מבוטחים, יבוא במנין ילדי אותו הורה אשר עמו הוא נמצא.
 rules:
-  - name: child_counted_with_insured_parent
+  - name: maximum_insured_parents_counting_same_child
+    kind: parameter
+    dtype: Count
+    source: National Insurance Law, 1995, section 67(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-67
+              excerpt: לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד.
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          1
+  - name: child_counting_complies_with_single_parent_limit
     kind: derived
     entity: Person
     dtype: Judgment
     period: Month
-    source: National Insurance Law, 1995, section 67(a)-(b)
+    source: National Insurance Law, 1995, section 67(a)
     metadata:
       proof:
         atoms:
@@ -20,17 +37,34 @@ rules:
             kind: condition
             source:
               corpus_citation_path: il/statute/national-insurance-law-1995/section-67
-              excerpt: "לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          insured_parents_counting_child_in_same_period <= maximum_insured_parents_counting_same_child
+  - name: child_counted_with_insured_parent
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Insurance Law, 1995, section 67(b)
+    metadata:
+      proof:
+        atoms:
           - path: versions[0].formula
-            kind: ordering
+            kind: exception
             source:
               corpus_citation_path: il/statute/national-insurance-law-1995/section-67
-              excerpt: "יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד"
+              excerpt: ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד
           - path: versions[0].formula
             kind: condition
             source:
               corpus_citation_path: il/statute/national-insurance-law-1995/section-67
-              excerpt: "יבוא במנין ילדי אותו הורה אשר עמו הוא נמצא"
+              excerpt: ילד שיש לו הורה טבעי והורה אחר והם מבוטחים
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-67
+              excerpt: יבוא במנין ילדי אותו הורה אשר עמו הוא נמצא.
     versions:
       - effective_from: '0001-01-01'
         formula: |-
@@ -40,4 +74,5 @@ rules:
           or ((not current_insured_parent_is_father)
           and child_is_with_mother_alone)))
           or (child_has_natural_and_other_parent
+          and child_other_parent_is_insured
           and child_is_with_current_insured_parent)
