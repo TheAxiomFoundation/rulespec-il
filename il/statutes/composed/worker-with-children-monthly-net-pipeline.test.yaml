@@ -1,95 +1,56 @@
-
-# Companion fixtures for the composed monthly-net capstone.
+# Companion fixtures for the composed monthly-net pipeline.
+#
+# WHAT YEAR THIS SPEAKS FOR. The Israel corpus holds ONE expression of each provision —
+# the Income Tax Ordinance as of 2026-06-08 and the National Insurance Law as of
+# 2026-06-15 — so the ITO §121 bands encoded here are the post-amendment-288 text that
+# takes effect on 1 January 2026: 84,120 / 120,720 / 228,000 / 301,200 / 560,280. These
+# fixtures are evaluated in 2026 for that reason. This repository cannot compute a 2025
+# liability, and the OECD TaxBEN Israel 2025 table is therefore not a like-for-like
+# comparison in the middle of the schedule. See docs/ENCODING-GAPS.md,
+# `corpus-holds-one-expression-per-provision`.
 #
 # SUPPLIED VALUES AND THEIR PROVENANCE — none of these is law as stated here:
-#   credit_point_value_for_tax_year_ils = 2,904 (OECD TaxBEN Israel 2025;
-#     §120ב(ה)(1) freezes it at the 2024 level through 2027, so 2026 uses the
-#     same figure).
-#   additional_tax_threshold_for_tax_year_ils = 721,560 (OECD TaxBEN 2025).
-#   thirty_five_percent_band_upper_ils = 560,280 (§121(א)(2) current text;
-#     supplied because the captured 2025 expression of that paragraph is
-#     defective).
-#   child allowance 169 / 214 for 2025 (OECD TaxBEN reference) and 173 / 219 for
-#     2026 (the CAPTURED official ביטוח לאומי publication, effective 01.01.2026).
+#   credit_point_value_for_tax_year_ils = 2,904. From the OECD TaxBEN Israel 2025
+#     description, a REFERENCE and not a source of law. ITO §120ב(ה)(1) freezes the
+#     indexed amounts for tax years 2025 to 2027 at their 1 January 2024 level, and that
+#     freeze IS encoded, so the same figure stands for 2026. The statute's own nominal
+#     figure — 504 ILS, ITO §33א — is encoded in this repository as
+#     `tax_credit_point_amount`.
+#   current_basic_amount_first_and_fifth_plus_ils = 173 and
+#   current_basic_amount_second_third_fourth_ils = 219. From the National Insurance
+#     Institute's published rate table, effective 01.01.2026, read during this pilot.
+#     That table is NOT carried in this repository: a policy capture is not
+#     encoder-generated content. The statute's own nominal figures — 150 and 188, NII
+#     §1(2)(א) and (ב) — ARE encoded, are imported by this pipeline, and every case
+#     asserts `statutory_nominal_monthly_child_allowance_ils` next to the amount actually
+#     paid so the distance between them is visible.
 #
-# CONSISTENCY THE FIXTURE MUST MAINTAIN: annual_taxable_income_ils is supplied to
-# the imported §121 module and equals monthly_gross_wage_ils x 12 in every case.
-# The pipeline cannot compute it, because an imported module's inputs are
-# supplied, not derived — the same constraint the rulespec-dk capstone documents.
+# THE §121ב THRESHOLD IS NOT SUPPLIED. This pipeline applies the 640,000 ILS the section
+# prints. The current-year threshold is higher, so the high-earner case below crosses a
+# nominal line rather than the year's line. That is a narrower claim than an indexed
+# figure would be, and it is the encoder's module that makes it: §121ב has no threshold
+# input to override.
 #
-# ON THE IMPORTED §66 ASSERTIONS: `mother_child_credit_points` and
-# `father_child_credit_points` belong to the §66 module and are a property of the
-# §66 inputs supplied here (child_age_years and the two year flags), NOT of
-# number_of_children. In the no-children case those inputs still describe a
-# hypothetical child, so the imported rules return that child's points while the
-# capstone's own child_1_credit_points and child_2_credit_points correctly return
-# 0. The composed total uses the capstone's rules.
+# THE COUPLING IS DERIVED. `taxable_income_for_section_121b` is derived here from the
+# monthly wage; §121ב computes the additional tax from it; and the fact NII §66 excludes
+# on — `insured_parent_has_income_subject_to_additional_tax_under_section_121b` — is
+# derived from that tax being positive. No fixture sets it. Raise the wage past the
+# threshold and the child allowance goes to zero because of NII §66's own encoded
+# judgment.
 #
-# The last case is the point of the whole pilot: raise the wage past the §121ב
-# threshold and the child allowance goes to zero, because NII §66 excludes a
-# parent liable to that tax. Nothing models that — the captured statutory text
-# says it.
-#
-# BUT READ docs/ENCODING-GAPS.md FIRST. The OECD TaxBEN Israel description says
-# this benefit "is not means-tested", which cannot be reconciled with §66's
-# exclusion, and nothing captured resolves the conflict. This fixture shows what
-# the encoded statute says. It is NOT a verified statement of what the National
-# Insurance Institute actually pays a high earner, and must not be shown as one.
+# READ docs/ENCODING-GAPS.md BEFORE PRESENTING THE HIGH-EARNER CASE. The OECD TaxBEN
+# Israel description says this benefit "is not means-tested", which cannot be reconciled
+# with §66's exclusion. Nothing captured resolves it. This fixture demonstrates the
+# encoded provision; it is NOT a verified description of what the National Insurance
+# Institute pays.
 
-- name: working_mother_two_children_fifteen_thousand_a_month_2025
-  period:
-    period_kind: month
-    start: '2025-01-01'
-    end: '2025-12-31'
-  input:
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: false
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
-  output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0.5
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15383.0
-- name: working_mother_two_children_fifteen_thousand_a_month_2026
+- name: working_mother_two_children_aged_two_and_eight_fifteen_thousand_a_month
+  # The base case. 180,000 a year on the §121(ב)(1) reduced schedule is
+  # 10% x 84,120 + 14% x 36,600 + 20% x 59,280 = 25,392. The mother's credit points are
+  # §34's two, §36's quarter, §36א's half, and the §66(ג)(4)(א) ladder's 4.5 for a child
+  # between the year after birth and the year it turns two plus 2 for a child from the year
+  # it turns six — 9.25 points, 26,862 ILS, which exceeds the tax. Net is the wage plus the
+  # child allowance.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -98,6 +59,10 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
@@ -107,250 +72,350 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: false
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
   output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0.5
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15392.0
-- name: minimum_wage_working_mother_two_children_2025
+- name: working_father_two_children_aged_two_and_eight_fifteen_thousand_a_month
+  # The same household with the §66(ג)(5) ladder instead. The man gets no §36א
+  # half point and one point rather than two for the eight-year-old: 7.75 points, 22,506 ILS,
+  # and 2,886 ILS of tax survives the credit. This is the divergence §66(ג)(4)(א) and
+  # §66(ג)(5) print, and it is why both ladders are encoded.
   period:
     period_kind: month
-    start: '2025-01-01'
-    end: '2025-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 70560.24
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 70560.24
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: false
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
   output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 7056.024
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0.5
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 1
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 7.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 22506.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 2886.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15151.5
+- name: minimum_wage_working_mother_two_children_aged_two_and_eight
+  # 5,880.02 a month is the statutory minimum monthly wage for a full-time
+  # employee as it stood in 2025. 70,560.24 a year falls entirely in the 10% band, and the
+  # credit points wipe the tax out completely.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 5880.02
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 7056.024
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 6263.02
-- name: single_woman_no_children_fifteen_thousand_a_month_2025
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 6272.02
+- name: woman_with_no_children_fifteen_thousand_a_month
+  # No children, so no §66 points and no child allowance — and this person is not
+  # an insured parent, so NII §66's judgment does not hold either. The zero branch of every
+  # child rule.
   period:
     period_kind: month
-    start: '2025-01-01'
-    end: '2025-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: false
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 0
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
   output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0.5
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 2.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 7986.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 17406.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 13549.5
-- name: working_father_two_children_fifteen_thousand_a_month_2025
+- name: high_earner_mother_two_children_sixty_thousand_a_month
+  # The point of the whole pipeline. 720,000 a year crosses the 640,000 ILS that
+  # ITO §121ב prints, so the additional tax is 3% x 80,000 = 2,400 — and NII §66 excludes an
+  # insured parent with income liable to that tax from the child allowance outright. The
+  # allowance goes to zero because of a provision in the National Insurance Law, computed
+  # from income through the Income Tax Ordinance. Nothing here models it; the captured
+  # statutory text says it. Read docs/ENCODING-GAPS.md,
+  # `child-allowance-surtax-exclusion-vs-oecd`, before showing this to anyone.
   period:
     period_kind: month
-    start: '2025-01-01'
-    end: '2025-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 180000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: false
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: false
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
-  output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 25392.0
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: not_holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 1
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 7.75
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 22506.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 2886.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 383
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15142.5
-- name: high_earner_loses_the_child_allowance_under_nii_section_66_2025
-  period:
-    period_kind: month
-    start: '2025-01-01'
-    end: '2025-12-31'
-  input:
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 70000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 60000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 169
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 214
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
-    il:statutes/income-tax-ordinance/section-121#input.annual_taxable_income_ils: 840000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 840000
-    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
-    il:statutes/income-tax-ordinance/section-121#input.income_is_from_personal_exertion_or_individual_is_60_or_over: true
-    il:statutes/income-tax-ordinance/section-121#input.books_of_account_required_but_not_kept: false
-    il:statutes/income-tax-ordinance/section-121#input.thirty_five_percent_band_upper_ils: 560280
-    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
-    il:statutes/income-tax-ordinance/section-34#input.individual_meets_resident_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36#input.individual_meets_travel_to_place_of_earning_credit_points_condition: true
-    il:statutes/income-tax-ordinance/section-36a#input.individual_meets_woman_credit_points_condition: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_is_insured: true
-    il:statutes/national-insurance-law-1995/section-66#input.parent_has_income_liable_to_additional_tax: true
-    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
-    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
-    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
   output:
-    il:statutes/income-tax-ordinance/section-121#reduced_rates_apply: holds
-    il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils: 284869.2
-    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: holds
-    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 3553.2
-    il:statutes/income-tax-ordinance/section-34#resident_credit_points_claimed: 2
-    il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points_claimed: 0.25
-    il:statutes/income-tax-ordinance/section-36a#woman_credit_points_claimed: 0.5
-    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
-    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
-    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
-    il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance: not_holds
+    il:statutes/income-tax-ordinance/section-121#income_tax: 223430.4
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 2400.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 261560.4
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 198968.4
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 48203.3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 43419.3
+- name: working_mother_child_in_its_birth_year_and_child_in_its_maturity_year
+  # The two ends of the woman's ladder: 2.5 points in the child's birth year and
+  # half a point in its maturity year.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 18
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 5.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 16698.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 8694.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14667.5
+- name: working_father_child_in_its_birth_year_and_child_in_its_maturity_year
+  # The same two children on the man's ladder. §66(ג)(5) grants 2.5 points in the
+  # birth year exactly as §66(ג)(4)(א) does, and grants NOTHING in the maturity year, where
+  # the woman gets half a point.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 18
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 4.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 13794.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 11598.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14425.5
+- name: working_mother_children_aged_three_and_five_twenty_thousand_a_month
+  # The middle rungs: 3.5 points in the tax year the child turns three, 2.5 in
+  # the years it turns four and five. 240,000 a year reaches the 31% reduced band.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 20000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 38712.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 3.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 8.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 25410.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 13302.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 19283.5
+- name: working_mother_child_past_its_maturity_year_and_child_aged_eight
+  # A child past the maturity year is outside both ladders and carries no points,
+  # while the eight-year-old still carries the woman's two. The allowance still counts both
+  # children: this pipeline does not apply NII §67, and says so.
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 19
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
+    il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 4.75
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 13794.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 11598.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14425.5
