@@ -6,30 +6,53 @@ Israel RuleSpec source registry — **bounded pilot**.
 > composed capstone. Nothing here is certified, complete, or fit for
 > administrative use. `app_visibility` is `experimental`.
 
+## How this content was produced
+
+**All atomic modules are encoder-generated.** Each was produced by
+`axiom-encode encode <corpus citation> --backend codex --apply` against the Israel
+corpus ingest, and each carries an apply manifest under `.axiom/encoding-manifests/`
+recording the run id, the model, the encoder version and commit, the prompt digest, the
+sha256 of every applied file, and the chain of superseded runs behind it. The encoder
+is a **local bootstrap build of axiom-encode ref `55beb160`** carrying five fixes for
+Hebrew source text, listed in `docs/ENCODING-GAPS.md` under
+`encoder-hebrew-fixes-pending-upstream`. The fixes were made as the pilot ran, so the
+manifests carry versions from `0.2.1197` to `0.2.1197.5` — each one records the exact
+version and commit sha of the build that produced it. Repair rounds were driven by
+written findings files, never by editing the YAML.
+
+The one file that is not encoder-generated is the composed pipeline,
+`il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml`. A composition is
+**assembled**: it declares imports of rules the encoder produced and the wiring between
+them. It states no statutory quantity the atomic modules do not already carry.
+
 ## What is encoded
 
-A deliberately small, end-to-end-testable slice chosen so a reader can check
-every number against the Hebrew statute:
+A deliberately small, end-to-end-testable slice chosen so a reader can check every number
+against the Hebrew statute:
 
-| Module | Provision | What it encodes |
-|---|---|---|
-| `il/statutes/income-tax-ordinance/section-121.yaml` | פקודת מס הכנסה §121 | individual rate schedule — the §121(א) general bands and the §121(ב)(1) reduced bands for earned income (הכנסה מיגיעה אישית), for tax years 2025 and 2026 |
-| `il/statutes/income-tax-ordinance/section-121b.yaml` | §121ב | מס נוסף — the 3% additional tax on high income and the 2% additional tax on capital-source income |
-| `il/statutes/income-tax-ordinance/section-120b.yaml` | §120ב | the annual indexation rule and the §120ב(ה) statutory freeze of the amounts for tax years 2025–2027 |
-| `il/statutes/income-tax-ordinance/section-33a.yaml` | §33א | the definition of נקודת זיכוי (credit point) as a nominal 504 ILS indexed under §120א |
-| `il/statutes/income-tax-ordinance/section-34.yaml` | §34 | resident credit — two credit points |
-| `il/statutes/income-tax-ordinance/section-36.yaml` | §36 | travel-to-work credit — ¼ credit point |
-| `il/statutes/income-tax-ordinance/section-36a.yaml` | §36א | woman's credit — ½ credit point |
-| `il/statutes/income-tax-ordinance/section-66.yaml` | §66(ג)(4)–(5) | child credit points by age band under separate calculation (חישוב נפרד) |
-| `il/statutes/national-insurance-law-1995/section-1.yaml` | חוק הביטוח הלאומי §1 | the הסכום הבסיסי definition, paragraph (2), for child allowance |
-| `il/policies/national-insurance-institute/child-allowance-rates.yaml` | ביטוח לאומי publication | the published monthly allowance amounts, effective 1 January 2026 — the only official current-year capture in this pilot |
-| `il/statutes/national-insurance-law-1995/section-66.yaml` | §66 | right to child allowance, and its exclusion of parents liable to the ITO §121ב additional tax |
-| `il/statutes/national-insurance-law-1995/section-67.yaml` | §67 | which parent a child is counted with |
-| `il/statutes/national-insurance-law-1995/section-68.yaml` | §68 | monthly allowance per child, the pre-2003 fourth/fifth-child multipliers, and the §68(ג) income-support increment |
-| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → child allowance → monthly net |
+| Module | Provision | What it encodes | Rules | Encoder run |
+|---|---|---|---|---|
+| `il/statutes/income-tax-ordinance/section-121.yaml` | §121 | the individual rate schedule — the §121(א) general bands and the §121(ב)(1) reduced bands for earned income (הכנסה מיגיעה אישית), withdrawn by §121(ב)(2) where acceptable books were not kept | 10 | `e0efe61b` / gpt-6-astra |
+| `il/statutes/income-tax-ordinance/section-121b.yaml` | §121ב | מס נוסף — the 3% additional tax above 640,000 ILS and the 2% additional tax on capital-source income, with the §121ב(ה) definition that separates the two bases | 10 | `17f7e7e7` / gpt-6-astra |
+| `il/statutes/income-tax-ordinance/section-120b.yaml` | §120ב | the §120ב(ה)(1) suspension of indexation for tax years 2025–2027. The indexation mechanism itself is NOT encoded | 1 | `44dee41d` / gpt-5.6-terra |
+| `il/statutes/income-tax-ordinance/section-33a.yaml` | פקודת מס הכנסה §33א | the definition of נקודת זיכוי — a nominal 504 ILS a tax year, index-linked under §120א — and the §33א(2) pension-point divisor | 2 | `e27027ce` / gpt-5.6-terra |
+| `il/statutes/income-tax-ordinance/section-34.yaml` | §34 | the resident credit — two credit points for an individual resident in Israel in the tax year | 2 | `5283d2a1` / gpt-5.6-terra |
+| `il/statutes/income-tax-ordinance/section-36.yaml` | §36 | the travel-to-work credit — ¼ of a credit point | 4 | `71a86074` / gpt-5.6-terra |
+| `il/statutes/income-tax-ordinance/section-36a.yaml` | §36א | the woman's credit — ½ a credit point | 2 | `3c640046` / gpt-5.6-terra |
+| `il/statutes/income-tax-ordinance/section-66.yaml` | §66 | separate calculation (חישוב נפרד) for a non-registered spouse, and the §66(ג)(4)(א) and §66(ג)(5) child credit-point ladders by age band | 36 | `565292ca` / gpt-6-astra |
+| `il/statutes/national-insurance-law-1995/section-1.yaml` | חוק הביטוח הלאומי §1 | the הסכום הבסיסי definition, paragraph (2) — the child-allowance base amounts | 3 | `cc386cda` / gpt-5.6-terra |
+| `il/statutes/national-insurance-law-1995/section-66.yaml` | §66 | the right to a monthly child allowance, and its exclusion of a parent liable to the ITO §121ב additional tax | 1 | `4a2c295e` / gpt-6-astra |
+| `il/statutes/national-insurance-law-1995/section-67.yaml` | §67 | which parent a child is counted with | 1 | `953953ca` / gpt-5.6-terra |
+| `il/statutes/national-insurance-law-1995/section-68.yaml` | §68 | the monthly allowance per child, the pre-June-2003 fourth/fifth-child multipliers, and the §68(ג) income-support increment | 8 | `bbcab920` / gpt-5.6-terra |
+| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → child allowance → monthly net | 20 | assembled, not encoded |
 
-Every module has a companion `.test.yaml` in which **every** local `#input`
-fact is assigned, including the false ones.
+Every module that reads a fact has a companion `.test.yaml` in which **every** local
+`#input` fact is assigned, including the false ones. The two modules that read none —
+§33א and NII §1, which are nothing but the amounts their provisions print — have an empty
+companion file, because the encoder deterministically empties the companion file of a
+parameter-only module. Those amounts are exercised where they are consumed, in the composed
+pipeline's fixtures. See `docs/ENCODING-GAPS.md`,
+`parameter-only-modules-carry-no-companion-cases`.
 
 ## Hebrew is the only authentic language
 
@@ -39,6 +62,12 @@ excerpts are verbatim NFC substrings of the captured Hebrew provision, with
 gershayim (״), geresh (׳) and maqaf (־) preserved as captured. Section suffixes
 transliterate by ordinal, not by sound: §121ב → `section-121b`, §36א →
 `section-36a`.
+
+Getting the encoder to read Hebrew at all took four fixes to it, each found by a module
+that came out wrong: a maqaf glued to a digit (`מ־84,120` parsed as 120), the Unicode
+fraction slash a printed `2½` flattens to (`21⁄2` parsed as twenty-one halves), Hebrew
+numerals spelled as words (`שתי`, `שלושה`, `הילד הרביעי`), and a `yaml.safe_dump` that
+escaped every non-Latin character out of the file. See `docs/ENCODING-GAPS.md`.
 
 ## Source priority
 
@@ -56,87 +85,82 @@ transliterate by ordinal, not by sound: §121ב → `section-121b`, §36א →
    tier** — recorded as such here, in every module's provenance, and in the PR.
 4. **Nevo** (`nevo.co.il`) — commercial consolidation, cross-check only.
 5. **רשות המסים** (Tax Authority) and **המוסד לביטוח לאומי** (National Insurance
-   Institute) publications under `il/policies/` — the only admissible source for
-   current-year regulated amounts.
+   Institute) publications — the only admissible source for current-year regulated
+   amounts. None has been ingested as an `il/policy` corpus scope, so none is encoded
+   here; the current-year amounts the composed pipeline uses are **supplied inputs**,
+   labelled case by case.
 6. Oracles are never law. See `data/oracles/oracle-index.json`.
 
 Statutes carry no copyright in Israel (Copyright Act 2007 §6). The editorial
 apparatus of a consolidation belongs to its publisher; only statutory text is
 extracted, and amendment-history brackets are stripped from provision bodies.
 
-## Validation year and the two-year encoding
+## What the modules speak for
 
-The pilot validates against **2025**, the year described by the OECD TaxBEN
-Israel policy description held in this repository's oracle index. It also
-encodes **2026**, because the two differ and the difference is instructive:
-
-- §120ב(ה)(1) froze the indexed amounts for tax years 2025–2027 at their
-  1 January 2024 level. The statute says so directly; it is not inferred.
-- Separately, the Economic Efficiency Law for budget year 2026 (ס״ח 3511, פרק ג׳,
-  ITO amendment 288) *widened the 20% and 31% bands by statute*, effective
-  1 January 2026. Frozen indexation and a statutory band change are different
-  things, and both are encoded with their own `effective_from`.
+Each module's versions carry `effective_from: 0001-01-01` — the encoder's way of saying
+that the captured consolidation states no commencement date for the provision it
+encoded. **That is not a claim that the rule has always been in force.** The captured
+consolidations carry amendment *lists* but no commencement clauses, and asserting a
+historical date would state something the sources do not support. The corpus holds one
+expression of each provision, dated by the consolidation's own "נוסח עדכני נכון ליום"
+line, and for ITO §121 that expression is the post-amendment-288 text — so this
+repository's §121 bands are the 2026 bands, not the 2025 ones. See
+`docs/ENCODING-GAPS.md`.
 
 ## Amounts that are NOT in this repository
 
-The Ordinance states the credit-point value (§33א) and the §121ב additional-tax
-threshold as **nominal historical amounts** subject to indexation — 504 ILS and
-640,000 ILS respectively — not as current-year figures. This repository does not
-compute indexation and does not carry an official current-year capture, so those
-current values enter the composed pipeline as **supplied inputs**, and the test
-fixtures label where each supplied number came from. See `docs/ENCODING-GAPS.md`.
+The Ordinance states the credit-point value (§33א) as a nominal 504 ILS and the §121ב
+additional-tax threshold as a nominal 640,000 ILS, both subject to an indexation
+mechanism this repository does not implement, and the National Insurance Law states the
+child-allowance basic amounts as a nominal 150 / 188 / 140. All of those nominal figures
+ARE encoded, with proofs.
 
-By contrast, the §121 bracket thresholds *are* stated as current amounts in the
-consolidated text and were written into the statute by the 2026 amending act, so
-they are encoded as parameters.
-
-The child allowance amounts are **not** in that supplied category. Both years now
-come from the National Insurance Institute's own rate page: the live capture for
-2026, and the same official page as it stood on 2025-04-20 for 2025, retrieved
-from the Internet Archive because the live page no longer states the earlier
-amounts. The publisher is the Institute; the archive is only the delivery
-channel, and the retrieved bytes carry their own provenance record. Both
-snapshots also state the §68(ג) income-support increment — 111 and 113 — which
-the statute expresses as 70% of a basic amount this repository has not captured
-for either year. That mismatch is recorded, not papered over.
+What is not here is any **current-year** figure. The Israel corpus ingest is
+statute-only — no `il/policy` scope exists for a Tax Authority עדכון סכומים notice or a
+National Insurance Institute rate table — and this repository carries no hand-made
+capture either, because every module here is encoder-generated from a corpus citation.
+The composed pipeline therefore takes the current credit-point value and the current
+child-allowance base amounts as **supplied inputs**, and every fixture states where its
+number came from. The §121ב threshold is not supplied at all: the pipeline applies the
+statute's own 640,000, which is a narrower claim than an indexed figure would be. See
+`docs/ENCODING-GAPS.md`.
 
 ## Corpus anchoring
 
-Proof excerpts quote the captured snapshots, because no signed `il-rulespec-*`
-corpus release exists. The Israel ingest does exist as an unmerged branch, so the
-re-anchor pass has been run against it read-only: **82 of 100 proof excerpts are
-already verbatim in the corpus body.** The remaining 18 are two structural gaps,
-not excerpt defects — the corpus has no `il/policy` scope for the Institute's
-publication (14 atoms), and it holds only the 2026 expression of §121 while this
-pilot's validation year is 2025 (4 atoms). Both are written up in
-`docs/ENCODING-GAPS.md` under `corpus-anchor`, together with the seven
-`source_sha256` pins that will need repinning and the digests to repin them to.
+Every proof excerpt in this repository is checked against the Israel corpus ingest branch
+(`axiom-corpus`, `ingest/il-taxben-pilot`), which is the source of record for provision
+text — the encoder read its provisions from there and each excerpt is a verbatim NFC
+substring of the corpus body. What does not exist yet is a *signed release*: until
+`il-rulespec-2026-09-06` is cut, signed and registered, the pilot validates against the
+ingest branch rather than against an immutable release, and the modules' `source_sha256`
+pins point at the ingest bodies rather than at release bodies.
 
 ## Toolchain binding
 
-`.axiom/toolchain.toml` is deliberately **absent**: no signed `il-rulespec-*`
-corpus release exists yet, and binding a repository to a release that does not
-exist would be a false claim. `.github/workflows/repository-checks.yml` is
-structurally the shared validate workflow used by the other jurisdiction repos,
-and toolchain binding lands in a dedicated PR after the Israel corpus release is
-cut, signed, and registered — never combined with content changes.
+`.axiom/toolchain.toml` is deliberately **absent**: no signed `il-rulespec-*` corpus
+release exists yet, and binding a repository to a release that does not exist would be a
+false claim. `.github/workflows/repository-checks.yml` is structurally the shared
+validate workflow used by the other jurisdiction repos, and toolchain binding lands in a
+dedicated PR after the Israel corpus release is cut, signed, and registered — never
+combined with content changes.
 
-Because this pilot is **hand-authored** rather than encoder-produced, the shared
-generated-content guard is pinned off. That is a pilot property and is stated
-here rather than hidden.
+The shared generated-content guard (`run-generated-guard`) is off for one reason and one
+only: the apply manifests here were signed with a throwaway local key, because the
+encoder ref that the guard's validator pins hard-requires a signed Israel corpus release
+that does not exist. It is turned on in the same PR that re-encodes at the pinned ref.
+The workflow file says exactly that, in a comment.
 
-**CI is red on `pilot-v0`, on purpose.** The shared workflow fails with
+**CI is red on this branch, on purpose.** The shared workflow fails with
 
 ```
 RuleSpec toolchain error: a regular .axiom/toolchain.toml is required
 ```
 
-because it is fail-closed on the toolchain binding, and that binding cannot
-honestly exist before the Israel corpus release is cut and signed. The check is
-behaving correctly; making it green would mean either pinning a release that does
-not exist or weakening the gate, and neither is acceptable. What the pilot could
-verify locally, it verified — see `docs/ENCODING-GAPS.md`,
-`validators-not-run-as-shipped`, for the commands and their results.
+because it is fail-closed on the toolchain binding. The check is behaving correctly;
+making it green would mean either pinning a release that does not exist or weakening the
+gate, and neither is acceptable. What could be verified locally was verified — see
+`docs/ENCODING-GAPS.md`, `validators-not-run-as-shipped`, for the commands and their
+results.
 
 ## Context
 

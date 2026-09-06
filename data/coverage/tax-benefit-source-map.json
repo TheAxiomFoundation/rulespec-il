@@ -2,8 +2,7 @@
   "schema_version": 1,
   "generated_at": "2026-09-06",
   "jurisdiction": "il",
-  "validation_year": 2025,
-  "note": "Bounded pilot inventory. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers and a repository test enforces that every listed section has a module on disk. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
+  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections names exactly what this repository covers and a repository test enforces that every listed section has a module on disk. No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
   "corpus_scopes": [],
   "release_candidate": {
     "name": "il-rulespec-2026-09-06",
@@ -31,19 +30,12 @@
         "121",
         "121ב"
       ],
-      "temporal_coverage": "bounded_2025_and_2026",
+      "temporal_coverage": "current_expression_only",
       "expressions": [
         {
-          "expression_from": "2025-01-01",
-          "expression_to_exclusive": "2026-01-01",
+          "expression_date": "2026-06-08",
           "source_tier": "consolidation-knesset-linked",
-          "source": "he.wikisource oldid=2971879"
-        },
-        {
-          "expression_from": "2026-01-01",
-          "expression_to_exclusive": null,
-          "source_tier": "consolidation-knesset-linked",
-          "source": "he.wikisource current revision, with ITO amendment 288 effective date taken from ס\"ח 3511"
+          "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/income-tax-ordinance/*"
         }
       ],
       "not_encoded": [
@@ -68,13 +60,12 @@
         "67",
         "68"
       ],
-      "temporal_coverage": "bounded_2025_and_2026",
+      "temporal_coverage": "current_expression_only",
       "expressions": [
         {
-          "expression_from": "2025-01-01",
-          "expression_to_exclusive": null,
+          "expression_date": "2026-06-15",
           "source_tier": "consolidation-knesset-linked",
-          "source": "he.wikisource current revision"
+          "source": "he.wikisource current revision, ingested into axiom-corpus as il/statute/national-insurance-law-1995/*"
         }
       ],
       "not_encoded": [
@@ -84,16 +75,11 @@
       ]
     }
   ],
-  "policy_publications": [
-    {
-      "id": "btl-child-allowance-rates",
-      "publisher": "המוסד לביטוח לאומי",
-      "module": "il/policies/national-insurance-institute/child-allowance-rates.yaml",
-      "url": "https://www.btl.gov.il/benefits/children/Pages/%D7%A9%D7%99%D7%A2%D7%95%D7%A8%D7%99%20%D7%94%D7%A7%D7%A6%D7%91%D7%94.aspx",
-      "sha256": "4bbf76244b622d4925e88cab0193dd4df56c8a1f59961c24122bee72dbb63785",
-      "retrieved_at": "2026-09-06T12:10:00Z",
-      "states": "סכום הקצבה עבור ילדים לפי מיקומם במשפחה (החל מ- 01.01.2026)",
-      "covers": "2026 only; the 2025 amounts were not officially captured"
-    }
-  ]
+  "policy_publications": [],
+  "corpus_expression_dates": {
+    "income-tax-ordinance": "2026-06-08",
+    "national-insurance-law-1995": "2026-06-15"
+  },
+  "corpus_expression_note": "The Israel corpus ingest holds ONE expression of each provision, dated by the consolidation's own נוסח עדכני line. This repository therefore encodes the current text and cannot compute a 2025 liability; ITO §121's bands are the post-amendment-288 text.",
+  "policy_publications_note": "Empty deliberately. Every module in this repository is encoder-generated from a corpus citation, and no il/policy scope has been ingested, so no current-year regulated amount is encoded here. The composed pipeline takes those as supplied inputs and its fixtures state where each number came from."
 }

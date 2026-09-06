@@ -7,7 +7,7 @@
       "id": "oecd-taxben-israel-2025",
       "name": "OECD: Tax and Benefit Policy Descriptions for Israel (rules as of 1 January 2025)",
       "url": "https://www.oecd.org/en/topics/sub-issues/benefits-and-wages.html",
-      "role": "Independent narrative description of the 2025 Israeli income tax schedule, credit points, and child allowance. Used to cross-check the hand-derived 2025 fixtures. It is a policy description, not a model run, and it is not law. Four fixture inputs are supplied from it and are labelled as reference values wherever they appear; see docs/ENCODING-GAPS.md.",
+      "role": "Independent narrative description of the 2025 Israeli income tax schedule, credit points and child allowance. It is a policy description, not a model run, and it is not law. It describes 2025; this repository encodes the current expression the corpus holds, so the two are not like-for-like in the middle of the ITO §121 schedule — see docs/ENCODING-GAPS.md, `corpus-holds-one-expression-per-provision`. Exactly one fixture value is taken from it, and it is labelled wherever it appears.",
       "coverage": [
         "income_tax",
         "tax_credits",
@@ -20,10 +20,12 @@
       "sha256": "8d4bd48dd4e3cc10865ddd0f74690db7cec65310ce8d947e0b738347d5ca61f4",
       "retrieved_at": "2026-09-06T11:41:55Z",
       "supplies_fixture_values": [
-        "credit point value 2,904 (2025)",
-        "additional-tax threshold 721,560 (2025) — by inference from its 50% top band; TaxBEN does not name the additional tax",
-        "child allowance 169 / 214 (2025)",
-        "special basic amount 153 (2025) — diverges from the Wikisource annotation 158"
+        "credit point value 2,904 — the only number in this repository sourced from a reference"
+      ],
+      "no_longer_supplies": [
+        "additional-tax threshold 721,560 — the encoder's §121ב module applies the 640,000 the section prints, so no inference from TaxBEN's 50% top band is made here",
+        "child allowance 169 / 214 (2025) — the fixtures are written for the current expression and use the Institute's published 2026 figures instead",
+        "special basic amount 153 — inconsistent with the Institute's own published increment; used nowhere"
       ]
     },
     {

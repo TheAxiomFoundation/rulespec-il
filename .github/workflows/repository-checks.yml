@@ -24,9 +24,15 @@ jobs:
       axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
-      # This pilot is hand-authored, not encoder-produced, so the shared
-      # generated-content guard (which requires a signed apply manifest on
-      # every RuleSpec change) cannot pass. Pinned off deliberately; turned on
-      # when encoder-produced content replaces the pilot.
+      # Every atomic module here IS encoder-produced and carries an apply
+      # manifest under .axiom/encoding-manifests/. The guard stays off for one
+      # reason only: those manifests were produced by a local bootstrap build of
+      # axiom-encode — the 55beb160 ref plus five fixes for Hebrew source text,
+      # with each manifest recording the exact version and commit — and signed
+      # with a throwaway local key that no shared keyring knows, because the
+      # pinned validator ref refuses to run before a signed Israel corpus
+      # release exists. Turn this on in the same PR that re-encodes at the
+      # pinned ref, after the corpus release il-rulespec-2026-09-06 is cut,
+      # signed and registered.
       run-generated-guard: false
       guard-programs-root: false
