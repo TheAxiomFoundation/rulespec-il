@@ -139,7 +139,12 @@ rules:
         kind: formula
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-121b
-          excerpt: יהיה חייב במס נוסף על חלק הכנסתו החייבת העולה על 640,000 שקלים חדשים , בשיעור של 3%
+          excerpt: יהיה חייב במס נוסף על חלק הכנסתו החייבת העולה על 640,000 שקלים חדשים
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+          excerpt: בשיעור של 3%
       - path: versions[0].formula
         kind: formula
         source:
