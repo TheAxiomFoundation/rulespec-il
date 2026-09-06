@@ -28,14 +28,22 @@ module:
     Composed monthly net income for an employed parent with children.
 
     THIS FILE IS ASSEMBLED, NOT ENCODED, and it is the only file in the repository
-    that is. Every atomic module under il/statutes/income-tax-ordinance/ and
+    that is. There is no machine-readable marker saying so, and that is not an oversight:
+    `module.kind: composition` is rejected by the engine on this surface — "atomic RuleSpec
+    module ... must not declare module.kind; `composition` is accepted only by the
+    composed-program surface" — so the guard's report that this file and its companion have
+    no apply manifest is the only signal, and it is the correct one. Both are listed in
+    docs/ENCODING-GAPS.md, `composition-has-no-machine-readable-assembled-marker`. Every atomic module under il/statutes/income-tax-ordinance/ and
     il/statutes/national-insurance-law-1995/ was produced by the supervised encoder
     and carries an apply manifest under .axiom/encoding-manifests/. A composition
-    declares imports of those encoded rules and the wiring between them; it states
-    no statutory quantity of its own. Where it has to apply a statutory CONDITION that
-    no imported module can supply in this shape — NII §65(א)'s age and presence test,
-    which has to be asked once per child and so is repeated per child here — it carries
-    the condition with a verbatim proof atom against the provision, and says so below.
+    declares imports of those encoded rules and the wiring between them. It states one
+    statutory quantity of its own, and only one: the age 18 in NII §65(א)'s definition of
+    ”ילד“, written out as `child_N_age_years < 18`. It is here rather than in an encoded
+    module because the test has to be asked once per child and this pilot declares no
+    Child entity, so §65 has no single-answer shape an atomic module could take. §65 IS in
+    the corpus and IS encodable; not encoding it is a limitation of this pilot's entity
+    model, not of the source. The condition carries a verbatim proof atom against the
+    provision. See docs/ENCODING-GAPS.md, `nii-section-65-child-definition-partial`.
 
     ITS corpus_citation_path IS AN INSTRUMENT, NOT A PROVISION. Each atomic module
     anchors to one provision. This one composes across two instruments, so no single
@@ -103,9 +111,13 @@ module:
     Each fixture records where its supplied number came from. None is law as stated here.
 
     THE EARLIEST PERIOD THIS PIPELINE CAN ANSWER IS 2026-01. Its own versions say
-    `effective_from: '2026-01-01'` because ITO §121's do: the bands it imports are the text
-    as replaced by ITO amendment 288, whose commencement is 1 January 2026 (ס״ח 3511, פרק ג׳
-    §6 — `תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026)`). The 2025 schedule is a
+    `effective_from: '2026-01-01'` because ITO §121's do. Read precisely: ס״ח 3511 פרק ג׳ §5
+    replaces FOUR figures — §121(א)(1)'s amount with 301,200, §121(א)(2) with
+    `מ־301,201 ... עד 560,280 ... 35%`, §121(ב)(1)(ג)'s upper edge with 228,000, and
+    §121(ב)(1)(ד) with `מ־228,001 ... עד 301,200 ... 31%`. It does NOT touch 84,120,
+    120,720, or the 10/14/20/47% rates, which are older text. What dates the whole schedule
+    to 2026-01-01 is that this repository holds ONE expression of §121, the post-288 one,
+    and §6 commences that act — `תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026)`. The 2025 schedule is a
     different text and is not in this repository's corpus, so an earlier request finds no
     version in force rather than being answered with the wrong year's law. See
     docs/ENCODING-GAPS.md, `corpus-holds-one-expression-per-provision`.
