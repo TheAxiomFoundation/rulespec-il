@@ -413,8 +413,23 @@ web calculator and the Tax Authority simulator (`secapp.taxes.gov.il/srsimulator
 from the consolidated text of §121) are candidate oracles and are NOT wired. No fixture here
 was produced by any of them.
 
-Where a hand comparison to the TaxBEN description was possible it is reported in the pull
-request, with the caveat in `corpus-holds-one-expression-per-provision`: TaxBEN describes 2025
-and this repository encodes the current text, so the two agree on the outer bands and the
-credit points and differ in the middle of the schedule for a reason that is a fact about the
-statute, not a defect in either.
+A hand comparison against the TaxBEN description WAS done, and is reported in full in the pull
+request. What it found:
+
+* **Agrees**: the 84,120 and 120,720 bracket edges; the 560,280 edge at which 47% begins; the
+  rates 10 / 14 / 20 / 31 / 35 / 47; the 2.25 basic credit points, which this encoding reaches
+  as §34's two plus §36's quarter from two separate provisions; §36א's further half point for a
+  woman; and every rung of both §66(ג) child ladders — 2.5 / 4.5 / 3.5 / 2.5 in the early
+  years, then 2 for the mother against 1 for the father, and 0.5 against nothing in the
+  maturity year.
+* **Differs**: the 20%→31% and 31%→35% edges (TaxBEN 193,800 / 269,280, encoded 228,000 /
+  301,200), because ITO amendment 288 widened those bands with effect from 1 January 2026 and
+  the corpus holds only that expression; and the point at which the additional tax begins
+  (TaxBEN's 50% band above 721,560, encoded from the 640,000 §121ב prints), because nothing
+  here computes indexation.
+
+Every difference is a fact about the statute or about what the corpus holds, not a defect in
+either the description or the encoding — see `corpus-holds-one-expression-per-provision` and
+`additional-tax-threshold-is-the-statute-s-nominal-figure`. The credit-point VALUE (2,904) is
+absent from that comparison on purpose: it is supplied FROM TaxBEN, and a number taken from a
+reference cannot then check the encoding.
