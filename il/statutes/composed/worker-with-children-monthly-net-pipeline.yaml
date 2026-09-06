@@ -25,17 +25,22 @@ module:
     required: true
   source_verification:
     corpus_citation_path: il/statute/income-tax-ordinance
-  summary: "Composed monthly net income for an employed woman with children.\n\nWires the pilot's two\
-    \ instruments into one figure a reader can check:\n\n  gross monthly wage\n    -> §121 income tax\
-    \ on annual taxable income (reduced schedule, יגיעה אישית)\n    -> less the §33א credit-point value\
-    \ times the §34 + §36 + §36א + §66(ג)(4)\n       credit points\n    -> plus the §121ב additional tax\n\
-    \    -> plus the National Insurance child allowance, which §66 of that Law\n       denies outright\
-    \ to a parent liable to the §121ב additional tax\n    = monthly net\n\nThat last link is the point\
-    \ of the capstone: in the captured statutory text the\nbenefit is not independent of the tax. A fixture\
-    \ drives income past the\nadditional-tax threshold and the allowance goes to zero for a reason written\
-    \ in\nNII §66, not one modelled here.\n\nREAD THAT FIXTURE CAREFULLY. The OECD TaxBEN Israel description\
-    \ says the child\nallowance \"is not means-tested\", which cannot be reconciled with §66's exclusion\n\
-    of a parent liable to the §121ב additional tax. Nothing captured resolves it —\nwhether the exclusion\
+  summary: "Composed monthly net income for an employed parent with children.\n\nNO MODULE-LEVEL source_sha256,\
+    \ and that is deliberate. The other thirteen\nmodules each anchor to one provision and carry that\
+    \ provision's hash. This one\ncomposes across two instruments, so no single provision is \"its\" source\
+    \ and the\nhash of a directory would mean nothing. Its declared\n`corpus_citation_path` is the instrument-level\
+    \ path, matching the rulespec-dk\ncomposed precedent, and every proof atom in it carries its own section-level\n\
+    citation path instead. Verification therefore runs atom by atom.\n\nWires the pilot's two instruments\
+    \ into one figure a reader can check:\n\n  gross monthly wage\n    -> §121 income tax on annual taxable\
+    \ income (reduced schedule, יגיעה אישית)\n    -> less the §33א credit-point value times the §34 +\
+    \ §36 + §36א + §66(ג)(4)\n       credit points\n    -> plus the §121ב additional tax\n    -> plus\
+    \ the National Insurance child allowance, which §66 of that Law\n       denies outright to a parent\
+    \ liable to the §121ב additional tax\n    = monthly net\n\nThat last link is the point of the capstone:\
+    \ in the captured statutory text the\nbenefit is not independent of the tax. A fixture drives income\
+    \ past the\nadditional-tax threshold and the allowance goes to zero for a reason written in\nNII §66,\
+    \ not one modelled here.\n\nREAD THAT FIXTURE CAREFULLY. The OECD TaxBEN Israel description says the\
+    \ child\nallowance \"is not means-tested\", which cannot be reconciled with §66's exclusion\nof a\
+    \ parent liable to the §121ב additional tax. Nothing captured resolves it —\nwhether the exclusion\
     \ was ever brought into force or is administered differently\ncannot be determined from the snapshots.\
     \ The capstone encodes what the statutory\ntext says; it is NOT a verified description of what the\
     \ National Insurance\nInstitute pays, and must not be presented as one. See docs/ENCODING-GAPS.md,\n\
