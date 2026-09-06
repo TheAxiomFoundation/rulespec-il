@@ -69,7 +69,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-121b
           excerpt: עלתה על 640,000 שקלים חדשים
   versions:
-  - effective_from: '2013-01-01'
+  - effective_from: '2025-01-01'
     formula: '640000'
 - name: additional_tax_rate
   kind: parameter
@@ -84,7 +84,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-121b
           excerpt: בשיעור של 3%
   versions:
-  - effective_from: '2013-01-01'
+  - effective_from: '2025-01-01'
     formula: '0.03'
 - name: additional_tax_on_capital_income_rate
   kind: parameter
@@ -130,7 +130,8 @@ rules:
   dtype: Money
   unit: ILS
   period: Year
-  source: סעיף 121ב(א) ו־(א1)
+  source: 'סעיף 121ב(א) ו־(א1). הערה: אטומי ההוכחה מוכיחים את השיעורים ואת מבנה החיוב על העודף; הסכום
+    המיושם הוא קלט מסופק, לא הסכום הנקוב בסעיף'
   metadata:
     proof:
       atoms:

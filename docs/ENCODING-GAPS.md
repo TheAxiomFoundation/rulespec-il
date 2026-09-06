@@ -32,10 +32,33 @@ honestly exist yet. What WAS run, and what it proves:
   carrying the ILS currency seed.
 * `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
   `require_policy_proofs=True`, invoked directly with the captured provision
-  texts as `source_texts` — 88 proof atoms checked across 14 modules, all pass.
+  texts as `source_texts` — 91 proof atoms checked across 14 modules, all pass,
+  plus 19 atoms re-checked against the specific expression their version speaks
+  for (see `proof-check-concatenates-expressions-except-where-pinned`).
 * `find_missing_money_proof_atoms` — 0 missing money atoms across 14 modules.
 The validator code is the same; only the source of the provision text differs.
 **Resolution:** run both commands as shipped after the toolchain PR.
+
+### `effective-from-dates-are-pilot-scope-not-commencement`
+Every module version carries `effective_from: 2025-01-01` unless a captured
+gazette act establishes a later date. **That is the earliest date this pilot
+speaks for, not a commencement date.** §34, §36 and §36א have been in the
+Ordinance for decades; §68's multipliers date from 2003 and §1(2)'s figures are
+nominal to 2015. None of that is encoded, because the captured consolidations
+carry amendment LISTS but no commencement clauses, and asserting a historical
+`effective_from` would state something the sources do not support. An earlier
+draft of this pilot did assert such dates; they were removed.
+**Resolution:** take commencement from the gazette act for each amendment and
+version the modules properly.
+
+### `proof-check-concatenates-expressions-except-where-pinned`
+`ops/il-lane/extract/proofcheck.py` builds `source_texts` by concatenating every
+captured expression of a citation path, so an excerpt validates if it appears in
+ANY expression of that provision. For ITO §121, which has two captured
+expressions, that is weaker than the real gate. The script therefore runs a
+second, explicit pass asserting that atoms on `versions[0]` appear in the 2025
+expression and atoms on `versions[1]` in the current one (19 atoms). No other
+module has more than one captured expression.
 
 ### `gazette-effective-date-not-a-proof-atom`
 The 2026 `effective_from` dates rest on ס״ח 3511 פרק ג׳ §6

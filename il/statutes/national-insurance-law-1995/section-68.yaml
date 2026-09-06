@@ -62,7 +62,7 @@ rules:
           excerpt: שהוא הילד הרביעי במניין ילדיו של ההורה – סכום השווה לסכום הבסיסי הקבוע בפסקה (2)(א)
             שבהגדרה ”הסכום הבסיסי“ כשהוא מוכפל ב־2.24
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: '2.24'
 - name: fifth_and_later_child_born_before_june_2003_multiplier
   kind: parameter
@@ -78,7 +78,7 @@ rules:
           excerpt: שהוא הילד החמישי ואילך במניין ילדיו של ההורה – סכום השווה לסכום הבסיסי הקבוע בפסקה
             (2)(א) שבהגדרה ”הסכום הבסיסי“ כשהוא מוכפל ב־2.36
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: '2.36'
 - name: income_support_increment_rate
   kind: parameter
@@ -93,7 +93,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-68
           excerpt: תוספת בסכום השווה ל־70% מן הסכום הבסיסי הקבוע בפסקה (2)(ג)
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: '0.70'
 - name: income_support_increment_minimum_children
   kind: parameter
@@ -108,7 +108,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-68
           excerpt: בעד שלושה ילדים או יותר
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: '3'
 - name: income_support_increment_applies_to_child
   kind: derived
@@ -131,7 +131,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-68
           excerpt: תיווסף לקצבת הילדים המשתלמת לו בעד הילד השלישי ובעד הילד הרביעי שבמנין ילדיו
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: parent_receives_income_support_or_maintenance_payment and children_in_parent_count >= income_support_increment_minimum_children
       and child_birth_order >= 3 and child_birth_order <= 4
 - name: monthly_child_allowance_ils
@@ -157,7 +157,7 @@ rules:
           excerpt: על אף הוראות סעיף קטן (א), קצבת הילדים לחודש בעד ילד שנולד לפני יום א׳ בסיון התשס״ג
             (1 ביוני 2003), והוא הילד הרביעי ואילך שבמנין ילדיו של ההורה, תהיה בסכום כמפורט להלן
   versions:
-  - effective_from: '2003-06-01'
+  - effective_from: '2025-01-01'
     formula: "if child_born_before_june_2003 and child_birth_order == 4:\n  current_basic_amount_first_and_fifth_plus_ils\
       \ * fourth_child_born_before_june_2003_multiplier\n  + (if income_support_increment_applies_to_child:\n\
       \       income_support_increment_rate * current_basic_amount_income_support_base_ils\n     else:\

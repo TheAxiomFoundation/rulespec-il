@@ -60,5 +60,5 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-66
           excerpt: למעט הורה מבוטח שיש לו הכנסה החייבת במס נוסף כמשמעותה בסעיף 121ב לפקודת מס הכנסה
   versions:
-  - effective_from: '2013-01-01'
+  - effective_from: '2025-01-01'
     formula: parent_is_insured and not parent_has_income_liable_to_additional_tax

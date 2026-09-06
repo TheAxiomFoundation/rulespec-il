@@ -38,7 +38,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-34
           excerpt: יובאו בחשבון שתי נקודות זיכוי
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: '2'
 - name: resident_credit_points_claimed
   kind: derived
@@ -55,5 +55,5 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-34
           excerpt: יובאו בחשבון שתי נקודות זיכוי
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: 'if individual_meets_resident_credit_points_condition: resident_credit_points else: 0'

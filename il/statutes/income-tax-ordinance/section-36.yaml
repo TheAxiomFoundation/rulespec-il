@@ -34,7 +34,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-36
           excerpt: תובא בחשבון 1⁄4 נקודת זיכוי כזיכוי נסיעה
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: '0.25'
 - name: travel_to_place_of_earning_credit_points_claimed
   kind: derived
@@ -51,6 +51,6 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-36
           excerpt: תובא בחשבון 1⁄4 נקודת זיכוי כזיכוי נסיעה
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: 'if individual_meets_travel_to_place_of_earning_credit_points_condition: travel_to_place_of_earning_credit_points
       else: 0'

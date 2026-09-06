@@ -32,7 +32,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-1
           excerpt: בעד הילד הראשון והחמישי ואילך במניין ילדיו של ההורה – 150 שקלים חדשים
   versions:
-  - effective_from: '2015-01-01'
+  - effective_from: '2025-01-01'
     formula: '150'
 - name: basic_amount_second_third_fourth_child_ils
   kind: parameter
@@ -48,7 +48,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-1
           excerpt: בעד הילד השני, השלישי והרביעי שבמניין ילדיו של ההורה – 188 שקלים חדשים
   versions:
-  - effective_from: '2015-01-01'
+  - effective_from: '2025-01-01'
     formula: '188'
 - name: basic_amount_income_support_increment_base_ils
   kind: parameter
@@ -64,7 +64,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-1
           excerpt: לעניין גמלה לפי חוק הבטחת הכנסה, או תוספת כאמור בסעיף 68(ג) – 140 שקלים חדשים
   versions:
-  - effective_from: '2015-01-01'
+  - effective_from: '2025-01-01'
     formula: '140'
 - name: child_takes_the_higher_basic_amount
   kind: derived
@@ -86,5 +86,5 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-1
           excerpt: בעד הילד הראשון והחמישי ואילך במניין ילדיו של ההורה
   versions:
-  - effective_from: '2015-01-01'
+  - effective_from: '2025-01-01'
     formula: child_birth_order >= 2 and child_birth_order <= 4

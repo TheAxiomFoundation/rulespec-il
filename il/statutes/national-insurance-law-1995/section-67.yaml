@@ -52,7 +52,7 @@ rules:
           corpus_citation_path: il/statute/national-insurance-law-1995/section-67
           excerpt: ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד
   versions:
-  - effective_from: '1995-01-01'
+  - effective_from: '2025-01-01'
     formula: "if child_has_two_parents:\n  if child_is_with_the_mother_only:\n    (if this_parent_is_the_father:\
       \ false else: true)\n  else: (if this_parent_is_the_father: true else: false)\nelse: (if this_parent_is_insured:\
       \ true else: false)"

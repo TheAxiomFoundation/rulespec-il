@@ -18,7 +18,20 @@ module:
 
     the composed pipeline as a supplied input whose provenance each fixture states.
 
-    See docs/ENCODING-GAPS.md, gap `credit-point-current-value-not-captured`.'
+    See docs/ENCODING-GAPS.md, gap `credit-point-current-value-not-captured`.
+
+
+    EFFECTIVE DATES CLAIM NOTHING HISTORICAL. Every version here starts 2025-01-01,
+
+    the earliest date this pilot speaks for, except where a captured gazette act
+
+    establishes a later commencement. The captured consolidations carry amendment
+
+    LISTS but no commencement clauses, so an earlier effective_from would be an
+
+    assertion the sources do not support. See docs/ENCODING-GAPS.md,
+
+    `effective-from-dates-are-pilot-scope-not-commencement`.'
 rules:
 - name: credit_point_nominal_annual_amount_ils
   kind: parameter
@@ -34,7 +47,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-33a
           excerpt: סכום של 504 שקלים חדשים לשנת מס
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: '504'
 - name: pension_point_monthly_divisor
   kind: parameter
@@ -49,7 +62,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-33a
           excerpt: ומחולק בשנים עשר
   versions:
-  - effective_from: '1997-01-01'
+  - effective_from: '2025-01-01'
     formula: '12'
 - name: credit_point_is_index_linked
   kind: derived
@@ -66,5 +79,5 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-33a
           excerpt: צמוד למדד כאמור בסעיף 120א
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: 'true'

@@ -32,7 +32,20 @@ module:
 
     TaxBEN Israel description and label them as a reference, not as law. See
 
-    docs/ENCODING-GAPS.md, gap `child-allowance-2025-amounts-not-officially-captured`.'
+    docs/ENCODING-GAPS.md, gap `child-allowance-2025-amounts-not-officially-captured`.
+
+
+    EFFECTIVE DATES CLAIM NOTHING HISTORICAL. Every version here starts 2025-01-01,
+
+    the earliest date this pilot speaks for, except where a captured gazette act
+
+    establishes a later commencement. The captured consolidations carry amendment
+
+    LISTS but no commencement clauses, so an earlier effective_from would be an
+
+    assertion the sources do not support. See docs/ENCODING-GAPS.md,
+
+    `effective-from-dates-are-pilot-scope-not-commencement`.'
 rules:
 - name: published_monthly_allowance_first_child_ils
   kind: parameter

@@ -32,7 +32,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-36a
           excerpt: בחישוב המס של אשה תובא בחשבון 1⁄2 נקודת זיכוי
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: '0.5'
 - name: woman_credit_points_claimed
   kind: derived
@@ -49,5 +49,5 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-36a
           excerpt: בחישוב המס של אשה תובא בחשבון 1⁄2 נקודת זיכוי
   versions:
-  - effective_from: '1975-01-01'
+  - effective_from: '2025-01-01'
     formula: 'if individual_meets_woman_credit_points_condition: woman_credit_points else: 0'

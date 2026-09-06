@@ -58,7 +58,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '2.5'
 - name: mother_points_age_1_to_2
   kind: parameter
@@ -74,7 +74,7 @@ rules:
           excerpt: 41⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו ועד לשנת המס שבה מלאו
             לו שנתיים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '4.5'
 - name: mother_points_age_3
   kind: parameter
@@ -89,7 +89,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 31⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '3.5'
 - name: mother_points_age_4_to_5
   kind: parameter
@@ -104,7 +104,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '2.5'
 - name: mother_points_age_6_to_pre_maturity
   kind: parameter
@@ -120,7 +120,7 @@ rules:
           excerpt: ושתי נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס שקדמה
             לשנת בגרותו
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '2'
 - name: mother_points_maturity_year
   kind: parameter
@@ -135,7 +135,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: ו־1⁄2 נקודת זיכוי בעד כל אחד מילדיה בשנת בגרותו
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '0.5'
 - name: father_points_birth_year
   kind: parameter
@@ -150,7 +150,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 21⁄2 נקודות זיכוי בשנת לידתו של הילד
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '2.5'
 - name: father_points_age_1_to_2
   kind: parameter
@@ -165,7 +165,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 41⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת המס שבה מלאו לו שנתיים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '4.5'
 - name: father_points_age_3
   kind: parameter
@@ -180,7 +180,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 31⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '3.5'
 - name: father_points_age_4_to_5
   kind: parameter
@@ -195,7 +195,7 @@ rules:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
           excerpt: 21⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '2.5'
 - name: father_points_age_6_to_pre_maturity
   kind: parameter
@@ -211,7 +211,7 @@ rules:
           excerpt: נקודת זיכוי אחת בעד כל אחד מילדיו החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס שקדמה
             לשנת בגרותו
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: '1'
 - name: mother_child_credit_points
   kind: derived
@@ -229,7 +229,7 @@ rules:
           excerpt: האשה תהא זכאית ל־1⁄2 נקודת זיכוי לפי סעיף 36א, ובנוסף וכנגד המס החל על הכנסתה מיגיעה
             אישית – לנקודות זיכוי בעד ילדיה כלהלן
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: 'if child_is_in_birth_year: mother_points_birth_year
 
       elif child_is_in_maturity_year: mother_points_maturity_year
@@ -259,7 +259,7 @@ rules:
           excerpt: הגבר יהא זכאי, כנגד המס החל על הכנסתו מיגיעה אישית, לנקודות זיכוי בעד כל אחד מילדיו,
             כלהלן
   versions:
-  - effective_from: '2012-01-01'
+  - effective_from: '2025-01-01'
     formula: 'if child_is_in_birth_year: father_points_birth_year
 
       elif child_is_in_maturity_year: 0

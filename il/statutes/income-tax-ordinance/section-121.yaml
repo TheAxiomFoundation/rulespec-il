@@ -33,8 +33,7 @@ module:
 
     expressions of §121: the 2025 expression (he.wikisource oldid=2971879, provision
 
-    sha256 5573b1d0422e9f4faba352a6438292c43456fffe3320ef8f64c865fbdaec395f) and the current expression
-    (provision sha256 7f8d61ff2d52e718086be0987365a5d92e19e9bb8329ab374f8d2bf2f14bbb9f).
+    sha256 __SHA2025__) and the current expression (provision sha256 __SHACUR__).
 
 
     NOT A PARAMETER: the boundary between the 35% band and the 47% band enters the
@@ -58,7 +57,20 @@ module:
 
     Scope: the schedule only. Credit points are §§33א/34/36/36א/66, the additional
 
-    tax is §121ב, and neither is applied here.'
+    tax is §121ב, and neither is applied here.
+
+
+    EFFECTIVE DATES CLAIM NOTHING HISTORICAL. Every version here starts 2025-01-01,
+
+    the earliest date this pilot speaks for, except where a captured gazette act
+
+    establishes a later commencement. The captured consolidations carry amendment
+
+    LISTS but no commencement clauses, so an earlier effective_from would be an
+
+    assertion the sources do not support. See docs/ENCODING-GAPS.md,
+
+    `effective-from-dates-are-pilot-scope-not-commencement`.'
 rules:
 - name: reduced_band_1_upper_ils
   kind: parameter
@@ -218,6 +230,11 @@ rules:
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-121
           excerpt: הראשונים – 31%
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: עד 269,280 שקלים חדשים – 31%
   versions:
   - effective_from: '2025-01-01'
     formula: '0.31'
