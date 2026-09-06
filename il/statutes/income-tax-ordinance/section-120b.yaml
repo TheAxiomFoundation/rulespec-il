@@ -1,0 +1,114 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+    source_sha256: d77a820b8e0ef69f031698392aa049d37ce293030f63d9faa060040362a1d243
+  summary: 'סעיף 120ב לפקודת מס הכנסה — annual indexation, and the 2025-2027 freeze.
+
+
+    §120ב(א) indexes the income ceilings, credit-point and pension-point amounts,
+
+    social allowances and recognised donation amounts on 1 January of every tax
+
+    year by the previous year''s index rise. §120ב(ה)(1), added by amendment
+
+    תשפ"ה־2, suspends that for tax years 2025 THROUGH 2027 and holds the amounts at
+
+    their 1 January 2024 level after rounding; §120ב(ה)(2) resumes indexation on
+
+    1 January 2028 from the unrounded 2024 amounts using the 2027 index.
+
+
+    This module encodes the freeze window itself, which is why the §121 bracket
+
+    amounts for 2025 and 2026 do not differ by indexation. It does NOT implement
+
+    the indexation arithmetic: the index series is not a captured Israeli corpus
+
+    source and computing indexed amounts here would manufacture law.'
+rules:
+- name: indexation_freeze_first_tax_year
+  kind: parameter
+  dtype: Integer
+  source: סעיף 120ב(ה)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: ב־1 בינואר של שנות המס 2025 עד 2027 לא יתואמו הסכומים
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '2025'
+- name: indexation_freeze_last_tax_year
+  kind: parameter
+  dtype: Integer
+  source: סעיף 120ב(ה)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: ב־1 בינואר של שנות המס 2025 עד 2027 לא יתואמו הסכומים
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '2027'
+- name: frozen_amounts_reference_tax_year
+  kind: parameter
+  dtype: Integer
+  source: סעיף 120ב(ה)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: והסכומים באותן שנות מס יהיו כפי שהיו ביום כ׳ בטבת התשפ״ד (1 בינואר 2024)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '2024'
+- name: indexation_resumes_tax_year
+  kind: parameter
+  dtype: Integer
+  source: סעיף 120ב(ה)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: ביום ב׳ בטבת התשפ״ח (1 בינואר 2028) יתואמו
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '2028'
+- name: amounts_are_frozen_in_tax_year
+  kind: derived
+  entity: Person
+  dtype: Boolean
+  period: Year
+  source: סעיף 120ב(ה)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: על אף הוראות סעיפים קטנים (א) ו־(ב)
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+          excerpt: ב־1 בינואר של שנות המס 2025 עד 2027 לא יתואמו הסכומים
+  versions:
+  - effective_from: '2025-01-01'
+    formula: 'if tax_year >= indexation_freeze_first_tax_year and tax_year <= indexation_freeze_last_tax_year:
+      true else: false'

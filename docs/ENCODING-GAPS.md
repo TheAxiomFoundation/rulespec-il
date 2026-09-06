@@ -1,32 +1,175 @@
 # Encoding gaps
 
-Everything this pilot does not do, could not verify, or verified against
-something weaker than primary law. Divergences from a reference are recorded
-here as `unexplained` with both numbers; no issue is ever filed against an
-external reference.
+Everything this pilot does not do, could not verify from primary law, or verified
+against something weaker. Divergences from a reference are recorded here as
+`unexplained` with both numbers; no issue is ever filed against an external
+reference.
 
-## Structural gaps (scaffold)
+## Source and provenance
 
 ### `source-tier` — the provision source of record is a secondary consolidation
-The Knesset national legislation database serves the consolidated text through a
-client-rendered application; `KNS_DocumentIsraelLaw` returns empty over OData.
-The pilot therefore encodes from ספר החוקים הפתוח (he.wikisource), the
-consolidation the Knesset database itself links to as "לחוק המלא". Tier
-`consolidation-knesset-linked` — secondary. Effective dates and amendment
-content are taken from the official gazette PDFs where they matter.
+The Knesset national legislation database serves consolidated text through a
+client-rendered application, and `KNS_DocumentIsraelLaw` returns empty over
+OData for both pilot instruments. The pilot therefore encodes from ספר החוקים
+הפתוח (he.wikisource) — the consolidation the Knesset database itself links to as
+"לחוק המלא". Tier `consolidation-knesset-linked`, which is **secondary**.
 **Resolution:** capture the Knesset "נוסח מלא" PDFs through a real browser and
-re-anchor.
+re-anchor every module.
 
-### `corpus-anchor` — citation paths are not yet corpus-anchored
-No `il-rulespec-*` corpus release exists. Module
-`source_verification.source_sha256` values are hashes of the captured snapshot's
-provision text, not of a corpus provision, and `corpus_citation_path` values
-name paths that the corpus does not yet contain.
+### `corpus-anchor` — citation paths are not corpus-anchored
+No `il-rulespec-*` corpus release exists. Each module's
+`source_verification.source_sha256` is the sha256 of the captured snapshot's
+provision text, not of a corpus provision, and the `corpus_citation_path` values
+name paths the corpus does not yet contain.
 **Resolution:** re-anchor pass after the Israel ingest lands and the release is
 signed and registered.
 
-### `no-executable-oracle` — nothing is machine-compared
-The OECD TaxBEN Israel description is a narrative policy description read by a
-human, not a model run. The TaxBEN web calculator and the Tax Authority
-simulator are candidate oracles and are **not wired**. No fixture in this
-repository was produced by any of them.
+### `validators-not-run-as-shipped` — `validate` and `proof-validate` are gated
+`axiom-encode validate` and `axiom-encode proof-validate` both require
+`.axiom/toolchain.toml` and a signed corpus release, neither of which can
+honestly exist yet. What WAS run, and what it proves:
+* `axiom-encode test` — all 73 companion cases pass against an engine build
+  carrying the ILS currency seed.
+* `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
+  `require_policy_proofs=True`, invoked directly with the captured provision
+  texts as `source_texts` — 88 proof atoms checked across 14 modules, all pass.
+* `find_missing_money_proof_atoms` — 0 missing money atoms across 14 modules.
+The validator code is the same; only the source of the provision text differs.
+**Resolution:** run both commands as shipped after the toolchain PR.
+
+### `gazette-effective-date-not-a-proof-atom`
+The 2026 `effective_from` dates rest on ס״ח 3511 פרק ג׳ §6
+("תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026)"), which is captured as a
+PDF. Extracting its text yields bidi-interleaved output in which digits are
+displaced, so no excerpt from it can meet the verbatim standard. No
+`effective_period` proof atom cites it; the justification lives in the module
+summaries and in `docs/sources-and-provenance.md`.
+**Resolution:** OCR the gazette PDF single-block RTL-aware, as the Ethiopia lane
+did, and add the atom.
+
+## Source defects and divergences
+
+### `section-121-a-2-defective-2025-expression` — a real transcription error
+The captured Wikisource expressions of §121(א)(2) for tax year 2025 read:
+
+> על כל שקל חדש מ־560,280 שקלים חדשים עד 542,160 שקלים חדשים – 35%
+
+The lower bound exceeds the upper bound, and 560,280 is elsewhere the point at
+which the 47% rate begins. The defect is present in both the 2025-12-31 revision
+(oldid=2971879) and the 2024-12-31 revision (oldid=2897076), so it is longstanding
+rather than a one-off edit. The current text, as replaced wholesale by ITO
+amendment 288, is internally consistent
+("מ־301,201 שקלים חדשים עד 560,280 שקלים חדשים – 35%").
+
+Consequence: the 35%/47% boundary is NOT a parameter. It enters
+`il/statutes/income-tax-ordinance/section-121.yaml` as the supplied input
+`thirty_five_percent_band_upper_ils` (560,280 in every fixture), so that no proof
+atom is attached to text that does not support the value.
+**Resolution:** confirm the 2025 boundary from the Knesset consolidated text or a
+Tax Authority עדכון סכומים notice, then encode it as a parameter.
+
+### `child-allowance-special-basic-amount-2025` — `unexplained`
+Two figures for the §1(2)(ג) special basic amount in 2025:
+* **153** — OECD TaxBEN Israel description ("0.7*153 or ILS 107").
+* **158** — the Wikisource editorial annotation on the same definition.
+The pilot's 2025 §68(ג) fixture supplies **153** and labels it as the TaxBEN
+reference. Neither figure comes from an official publication. `unexplained`.
+**Resolution:** capture the National Insurance Institute's published special
+basic amount for 2025.
+
+## Amounts supplied rather than encoded
+
+The Ordinance and the National Insurance Law state several amounts as NOMINAL
+figures under an indexation mechanism this repository does not implement. Where
+no official current-year capture exists, the amount is a module input and every
+fixture states its provenance. None of these is law as stated here.
+
+| Input | Statute's nominal figure | Supplied value | Where it came from |
+|---|---|---|---|
+| `credit_point_value_for_tax_year_ils` | §33א: 504 ILS | 2,904 (2025 and 2026) | OECD TaxBEN Israel 2025 — a reference |
+| `additional_tax_threshold_for_tax_year_ils` | §121ב: 640,000 ILS | 721,560 (2025) | OECD TaxBEN Israel 2025 — a reference |
+| `thirty_five_percent_band_upper_ils` | §121(א)(2), stated as current | 560,280 | current consolidation; supplied because the 2025 expression is defective (above) |
+| `current_basic_amount_*` (2026) | §1(2): 150 / 188 / 140 ILS | 173 / 219 | **official** — the captured ביטוח לאומי publication, effective 01.01.2026 |
+| `current_basic_amount_*` (2025) | §1(2): 150 / 188 / 140 ILS | 169 / 214 / 153 | OECD TaxBEN Israel 2025 — a reference |
+
+### `credit-point-current-value-not-captured`
+§33א states the credit point as 504 ILS a year, index-linked under §120א. The
+current value is not in the statute and no Tax Authority עדכון סכומים notice was
+captured (gov.il refuses a plain HTTP client). `il/policies/` therefore holds a
+National Insurance Institute capture but no Tax Authority capture.
+**Resolution:** fetch the Tax Authority notice through a real browser and add an
+`il/policies/tax-authority/` module.
+
+### `child-allowance-2025-amounts-not-officially-captured`
+The captured National Insurance Institute page states amounts "(החל מ- 01.01.2026)"
+only. The 2025 amounts used in fixtures are the OECD TaxBEN figures.
+**Resolution:** capture the Institute's 2025 table.
+
+## Narrowings inside the encoded sections
+
+### `ito-section-66-maturity-year-cross-reference`
+§66(ג)(4)(א) defines ”שנת לידה“ and ”שנת בגרות“ by reference to §40(ב)(3), which
+this pilot does not encode. Birth year and maturity year are therefore Boolean
+inputs (`child_is_in_birth_year`, `child_is_in_maturity_year`) rather than being
+derived from an age and a date of birth.
+
+### `ito-section-66-scope`
+Only §66(ג)(4)(א) and §66(ג)(5) are encoded. §66(א), §66(ב), §66(ג)(1)–(3),
+(4א), (5א), (6), and §66(ד)–(ה) are not. §66 applies only where separate
+calculation (חישוב נפרד) is elected; the composed fixtures take that election as
+given and do not test the election conditions in §66(ד).
+
+### `ito-section-40-not-encoded`
+§40(א) (נקודות קיצבה for children, paid by the National Insurance Institute under
+§109 of the 1968 Law) and §40(ב) (the single-parent credit-point schedule) are
+not encoded. A single-parent household therefore cannot be computed by this
+pilot, and the OECD TaxBEN "single parent tax credit" of one additional point is
+outside its scope.
+
+### `nii-section-67-second-limb`
+§67(ב)'s second limb — a child with one natural parent and one other parent, both
+insured, counted with the parent the child is with — is folded into the same
+`child_is_with_the_mother_only` input rather than encoded as its own branch,
+because the pilot's household shapes do not distinguish it.
+
+### `nii-section-68-repealed-subsections`
+§68(ב)(1) and §68(ד)–(יא) are empty or repealed in the captured expression and
+are not encoded.
+
+### `nii-section-1-paragraphs-1-and-3`
+Only paragraph (2) of the הסכום הבסיסי definition is encoded — the one that
+governs the child allowance. Paragraphs (1) and (3), covering maternity,
+work-injury, disability and residual benefits, are not.
+
+### `composed-capstone-bounds`
+The composed capstone is bounded to: at most two children; one earner; the
+mother's §66(ג)(4) schedule; separate calculation assumed elected. The per-child
+age-band selection is written twice (`child_1_credit_points`,
+`child_2_credit_points`) because the pilot declares no Child entity and uses no
+relation aggregation; the correct shape is a Child entity with
+`sum(children.credit_points)`. Annual tax is divided by twelve for presentation
+and is NOT a model of the monthly ניכוי במקור deduction rules.
+
+### `no-contributions-so-net-is-not-take-home-pay`
+National Insurance and health contributions (NII Law §335, Health Insurance Law
+§14) are not encoded. `monthly_net_income_ils` is net of income tax and inclusive
+of child allowance ONLY. It is not take-home pay and must not be presented as
+such. Neither are the pension-contribution credit, מס הכנסה שלילי (EITC), or any
+other instrument.
+
+## Oracles
+
+### `no-executable-oracle`
+Nothing in this repository is machine-compared against an external model. The
+OECD TaxBEN Israel description is a narrative policy description read by a human;
+the TaxBEN web calculator and the Tax Authority simulator
+(`secapp.taxes.gov.il/srsimulatorNZ`, linked from the consolidated text of §121)
+are candidate oracles and are NOT wired. No fixture here was produced by any of
+them. `oracle-coverage-pending.yaml` declares a ceiling of 0 rather than
+overstating coverage.
+
+Where the 2025 encoding was compared to the TaxBEN description by hand, it
+agrees: bracket edges 84,120 / 120,720 / 193,800 / 269,280 / 560,280; rates
+10/14/20/31/35/47; the child credit point ladder 2.5 / 4.5 / 3.5 / 2.5 / 2 (mother)
+against 1 (father) and 0.5 against 0 in the maturity year; and 2.25 basic points,
+which the statute reaches as §34's two points plus §36's quarter point.

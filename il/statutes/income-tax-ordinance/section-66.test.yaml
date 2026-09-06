@@ -1,0 +1,121 @@
+
+# Companion fixtures for ITO §66(ג)(4)(א) and §66(ג)(5): child credit points by
+# age band, for the woman and for the man, under separate calculation.
+#
+# The whole age ladder is exercised, and each case states both schedules so the
+# one place they diverge is visible: from age six the woman gets two points and
+# the man one, and in the maturity year the woman gets half a point and the man
+# none — the statute allots him nothing there, so 0 is the absence of a rule,
+# not an encoded amount.
+#
+# These match the OECD TaxBEN Israel 2025 child tax credit table exactly
+# (mothers/lone fathers vs fathers: 2.5 / 4.5 / 3.5 / 2.5 / 2 vs 1 / 0.5 vs 0).
+
+- name: birth_year_gives_two_and_a_half_points_to_both
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 0
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 2.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 2.5
+- name: age_one_is_in_the_four_and_a_half_point_band
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 1
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
+- name: age_two_is_still_in_the_four_and_a_half_point_band
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 2
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 4.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 4.5
+- name: age_three_has_its_own_three_and_a_half_point_band
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 3
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 3.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 3.5
+- name: age_four_is_in_the_two_and_a_half_point_band
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 4
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 2.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 2.5
+- name: age_five_is_still_in_the_two_and_a_half_point_band
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 5
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 2.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 2.5
+- name: from_age_six_the_schedules_diverge_two_against_one
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 6
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 2
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 1
+- name: age_seventeen_is_the_last_year_before_maturity
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 17
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 2
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 1
+- name: maturity_year_gives_the_woman_half_a_point_and_the_man_none
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_age_years: 18
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#mother_child_credit_points: 0.5
+    il:statutes/income-tax-ordinance/section-66#father_child_credit_points: 0

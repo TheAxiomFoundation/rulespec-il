@@ -1,0 +1,49 @@
+
+# Companion fixtures for ITO §120ב(ה), the 2025-2027 indexation freeze.
+# The tax year under test is an input, so every case runs in one period.
+
+- name: tax_year_2024_is_not_frozen
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year: 2024
+  output:
+    il:statutes/income-tax-ordinance/section-120b#amounts_are_frozen_in_tax_year: false
+- name: tax_year_2025_is_frozen
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year: 2025
+  output:
+    il:statutes/income-tax-ordinance/section-120b#amounts_are_frozen_in_tax_year: true
+- name: tax_year_2026_is_frozen
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year: 2026
+  output:
+    il:statutes/income-tax-ordinance/section-120b#amounts_are_frozen_in_tax_year: true
+- name: tax_year_2027_is_frozen
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year: 2027
+  output:
+    il:statutes/income-tax-ordinance/section-120b#amounts_are_frozen_in_tax_year: true
+- name: tax_year_2028_is_not_frozen
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year: 2028
+  output:
+    il:statutes/income-tax-ordinance/section-120b#amounts_are_frozen_in_tax_year: false

@@ -1,0 +1,70 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+    source_sha256: e72f45b6e51fd950b2483f6d2759ff0e198e28d4756cb41909fb5e35092777c6
+  summary: 'סעיף 33א לפקודת מס הכנסה — the definition of נקודת זיכוי (credit point).
+
+
+    The Ordinance states the credit point as a NOMINAL 504 shekels per tax year,
+
+    linked to the index under §120א. It does NOT state a current-year value. The
+
+    2025 value quoted by secondary sources (2,904 ILS) is the result of decades of
+
+    indexation and is not in the statute, so it is not a parameter here; it enters
+
+    the composed pipeline as a supplied input whose provenance each fixture states.
+
+    See docs/ENCODING-GAPS.md, gap `credit-point-current-value-not-captured`.'
+rules:
+- name: credit_point_nominal_annual_amount_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 33א, הגדרת ”נקודת זיכוי“
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+          excerpt: סכום של 504 שקלים חדשים לשנת מס
+  versions:
+  - effective_from: '1975-01-01'
+    formula: '504'
+- name: pension_point_monthly_divisor
+  kind: parameter
+  dtype: Integer
+  source: סעיף 33א, הגדרת ”נקודת קיצבה“
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+          excerpt: ומחולק בשנים עשר
+  versions:
+  - effective_from: '1997-01-01'
+    formula: '12'
+- name: credit_point_is_index_linked
+  kind: derived
+  entity: Person
+  dtype: Boolean
+  period: Year
+  source: סעיף 33א, הגדרת ”נקודת זיכוי“
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+          excerpt: צמוד למדד כאמור בסעיף 120א
+  versions:
+  - effective_from: '1975-01-01'
+    formula: 'true'

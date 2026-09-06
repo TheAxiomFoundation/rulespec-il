@@ -1,0 +1,229 @@
+format: rulespec/v1
+imports:
+- il:statutes/income-tax-ordinance/section-121#income_tax_before_credits_ils
+- il:statutes/income-tax-ordinance/section-121b#additional_tax_ils
+- il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax
+- il:statutes/income-tax-ordinance/section-34#resident_credit_points
+- il:statutes/income-tax-ordinance/section-36#travel_to_place_of_earning_credit_points
+- il:statutes/income-tax-ordinance/section-36a#woman_credit_points
+- il:statutes/income-tax-ordinance/section-66#mother_points_birth_year
+- il:statutes/income-tax-ordinance/section-66#mother_points_age_1_to_2
+- il:statutes/income-tax-ordinance/section-66#mother_points_age_3
+- il:statutes/income-tax-ordinance/section-66#mother_points_age_4_to_5
+- il:statutes/income-tax-ordinance/section-66#mother_points_age_6_to_pre_maturity
+- il:statutes/income-tax-ordinance/section-66#mother_points_maturity_year
+- il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance
+- il:statutes/national-insurance-law-1995/section-1#basic_amount_first_and_fifth_plus_child_ils
+- il:statutes/national-insurance-law-1995/section-1#basic_amount_second_third_fourth_child_ils
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance
+  summary: "Composed monthly net income for an employed woman with children.\n\nWires the pilot's two\
+    \ instruments into one figure a reader can check:\n\n  gross monthly wage\n    -> §121 income tax\
+    \ on annual taxable income (reduced schedule, יגיעה אישית)\n    -> less the §33א credit-point value\
+    \ times the §34 + §36 + §36א + §66(ג)(4)\n       credit points\n    -> plus the §121ב additional tax\n\
+    \    -> plus the National Insurance child allowance, which §66 of that Law\n       denies outright\
+    \ to a parent liable to the §121ב additional tax\n    = monthly net\n\nThat last link is the point\
+    \ of the capstone: the benefit is not independent of\nthe tax. A fixture drives income past the additional-tax\
+    \ threshold and the\nallowance goes to zero for a statutory reason, not a modelled one.\n\nSUPPLIED\
+    \ VALUES, AND WHY. Three quantities are inputs rather than parameters,\nbecause the statute states\
+    \ them as nominal amounts under an indexation\nmechanism this repository does not implement and no\
+    \ official current-year\ncapture exists:\n  * `credit_point_value_for_tax_year_ils` — §33א states\
+    \ 504 ILS nominal.\n  * `additional_tax_threshold_for_tax_year_ils` (on the §121ב module) — §121ב\n\
+    \    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1 states 150/188/140\
+    \ nominal.\nEach fixture records where its supplied number came from. None of them is law\nas stated\
+    \ here.\n\nBOUNDS. At most two children; one earner; separate calculation (חישוב נפרד)\nassumed elected,\
+    \ which is what makes §66(ג)(4) apply; the mother's schedule\nonly. `child_1_credit_points` and `child_2_credit_points`\
+    \ repeat the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation\
+    \ —\nthe right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope\
+    \ here. Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי\
+    \ במקור deduction rules, which are not encoded.\n\nNational Insurance and health contributions are\
+    \ NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is\
+    \ not take-home\npay. See docs/ENCODING-GAPS.md."
+rules:
+- name: child_1_credit_points
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Month
+  source: סעיף 66(ג)(4)(א) לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: לנקודות זיכוי בעד ילדיה כלהלן
+  versions:
+  - effective_from: '2025-01-01'
+    formula: 'if number_of_children < 1: 0
+
+      elif child_1_is_in_birth_year: mother_points_birth_year
+
+      elif child_1_is_in_maturity_year: mother_points_maturity_year
+
+      elif child_1_age_years <= 2: mother_points_age_1_to_2
+
+      elif child_1_age_years == 3: mother_points_age_3
+
+      elif child_1_age_years <= 5: mother_points_age_4_to_5
+
+      else: mother_points_age_6_to_pre_maturity'
+- name: child_2_credit_points
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Month
+  source: סעיף 66(ג)(4)(א) לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: לנקודות זיכוי בעד ילדיה כלהלן
+  versions:
+  - effective_from: '2025-01-01'
+    formula: 'if number_of_children < 2: 0
+
+      elif child_2_is_in_birth_year: mother_points_birth_year
+
+      elif child_2_is_in_maturity_year: mother_points_maturity_year
+
+      elif child_2_age_years <= 2: mother_points_age_1_to_2
+
+      elif child_2_age_years == 3: mother_points_age_3
+
+      elif child_2_age_years <= 5: mother_points_age_4_to_5
+
+      else: mother_points_age_6_to_pre_maturity'
+- name: annual_credit_points
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Month
+  source: סעיפים 34, 36, 36א ו־66(ג)(4) לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-34
+          excerpt: יובאו בחשבון שתי נקודות זיכוי
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-36
+          excerpt: תובא בחשבון 1⁄4 נקודת זיכוי כזיכוי נסיעה
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-36a
+          excerpt: בחישוב המס של אשה תובא בחשבון 1⁄2 נקודת זיכוי
+  versions:
+  - effective_from: '2025-01-01'
+    formula: 'resident_credit_points
+
+      + travel_to_place_of_earning_credit_points
+
+      + (if taxpayer_is_a_woman: woman_credit_points else: 0)
+
+      + child_1_credit_points
+
+      + child_2_credit_points'
+- name: annual_credit_amount_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 33א לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+          excerpt: סכום של 504 שקלים חדשים לשנת מס, צמוד למדד כאמור בסעיף 120א, המקוזז כנגד המס לאותה
+            שנה
+  versions:
+  - effective_from: '2025-01-01'
+    formula: annual_credit_points * credit_point_value_for_tax_year_ils
+- name: annual_income_tax_after_credits_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיפים 121, 121ב ו־33א לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+          excerpt: המקוזז כנגד המס לאותה שנה
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+          excerpt: יהיה חייב במס נוסף על חלק הכנסתו החייבת העולה על 640,000 שקלים חדשים
+  versions:
+  - effective_from: '2025-01-01'
+    formula: max(0, income_tax_before_credits_ils - annual_credit_amount_ils) + additional_tax_ils
+- name: monthly_child_allowance_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיפים 66, 67 ו־68 לחוק הביטוח הלאומי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-66
+          excerpt: למעט הורה מבוטח שיש לו הכנסה החייבת במס נוסף כמשמעותה בסעיף 121ב לפקודת מס הכנסה
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: קצבת הילדים לחודש בעד כל ילד שבמנין ילדיו של ההורה תהיה בסכום השווה לסכום הבסיסי הקבוע
+            לגביו
+  versions:
+  - effective_from: '2025-01-01'
+    formula: "if entitled_to_child_allowance:\n  (if number_of_children >= 1: current_basic_amount_first_and_fifth_plus_ils\
+      \ else: 0)\n  + (if number_of_children >= 2: current_basic_amount_second_third_fourth_ils else:\
+      \ 0)\nelse: 0"
+- name: monthly_net_income_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: הרכבה של סעיפים 121, 121ב, 33א, 34, 36, 36א ו־66 לפקודה עם סעיפים 66 ו־68 לחוק הביטוח הלאומי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: קצבת הילדים לחודש בעד כל ילד שבמנין ילדיו של ההורה
+  versions:
+  - effective_from: '2025-01-01'
+    formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / 12) + monthly_child_allowance_ils

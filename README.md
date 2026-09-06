@@ -6,10 +6,7 @@ Israel RuleSpec source registry — **bounded pilot**.
 > composed capstone. Nothing here is certified, complete, or fit for
 > administrative use. `app_visibility` is `experimental`.
 
-## Pilot scope
-
-The modules below land in the first content PR (branch `pilot-v0`).
-On `main` this repository is scaffold only — nothing is encoded yet.
+## What is encoded
 
 A deliberately small, end-to-end-testable slice chosen so a reader can check
 every number against the Hebrew statute:
@@ -19,12 +16,13 @@ every number against the Hebrew statute:
 | `il/statutes/income-tax-ordinance/section-121.yaml` | פקודת מס הכנסה §121 | individual rate schedule — the §121(א) general bands and the §121(ב)(1) reduced bands for earned income (הכנסה מיגיעה אישית), for tax years 2025 and 2026 |
 | `il/statutes/income-tax-ordinance/section-121b.yaml` | §121ב | מס נוסף — the 3% additional tax on high income and the 2% additional tax on capital-source income |
 | `il/statutes/income-tax-ordinance/section-120b.yaml` | §120ב | the annual indexation rule and the §120ב(ה) statutory freeze of the amounts for tax years 2025–2027 |
-| `il/statutes/income-tax-ordinance/section-33a.yaml` | §33א | the definition of נקודת זיכוי (credit point) as a nominal amount indexed under §120א |
+| `il/statutes/income-tax-ordinance/section-33a.yaml` | §33א | the definition of נקודת זיכוי (credit point) as a nominal 504 ILS indexed under §120א |
 | `il/statutes/income-tax-ordinance/section-34.yaml` | §34 | resident credit — two credit points |
 | `il/statutes/income-tax-ordinance/section-36.yaml` | §36 | travel-to-work credit — ¼ credit point |
 | `il/statutes/income-tax-ordinance/section-36a.yaml` | §36א | woman's credit — ½ credit point |
 | `il/statutes/income-tax-ordinance/section-66.yaml` | §66(ג)(4)–(5) | child credit points by age band under separate calculation (חישוב נפרד) |
 | `il/statutes/national-insurance-law-1995/section-1.yaml` | חוק הביטוח הלאומי §1 | the הסכום הבסיסי definition, paragraph (2), for child allowance |
+| `il/policies/national-insurance-institute/child-allowance-rates.yaml` | ביטוח לאומי publication | the published monthly allowance amounts, effective 1 January 2026 — the only official current-year capture in this pilot |
 | `il/statutes/national-insurance-law-1995/section-66.yaml` | §66 | right to child allowance, and its exclusion of parents liable to the ITO §121ב additional tax |
 | `il/statutes/national-insurance-law-1995/section-67.yaml` | §67 | which parent a child is counted with |
 | `il/statutes/national-insurance-law-1995/section-68.yaml` | §68 | monthly allowance per child, the pre-2003 fourth/fifth-child multipliers, and the §68(ג) income-support increment |

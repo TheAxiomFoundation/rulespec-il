@@ -1,0 +1,268 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-66
+    source_sha256: 7b9a686f8137bcb32841697ac722f0bc5c59f1e8afb1c2d34784c9ea3cfcb52f
+  summary: 'סעיף 66 לפקודת מס הכנסה — child credit points under separate calculation.
+
+
+    §66 governs חישוב נפרד, the separate computation of tax on a spouse''s income
+
+    from personal exertion. This module encodes only §66(ג)(4)(א) and §66(ג)(5) —
+
+    the child credit points allowed to the woman and to the man against the tax on
+
+    their income from personal exertion, by the child''s age band.
+
+
+    THE MATURITY YEAR IS A CROSS-REFERENCE. §66(ג)(4)(א) defines ”שנת לידה“ and
+
+    ”שנת בגרות“ by reference to §40(ב)(3), which is not encoded in this pilot, so
+
+    the birth year and maturity year enter as the Boolean inputs
+
+    `child_is_in_birth_year` and `child_is_in_maturity_year` rather than being
+
+    derived from an age. The father''s schedule states no points for the maturity
+
+    year, so the formula returns 0 there rather than inventing a parameter for an
+
+    amount the statute does not state.
+
+
+    SCOPE. §66(ג)(1)-(3), (4א), (5א) and (6), §66(א)-(ב) and §66(ד)-(ה) are not
+
+    encoded. Neither is §40(ב), the single-parent schedule, nor §40(א)''s נקודות
+
+    קיצבה, which the National Insurance Institute pays. A couple must elect
+
+    separate calculation for this section to apply at all; the pilot''s composed
+
+    fixtures take that election as given and say so.'
+rules:
+- name: mother_points_birth_year
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2.5'
+- name: mother_points_age_1_to_2
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 41⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו ועד לשנת המס שבה מלאו
+            לו שנתיים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '4.5'
+- name: mother_points_age_3
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 31⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '3.5'
+- name: mother_points_age_4_to_5
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2.5'
+- name: mother_points_age_6_to_pre_maturity
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ושתי נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס שקדמה
+            לשנת בגרותו
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2'
+- name: mother_points_maturity_year
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ו־1⁄2 נקודת זיכוי בעד כל אחד מילדיה בשנת בגרותו
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '0.5'
+- name: father_points_birth_year
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 21⁄2 נקודות זיכוי בשנת לידתו של הילד
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2.5'
+- name: father_points_age_1_to_2
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 41⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת המס שבה מלאו לו שנתיים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '4.5'
+- name: father_points_age_3
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 31⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '3.5'
+- name: father_points_age_4_to_5
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 21⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2.5'
+- name: father_points_age_6_to_pre_maturity
+  kind: parameter
+  dtype: Decimal
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: נקודת זיכוי אחת בעד כל אחד מילדיו החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס שקדמה
+            לשנת בגרותו
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '1'
+- name: mother_child_credit_points
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Year
+  source: סעיף 66(ג)(4)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: האשה תהא זכאית ל־1⁄2 נקודת זיכוי לפי סעיף 36א, ובנוסף וכנגד המס החל על הכנסתה מיגיעה
+            אישית – לנקודות זיכוי בעד ילדיה כלהלן
+  versions:
+  - effective_from: '2012-01-01'
+    formula: 'if child_is_in_birth_year: mother_points_birth_year
+
+      elif child_is_in_maturity_year: mother_points_maturity_year
+
+      elif child_age_years <= 2: mother_points_age_1_to_2
+
+      elif child_age_years == 3: mother_points_age_3
+
+      elif child_age_years <= 5: mother_points_age_4_to_5
+
+      else: mother_points_age_6_to_pre_maturity'
+- name: father_child_credit_points
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Year
+  source: סעיף 66(ג)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: הגבר יהא זכאי, כנגד המס החל על הכנסתו מיגיעה אישית, לנקודות זיכוי בעד כל אחד מילדיו,
+            כלהלן
+  versions:
+  - effective_from: '2012-01-01'
+    formula: 'if child_is_in_birth_year: father_points_birth_year
+
+      elif child_is_in_maturity_year: 0
+
+      elif child_age_years <= 2: father_points_age_1_to_2
+
+      elif child_age_years == 3: father_points_age_3
+
+      elif child_age_years <= 5: father_points_age_4_to_5
+
+      else: father_points_age_6_to_pre_maturity'

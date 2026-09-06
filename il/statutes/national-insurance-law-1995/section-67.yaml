@@ -1,0 +1,51 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-67
+    source_sha256: 7ccf8ab7da30b878ff0683493bc670b7094289349363969e457580f9de64a5fb
+  summary: 'חוק הביטוח הלאומי, סעיף 67 — whose count a child falls into.
+
+
+    §67(א): a child is never counted, for one and the same period, in more than one
+
+    insured parent''s count of children. §67(ב): a child with two parents is counted
+
+    with the insured father, unless the child is with the mother alone.
+
+
+    The second limb of §67(ב) — a child with one natural parent and one other
+
+    parent, both insured, counted with the parent the child is with — is encoded
+
+    through the same `child_is_with_the_mother_only` input rather than as a separate
+
+    branch, because the pilot''s household shapes do not distinguish it. That
+
+    narrowing is recorded in docs/ENCODING-GAPS.md.'
+rules:
+- name: child_counts_with_this_parent
+  kind: derived
+  entity: Person
+  dtype: Boolean
+  period: Month
+  source: סעיף 67(א) ו־(ב)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-67
+          excerpt: לא יבוא ילד, בפרק זמן אחד, במנין ילדים של יותר מהורה מבוטח אחד
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-67
+          excerpt: ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד
+  versions:
+  - effective_from: '1995-01-01'
+    formula: "if child_has_two_insured_parents:\n  if child_is_with_the_mother_only:\n    (if this_parent_is_the_father:\
+      \ false else: true)\n  else: (if this_parent_is_the_father: true else: false)\nelse: (if this_parent_is_insured:\
+      \ true else: false)"

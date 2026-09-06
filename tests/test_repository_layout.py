@@ -180,11 +180,16 @@ def test_registry_visibility_is_experimental() -> None:
     assert 'app_visibility = "experimental"' in text
 
 
-def test_module_paths_use_ordinal_hebrew_suffix_transliteration() -> None:
-    """section-121b, not section-121v; section-36a, not section-36alef."""
+def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> None:
+    """section-121b, not section-121v; section-36a, not section-36alef.
+
+    Statute modules are named for the section they encode. Composed pipelines and
+    policy-publication modules under il/policies/ are named for what they are, so
+    they are outside this contract.
+    """
     allowed = set(HEBREW_SUFFIX_ORDINALS.values())
     for path in rulespec_files():
-        if path.parent.name == "composed":
+        if path.parent.name == "composed" or "policies" in path.parts:
             continue
         match = re.fullmatch(r"section-(\d+)([a-z]*)", path.stem)
         assert match is not None, path
@@ -212,3 +217,25 @@ def test_source_map_names_only_sections_that_are_encoded() -> None:
                 HEBREW_SUFFIX_ORDINALS.get(character, character) for character in number
             )
             assert slug in on_disk, (instrument["id"], section, slug)
+
+
+def test_policy_modules_carry_an_official_publisher_capture() -> None:
+    """A current-year amount may only enter through il/policies/.
+
+    The coverage map must record the publication behind every policy module, with
+    a sha256 and a retrieval time, so a supplied number can always be traced.
+    """
+    policy_modules = sorted(
+        path
+        for path in (ROOT / "il" / "policies").rglob("*.yaml")
+        if not path.name.endswith(".test.yaml")
+    )
+    payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
+    recorded = {item["module"] for item in payload.get("policy_publications", [])}
+    for path in policy_modules:
+        relative = str(path.relative_to(ROOT))
+        assert relative in recorded, relative
+    for item in payload.get("policy_publications", []):
+        assert len(item["sha256"]) == 64, item["id"]
+        assert item["url"].startswith("https://"), item["id"]
+        assert item["retrieved_at"].endswith("Z"), item["id"]

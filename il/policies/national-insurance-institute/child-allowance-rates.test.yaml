@@ -1,0 +1,59 @@
+
+# Companion fixtures for the captured ביטוח לאומי published child allowance
+# amounts, effective 1 January 2026. These assert the publication, not the law:
+# the statutory structure is in il/statutes/national-insurance-law-1995/.
+
+- name: birth_order_1_is_paid_173
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 1
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
+- name: birth_order_2_is_paid_219
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 2
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+- name: birth_order_3_is_paid_219
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 3
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+- name: birth_order_4_is_paid_219
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 4
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+- name: birth_order_5_is_paid_173
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 5
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
+- name: birth_order_6_is_paid_173
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 6
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173

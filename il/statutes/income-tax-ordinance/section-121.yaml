@@ -1,0 +1,308 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-121
+    source_sha256: 7f8d61ff2d52e718086be0987365a5d92e19e9bb8329ab374f8d2bf2f14bbb9f
+  summary: 'סעיף 121 לפקודת מס הכנסה — the individual rate schedule.
+
+
+    Encodes both the §121(א) general schedule and the §121(ב)(1) reduced schedule
+
+    for income from personal exertion (הכנסה מיגיעה אישית) or for an individual aged
+
+    60 or over, together with the §121(ב)(2) carve-out that withdraws the reduced
+
+    rates where books of account were required and no acceptable books were kept.
+
+
+    TWO TAX YEARS, TWO SETS OF AMOUNTS. §120ב(ה)(1) froze the indexed amounts for
+
+    tax years 2025-2027 at their 1 January 2024 level, so 2025 and 2026 do not
+
+    differ by indexation. They differ because the Economic Efficiency Law for
+
+    budget year 2026 (ס"ח 3511, פרק ג'' "ריווח מדרגות מס הכנסה", §5 = ITO amendment
+
+    288, with §6 setting תחילה at 1 January 2026) widened the 20% and 31% bands by
+
+    statute: 193,800 -> 228,000 and 269,280 -> 301,200. Each affected parameter
+
+    therefore carries two versions, whose proof atoms cite the two captured
+
+    expressions of §121: the 2025 expression (he.wikisource oldid=2971879, provision
+
+    sha256 5573b1d0422e9f4faba352a6438292c43456fffe3320ef8f64c865fbdaec395f) and the current expression
+    (provision sha256 7f8d61ff2d52e718086be0987365a5d92e19e9bb8329ab374f8d2bf2f14bbb9f).
+
+
+    NOT A PARAMETER: the boundary between the 35% band and the 47% band enters the
+
+    formula as the supplied input `thirty_five_percent_band_upper_ils`. The current
+
+    consolidation states it cleanly in §121(א)(2) ("עד 560,280 שקלים חדשים"), but the
+
+    captured 2025 expression of the same paragraph is internally inconsistent — it
+
+    reads "מ־560,280 שקלים חדשים עד 542,160 שקלים חדשים", a lower bound above its own
+
+    upper bound — and the defect is present in the 2024-12-31 revision as well.
+
+    Rather than attach a proof atom to text that does not support the value, the
+
+    boundary is supplied and its provenance is stated per fixture. See
+
+    docs/ENCODING-GAPS.md, gap `section-121-a-2-defective-2025-expression`.
+
+
+    Scope: the schedule only. Credit points are §§33א/34/36/36א/66, the additional
+
+    tax is §121ב, and neither is applied here.'
+rules:
+- name: reduced_band_1_upper_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 121(ב)(1)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: מ־84,120 השקלים החדשים הראשונים – 10%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '84120'
+- name: reduced_band_2_upper_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 121(ב)(1)(ב)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: עד 120,720 שקלים חדשים – 14%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '120720'
+- name: reduced_band_3_upper_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 121(ב)(1)(ג)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: עד 193,800 שקלים חדשים – 20%
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: עד 228,000 שקלים חדשים – 20%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '193800'
+  - effective_from: '2026-01-01'
+    formula: '228000'
+- name: reduced_band_4_upper_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 121(ב)(1)(ד)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: מ־193,801 שקלים חדשים עד 269,280 שקלים חדשים – 31%
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: מ־228,001 שקלים חדשים עד 301,200 שקלים חדשים – 31%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '269280'
+  - effective_from: '2026-01-01'
+    formula: '301200'
+- name: general_first_band_upper_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: סעיף 121(א)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: מ־269,280 השקלים החדשים הראשונים – 31%
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: מ־301,200 השקלים החדשים הראשונים – 31%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '269280'
+  - effective_from: '2026-01-01'
+    formula: '301200'
+- name: rate_first_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(ב)(1)(א)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: הראשונים – 10%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.10'
+- name: rate_second_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(ב)(1)(ב)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: שקלים חדשים – 14%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.14'
+- name: rate_third_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(ב)(1)(ג)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: שקלים חדשים – 20%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.20'
+- name: rate_fourth_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(א)(1) ו־121(ב)(1)(ד)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: הראשונים – 31%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.31'
+- name: rate_fifth_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(א)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: שקלים חדשים – 35%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.35'
+- name: rate_top_band
+  kind: parameter
+  dtype: Rate
+  source: סעיף 121(א)(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: על כל שקל חדש נוסף – 47%
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '0.47'
+- name: reduced_rates_apply
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: סעיף 121(ב)(1) ו־(ב)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: לגבי הכנסה חייבת בשנת המס מיגיעה אישית ולגבי הכנסה חייבת בשנת המס של יחיד שמלאו לו
+            60 שנים, יחולו שיעורים אלה
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: השיעורים המופחתים הקבועים בפסקה (1) לא יחולו על הכנסה שחייבים לגביה בניהול פנקסי חשבונות
+            ולא נוהלו לגביה פנקסים קבילים
+  versions:
+  - effective_from: '2025-01-01'
+    formula: income_is_from_personal_exertion_or_individual_is_60_or_over and not books_of_account_required_but_not_kept
+- name: income_tax_before_credits_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Year
+  source: סעיף 121(א) ו־121(ב)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-121
+          excerpt: על אף האמור בסעיף קטן (א)(1) ובכפוף לאמור בפסקה (2)
+  versions:
+  - effective_from: '2025-01-01'
+    formula: "if reduced_rates_apply:\n  rate_first_band * min(annual_taxable_income_ils, reduced_band_1_upper_ils)\n\
+      \  + rate_second_band * max(0, min(annual_taxable_income_ils, reduced_band_2_upper_ils) - reduced_band_1_upper_ils)\n\
+      \  + rate_third_band * max(0, min(annual_taxable_income_ils, reduced_band_3_upper_ils) - reduced_band_2_upper_ils)\n\
+      \  + rate_fourth_band * max(0, min(annual_taxable_income_ils, reduced_band_4_upper_ils) - reduced_band_3_upper_ils)\n\
+      \  + rate_fifth_band * max(0, min(annual_taxable_income_ils, thirty_five_percent_band_upper_ils)\
+      \ - reduced_band_4_upper_ils)\n  + rate_top_band * max(0, annual_taxable_income_ils - thirty_five_percent_band_upper_ils)\n\
+      else:\n  rate_fourth_band * min(annual_taxable_income_ils, general_first_band_upper_ils)\n  + rate_fifth_band\
+      \ * max(0, min(annual_taxable_income_ils, thirty_five_percent_band_upper_ils) - general_first_band_upper_ils)\n\
+      \  + rate_top_band * max(0, annual_taxable_income_ils - thirty_five_percent_band_upper_ils)"

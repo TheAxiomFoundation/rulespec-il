@@ -1,0 +1,60 @@
+
+# Companion fixtures for the הסכום הבסיסי definition, paragraph (2): which child
+# takes the higher basic amount. Paragraph (2)(ב) covers the second, third and
+# fourth child; (2)(א) covers the first and the fifth and later. The fifth child
+# dropping back to the lower amount is the non-obvious edge, so it is pinned.
+
+- name: child_1_does_not_take_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 1
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
+- name: child_2_takes_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 2
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: holds
+- name: child_3_takes_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 3
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: holds
+- name: child_4_takes_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 4
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: holds
+- name: child_5_does_not_take_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 5
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
+- name: child_6_does_not_take_the_higher_basic_amount
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/section-1#input.child_birth_order: 6
+  output:
+    il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds

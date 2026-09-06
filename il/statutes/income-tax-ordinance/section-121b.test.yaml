@@ -1,0 +1,72 @@
+
+# Companion fixtures for ITO §121ב, מס נוסף.
+#
+# additional_tax_threshold_for_tax_year_ils is SUPPLIED as 721,560. §121ב states
+# 640,000, a nominal amount index-linked under §120ב and frozen at its 2024 level
+# for 2025-2027; 721,560 is the 2025 figure reported by the OECD TaxBEN Israel
+# description, which is a reference and not law. No official Tax Authority
+# capture of the 2025 figure was obtained. See docs/ENCODING-GAPS.md.
+#
+# §121ב(א) says "עלתה על" — exceeded — so income exactly at the threshold is not
+# liable, and one fixture pins that boundary.
+
+- name: below_the_threshold_no_additional_tax
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 500000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
+    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
+  output:
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
+- name: exactly_at_the_threshold_is_not_liable
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 721560
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
+    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
+  output:
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: false
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 0.0
+- name: three_percent_on_the_excess_over_the_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 800000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 0
+    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
+  output:
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 2353.2
+- name: capital_source_income_adds_the_two_percent_of_subsection_a1
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 800000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 750000
+    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
+  output:
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 2922.0
+- name: capital_source_income_alone_can_trigger_liability
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_ils: 500000
+    il:statutes/income-tax-ordinance/section-121b#input.annual_taxable_income_from_capital_sources_ils: 750000
+    il:statutes/income-tax-ordinance/section-121b#input.additional_tax_threshold_for_tax_year_ils: 721560
+  output:
+    il:statutes/income-tax-ordinance/section-121b#liable_to_additional_tax: true
+    il:statutes/income-tax-ordinance/section-121b#additional_tax_ils: 568.8
