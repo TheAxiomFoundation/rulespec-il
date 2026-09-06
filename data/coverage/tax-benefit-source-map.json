@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06",
+  "jurisdiction": "il",
+  "validation_year": 2025,
+  "note": "Scaffold commit. NOTHING is encoded yet: encoded_sections is empty on main and is filled in by the first content PR (branch pilot-v0). No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
+  "corpus_scopes": [],
+  "release_candidate": {
+    "name": "il-rulespec-2026-09-06",
+    "status": "not_cut",
+    "note": "Planned name only. No ingest PR merged, no release signed, no registration, no mirror. Nothing in this repository is bound to it."
+  },
+  "instruments": [
+    {
+      "id": "income-tax-ordinance",
+      "official_name": "פקודת מס הכנסה [נוסח חדש]",
+      "knesset_israel_law_id": 2000944,
+      "policy_surfaces": [
+        "personal_income_tax",
+        "tax_credit_points",
+        "additional_tax_on_high_income",
+        "statutory_indexation"
+      ],
+      "encoded_sections": [],
+      "temporal_coverage": "none_encoded_yet",
+      "expressions": [
+        {
+          "expression_from": "2025-01-01",
+          "expression_to_exclusive": "2026-01-01",
+          "source_tier": "consolidation-knesset-linked",
+          "source": "he.wikisource oldid=2971879"
+        },
+        {
+          "expression_from": "2026-01-01",
+          "expression_to_exclusive": null,
+          "source_tier": "consolidation-knesset-linked",
+          "source": "he.wikisource current revision, with ITO amendment 288 effective date taken from ס\"ח 3511"
+        }
+      ],
+      "not_encoded": [
+        "every other section of the Ordinance",
+        "§35 עולה credit",
+        "§37-§39 credits",
+        "§40(א) נקודות קיצבה and §40(ב) single-parent credit points",
+        "§45א pension contribution credit",
+        "§121א"
+      ]
+    },
+    {
+      "id": "national-insurance-law-1995",
+      "official_name": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+      "knesset_israel_law_id": 2000198,
+      "policy_surfaces": [
+        "child_allowance"
+      ],
+      "encoded_sections": [],
+      "temporal_coverage": "none_encoded_yet",
+      "expressions": [
+        {
+          "expression_from": "2025-01-01",
+          "expression_to_exclusive": null,
+          "source_tier": "consolidation-knesset-linked",
+          "source": "he.wikisource current revision"
+        }
+      ],
+      "not_encoded": [
+        "§65 definitions beyond what §66-§68 need",
+        "national insurance and health contributions (§335 and Health Insurance Law §14)",
+        "every other benefit chapter"
+      ]
+    }
+  ]
+}

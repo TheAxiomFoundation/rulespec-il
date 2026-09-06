@@ -1,0 +1,4 @@
+# Exact combined validator + independently executed companion failures.
+# Decrement-only: records may be consumed or removed, never added outside the
+# sanctioned pending -> active path. Empty: the pilot modules validate clean.
+validate_failures: {}

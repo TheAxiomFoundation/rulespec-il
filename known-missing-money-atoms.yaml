@@ -1,0 +1,3 @@
+# Every monetary literal must carry a source-backed proof atom.
+# Decrement-only outside the sanctioned pending-to-active path.
+total_allowed: 0

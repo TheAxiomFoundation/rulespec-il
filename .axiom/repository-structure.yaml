@@ -1,0 +1,36 @@
+version: 1
+allowed_root_directories:
+  - .axiom
+  - .github
+  - data
+  - docs
+  - il
+  - src
+  - tests
+allowed_root_files:
+  - .gitignore
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
+  - LICENSE
+  - LICENSE-CODE
+  - NOTICE
+  - README.md
+  - known-missing-money-atoms.yaml
+  - known-validation-gaps.yaml
+  - oracle-coverage-pending.yaml
+path_rules:
+  - patterns: [".axiom/**"]
+    allow_extensions: [".json", ".md", ".txt", ".toml", ".yaml"]
+  - patterns: [".github/**"]
+    allow_extensions: [".md", ".yaml", ".yml"]
+  - patterns: ["il/**"]
+    allow_extensions: [".yaml"]
+    allow_filenames: [".gitkeep"]
+  - patterns: ["data/**"]
+    allow_extensions: [".json", ".jsonl", ".yaml", ".yml"]
+    allow_filenames: [".gitkeep"]
+  - patterns: ["docs/**"]
+    allow_extensions: [".md"]
+  - patterns: ["src/**", "tests/**"]
+    allow_extensions: [".py"]

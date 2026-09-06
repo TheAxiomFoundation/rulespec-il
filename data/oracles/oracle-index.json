@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-09-06",
+  "jurisdiction": "il",
+  "purpose": "Pinned comparison references for the bounded Israel pilot. Israel has no incumbent open tax-benefit engine wired to Axiom; nothing in this file is an executable oracle, and no oracle coverage is declared in oracle-coverage-pending.yaml.",
+  "oracles": [
+    {
+      "id": "oecd-taxben-israel-2025",
+      "name": "OECD: Tax and Benefit Policy Descriptions for Israel (rules as of 1 January 2025)",
+      "url": "https://www.oecd.org/en/topics/sub-issues/benefits-and-wages.html",
+      "role": "Independent narrative description of the 2025 Israeli income tax schedule, credit points, and child allowance. Used to cross-check the hand-derived 2025 fixtures. It is a policy description, not a model run, and it is not law.",
+      "coverage": ["income_tax", "tax_credits", "child_allowance"],
+      "kind": "reference",
+      "executable": false
+    },
+    {
+      "id": "oecd-taxben-calculator",
+      "name": "OECD TaxBEN web calculator",
+      "url": "https://taxben.oecd.org",
+      "role": "Candidate household-level oracle. NOT wired: no automated comparison runs against it, and no fixture in this repository was produced by it.",
+      "coverage": ["income_tax", "child_allowance"],
+      "kind": "candidate_oracle",
+      "executable": false
+    },
+    {
+      "id": "taxes-gov-il-simulator",
+      "name": "רשות המסים income tax simulator",
+      "url": "https://secapp.taxes.gov.il/srsimulatorNZ/#/simulatorMasHachnasah",
+      "role": "The Tax Authority's own public calculator, linked from the consolidated text of ITO §121. Candidate oracle for a later wave. NOT wired and not used to produce any fixture here.",
+      "coverage": ["income_tax"],
+      "kind": "candidate_oracle",
+      "executable": false
+    }
+  ],
+  "notes": "policyengine-il does not exist and is not planned. Divergences from any reference above are recorded in docs/ENCODING-GAPS.md as unexplained, with both numbers; no issue is ever filed against an external reference."
+}

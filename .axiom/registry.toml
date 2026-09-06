@@ -1,0 +1,7 @@
+# App-surface visibility for this repository's encodings.
+# Public visibility requires the listing gates documented in the project.
+# This is a bounded pilot: two instruments, a handful of sections, no coverage
+# claim. It stays experimental until an Israel corpus release exists, the
+# toolchain is bound, and an executable oracle is wired.
+[registry]
+app_visibility = "experimental"

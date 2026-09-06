@@ -1,0 +1,32 @@
+name: Repository Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
+    secrets: inherit
+    with:
+      # Same reviewed validator pin rulespec-dk carries.
+      axiom-encode-ref: a4599841fa86d608236923c759558d1f21be9d09
+      # First engine revision carrying the Israel ILS currency seed
+      # (axiom-rules-engine#169, branch ils-currency-seed). This is a branch
+      # commit, not main: repinned to the merge commit once #169 merges.
+      axiom-rules-engine-ref: 23f2d155bc641a90905c66136a96f494028334a5
+      # Placeholder: this corpus revision contains no Israel scope, so
+      # citation resolution here fails closed until the il-rulespec release is
+      # ingested, signed and registered. Repinned in the dedicated toolchain PR
+      # together with .axiom/toolchain.toml — never in a content PR.
+      axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
+      rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
+      validate-roots: auto
+      # This pilot is hand-authored, not encoder-produced, so the shared
+      # generated-content guard (which requires a signed apply manifest on
+      # every RuleSpec change) cannot pass. Pinned off deliberately; turned on
+      # when encoder-produced content replaces the pilot.
+      run-generated-guard: false
+      guard-programs-root: false
