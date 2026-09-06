@@ -169,13 +169,31 @@ named in the run log (`apply=auto_repaired_<name>:<rules>`).
 **Resolution:** run all three as shipped after the toolchain PR.
 
 ### `effective-from-is-not-commencement`
-Almost every module version carries `effective_from: 0001-01-01`. That is the encoder saying
-the captured consolidation states no commencement date for the provision — the consolidations
+Most module versions carry `effective_from: 0001-01-01`. That is the encoder saying the
+captured consolidation states no commencement date for the provision — the consolidations
 carry amendment *lists* but no commencement clauses. It is **not** a claim that the rule has
-been in force since the year 1. The two exceptions are ITO §120ב and the composed pipeline,
-which carry `2025-01-01` because §120ב(ה)(1) names the tax years it suspends indexation for.
-**Resolution:** take commencement from the gazette act for each amendment and version the
-modules properly.
+been in force since the year 1. It IS, however, a rule that will answer a request for any
+earlier year with the current text, which is why review round 1 rejected it for ITO §121.
+
+Three modules are dated properly, from the gazette rather than from the consolidation:
+* **ITO §121** — every version `2026-01-01`. The bands are the text as replaced by ITO
+  amendment 288: ס״ח 3511 of י״ג בניסן התשפ״ו, פרק ג׳ "ריווח מדרגות מס הכנסה", §5, whose §6
+  reads `תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026) והוא יחול על הכנסה שהופקה או
+  נצמחה ביום האמור או לאחריו`. The act is captured
+  (`amend-2026-economic-efficiency-law-sefer-hachukim-3511.pdf`, sha256 `4196057a…`) and
+  listed in `docs/sources-and-provenance.md`. A request for 2025 now finds no version in
+  force rather than being answered with the 2026 schedule, which is the correct behaviour:
+  the pre-288 amounts are not in this repository's corpus.
+* **the composed pipeline** — every version `2026-01-01`, because it imports §121 and so
+  cannot answer an earlier period however its own rules are dated.
+* **ITO §120ב** — `2025-01-01`, because §120ב(ה)(1) names the tax years it suspends
+  indexation for.
+
+`tests/test_fixture_periods_are_in_force.py` is the standing guard: no companion case, in any
+module, may be dated before the commencement of a rule it asserts — including rules in other
+modules it imports.
+**Resolution:** take commencement from the gazette act for every remaining amendment and
+version those modules the same way.
 
 ### `corpus-holds-one-expression-per-provision`
 The Israel ingest holds a single expression of each provision: the Income Tax Ordinance as of
@@ -186,7 +204,9 @@ speak for an earlier year.** The consequence that matters is ITO §121: the band
 288 with effect from 1 January 2026. The 2025 schedule (193,800 / 269,280 in the middle bands)
 is a different text and is not in the corpus, so no fixture in this repository computes a 2025
 liability, and the OECD TaxBEN Israel 2025 table is not a like-for-like comparison for the
-middle of the schedule.
+middle of the schedule. Since review round 1 the §121 module *says* so: its versions commence
+2026-01-01 and an earlier request finds no version in force. See
+`effective-from-is-not-commencement`.
 **Resolution:** ingest the earlier expressions and encode the years separately.
 
 ## Divergences from references
@@ -332,6 +352,12 @@ whole while crediting back the reduced-rate part. Its own fixtures exercise mixe
 the books exception on each side. The composed pipeline supplies an employee's whole wage as
 personal-exertion income, so no fixture there exercises the split, but the module does.
 
+Review round 1 additionally found the composition classifying that wage under §121ב(ה)'s
+paragraph (2) — personal-exertion income that is NOT §2(1)/(2) income — while setting the
+paragraph (1) category to zero. A salary is `השתכרות או ריווח מעבודה`, ITO §2(2)(א), so it is
+paragraph (1) income. The two assignments are now the other way round. §121ב subtracts both
+categories identically, so no computed figure changed; the classification did.
+
 ### `ito-section-121b-subsections-b-to-e-not-encoded`
 Only §121ב(א) and §121ב(א1) are encoded, plus the §121ב(ה) definitional split that separates
 capital-source income from §2(1)/(2) and personal-exertion income. §121ב(ב) (no §91(ד)
@@ -378,11 +404,38 @@ Annual tax is divided by twelve for presentation. That is NOT a model of the mon
 ניכוי במקור deduction rules, which are not encoded.
 
 ### `composed-capstone-does-not-apply-nii-67-or-68b-c`
-The pipeline wires NII §66 (entitlement) and the §68(א)/§1(2) birth-order structure. It does
-NOT apply §67 — it assumes both children fall in the modelled parent's count — and it does not
-apply §68(ב) (pre-June-2003 multipliers) or §68(ג) (the income-support increment); no fixture
-is on income support or has a child born before June 2003. §67 and §68 are encoded and tested
-in their own modules.
+The pipeline wires NII §66 (entitlement), §65(א)'s definition of ”ילד“, and the §68(א)/§1(2)
+birth-order structure. It does NOT apply §67 — it assumes every counted child falls in the
+modelled parent's count — and it does not apply §68(ב) (pre-June-2003 multipliers) or §68(ג)
+(the income-support increment); no fixture is on income support or has a child born before
+June 2003. §67 and §68 are encoded and tested in their own modules.
+
+### `nii-section-65-child-definition-partial`
+Review round 1 found the capstone counting every supplied child for the monthly allowance
+regardless of age, so a 19-year-old drew 219 ILS a month that NII §65(א) does not allow. The
+pipeline now derives `child_N_is_a_child_under_section_65` from the child's age and presence,
+against the section's own words — `ובלבד שהילד נמצא בישראל ולא מלאו לו 18 שנים` — and reads
+the §68(א)/§1(2) birth-order amounts against `children_in_parent_child_count` rather than
+against `number_of_children`. That keeps the monthly allowance count separate from the annual
+ITO §66(ג) credit-point ladder, which has its own age bands and asks nothing about presence.
+
+What is still partial:
+* **§65 is not encoded as a module.** It is the definition section for the whole
+  child-allowance chapter, and no `il/statutes/national-insurance-law-1995/section-65.yaml`
+  exists. The condition is applied inside the composition, with a verbatim proof atom against
+  the provision, because the pilot declares no Child entity and the test has to be asked once
+  per child — the same constraint that makes `child_N_credit_points` repeat the §66(ג) ladder.
+* **the definition's other limb is not modelled.** §65(א) also admits a child the insured
+  maintains without being its parent, on conditions set in regulations that are not in the
+  corpus.
+* **§65(ב) is not modelled.** A child out of Israel for up to three months is still treated as
+  in Israel, and the Institute may extend that. `child_N_is_present_in_israel` is supplied as
+  a conclusion for the month; the three-month arithmetic is not computed.
+* **age is supplied annually and read monthly.** `child_N_age_years` is one number for the
+  case, so a child that turns 18 mid-year changes state at the start of the modelled month
+  rather than on its birthday.
+**Resolution:** encode §65 through the encoder and give the composition a Child entity, so the
+definition is imported per child instead of repeated.
 
 ### `no-contributions-so-net-is-not-take-home-pay`
 The employee's National Insurance and health contributions are not encoded, so

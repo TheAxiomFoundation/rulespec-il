@@ -83,15 +83,27 @@ signed, immutable `il-rulespec-*` release: until it exists, the modules declare 
 to pin to. See `docs/ENCODING-GAPS.md`, `no-signed-corpus-release` and
 `no-source-sha256-pins`.
 
-## Two revisions of one page, on purpose
+## Two revisions of one page, and only one of them is encoded
 
-The pilot encodes tax years 2025 and 2026, whose §121 bracket amounts differ.
-The current Wikisource revision carries the 2026 amounts; the last revision of
-calendar 2025 (`oldid=2971879`) carries the 2025 amounts. Both are captured, and
-each `effective_from` cites the revision that states its amounts. The *cause* of
-the difference is taken from the gazette, not from either consolidation: ס״ח
-3511, פרק ג׳ "ריווח מדרגות מס הכנסה", §5 (ITO amendment 288) with §6 setting
-תחילה at 1 January 2026.
+The §121 bracket amounts differ between tax year 2025 and tax year 2026. The
+current Wikisource revision carries the 2026 amounts; the last revision of
+calendar 2025 (`oldid=2971879`) carries the 2025 amounts. Both pages are
+captured, but **only the 2026 expression was ingested into the corpus, and so
+only tax year 2026 is encoded.** The §121 module's versions all commence
+2026-01-01 and a request for an earlier period finds no version in force — it is
+not answered with the 2026 schedule. The composed pipeline commences on the same
+date for the same reason.
+
+The commencement is taken from the gazette, not from either consolidation: ס״ח
+3511 of י״ג בניסן התשפ״ו, פרק ג׳ "ריווח מדרגות מס הכנסה", §5 (ITO amendment 288),
+whose §6 reads
+
+    תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026) והוא יחול על הכנסה שהופקה או נצמחה ביום האמור או לאחריו
+
+The 2025 revision is retained in the capture set so that the second expression
+can be ingested and encoded without re-fetching a page that will have moved on.
+See `docs/ENCODING-GAPS.md`, `corpus-holds-one-expression-per-provision` and
+`effective-from-is-not-commencement`.
 
 ## Text normalization
 
