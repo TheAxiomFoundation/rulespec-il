@@ -10,7 +10,14 @@ module:
 
     Half a credit point in computing the tax of a woman. Encoded exactly as the
 
-    section states it; the pilot takes no view on the policy.'
+    section states it; the pilot takes no view on the policy.
+
+
+    THE CONDITION IS AN INPUT. `individual_meets_woman_credit_points_condition`
+
+    stands for "אשה". Unlike §34 and §36 this section states NO residence
+
+    requirement, and the encoding does not add one.'
 rules:
 - name: woman_credit_points
   kind: parameter

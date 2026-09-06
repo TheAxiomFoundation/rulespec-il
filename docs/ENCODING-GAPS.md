@@ -172,6 +172,56 @@ Only paragraph (2) of the הסכום הבסיסי definition is encoded — the 
 governs the child allowance. Paragraphs (1) and (3), covering maternity,
 work-injury, disability and residual benefits, are not.
 
+### `ito-section-121b-subsections-b-to-e-not-encoded`
+Only §121ב(א) and §121ב(א1) are encoded. §121ב(ב) (no §91(ד) advances on income
+bearing the additional tax), §121ב(ג) (notwithstanding any enactment), §121ב(ד)
+(the §8(ג) spreading rule) and §121ב(ה) are not.
+
+§121ב(ה) is the consequential one. It defines ”הכנסה חייבת ממקור הוני“ by
+excluding §2(1)/(2) income and personal-exertion income, and defines ”הכנסה
+חייבת“ by reference to §1, §89, §88 and the Land Taxation Law. The module takes
+`annual_taxable_income_from_capital_sources_ils` as a **supplied input** instead
+of deriving it from that definition, so no fixture can prove the boundary of the
+capital-source base. §121ב(ה) also carries a 5,385,285 ILS residential-dwelling
+threshold that is not encoded.
+
+### `composed-capstone-does-not-apply-nii-67-or-68b-c`
+The capstone wires NII §66 (entitlement) and the §68(א)/§1(2) birth-order
+structure. It does NOT apply §67 (whose count a child falls into) — it assumes
+both children fall in the modelled parent's count — and it does not apply
+§68(ב) (pre-June-2003 multipliers) or §68(ג) (the income-support increment); no
+capstone fixture is on income support or has a child born before June 2003.
+§67 and §68 are fully encoded and tested in their own modules.
+
+### `ito-section-66-c-4-a1-not-encoded`
+§66(ג)(4)(א1) lets the mother elect to have one of her birth-year credit points
+counted in the following tax year instead. Not encoded; `child_1_credit_points`
+and `child_2_credit_points` always allot the birth-year points in the birth year.
+
+### `child-allowance-2026-special-basic-amount-not-captured`
+The captured Institute publication gives the per-child amounts but no special
+basic amount for §1(2)(ג)/§68(ג). The 2026 fixtures therefore supply the NOMINAL
+statutory 140 — a figure this repository encodes as a parameter — and none of
+them exercises §68(ג), so it is inert there. It is **not** an amount payable, and
+it is deliberately not the Wikisource editorial annotation (162), because taking a
+current-year amount from editorial apparatus is forbidden by `AGENTS.md`.
+
+### `additional-tax-threshold-attribution-is-an-inference`
+The OECD TaxBEN Israel description never names the §121ב additional tax. Its 2025
+schedule ends "560 280 – 721 560 | 47" and "Above 721 560 | 50". Reading that 50%
+band as the 47% rate plus this section's 3% — and therefore reading 721,560 as
+the 2025 additional-tax threshold — is an **inference made in this repository**,
+not something TaxBEN states. The Wikisource page's own editorial comparison table
+("מעל 721,560 | 3% מס נוסף") corroborates it and, being editorial apparatus,
+cannot ground a proof atom.
+
+### `credit-conditions-are-inputs-not-derived`
+§34 ("יחיד שהיה תושב ישראל בשנת המס"), §36 ("יחיד תושב ישראל") and §36א ("אשה")
+each state a condition that enters as a Boolean input rather than being derived.
+Residence in particular is not modelled: the Ordinance's §1 residence definition
+is not encoded. Note that §36א states no residence requirement and the encoding
+does not add one.
+
 ### `composed-capstone-bounds`
 The composed capstone is bounded to: at most two children; one earner; the
 mother's §66(ג)(4) schedule; separate calculation assumed elected. The per-child

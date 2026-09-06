@@ -14,7 +14,16 @@ module:
 
     not this section: it is §34''s two points plus the quarter point §36 gives for
 
-    travel to the place of earning. Each is encoded in its own module.'
+    travel to the place of earning. Each is encoded in its own module.
+
+
+    THE CONDITION IS AN INPUT. `individual_meets_resident_credit_points_condition`
+
+    stands for the section''s own test — "יחיד שהיה תושב ישראל בשנת המס", an individual
+
+    who was resident in Israel during the tax year. Residence is not derived here;
+
+    the Ordinance''s residence definition (§1) is not encoded in this pilot.'
 rules:
 - name: resident_credit_points
   kind: parameter

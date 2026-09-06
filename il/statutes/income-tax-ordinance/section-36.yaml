@@ -12,7 +12,14 @@ module:
 
     individual resident in Israel. Together with §34''s two points this is the 2.25
 
-    that secondary descriptions report as a single "basic credit".'
+    that secondary descriptions report as a single "basic credit".
+
+
+    THE CONDITION IS AN INPUT. `individual_meets_travel_to_place_of_earning_credit_points_condition`
+
+    stands for "יחיד תושב ישראל" — an individual resident in Israel. Note what the
+
+    section does NOT require: no documented commuting expenditure, and no journey.'
 rules:
 - name: travel_to_place_of_earning_credit_points
   kind: parameter

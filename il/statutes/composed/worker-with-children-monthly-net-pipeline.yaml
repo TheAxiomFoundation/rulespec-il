@@ -41,13 +41,17 @@ module:
     \ — §121ב\n    states 640,000 ILS nominal.\n  * `current_basic_amount_*` (on the §68 module) — §1\
     \ states 150/188/140 nominal.\nEach fixture records where its supplied number came from. None of them\
     \ is law\nas stated here.\n\nBOUNDS. At most two children; one earner; separate calculation (חישוב\
-    \ נפרד)\nassumed elected, which is what makes §66(ג)(4) apply; the mother's schedule\nonly. `child_1_credit_points`\
-    \ and `child_2_credit_points` repeat the §66 age-band\nselection because the pilot has no Child entity\
-    \ and no relation aggregation —\nthe right shape is a Child entity with `sum(children.credit_points)`,\
-    \ and that is\nout of scope here. Annual tax is divided by twelve for presentation; this is not\n\
-    a model of the monthly ניכוי במקור deduction rules, which are not encoded.\n\nNational Insurance and\
-    \ health contributions are NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child\
-    \ allowance only. It is not take-home\npay. See docs/ENCODING-GAPS.md."
+    \ נפרד)\nassumed elected, which is what makes §66(ג)(4) apply; the mother's schedule\nonly. It wires\
+    \ NII §66 (entitlement) and the §68(א)/§1(2) birth-order structure;\nit does NOT wire NII §67 (whose\
+    \ count a child falls into) or §68(ב)/(ג) — the\ncapstone assumes both children fall in this parent's\
+    \ count, and no fixture there\nis on income support or has a child born before June 2003. §67 and\
+    \ §68 are\nencoded and tested in their own modules. `child_1_credit_points` and `child_2_credit_points`\
+    \ repeat the §66 age-band\nselection because the pilot has no Child entity and no relation aggregation\
+    \ —\nthe right shape is a Child entity with `sum(children.credit_points)`, and that is\nout of scope\
+    \ here. Annual tax is divided by twelve for presentation; this is not\na model of the monthly ניכוי\
+    \ במקור deduction rules, which are not encoded.\n\nNational Insurance and health contributions are\
+    \ NOT deducted, so this \"net\" is\nnet of income tax and inclusive of child allowance only. It is\
+    \ not take-home\npay. See docs/ENCODING-GAPS.md."
 rules:
 - name: child_1_credit_points
   kind: derived
@@ -190,7 +194,7 @@ rules:
   dtype: Money
   unit: ILS
   period: Month
-  source: סעיפים 66, 67 ו־68 לחוק הביטוח הלאומי
+  source: סעיף 66 וסעיף 68(א) לחוק הביטוח הלאומי, עם הגדרת ”הסכום הבסיסי“ שבסעיף 1(2)
   metadata:
     proof:
       atoms:
@@ -216,7 +220,7 @@ rules:
   dtype: Money
   unit: ILS
   period: Month
-  source: הרכבה של סעיפים 121, 121ב, 33א, 34, 36, 36א ו־66 לפקודה עם סעיפים 66 ו־68 לחוק הביטוח הלאומי
+  source: הרכבה של סעיפים 121, 121ב, 33א, 34, 36, 36א ו־66 לפקודה עם סעיף 66 וסעיף 68(א) לחוק הביטוח הלאומי
   metadata:
     proof:
       atoms:

@@ -10,6 +10,12 @@
 #     an official publication. No official 2025 capture was obtained. The special
 #     basic amount is a recorded divergence: TaxBEN gives 153 while the
 #     Wikisource editorial annotation gives 158. See docs/ENCODING-GAPS.md.
+#   2026 special basic amount: NOT CAPTURED. The Institute's published table gives
+#     the per-child amounts but no special basic amount, so the 2026 cases supply
+#     the NOMINAL statutory 140 of §1(2)(ג) — a figure this repository encodes as a
+#     parameter — and none of the 2026 cases exercises §68(ג), so it is inert there.
+#     It is NOT an amount payable, and it is deliberately not the Wikisource
+#     editorial annotation, which AGENTS.md forbids as a source for a current amount.
 #
 # Derivations: §68(א) pays the basic amount fixed for the child; §68(ב)(2)-(3)
 # multiply the LOWER basic amount by 2.24 / 2.36 for a fourth or later child born
@@ -30,7 +36,7 @@
     il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_or_maintenance_payment: false
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_second_third_fourth_ils: 219
-    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 162
+    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 140
   output:
     il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
     il:statutes/national-insurance-law-1995/section-68#income_support_increment_applies_to_child: not_holds
@@ -48,7 +54,7 @@
     il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_or_maintenance_payment: false
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_second_third_fourth_ils: 219
-    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 162
+    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 140
   output:
     il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: holds
     il:statutes/national-insurance-law-1995/section-68#income_support_increment_applies_to_child: not_holds
@@ -66,7 +72,7 @@
     il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_or_maintenance_payment: false
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_first_and_fifth_plus_ils: 173
     il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_second_third_fourth_ils: 219
-    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 162
+    il:statutes/national-insurance-law-1995/section-68#input.current_basic_amount_income_support_base_ils: 140
   output:
     il:statutes/national-insurance-law-1995/section-1#child_takes_the_higher_basic_amount: not_holds
     il:statutes/national-insurance-law-1995/section-68#income_support_increment_applies_to_child: not_holds

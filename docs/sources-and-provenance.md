@@ -52,6 +52,15 @@ bodies. Amendment history is preserved as provision metadata, not as text.
 | `nii-law-wikisource.html` | consolidation-knesset-linked | `https://he.wikisource.org/wiki/חוק_הביטוח_הלאומי` | `7dbaaa757912c71b361381640d2578bf2c6ab52f2002817b85d677c2267f0715` | 2026-09-06T11:41:55Z |
 | `amend-2026-economic-efficiency-law-sefer-hachukim-3511.pdf` | official-gazette | `https://fs.knesset.gov.il/25/law/25_lsr_12846863.pdf` | `4196057aa7d796bf64935647f4f3e3d02511fa00eaa215dc5ad914601b4e6583` | 2026-09-06T11:41:55Z |
 | `ito-nevo.html` | consolidation-secondary | `https://www.nevo.co.il/law_html/law01/255_001.htm` | `fe4abf24f639f5270f73095129b87cfcbe750249287576b89becf1e1df1378dd` | 2026-09-06T11:41:55Z |
+| `btl-child-allowance-rates.html` | policy-publication | `https://www.btl.gov.il/benefits/children/Pages/שיעורי הקצבה.aspx` | `4bbf76244b622d4925e88cab0193dd4df56c8a1f59961c24122bee72dbb63785` | 2026-09-06T12:10:00Z |
+
+The last row is the pilot's ONLY official current-amount capture: the National
+Insurance Institute's published child allowance table, which states
+"(החל מ- 01.01.2026)" and is encoded in
+`il/policies/national-insurance-institute/child-allowance-rates.yaml`.
+`btl.gov.il` answers a request carrying a browser User-Agent; `gov.il` (the Tax
+Authority) does not, so no Tax Authority עדכון סכומים notice was captured and the
+credit-point value and additional-tax threshold remain supplied inputs.
 
 The snapshots themselves live in the dispatching workspace
 (`ops/il-lane/sources/`) pending corpus ingestion; they are not committed here.

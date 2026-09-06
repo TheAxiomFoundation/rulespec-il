@@ -3,9 +3,16 @@
 #
 # additional_tax_threshold_for_tax_year_ils is SUPPLIED as 721,560. §121ב states
 # 640,000, a nominal amount index-linked under §120ב and frozen at its 2024 level
-# for 2025-2027; 721,560 is the 2025 figure reported by the OECD TaxBEN Israel
-# description, which is a reference and not law. No official Tax Authority
-# capture of the 2025 figure was obtained. See docs/ENCODING-GAPS.md.
+# for 2025-2027. No official Tax Authority capture of the 2025 indexed figure was
+# obtained.
+#
+# BE PRECISE ABOUT WHERE 721,560 COMES FROM. The OECD TaxBEN Israel description
+# does not name the §121ב additional tax at all; its 2025 schedule simply ends
+# "560 280 - 721 560 | 47" and "Above 721 560 | 50". Reading its 50% top band as
+# the 47% rate plus this section's 3% is an INFERENCE made here, not something
+# TaxBEN states. It is corroborated by the Wikisource page's own editorial
+# comparison table ("מעל 721,560 | 3% מס נוסף"), which is editorial apparatus and
+# cannot ground a proof atom. Both are recorded in docs/ENCODING-GAPS.md.
 #
 # §121ב(א) says "עלתה על" — exceeded — so income exactly at the threshold is not
 # liable, and one fixture pins that boundary.

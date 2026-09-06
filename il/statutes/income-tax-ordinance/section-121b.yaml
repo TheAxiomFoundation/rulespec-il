@@ -34,6 +34,21 @@ module:
     each fixture states. See docs/ENCODING-GAPS.md.
 
 
+    NOT ENCODED: §121ב(ב) (no §91(ד) advances), §121ב(ג) (notwithstanding any
+
+    enactment), §121ב(ד) (the §8(ג) spreading rule) and §121ב(ה) — the definitions.
+
+    That last one matters: ”הכנסה חייבת ממקור הוני“ is defined in §121ב(ה) by
+
+    excluding §2(1)/(2) income and personal-exertion income, and this module takes
+
+    `annual_taxable_income_from_capital_sources_ils` as a supplied input INSTEAD of
+
+    deriving it from that definition. A fixture cannot therefore prove the boundary
+
+    of the capital-source base. Recorded in docs/ENCODING-GAPS.md.
+
+
     This section is also the reason the National Insurance child allowance is
 
     encoded alongside it: NII §66 denies the allowance to an insured parent who has
