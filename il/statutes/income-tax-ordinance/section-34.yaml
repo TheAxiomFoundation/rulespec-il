@@ -1,0 +1,49 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-34
+  summary: |-
+    יחיד שהיה תושב ישראל בשנת המס: שתי נקודות זיכוי יובאו בחשבון בחישוב המס.
+rules:
+  - name: israeli_resident_tax_credit_point_count
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Income Tax Ordinance, section 34
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-34
+              excerpt: "שתי נקודות זיכוי"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          2
+  - name: tax_credit_points_for_israeli_resident
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Income Tax Ordinance, section 34
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-34
+              excerpt: "יחיד שהיה תושב ישראל בשנת המס"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-34
+              excerpt: "יובאו בחשבון שתי נקודות זיכוי"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if individual_is_israeli_resident_in_tax_year: israeli_resident_tax_credit_point_count else: 0

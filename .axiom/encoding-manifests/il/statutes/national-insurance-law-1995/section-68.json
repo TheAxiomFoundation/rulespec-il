@@ -1,0 +1,86 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-68.yaml",
+      "sha256": "a9f74b431958a9d43ec2c7eb24a8962bca09373dc25c5e3379c7a37204bb309d"
+    },
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-68.test.yaml",
+      "sha256": "0c0da31c5bac612ad749be3fd8accd3a8a5ea85e1e826f58e7a139071470984d"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197.5",
+    "version_commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1"
+  },
+  "axiom_encode_version": "0.2.1197.5",
+  "backend": "codex",
+  "citation": "il/statute/national-insurance-law-1995/section-68",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/_eval_workspaces/codex-gpt-5.6-terra/il-statute-national-insurance-law-1995-section-68/workspace/context-manifest.json",
+  "context_manifest_sha256": "11e09d17518c3c7cf37666b58c38919e21061aa52db1c881557f6f4663ea5fe2",
+  "generated_at": "2026-09-06T20:59:40.228811+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/codex-gpt-5.6-terra/statutes/national-insurance-law-1995/section-68.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out",
+  "generated_output_sha256": "a9f74b431958a9d43ec2c7eb24a8962bca09373dc25c5e3379c7a37204bb309d",
+  "generation_prompt_sha256": "584231db480a22f3040f71b5ed08e954f6b7056b6754513f09667f3877700972",
+  "model": "gpt-5.6-terra",
+  "run_id": "bbcab920",
+  "runner": "codex-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "3f4bf9de1c8db567b54d75b528506f410e2e6c94e3f7c1bb5950592aee6301b3"
+  },
+  "supersedes": {
+    "backend": "codex",
+    "generated_at": "2026-09-06T20:57:04.176338+00:00",
+    "generation_prompt_sha256": "080aae3a96d4fca75603f54d2c5a3fdbae5474da42dea093ffec03763a550f25",
+    "manifest_sha256": "026f94be19b59b2572709430927c69e817fd975f3942d8365d4b4788e87bfb70",
+    "prior_signature": "60ca08d4a03ce5dea6309b2259da3d08c0bd400bf6a7292d62ee08cc6b54d381",
+    "run_id": "400948cf",
+    "supersedes": {
+      "backend": "codex",
+      "generated_at": "2026-09-06T20:51:18.499796+00:00",
+      "generation_prompt_sha256": "ec352b04995959b11e8c201ca8e8d3122e12840a61f650247e9190068046409a",
+      "manifest_sha256": "a2f0ac2c5d92459028967fade7b1149a766739280aaa9504608517a063e4d25c",
+      "prior_signature": "46fe686e651a357c780208dacf061564992a294721811c2dcd296a9689d497aa",
+      "run_id": "ad9ccc05",
+      "supersedes": {
+        "backend": "codex",
+        "generated_at": "2026-09-06T20:45:39.255818+00:00",
+        "generation_prompt_sha256": "8f1ed0dd5a5192603cad56cebcdd0569515fb27ac09d249bc492f9763ff24054",
+        "manifest_sha256": "48db6a874d584b3e63665b683716df86ab6ce3071765224331f88d34a9093e0e",
+        "prior_signature": "ff2acbcf88f554ea56fedb47f1ac9431112c253d70f4402866930e6b9201d308",
+        "run_id": "7c7e6bb3",
+        "supersedes": {
+          "backend": "codex",
+          "generated_at": "2026-09-06T20:28:06.862628+00:00",
+          "generation_prompt_sha256": "b32460308dfbd0b0510df8a20574f5c8f78a915644c5007f6faeafae0686abae",
+          "manifest_sha256": "7d0574900ab650b16f0942fb03e849f49cd8214e76855b0c67b6f47386403fc2",
+          "prior_signature": "24b5b76dc3e7e312cf710506ea8d6355c839e660a1dd02317e31d00f6741de35",
+          "run_id": "211245ba",
+          "supersedes": {
+            "backend": "codex",
+            "generated_at": "2026-09-06T14:53:49.400991+00:00",
+            "generation_prompt_sha256": "a11f06371915392b029e8de27f18aede373974bc49b10996a45a8beb9b9f9ac2",
+            "manifest_sha256": "8303a0467d2ddf45d35856ca0cf0425d69c02bfae9860f5b78f50ee8b4405c57",
+            "prior_signature": "57ff9eb7c99dce98f099c22df90f6ca857e85f8b357bc94f063fda4af732fe16",
+            "run_id": "40acf4ae",
+            "tool": "axiom-encode encode --apply"
+          },
+          "tool": "axiom-encode encode --apply"
+        },
+        "tool": "axiom-encode encode --apply"
+      },
+      "tool": "axiom-encode encode --apply"
+    },
+    "tool": "axiom-encode encode --apply"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/traces/codex-gpt-5.6-terra/il-statute-national-insurance-law-1995-section-68.json",
+  "trace_sha256": "48b8201be67bb5c8c32d5cf801db7bf5863a0a3ce11adeb27ed2517567719662"
+}

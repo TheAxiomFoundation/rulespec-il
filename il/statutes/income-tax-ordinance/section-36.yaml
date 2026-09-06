@@ -1,0 +1,99 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-36
+  summary: |-
+    בחישוב המס של יחיד תושב ישראל תובא בחשבון 1⁄4 נקודת זיכוי כזיכוי נסיעה.
+rules:
+  - name: travel_tax_credit_point_numerator
+    kind: parameter
+    dtype: Count
+    source: Income Tax Ordinance, section 36
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-36
+              excerpt: "1⁄4 נקודת זיכוי"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          1
+  - name: travel_tax_credit_point_denominator
+    kind: parameter
+    dtype: Count
+    source: Income Tax Ordinance, section 36
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-36
+              excerpt: "1⁄4 נקודת זיכוי"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          4
+  - name: travel_tax_credit_point_count
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Income Tax Ordinance, section 36
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-36
+              excerpt: "1⁄4 נקודת זיכוי"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-36#travel_tax_credit_point_numerator
+              output: travel_tax_credit_point_numerator
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-36#travel_tax_credit_point_denominator
+              output: travel_tax_credit_point_denominator
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          travel_tax_credit_point_numerator / travel_tax_credit_point_denominator
+  - name: tax_credit_points_for_travel
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Income Tax Ordinance, section 36
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-36
+              excerpt: "יחיד תושב ישראל"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-36
+              excerpt: "תובא בחשבון 1⁄4 נקודת זיכוי כזיכוי נסיעה"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-36#travel_tax_credit_point_count
+              output: travel_tax_credit_point_count
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if individual_is_israeli_resident_in_tax_year: travel_tax_credit_point_count else: 0

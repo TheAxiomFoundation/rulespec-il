@@ -1,0 +1,50 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/income-tax-ordinance/section-120b.yaml",
+      "sha256": "01cfac883387825707e001ed6f57b7df21c3dcbdda2c4a630c75f96d94be77d2"
+    },
+    {
+      "path": "il/statutes/income-tax-ordinance/section-120b.test.yaml",
+      "sha256": "f952be58b754022f3cfce0b662d80e2ced7f7f3d62a0054692a8384dc8d8d52b"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "55beb1607ee5b4c3ea285437118a9716e6de4939",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197",
+    "version_commit": "55beb1607ee5b4c3ea285437118a9716e6de4939"
+  },
+  "axiom_encode_version": "0.2.1197",
+  "backend": "codex",
+  "citation": "il/statute/income-tax-ordinance/section-120b",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/_eval_workspaces/codex-gpt-5.6-terra/il-statute-income-tax-ordinance-section-120b/workspace/context-manifest.json",
+  "context_manifest_sha256": "4b9dddf2ae70cca3cc3215aa20d46292c04a65565a8208063d40d525309b2842",
+  "generated_at": "2026-09-06T13:37:13.295900+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/codex-gpt-5.6-terra/statutes/income-tax-ordinance/section-120b.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out",
+  "generated_output_sha256": "01cfac883387825707e001ed6f57b7df21c3dcbdda2c4a630c75f96d94be77d2",
+  "generation_prompt_sha256": "6fd189f46f6097e679217f6ec6d03954cdad8df8ea5123e3025c5b062278b575",
+  "model": "gpt-5.6-terra",
+  "run_id": "44dee41d",
+  "runner": "codex-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "80e2614e69ec811dad99155b3c996bcf3c47e0801358d67f3393407234ddf791"
+  },
+  "supersedes": {
+    "backend": "codex",
+    "generated_at": "2026-09-06T13:37:11.118277+00:00",
+    "generation_prompt_sha256": "6fd189f46f6097e679217f6ec6d03954cdad8df8ea5123e3025c5b062278b575",
+    "manifest_sha256": "a3acb312da4202010099266342cdb0cae746b233d1844294f5179f376f5ace05",
+    "prior_signature": "53b6d262f824a40d87a4ba230c95ef81d706b9981d87f87aa82c6d910b7eb0fd",
+    "run_id": "823ce6a4",
+    "tool": "axiom-encode encode --apply"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/traces/codex-gpt-5.6-terra/il-statute-income-tax-ordinance-section-120b.json",
+  "trace_sha256": "04df78023887e84d0d51c9482b300ed064b2ecf199cf98dc844e43fed1fd1e05"
+}

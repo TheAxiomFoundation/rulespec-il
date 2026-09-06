@@ -1,0 +1,64 @@
+- name: both_additional_taxes_apply_after_distinct_capital_income_exclusions
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_for_section_121b: 1000000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_sources_under_section_2_1_or_2: 100000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_personal_exertion_not_under_section_2_1_or_2: 100000
+  output:
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_from_capital_sources: 800000
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_excess_over_additional_tax_threshold: 360000
+    il:statutes/income-tax-ordinance/section-121b#general_additional_tax: 10800
+    il:statutes/income-tax-ordinance/section-121b#capital_source_taxable_income_excess_over_additional_tax_threshold: 160000
+    il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax: 3200
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 14000
+- name: neither_tax_applies_at_exact_threshold
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_for_section_121b: 640000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_sources_under_section_2_1_or_2: 0
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_personal_exertion_not_under_section_2_1_or_2: 0
+  output:
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_from_capital_sources: 640000
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_excess_over_additional_tax_threshold: 0
+    il:statutes/income-tax-ordinance/section-121b#general_additional_tax: 0
+    il:statutes/income-tax-ordinance/section-121b#capital_source_taxable_income_excess_over_additional_tax_threshold: 0
+    il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax: 0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0
+- name: excluded_capital_categories_remain_subject_to_general_additional_tax
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_for_section_121b: 1000000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_sources_under_section_2_1_or_2: 800000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_personal_exertion_not_under_section_2_1_or_2: 200000
+  output:
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_from_capital_sources: 0
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_excess_over_additional_tax_threshold: 360000
+    il:statutes/income-tax-ordinance/section-121b#general_additional_tax: 10800
+    il:statutes/income-tax-ordinance/section-121b#capital_source_taxable_income_excess_over_additional_tax_threshold: 0
+    il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax: 0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 10800
+- name: neither_tax_applies_below_threshold
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_for_section_121b: 600000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_sources_under_section_2_1_or_2: 100000
+    il:statutes/income-tax-ordinance/section-121b#input.taxable_income_from_personal_exertion_not_under_section_2_1_or_2: 100000
+  output:
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_from_capital_sources: 400000
+    il:statutes/income-tax-ordinance/section-121b#taxable_income_excess_over_additional_tax_threshold: 0
+    il:statutes/income-tax-ordinance/section-121b#general_additional_tax: 0
+    il:statutes/income-tax-ordinance/section-121b#capital_source_taxable_income_excess_over_additional_tax_threshold: 0
+    il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax: 0
+    il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0

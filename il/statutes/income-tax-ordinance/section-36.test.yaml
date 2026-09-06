@@ -1,0 +1,18 @@
+- name: israeli_resident_receives_travel_tax_credit_points
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0.25
+- name: nonresident_does_not_receive_travel_tax_credit_points
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel: 0

@@ -1,0 +1,274 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-121
+  summary: |-
+    (א) המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן:
+    לגבי הכנסה חייבת בשנת המס מיגיעה אישית ולגבי הכנסה חייבת בשנת המס של יחיד שמלאו לו 60 שנים, יחולו שיעורים אלה:
+    השיעורים המופחתים הקבועים בפסקה (1) לא יחולו על הכנסה שחייבים לגביה בניהול פנקסי חשבונות ולא נוהלו לגביה פנקסים קבילים.
+rules:
+  - name: _general_band_upper_bound
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    indexed_by: _general_income_band
+    source: Income Tax Ordinance §121(a)(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: |-
+                (1) על כל שקל חדש מ־301,200 השקלים החדשים הראשונים – 31%;
+                (2) על כל שקל חדש מ־301,201 שקלים חדשים עד 560,280 שקלים חדשים – 35%;
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          0: 301200
+          1: 560280
+
+  - name: _general_band_first_shekel
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    indexed_by: _general_income_band
+    source: Income Tax Ordinance §121(a)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: מ־301,201 שקלים חדשים עד 560,280 שקלים חדשים
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          1: 301201
+
+  - name: general_income_tax_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    indexed_by: _general_income_band
+    source: Income Tax Ordinance §121(a)(1)-(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: |-
+                (1) על כל שקל חדש מ־301,200 השקלים החדשים הראשונים – 31%;
+                (2) על כל שקל חדש מ־301,201 שקלים חדשים עד 560,280 שקלים חדשים – 35%;
+                (3) על כל שקל חדש נוסף – 47%.
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          0: 0.31
+          1: 0.35
+          2: 0.47
+
+  - name: _reduced_band_upper_bound
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    indexed_by: _reduced_income_band
+    source: Income Tax Ordinance §121(b)(1)(a)-(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: |-
+                (א) על כל שקל חדש מ־84,120 השקלים החדשים הראשונים – 10%;
+                (ב) על כל שקל חדש מ־84,121 שקלים חדשים עד 120,720 שקלים חדשים – 14%;
+                (ג) על כל שקל חדש מ־120,721 שקלים חדשים עד 228,000 שקלים חדשים – 20%;
+                (ד) על כל שקל חדש מ־228,001 שקלים חדשים עד 301,200 שקלים חדשים – 31%.
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          0: 84120
+          1: 120720
+          2: 228000
+          3: 301200
+
+  - name: _reduced_band_first_shekel
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    indexed_by: _reduced_income_band
+    source: Income Tax Ordinance §121(b)(1)(b)-(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: |-
+                (ב) על כל שקל חדש מ־84,121 שקלים חדשים עד 120,720 שקלים חדשים – 14%;
+                (ג) על כל שקל חדש מ־120,721 שקלים חדשים עד 228,000 שקלים חדשים – 20%;
+                (ד) על כל שקל חדש מ־228,001 שקלים חדשים עד 301,200 שקלים חדשים – 31%.
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          1: 84121
+          2: 120721
+          3: 228001
+
+  - name: reduced_income_tax_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    indexed_by: _reduced_income_band
+    source: Income Tax Ordinance §121(b)(1)(a)-(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: |-
+                (א) על כל שקל חדש מ־84,120 השקלים החדשים הראשונים – 10%;
+                (ב) על כל שקל חדש מ־84,121 שקלים חדשים עד 120,720 שקלים חדשים – 14%;
+                (ג) על כל שקל חדש מ־120,721 שקלים חדשים עד 228,000 שקלים חדשים – 20%;
+                (ד) על כל שקל חדש מ־228,001 שקלים חדשים עד 301,200 שקלים חדשים – 31%.
+    versions:
+      - effective_from: '0001-01-01'
+        values:
+          0: 0.10
+          1: 0.14
+          2: 0.20
+          3: 0.31
+
+  - name: reduced_rate_taxable_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121(b)(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: לגבי הכנסה חייבת בשנת המס מיגיעה אישית ולגבי הכנסה חייבת בשנת המס של יחיד שמלאו לו 60 שנים
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: לא יחולו על הכנסה שחייבים לגביה בניהול פנקסי חשבונות ולא נוהלו לגביה פנקסים קבילים
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          max(0, min(taxable_income,
+            (if individual_has_reached_age_sixty:
+              taxable_income
+              - personal_exertion_taxable_income_requiring_books_without_acceptable_books
+              - other_taxable_income_requiring_books_without_acceptable_books
+            else:
+              taxable_income_from_personal_exertion
+              - personal_exertion_taxable_income_requiring_books_without_acceptable_books)))
+
+  - name: _general_income_band
+    kind: derived
+    entity: Person
+    dtype: Integer
+    period: Year
+    source: Income Tax Ordinance §121(a)(1)-(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if taxable_income <= _general_band_first_shekel[1] - 1: 0
+          else: if taxable_income <= _general_band_upper_bound[1]: 1
+          else: 2
+
+  - name: _reduced_income_band
+    kind: derived
+    entity: Person
+    dtype: Integer
+    period: Year
+    source: Income Tax Ordinance §121(b)(1)(a)-(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if reduced_rate_taxable_income > _reduced_band_upper_bound[3]: -1
+          else: if reduced_rate_taxable_income <= _reduced_band_first_shekel[1] - 1: 0
+          else: if reduced_rate_taxable_income <= _reduced_band_first_shekel[2] - 1: 1
+          else: if reduced_rate_taxable_income <= _reduced_band_first_shekel[3] - 1: 2
+          else: 3
+
+  - name: income_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121(a)-(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121
+              excerpt: על אף האמור בסעיף קטן (א)(1) ובכפוף לאמור בפסקה (2)
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          max(0,
+            min(max(0, taxable_income), _general_band_upper_bound[0])
+              * general_income_tax_rate[0]
+            + max(0, min(taxable_income, _general_band_upper_bound[1])
+              - _general_band_first_shekel[1] + 1)
+              * general_income_tax_rate[1]
+            + max(0, taxable_income - _general_band_upper_bound[1])
+              * general_income_tax_rate[2]
+            - min(reduced_rate_taxable_income, _reduced_band_upper_bound[3])
+              * general_income_tax_rate[0]
+            + min(reduced_rate_taxable_income, _reduced_band_upper_bound[0])
+              * reduced_income_tax_rate[0]
+            + max(0, min(reduced_rate_taxable_income, _reduced_band_upper_bound[1])
+              - _reduced_band_first_shekel[1] + 1)
+              * reduced_income_tax_rate[1]
+            + max(0, min(reduced_rate_taxable_income, _reduced_band_upper_bound[2])
+              - _reduced_band_first_shekel[2] + 1)
+              * reduced_income_tax_rate[2]
+            + max(0, min(reduced_rate_taxable_income, _reduced_band_upper_bound[3])
+              - _reduced_band_first_shekel[3] + 1)
+              * reduced_income_tax_rate[3])

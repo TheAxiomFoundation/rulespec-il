@@ -1,0 +1,60 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+  summary: |-
+    ”הסכום הבסיסי“ לעניין קצבת הילדים: בעד הילד הראשון והחמישי ואילך – 150 שקלים חדשים; בעד הילד השני, השלישי והרביעי – 188 שקלים חדשים; ולעניין גמלה לפי חוק הבטחת הכנסה או תוספת כאמור בסעיף 68(ג) – 140 שקלים חדשים.
+rules:
+  - name: child_allowance_first_and_fifth_onward_base_amount
+    kind: parameter
+    dtype: Money
+    unit: ILS
+    source: National Insurance Law, 1995, section 1, definition of “basic amount”, paragraph (2)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+              excerpt: "בעד הילד הראשון והחמישי ואילך במניין ילדיו של ההורה – 150 שקלים חדשים"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          150
+  - name: child_allowance_second_third_and_fourth_base_amount
+    kind: parameter
+    dtype: Money
+    unit: ILS
+    source: National Insurance Law, 1995, section 1, definition of “basic amount”, paragraph (2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+              excerpt: "בעד הילד השני, השלישי והרביעי שבמניין ילדיו של ההורה – 188 שקלים חדשים"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          188
+  - name: child_allowance_income_support_or_section_68_c_base_amount
+    kind: parameter
+    dtype: Money
+    unit: ILS
+    source: National Insurance Law, 1995, section 1, definition of “basic amount”, paragraph (2)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+              excerpt: "לעניין גמלה לפי חוק הבטחת הכנסה, או תוספת כאמור בסעיף 68(ג) – 140 שקלים חדשים"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          140

@@ -1,0 +1,50 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-67.yaml",
+      "sha256": "5bebf5bd4097cebe3d2d72946c9be531d349df42e05cc89b4eebb34a5c67eb33"
+    },
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-67.test.yaml",
+      "sha256": "578c1a684fff543e1ef74b4362e9bb6e6073160347fa0f6189aa897ed678a803"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "6e8cfabb0828b69e55a5c8bd7bd9c270d426d717",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197.3",
+    "version_commit": "6e8cfabb0828b69e55a5c8bd7bd9c270d426d717"
+  },
+  "axiom_encode_version": "0.2.1197.3",
+  "backend": "codex",
+  "citation": "il/statute/national-insurance-law-1995/section-67",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/_eval_workspaces/codex-gpt-5.6-terra/il-statute-national-insurance-law-1995-section-67/workspace/context-manifest.json",
+  "context_manifest_sha256": "411a3c7d2753f81cf86c31ff910638b9247f0cf44a8e9bb0ab23199467737b8c",
+  "generated_at": "2026-09-06T14:55:57.084922+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/codex-gpt-5.6-terra/statutes/national-insurance-law-1995/section-67.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out",
+  "generated_output_sha256": "5bebf5bd4097cebe3d2d72946c9be531d349df42e05cc89b4eebb34a5c67eb33",
+  "generation_prompt_sha256": "25894363e15a40eafe3848b65eba213dbb4e4eb7595a5fb22697bf09816c9be4",
+  "model": "gpt-5.6-terra",
+  "run_id": "953953ca",
+  "runner": "codex-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "cfa2b264d1a37f0b056b04b77ad46ded3f1b84c61e8a444cf0addc3f43a97c16"
+  },
+  "supersedes": {
+    "backend": "codex",
+    "generated_at": "2026-09-06T14:05:18.344351+00:00",
+    "generation_prompt_sha256": "77019a8c7c6a9471bff60d3aa70a0d729c72dfb7a0dd75366a612b0be4450c5a",
+    "manifest_sha256": "1860f185992237d49ccd2bb665de63a9b6c962cf215b94ba45ac91b40409cba6",
+    "prior_signature": "f410d5ff710d9212e8ef7f0c960d11157427e4e0e7dc7fc9b7eb53dbc610ac52",
+    "run_id": "e93a7da5",
+    "tool": "axiom-encode encode --apply"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/traces/codex-gpt-5.6-terra/il-statute-national-insurance-law-1995-section-67.json",
+  "trace_sha256": "b0d7357c227ce46f95876bb377f5ce00decf8897852a8633b338739f33a07eae"
+}

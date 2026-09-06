@@ -1,0 +1,714 @@
+- name: birth_year_selects_zero_band_and_mixed_number_points
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 0
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: 0
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 2.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 2.5
+    il:statutes/income-tax-ordinance/section-66#child_income_attribution_age_condition: holds
+- name: year_after_birth
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 1
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 1
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: 1
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 4.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 4.5
+- name: year_turning_two
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 2
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 4.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 4.5
+- name: year_turning_three
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 3
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 2
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: 2
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 3.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 3.5
+- name: year_turning_four
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 4
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 3
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: 3
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 2.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 2.5
+- name: year_turning_five
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 5
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 2.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 2.5
+- name: ladders_diverge_when_child_turns_six
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 6
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 4
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: 4
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 2
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 1
+- name: child_below_attribution_age_limit
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 17
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#child_income_attribution_age_condition: holds
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 2
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 1
+- name: externally_classified_maturity_year
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 18
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: 5
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: -1
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 0.5
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 0
+    il:statutes/income-tax-ordinance/section-66#child_income_attribution_age_condition: not_holds
+- name: after_final_bounded_child_credit_row
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 19
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_schedule_band: -1
+    il:statutes/income-tax-ordinance/section-66#man_child_credit_schedule_band: -1
+    il:statutes/income-tax-ordinance/section-66#woman_child_credit_points_before_birth_year_election: 0
+    il:statutes/income-tax-ordinance/section-66#man_credit_points_in_respect_of_child: 0
+- name: all_shared_source_conditions_satisfied
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: holds
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_resident_credit_points: 2
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_travel_credit_points: 0.25
+    il:statutes/income-tax-ordinance/section-66#credit_points_under_sections_38_and_39_allowed_in_separate_calculation: not_holds
+- name: required_personal_exertion_missing
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: false
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: not_holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: shared_income_not_proportional_to_contribution
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: false
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: not_holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: home_not_regularly_used_for_shared_source
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: false
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: not_holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: most_activity_not_at_home
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: false
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: not_holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: home_qualifications_do_not_apply_to_income_produced_elsewhere
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: false
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: false
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: false
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: holds
+- name: independent_sources_do_not_require_shared_source_contribution_test
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: false
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: false
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#shared_income_source_separate_calculation_conditions_satisfied: not_holds
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: holds
+- name: nonregistered_spouse_condition_missing
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: false
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: income_outside_personal_exertion_categories
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : false
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: pension_without_either_qualifying_history
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: true
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: pension_based_on_qualifying_employment
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: true
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: true
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: holds
+- name: pension_history_in_fifth_preceding_year
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: true
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 5
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: holds
+- name: pension_history_outside_five_preceding_years
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: true
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 6
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_tax_calculation_for_personal_exertion_income_available: not_holds
+- name: separate_calculation_credit_outputs_inoperative_without_separate_calculation
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: false
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_resident_credit_points: 0
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_travel_credit_points: 0
+- name: imported_residence_conditions_remain_required
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_birth_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_is_in_maturity_year: false
+    il:statutes/income-tax-ordinance/section-66#input.child_is_before_maturity_year: true
+    il:statutes/income-tax-ordinance/section-66#input.child_age_attained_in_tax_year: 0
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_personal_exertion_required_for_shared_income: true
+    il:statutes/income-tax-ordinance/section-66#input.each_spouse_shared_income_directly_proportional_to_contribution: true
+    il:statutes/income-tax-ordinance/section-66#input.shared_income_produced_at_spouses_home: true
+    il:statutes/income-tax-ordinance/section-66#input.home_regularly_serves_shared_income_source: true
+    il:statutes/income-tax-ordinance/section-66#input.most_shared_source_activity_occurs_at_home: true
+    il:statutes/income-tax-ordinance/section-66#input.person_is_nonregistered_spouse: true
+    ? il:statutes/income-tax-ordinance/section-66#input.income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7
+    : true
+    il:statutes/income-tax-ordinance/section-66#input.income_is_pension: false
+    il:statutes/income-tax-ordinance/section-66#input.pension_paid_for_employment_entitled_to_separate_calculation: false
+    il:statutes/income-tax-ordinance/section-66#input.qualifying_separate_calculation_years_before_pension_started: 0
+    il:statutes/income-tax-ordinance/section-66#input.spouses_income_sources_are_dependent: true
+    il:statutes/income-tax-ordinance/section-66#input.spouse_tax_is_calculated_separately: true
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: false
+    il:statutes/income-tax-ordinance/section-36#input.individual_is_israeli_resident_in_tax_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_resident_credit_points: 0
+    il:statutes/income-tax-ordinance/section-66#separate_calculation_travel_credit_points: 0

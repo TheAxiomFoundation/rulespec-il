@@ -1,0 +1,40 @@
+- name: child_of_two_parents_counted_with_insured_father
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.current_insured_parent_is_father: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_mother_alone: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_natural_and_other_parent: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_current_insured_parent: false
+  output:
+    il:statutes/national-insurance-law-1995/section-67#child_counted_with_insured_parent: holds
+- name: child_of_two_parents_counted_with_mother_when_with_mother_alone
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.current_insured_parent_is_father: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_mother_alone: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_natural_and_other_parent: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_current_insured_parent: false
+  output:
+    il:statutes/national-insurance-law-1995/section-67#child_counted_with_insured_parent: holds
+- name: child_of_two_parents_not_counted_with_nonfather_when_not_with_mother_alone
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: true
+    il:statutes/national-insurance-law-1995/section-67#input.current_insured_parent_is_father: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_mother_alone: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_natural_and_other_parent: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_current_insured_parent: false
+  output:
+    il:statutes/national-insurance-law-1995/section-67#child_counted_with_insured_parent: not_holds
+- name: child_of_natural_and_other_parent_counted_with_present_parent
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_two_parents: false
+    il:statutes/national-insurance-law-1995/section-67#input.current_insured_parent_is_father: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_mother_alone: false
+    il:statutes/national-insurance-law-1995/section-67#input.child_has_natural_and_other_parent: true
+    il:statutes/national-insurance-law-1995/section-67#input.child_is_with_current_insured_parent: true
+  output:
+    il:statutes/national-insurance-law-1995/section-67#child_counted_with_insured_parent: holds

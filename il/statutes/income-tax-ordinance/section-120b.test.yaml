@@ -1,0 +1,18 @@
+- name: indexation_is_suspended_during_freeze_period
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year_is_in_indexation_freeze_period: true
+  output:
+    il:statutes/income-tax-ordinance/section-120b#annual_amounts_indexation_suspended: holds
+- name: indexation_is_not_suspended_after_freeze_period
+  period:
+    period_kind: tax_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-120b#input.tax_year_is_in_indexation_freeze_period: false
+  output:
+    il:statutes/income-tax-ordinance/section-120b#annual_amounts_indexation_suspended: not_holds
