@@ -1,8 +1,8 @@
-- name: unacceptable_books_for_other_income_do_not_block_personal_exertion_rates
+- name: personal_exertion_income_uses_reduced_schedule
   period:
     period_kind: tax_year
-    start: '2024-01-01'
-    end: '2024-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
     il:statutes/income-tax-ordinance/section-121#input.taxable_income: 600000
     il:statutes/income-tax-ordinance/section-121#input.taxable_income_from_personal_exertion: 300000
@@ -15,11 +15,11 @@
     il:statutes/income-tax-ordinance/section-121#_general_income_band: 2
     il:statutes/income-tax-ordinance/section-121#_reduced_income_band: 3
     il:statutes/income-tax-ordinance/section-121#income_tax: 167030.4
-- name: unacceptable_books_remove_only_the_affected_personal_exertion_income
+- name: unacceptable_books_exclude_personal_exertion_income
   period:
     period_kind: tax_year
-    start: '2024-01-01'
-    end: '2024-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
     il:statutes/income-tax-ordinance/section-121#input.taxable_income: 600000
     il:statutes/income-tax-ordinance/section-121#input.taxable_income_from_personal_exertion: 300000
@@ -32,11 +32,11 @@
     il:statutes/income-tax-ordinance/section-121#_general_income_band: 2
     il:statutes/income-tax-ordinance/section-121#_reduced_income_band: 2
     il:statutes/income-tax-ordinance/section-121#income_tax: 170110.4
-- name: age_sixty_extends_reduced_rates_to_other_income_subject_to_books_exception
+- name: age_sixty_income_above_reduced_schedule_ceiling
   period:
     period_kind: tax_year
-    start: '2024-01-01'
-    end: '2024-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
     il:statutes/income-tax-ordinance/section-121#input.taxable_income: 600000
     il:statutes/income-tax-ordinance/section-121#input.taxable_income_from_personal_exertion: 300000
@@ -49,11 +49,11 @@
     il:statutes/income-tax-ordinance/section-121#_general_income_band: 2
     il:statutes/income-tax-ordinance/section-121#_reduced_income_band: -1
     il:statutes/income-tax-ordinance/section-121#income_tax: 167030.4
-- name: other_income_below_age_sixty_uses_only_general_schedule
+- name: non_personal_income_below_age_sixty_uses_general_schedule
   period:
     period_kind: tax_year
-    start: '2024-01-01'
-    end: '2024-12-31'
+    start: '2026-01-01'
+    end: '2026-12-31'
   input:
     il:statutes/income-tax-ordinance/section-121#input.taxable_income: 600000
     il:statutes/income-tax-ordinance/section-121#input.taxable_income_from_personal_exertion: 0

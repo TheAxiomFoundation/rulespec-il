@@ -2,67 +2,85 @@
   "applied_files": [
     {
       "path": "il/statutes/income-tax-ordinance/section-121.yaml",
-      "sha256": "ee72435ba903a5be85efd113912f30630bb98d7c2c00cbc75a427f6a5a90b517"
+      "sha256": "6b707d3142fae1d285388f6e527e4e443cae7e98cfad560a23a09a21042fd28d"
     },
     {
       "path": "il/statutes/income-tax-ordinance/section-121.test.yaml",
-      "sha256": "07ffe96a3d3471a7a729e93d7288773d140727eb95a4245926e5aea5f1d11d6f"
+      "sha256": "25d2f813e03ce8d191a0145db811ddc906dfcccd3148fb06b746f503671cd248"
     }
   ],
   "axiom_encode_git": {
-    "commit": "dc7baa16e0f8e01c0068ac34712e0f8a6c2fd87a",
+    "commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1",
     "dirty_tracked": false,
     "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
-    "version": "0.2.1197.4",
-    "version_commit": "dc7baa16e0f8e01c0068ac34712e0f8a6c2fd87a"
+    "version": "0.2.1197.5",
+    "version_commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1"
   },
-  "axiom_encode_version": "0.2.1197.4",
+  "axiom_encode_version": "0.2.1197.5",
   "backend": "codex",
   "citation": "il/statute/income-tax-ordinance/section-121",
   "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/_eval_workspaces/codex-gpt-6-astra/il-statute-income-tax-ordinance-section-121/workspace/context-manifest.json",
-  "context_manifest_sha256": "788c2b84b4e31372a0479d05ed06d458f141ec658d375b456b6066d102464e78",
-  "generated_at": "2026-09-06T20:42:59.966773+00:00",
+  "context_manifest_sha256": "c3a09af18911fc97ba75a2636abc42467496eabaf98fb57901f9cb4c8ac742f2",
+  "generated_at": "2026-09-06T21:32:16.386224+00:00",
   "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/codex-gpt-6-astra/statutes/income-tax-ordinance/section-121.yaml",
   "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out",
-  "generated_output_sha256": "ee72435ba903a5be85efd113912f30630bb98d7c2c00cbc75a427f6a5a90b517",
-  "generation_prompt_sha256": "84e745b05fd5a02c5577a34194eef80444ba37c1ffdf95734aabb2d9dd727dfb",
+  "generated_output_sha256": "6b707d3142fae1d285388f6e527e4e443cae7e98cfad560a23a09a21042fd28d",
+  "generation_prompt_sha256": "97db62df57de72168f01de196d7c10791c8cd7b5ea670a11c23112185fe18469",
   "model": "gpt-6-astra",
-  "run_id": "e0efe61b",
+  "run_id": "f9f8d0e4",
   "runner": "codex-gpt-6-astra",
   "schema_version": "axiom-encode/applied-rulespec/v1",
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "9bfc6a87d6e8468ca3b69f1bfd4c186add58b476cc69baf5897b0a83d285e537"
+    "value": "f2c286d3b55411094b9b791cc154fd960bae0698c1eb54aa47e856b2fca0c54f"
   },
   "supersedes": {
     "backend": "codex",
-    "generated_at": "2026-09-06T20:27:12.928787+00:00",
-    "generation_prompt_sha256": "e401b122d06100b7ec720d07303371aa5c2fb331a678d7d470d426e68aeab941",
-    "manifest_sha256": "63c79f5a91279f9f6dac3d3e0906ad793b6e7f809e0fad8727adea27052a2810",
-    "prior_signature": "ef5300c2a6742f4b2613d07c6a885a417f760ee36783c84262839e22424ddbc8",
-    "run_id": "89c938bd",
+    "generated_at": "2026-09-06T21:25:08.510515+00:00",
+    "generation_prompt_sha256": "25ea5e24746d83dab2002d7d03981df54a12f3a290d3258b78cbcc491d6245c0",
+    "manifest_sha256": "ae14b15b7908f870587795b32caa6d12c424f2b2fd1d02ba0c6d30802bb92f36",
+    "prior_signature": "bdddf0b991a579e7d45e5a421ba4ca92e7914a455e9cb230edf86ee4d299bf36",
+    "run_id": "d0f1b33b",
     "supersedes": {
       "backend": "codex",
-      "generated_at": "2026-09-06T15:06:00.594566+00:00",
-      "generation_prompt_sha256": "7ad2ebed58f20c3fa64b19b748239644263a0fee8b72d489598f73c1ef56ea6d",
-      "manifest_sha256": "a3c9c32176944e2f9e1500a1a3e1454c8e335da526390e4f77d3e1a398476457",
-      "prior_signature": "6112acc52d4260e2ae3f416fba2848a174a90de40352e3628dbebc4294bedcf9",
-      "run_id": "a8dcdbb6",
+      "generated_at": "2026-09-06T20:42:59.966773+00:00",
+      "generation_prompt_sha256": "84e745b05fd5a02c5577a34194eef80444ba37c1ffdf95734aabb2d9dd727dfb",
+      "manifest_sha256": "0bcfb1bbc13e726526f4d3986e019a83d52560cd8041b48b95b90e127caf9c26",
+      "prior_signature": "9bfc6a87d6e8468ca3b69f1bfd4c186add58b476cc69baf5897b0a83d285e537",
+      "run_id": "e0efe61b",
       "supersedes": {
         "backend": "codex",
-        "generated_at": "2026-09-06T14:57:32.541686+00:00",
-        "generation_prompt_sha256": "d9fabaaf1f32e7041dac673d3e27307ca08b77aa73fc9132c1e0e948e9b8fc3d",
-        "manifest_sha256": "0ed775c3b1b9597894af12b2c7c19620da3d3154a1938fda0f906006c343a651",
-        "prior_signature": "a8ca79eef7607848b847e461be592c3e67589b3045b4f528bacff45702abb0b1",
-        "run_id": "f1e1d7ab",
+        "generated_at": "2026-09-06T20:27:12.928787+00:00",
+        "generation_prompt_sha256": "e401b122d06100b7ec720d07303371aa5c2fb331a678d7d470d426e68aeab941",
+        "manifest_sha256": "63c79f5a91279f9f6dac3d3e0906ad793b6e7f809e0fad8727adea27052a2810",
+        "prior_signature": "ef5300c2a6742f4b2613d07c6a885a417f760ee36783c84262839e22424ddbc8",
+        "run_id": "89c938bd",
         "supersedes": {
           "backend": "codex",
-          "generated_at": "2026-09-06T14:34:01.225861+00:00",
-          "generation_prompt_sha256": "25b53acb02b888473fb34e9fa8fd505bfde18c7471b8ba86ca628dd83ce96a78",
-          "manifest_sha256": "ffad86865a4385c4b532b2ce76125f48732a4ba934f26a59808740eded7c0b18",
-          "prior_signature": "a4ca50fc79d1b0daedaa9d1b47ad5c3e5838fdf41532f755f0fbe0d8c3250f46",
-          "run_id": "25ba8596",
+          "generated_at": "2026-09-06T15:06:00.594566+00:00",
+          "generation_prompt_sha256": "7ad2ebed58f20c3fa64b19b748239644263a0fee8b72d489598f73c1ef56ea6d",
+          "manifest_sha256": "a3c9c32176944e2f9e1500a1a3e1454c8e335da526390e4f77d3e1a398476457",
+          "prior_signature": "6112acc52d4260e2ae3f416fba2848a174a90de40352e3628dbebc4294bedcf9",
+          "run_id": "a8dcdbb6",
+          "supersedes": {
+            "backend": "codex",
+            "generated_at": "2026-09-06T14:57:32.541686+00:00",
+            "generation_prompt_sha256": "d9fabaaf1f32e7041dac673d3e27307ca08b77aa73fc9132c1e0e948e9b8fc3d",
+            "manifest_sha256": "0ed775c3b1b9597894af12b2c7c19620da3d3154a1938fda0f906006c343a651",
+            "prior_signature": "a8ca79eef7607848b847e461be592c3e67589b3045b4f528bacff45702abb0b1",
+            "run_id": "f1e1d7ab",
+            "supersedes": {
+              "backend": "codex",
+              "generated_at": "2026-09-06T14:34:01.225861+00:00",
+              "generation_prompt_sha256": "25b53acb02b888473fb34e9fa8fd505bfde18c7471b8ba86ca628dd83ce96a78",
+              "manifest_sha256": "ffad86865a4385c4b532b2ce76125f48732a4ba934f26a59808740eded7c0b18",
+              "prior_signature": "a4ca50fc79d1b0daedaa9d1b47ad5c3e5838fdf41532f755f0fbe0d8c3250f46",
+              "run_id": "25ba8596",
+              "tool": "axiom-encode encode --apply"
+            },
+            "tool": "axiom-encode encode --apply"
+          },
           "tool": "axiom-encode encode --apply"
         },
         "tool": "axiom-encode encode --apply"
@@ -73,5 +91,5 @@
   },
   "tool": "axiom-encode encode --apply",
   "trace_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/traces/codex-gpt-6-astra/il-statute-income-tax-ordinance-section-121.json",
-  "trace_sha256": "de32a536b3ff41b12e51f267fd1ff31bfe2d4112d26338191358c8032097f750"
+  "trace_sha256": "fed02c5c8ec6e03d5da6b660a047c4c5463d6fb6efb7a1636e6a4474e63f3efe"
 }
