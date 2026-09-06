@@ -27,10 +27,10 @@ pass this gap asks for has been RUN against it, read-only, by
 `ops/il-lane/extract/reanchor_check.py`. Result:
 
 ```
-atoms checked: 129   re-anchored OK: 91   path-missing: 34   text-missing: 4
+atoms checked: 130   re-anchored OK: 92   path-missing: 34   text-missing: 4
 ```
 
-**91 of 129 proof excerpts are already verbatim NFC substrings of the corpus
+**92 of 130 proof excerpts are already verbatim NFC substrings of the corpus
 body.** The 38 that are not fall into three groups, none of which an excerpt
 edit can honestly fix:
 
@@ -77,7 +77,7 @@ command does: `axiom-encode check-source-staleness`, which compares the pin to
 `sha256(corpus_row.body.encode("utf-8"))` — the raw stored body, no NFC pass, no
 heading (`corpus_resolver._sha256_text`, and `source_hash.check_staleness`).
 
-Against the ingest branch, 5 modules already match byte-for-byte and 7 do not:
+Against the ingest branch, 6 modules already match byte-for-byte and 7 do not:
 
 | module | pinned | corpus body |
 |---|---|---|
@@ -106,11 +106,11 @@ after the release is signed and registered. The pass is mechanical from here.
 `axiom-encode validate` and `axiom-encode proof-validate` both require
 `.axiom/toolchain.toml` and a signed corpus release, neither of which can
 honestly exist yet. What WAS run, and what it proves:
-* `axiom-encode test` — all 108 companion cases pass against an engine build
+* `axiom-encode test` — all 119 companion cases pass against an engine build
   carrying the ILS currency seed.
 * `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
   `require_policy_proofs=True`, invoked directly with the captured provision
-  texts as `source_texts` — 129 proof atoms checked across 17 modules, all pass,
+  texts as `source_texts` — 130 proof atoms checked across 17 modules, all pass,
   plus 47 atoms re-checked against the specific expression their version speaks
   for (see `proof-check-concatenates-expressions-except-where-pinned`).
 * `find_missing_money_proof_atoms` — 0 missing money atoms across 17 modules.

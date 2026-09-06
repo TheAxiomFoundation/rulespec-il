@@ -32,7 +32,7 @@ every number against the Hebrew statute:
 | `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → the employee's national insurance and health contributions → child allowance → monthly net |
 
 Every module has a companion `.test.yaml` in which **every** local `#input`
-fact is assigned, including the false ones. 17 modules, 108 fixtures, 129 proof
+fact is assigned, including the false ones. 17 modules, 119 fixtures, 130 proof
 atoms.
 
 **Three instruments, and only two of them are in the corpus.** The National
@@ -115,7 +115,7 @@ for either year. That mismatch is recorded, not papered over.
 
 Proof excerpts quote the captured snapshots, because no signed `il-rulespec-*`
 corpus release exists. The Israel ingest does exist as an unmerged branch, so the
-re-anchor pass has been run against it read-only: **91 of 129 proof excerpts are
+re-anchor pass has been run against it read-only: **92 of 130 proof excerpts are
 already verbatim in the corpus body.** The remaining 38 are three structural
 gaps, not excerpt defects — the corpus has no `il/policy` scope for the
 Institute's publications (28 atoms), it does not contain the National Health
