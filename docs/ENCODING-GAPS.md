@@ -362,7 +362,10 @@ structure. It does NOT apply §67 (whose count a child falls into) — it assume
 both children fall in the modelled parent's count — and it does not apply
 §68(ב) (pre-June-2003 multipliers) or §68(ג) (the income-support increment); no
 capstone fixture is on income support or has a child born before June 2003.
-§67 and §68 are fully encoded and tested in their own modules.
+§67 and §68 have their own modules and their own fixtures, but "fully encoded"
+would be too strong: §67(ב)'s natural/other-parent limb is folded into one
+Boolean (below), §65 eligibility is not modelled at all, and §68(ד)–(יא) are
+empty or repealed in the captured expression.
 
 ### `ito-section-66-c-4-a1-not-encoded`
 §66(ג)(4)(א1) lets the mother elect to have one of her birth-year credit points
@@ -386,8 +389,11 @@ is not encoded. Note that §36א states no residence requirement and the encodin
 does not add one.
 
 ### `composed-capstone-bounds`
-The composed capstone is bounded to: at most two children; one earner; the
-mother's §66(ג)(4) schedule; separate calculation assumed elected. The per-child
+The composed capstone is bounded to: at most two children; one earner; separate
+calculation assumed elected. BOTH credit-point ladders are carried — §66(ג)(4)
+for the mother and §66(ג)(5) for the father — and selected on
+`taxpayer_is_a_woman`; an earlier revision of this entry said the mother's
+schedule only, which stopped being true when the father fixture was corrected. The per-child
 age-band selection is written twice (`child_1_credit_points`,
 `child_2_credit_points`) because the pilot declares no Child entity and uses no
 relation aggregation; the correct shape is a Child entity with
@@ -406,6 +412,37 @@ neither is the pension-contribution credit, nor מס הכנסה שלילי (EITC
 other instrument; and the annual tax is divided by twelve for presentation rather
 than computed under the monthly ניכוי במקור rules. See
 `contribution-scope-is-the-employee-only`.
+
+### `nii-section-67-insurance-gate` — a defect found by audit, fixed, and regression-tested
+§67's `child_counts_with_this_parent` tested `this_parent_is_insured` only in its
+one-parent branch. A consistent input set — two parents, not with the mother
+only, this parent is the father, this parent is NOT insured — returned TRUE,
+counting a child with an uninsured father. §67(א) ("לא יבוא ילד ... במנין ילדים
+של יותר מהורה מבוטח אחד") and §67(ב) ("האב המבוטח") both turn on insurance.
+
+Insurance now gates every branch, and the companion fixtures run all sixteen
+combinations of the four Booleans instead of six. The fixture header previously
+claimed all combinations were exercised; the gap between that claim and the six
+cases is what hid the defect.
+
+### `capstone-derives-the-surtax-exclusion-once`
+The capstone gated the allowance on the imported §121ב judgment AND on §66's
+`entitled_to_child_allowance`, which reads its own
+`parent_has_income_liable_to_additional_tax` input. Two independent sources for
+one legal fact, and they could disagree: setting the §66 input TRUE while income
+was below the threshold drove the allowance to zero.
+
+§66 now also exposes its opening limb alone,
+`parent_is_insured_for_child_allowance`, and the capstone takes the exclusion from
+the imported §121ב judgment and the insurance condition from that rule. The stale
+input is still ASSIGNED in every capstone fixture, because the harness requires
+every input of every module in the graph, but nothing reads it.
+`stale_nii_surtax_flag_no_longer_changes_the_allowance_2025` is the regression
+test: it is the ordinary two-child fixture with that flag flipped to TRUE, and it
+produces the same 383 ILS allowance and the same 14,151.738 net. §66 standalone
+still excludes — the fixture asserts `entitled_to_child_allowance: not_holds` —
+which is the section doing its job; the composition simply no longer asks it that
+question twice.
 
 ## Contributions
 

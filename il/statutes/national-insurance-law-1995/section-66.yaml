@@ -38,7 +38,22 @@ module:
 
     operative. This module encodes the captured text and the divergence is recorded
 
-    as `unexplained` in docs/ENCODING-GAPS.md.'
+    as `unexplained` in docs/ENCODING-GAPS.md.
+
+
+    TWO RULES, ON PURPOSE. `entitled_to_child_allowance` is the whole of §66 and is
+
+    what a caller with the facts in hand should use. `parent_is_insured_for_child_allowance`
+
+    is its opening limb alone — "הורה מבוטח" — and exists so that a composition which
+
+    already derives the §121ב liability from income does not have to supply that
+
+    same legal fact a second time as an input here. Two independent sources for one
+
+    fact can disagree; the composed capstone therefore takes the exclusion from the
+
+    imported §121ב judgment and the insurance condition from this rule.'
 rules:
 - name: entitled_to_child_allowance
   kind: derived
@@ -62,3 +77,20 @@ rules:
   versions:
   - effective_from: '2025-01-01'
     formula: parent_is_insured and not parent_has_income_liable_to_additional_tax
+- name: parent_is_insured_for_child_allowance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: סעיף 66, הרישה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-66
+          excerpt: הורה מבוטח זכאי לקצבת ילדים חודשית לפי פרק זה בעד כל ילד
+  versions:
+  - effective_from: '2025-01-01'
+    formula: parent_is_insured

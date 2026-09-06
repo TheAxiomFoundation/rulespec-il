@@ -53,6 +53,6 @@ rules:
           excerpt: ילד שיש לו שני הורים, יבוא במנין האב המבוטח זולת אם הוא נמצא עם האם בלבד
   versions:
   - effective_from: '2025-01-01'
-    formula: "if child_has_two_parents:\n  if child_is_with_the_mother_only:\n    (if this_parent_is_the_father:\
-      \ false else: true)\n  else: (if this_parent_is_the_father: true else: false)\nelse: (if this_parent_is_insured:\
-      \ true else: false)"
+    formula: "if this_parent_is_insured:\n  if child_has_two_parents:\n    if child_is_with_the_mother_only:\
+      \ (if this_parent_is_the_father: false else: true)\n    else: (if this_parent_is_the_father: true\
+      \ else: false)\n  else: true\nelse: false"

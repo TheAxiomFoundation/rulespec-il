@@ -17,7 +17,7 @@ imports:
 - il:statutes/income-tax-ordinance/section-66#father_points_age_3
 - il:statutes/income-tax-ordinance/section-66#father_points_age_4_to_5
 - il:statutes/income-tax-ordinance/section-66#father_points_age_6_to_pre_maturity
-- il:statutes/national-insurance-law-1995/section-66#entitled_to_child_allowance
+- il:statutes/national-insurance-law-1995/section-66#parent_is_insured_for_child_allowance
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_first_and_fifth_plus_child_ils
 - il:statutes/national-insurance-law-1995/section-1#basic_amount_second_third_fourth_child_ils
 - il:statutes/national-insurance-law-1995/schedule-j#monthly_national_insurance_employee_contribution_ils
@@ -229,7 +229,7 @@ rules:
             לגביו
   versions:
   - effective_from: '2025-01-01'
-    formula: "if liable_to_additional_tax: 0\nelif entitled_to_child_allowance:\n  (if number_of_children\
+    formula: "if liable_to_additional_tax: 0\nelif parent_is_insured_for_child_allowance:\n  (if number_of_children\
       \ >= 1: current_basic_amount_first_and_fifth_plus_ils else: 0)\n  + (if number_of_children >= 2:\
       \ current_basic_amount_second_third_fourth_ils else: 0)\nelse: 0"
 - name: monthly_net_income_ils
