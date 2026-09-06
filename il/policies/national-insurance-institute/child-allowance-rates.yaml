@@ -4,8 +4,8 @@ module:
     required: true
   source_verification:
     corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
-    source_sha256: 93614f66a62b858f838dd56bd7f143bc8602c77cf5e1ee1a694c32b2f5c3b86e
-  summary: 'המוסד לביטוח לאומי — published child allowance amounts, from 1 January 2026.
+    source_sha256: 44adddfc88acdc0fa5fecb1fba9c66c657871867049ba8dcb6555b68a67ffeb5
+  summary: 'המוסד לביטוח לאומי — published child allowance amounts, 2025 and 2026.
 
 
     The National Insurance Law states the child allowance as הסכום הבסיסי, a nominal
@@ -19,39 +19,53 @@ module:
     for a current-year regulated amount under this repository''s source rules.
 
 
-    Captured 2026-09-06 from the Institute''s "סכום קצבת הילדים" page, which states
+    TWO SNAPSHOTS OF ONE OFFICIAL PAGE, both of the Institute''s "סכום קצבת הילדים":
 
-    "(החל מ- 01.01.2026)". The amounts are therefore encoded with effective_from
+    * 2026 — the live page, captured 2026-09-06, stating "(החל מ- 01.01.2026)".
 
-    2026-01-01 and nothing here claims to state the 2025 amounts.
+      sha256 44adddfc88acdc0fa5fecb1fba9c66c657871867049ba8dcb6555b68a67ffeb5.
+
+    * 2025 — the same page as it stood on 2025-04-20, retrieved from the Internet
+
+      Archive because the live page no longer states the 2025 amounts. Stating
+
+      "(החל ב- 01.01.2025)". sha256
+
+      a150c2e4b3237be0b83868fd798e8b00404a41550187645fe95146a5bfaf1287.
+
+      The publisher is the Institute; the archive is the delivery channel, not the
+
+      publisher, and the retrieved bytes are recorded with their own provenance.
+
+    `source_sha256` above names the CURRENT snapshot, following the convention this
+
+    repository uses for §121, which likewise has two captured expressions.
 
 
-    2025 IS NOT COVERED. No official capture of the 2025 amounts was obtained, so
+    THE INCOME-SUPPORT INCREMENT IS ALSO PUBLISHED HERE. Both snapshots carry the
 
-    the 2025 fixtures elsewhere in this repository supply 169 / 214 from the OECD
+    sentence "התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך N ש״ח לכל ילד" —
 
-    TaxBEN Israel description and label them as a reference, not as law. See
+    111 in 2025, 113 in 2026. That is the Institute''s own figure for the addition
 
-    docs/ENCODING-GAPS.md, gap `child-allowance-2025-amounts-not-officially-captured`.
+    NII §68(ג) states as 70% of the §1(2)(ג) basic amount. This repository does NOT
+
+    reproduce it from the encoded formula, because no official §1(2)(ג) basic amount
+
+    has been captured for either year; the divergence is recorded in
+
+    docs/ENCODING-GAPS.md as `nii-68c-published-increment-vs-encoded-formula`.
 
 
-    EFFECTIVE DATES CLAIM NOTHING HISTORICAL. Every version here starts 2025-01-01,
+    NOTHING HERE IS LAW. These are published administrative amounts. The statutory
 
-    the earliest date this pilot speaks for, except where a captured gazette act
-
-    establishes a later commencement. The captured consolidations carry amendment
-
-    LISTS but no commencement clauses, so an earlier effective_from would be an
-
-    assertion the sources do not support. See docs/ENCODING-GAPS.md,
-
-    `effective-from-dates-are-pilot-scope-not-commencement`.'
+    structure that consumes them is in il/statutes/national-insurance-law-1995/.'
 rules:
 - name: published_monthly_allowance_first_child_ils
   kind: parameter
   dtype: Money
   unit: ILS
-  source: המוסד לביטוח לאומי, סכום קצבת הילדים, החל מ־01.01.2026
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים
   metadata:
     proof:
       atoms:
@@ -59,15 +73,22 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: ראשון | 169 ש"ח
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
           excerpt: ראשון | 173 ש"ח
   versions:
+  - effective_from: '2025-01-01'
+    formula: '169'
   - effective_from: '2026-01-01'
     formula: '173'
 - name: published_monthly_allowance_second_to_fourth_child_ils
   kind: parameter
   dtype: Money
   unit: ILS
-  source: המוסד לביטוח לאומי, סכום קצבת הילדים, החל מ־01.01.2026
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים
   metadata:
     proof:
       atoms:
@@ -75,25 +96,42 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
-          excerpt: שני | 219 ש"ח
+          excerpt: שני | 214 ש"ח
       - path: versions[0].formula
         kind: parameter
         source:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
-          excerpt: שלישי | 219 ש"ח
+          excerpt: שלישי | 214 ש"ח
       - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: רביעי | 214 ש"ח
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: שני | 219 ש"ח
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: שלישי | 219 ש"ח
+      - path: versions[1].formula
         kind: parameter
         source:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
           excerpt: רביעי | 219 ש"ח
   versions:
+  - effective_from: '2025-01-01'
+    formula: '214'
   - effective_from: '2026-01-01'
     formula: '219'
 - name: published_monthly_allowance_fifth_and_later_child_ils
   kind: parameter
   dtype: Money
   unit: ILS
-  source: המוסד לביטוח לאומי, סכום קצבת הילדים, החל מ־01.01.2026
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים
   metadata:
     proof:
       atoms:
@@ -101,17 +139,47 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: חמישי ואילך | 169 ש"ח
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
           excerpt: חמישי ואילך | 173 ש"ח
   versions:
+  - effective_from: '2025-01-01'
+    formula: '169'
   - effective_from: '2026-01-01'
     formula: '173'
+- name: published_income_support_increment_per_child_ils
+  kind: parameter
+  dtype: Money
+  unit: ILS
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים — תוספת להורה המקבל קצבת קיום
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך 111 ש"ח לכל ילד.
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך 113 ש"ח לכל ילד.
+  versions:
+  - effective_from: '2025-01-01'
+    formula: '111'
+  - effective_from: '2026-01-01'
+    formula: '113'
 - name: published_monthly_allowance_for_child_ils
   kind: derived
   entity: Person
   dtype: Money
   unit: ILS
   period: Month
-  source: המוסד לביטוח לאומי, סכום קצבת הילדים, החל מ־01.01.2026
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים
   metadata:
     proof:
       atoms:
@@ -121,6 +189,25 @@ rules:
           corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
           excerpt: מיקום הילד במשפחה | סכום הקצבה המשולם עבור הילד
   versions:
-  - effective_from: '2026-01-01'
+  - effective_from: '2025-01-01'
     formula: "if child_birth_order >= 2 and child_birth_order <= 4:\n  published_monthly_allowance_second_to_fourth_child_ils\n\
       elif child_birth_order >= 5: published_monthly_allowance_fifth_and_later_child_ils\nelse: published_monthly_allowance_first_child_ils"
+- name: published_monthly_income_support_increment_for_child_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: המוסד לביטוח לאומי, סכום קצבת הילדים — תוספת להורה המקבל קצבת קיום
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/policy/national-insurance-institute/child-allowance-rates
+          excerpt: התוספת משולמת עבור הילד השלישי והרביעי במשפחה בסך
+  versions:
+  - effective_from: '2025-01-01'
+    formula: "if parent_receives_one_of_the_listed_subsistence_benefits and child_birth_order >= 3 and child_birth_order <= 4:\n\
+      \  published_income_support_increment_per_child_ils\nelse: 0"

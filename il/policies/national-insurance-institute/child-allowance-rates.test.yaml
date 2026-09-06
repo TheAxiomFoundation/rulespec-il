@@ -1,59 +1,234 @@
-
 # Companion fixtures for the captured ביטוח לאומי published child allowance
-# amounts, effective 1 January 2026. These assert the publication, not the law:
-# the statutory structure is in il/statutes/national-insurance-law-1995/.
+# amounts. These assert the PUBLICATION, not the law: the statutory structure is
+# in il/statutes/national-insurance-law-1995/.
+#
+# Two official snapshots of the Institute's own "סכום קצבת הילדים" page:
+#   2025 — the page as it stood 2025-04-20, retrieved from the Internet Archive
+#          because the live page no longer states the 2025 amounts. It states
+#          "(החל ב- 01.01.2025)": 169 / 214 / 169, increment 111.
+#   2026 — the live page, captured 2026-09-06. It states "(החל מ- 01.01.2026)":
+#          173 / 219 / 173, increment 113.
+# Both snapshots also carry the §68(ג) income-support increment sentence. Session
+# 1 of this pilot extracted only the rate table and recorded the increment as
+# "not captured"; it was in the captured bytes all along.
 
-- name: birth_order_1_is_paid_173
+- name: birth_order_1_is_paid_169_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 1
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 169
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_2_is_paid_214_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 2
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_3_is_paid_214_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 3
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_4_is_paid_214_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 4
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_5_is_paid_169_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 5
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 169
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_6_is_paid_169_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 6
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 169
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_1_is_paid_173_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 1
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
-- name: birth_order_2_is_paid_219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_2_is_paid_219_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 2
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
-- name: birth_order_3_is_paid_219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_3_is_paid_219_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 3
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
-- name: birth_order_4_is_paid_219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_4_is_paid_219_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 4
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
-- name: birth_order_5_is_paid_173
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_5_is_paid_173_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 5
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
-- name: birth_order_6_is_paid_173
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: birth_order_6_is_paid_173_in_2026
   period:
     period_kind: month
     start: '2026-01-01'
     end: '2026-12-31'
   input:
     il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 6
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: false
   output:
     il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: third_child_on_a_subsistence_benefit_adds_111_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 3
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 111
+- name: fourth_child_on_a_subsistence_benefit_adds_111_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 4
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 111
+- name: second_child_on_a_subsistence_benefit_adds_nothing_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 2
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 214
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: fifth_child_on_a_subsistence_benefit_adds_nothing_in_2025
+  period:
+    period_kind: month
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 5
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 169
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: third_child_on_a_subsistence_benefit_adds_113_in_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 3
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 113
+- name: fourth_child_on_a_subsistence_benefit_adds_113_in_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 4
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 113
+- name: second_child_on_a_subsistence_benefit_adds_nothing_in_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 2
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 219
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
+- name: fifth_child_on_a_subsistence_benefit_adds_nothing_in_2026
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:policies/national-insurance-institute/child-allowance-rates#input.child_birth_order: 5
+    il:policies/national-insurance-institute/child-allowance-rates#input.parent_receives_one_of_the_listed_subsistence_benefits: true
+  output:
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_allowance_for_child_ils: 173
+    il:policies/national-insurance-institute/child-allowance-rates#published_monthly_income_support_increment_for_child_ils: 0
