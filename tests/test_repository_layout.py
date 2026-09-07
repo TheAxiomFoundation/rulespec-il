@@ -189,9 +189,11 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
     assert [scope["release"] for scope in payload["corpus_scopes"]] == [candidate["name"]]
 
 
-def test_registry_visibility_is_experimental() -> None:
-    text = (ROOT / ".axiom/registry.toml").read_text()
-    assert 'app_visibility = "experimental"' in text
+def test_registry_visibility_is_public() -> None:
+    # Flipped from "experimental" on 2026-09-07 together with the app's family
+    # entry (the two-key promotion axiom.org's check-rulespec-drift.mjs enforces).
+    text = (REPO_ROOT / ".axiom" / "registry.toml").read_text(encoding="utf-8")
+    assert 'app_visibility = "public"' in text
 
 
 def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> None:
