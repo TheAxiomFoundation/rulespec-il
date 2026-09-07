@@ -5,4 +5,4 @@
 [toolchain]
 axiom_corpus_release = "il-rulespec-2026-09-06"
 axiom_corpus_release_content_sha256 = "eff0433c013fd241fcb73fc3a89681d7e9091708c2b2a8967d261a4f4f361519"
-validation_waiver_set_sha256 = "d157d7edfb5d9e844d5995686ef462142de022e70496121ea7cf1b8300919cc0"
+validation_waiver_set_sha256 = "65f8dc38c19a7a491e81a0a158a11ce29a2a470d27b38633b1bf2ab08164678d"
