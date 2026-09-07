@@ -192,7 +192,7 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
 def test_registry_visibility_is_public() -> None:
     # Flipped from "experimental" on 2026-09-07 together with the app's family
     # entry (the two-key promotion axiom.org's check-rulespec-drift.mjs enforces).
-    text = (REPO_ROOT / ".axiom" / "registry.toml").read_text(encoding="utf-8")
+    text = (ROOT / ".axiom/registry.toml").read_text()
     assert 'app_visibility = "public"' in text
 
 
