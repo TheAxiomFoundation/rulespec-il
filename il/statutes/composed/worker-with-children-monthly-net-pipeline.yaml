@@ -38,7 +38,8 @@ module:
     and carries an apply manifest under .axiom/encoding-manifests/. A composition
     declares imports of those encoded rules and the wiring between them. It states one
     statutory quantity of its own, and only one: the age 18 in NII §65(א)'s definition of
-    ”ילד“, written out as `child_N_age_at_month_years < 18`. It is here rather than in an encoded
+    ”ילד“, written out as `child_N_age_at_month_years < national_insurance_child_age_limit_years`
+    (the 18 of §65(א), a named parameter here). It is here rather than in an encoded
     module because the test has to be asked once per child and this pilot declares no
     Child entity, so §65 has no single-answer shape an atomic module could take. §65 IS in
     the corpus and IS encodable; not encoding it is a limitation of this pilot's entity
@@ -411,6 +412,62 @@ rules:
   versions:
   - effective_from: '2026-01-01'
     formula: taxpayer_is_an_insured_parent
+- name: credit_point_age_band_four_and_five_upper_age_years
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: סעיפים 66(ג)(4)(א) ו־66(ג)(5)(ב) לפקודה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '2026-01-01'
+    formula: |-
+      5
+- name: child_maturity_age_years
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: סעיף 40(ב)(3) לפקודה, הגדרת ”שנת בגרות“ (החלה על סעיף 66(ג) מכוח פסקה (4))
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-40
+          excerpt: ”שנת בגרות“ – שנת המס שבה מלאו לילד שמונה עשרה שנים
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ”שנת לידה“ ו”שנת בגרות“ – כהגדרתן בסעיף 40(ב)(3)
+  versions:
+  - effective_from: '2026-01-01'
+    formula: |-
+      18
+- name: national_insurance_child_age_limit_years
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: סעיף 65(א) לחוק הביטוח הלאומי, הגדרת ”ילד“
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-65
+          excerpt: ולא מלאו לו 18 שנים
+  versions:
+  - effective_from: '2026-01-01'
+    formula: |-
+      18
 - name: child_1_credit_points
   kind: derived
   entity: Person
@@ -442,9 +499,9 @@ rules:
         (if taxpayer_is_a_woman: woman_credit_points_year_after_birth_through_age_two else: man_credit_points_year_after_birth_through_age_two)
       elif child_1_age_years == 3:
         (if taxpayer_is_a_woman: woman_credit_points_year_turning_three else: man_credit_points_year_turning_three)
-      elif child_1_age_years <= 5:
+      elif child_1_age_years <= credit_point_age_band_four_and_five_upper_age_years:
         (if taxpayer_is_a_woman: woman_credit_points_years_turning_four_and_five else: man_credit_points_years_turning_four_and_five)
-      elif child_1_age_years <= 17:
+      elif child_1_age_years < child_maturity_age_years:
         (if taxpayer_is_a_woman: woman_credit_points_from_age_six_until_maturity_year else: man_credit_points_from_age_six_until_maturity_year)
       else: 0
 - name: child_2_credit_points
@@ -478,9 +535,9 @@ rules:
         (if taxpayer_is_a_woman: woman_credit_points_year_after_birth_through_age_two else: man_credit_points_year_after_birth_through_age_two)
       elif child_2_age_years == 3:
         (if taxpayer_is_a_woman: woman_credit_points_year_turning_three else: man_credit_points_year_turning_three)
-      elif child_2_age_years <= 5:
+      elif child_2_age_years <= credit_point_age_band_four_and_five_upper_age_years:
         (if taxpayer_is_a_woman: woman_credit_points_years_turning_four_and_five else: man_credit_points_years_turning_four_and_five)
-      elif child_2_age_years <= 17:
+      elif child_2_age_years < child_maturity_age_years:
         (if taxpayer_is_a_woman: woman_credit_points_from_age_six_until_maturity_year else: man_credit_points_from_age_six_until_maturity_year)
       else: 0
 - name: annual_credit_points
@@ -575,7 +632,7 @@ rules:
     formula: |-
       number_of_children >= 1
       and child_1_is_present_in_israel
-      and child_1_age_at_month_years < 18
+      and child_1_age_at_month_years < national_insurance_child_age_limit_years
 - name: child_2_is_a_child_under_section_65
   kind: derived
   entity: Person
@@ -595,7 +652,7 @@ rules:
     formula: |-
       number_of_children >= 2
       and child_2_is_present_in_israel
-      and child_2_age_at_month_years < 18
+      and child_2_age_at_month_years < national_insurance_child_age_limit_years
 - name: children_in_parent_child_count
   kind: derived
   entity: Person
