@@ -13,15 +13,12 @@ jobs:
     with:
       # Same reviewed validator pin rulespec-dk carries.
       axiom-encode-ref: a4599841fa86d608236923c759558d1f21be9d09
-      # First engine revision carrying the Israel ILS currency seed
-      # (axiom-rules-engine#169, branch ils-currency-seed). This is a branch
-      # commit, not main: repinned to the merge commit once #169 merges.
-      axiom-rules-engine-ref: 23f2d155bc641a90905c66136a96f494028334a5
-      # Placeholder: this corpus revision contains no Israel scope, so
-      # citation resolution here fails closed until the il-rulespec release is
-      # ingested, signed and registered. Repinned in the dedicated toolchain PR
-      # together with .axiom/toolchain.toml — never in a content PR.
-      axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
+      # axiom-rules-engine#169 (Israel ILS currency seed) as merged to main.
+      axiom-rules-engine-ref: 1f824237d43c1234d88fea60c8ac2fa7b9b9da4c
+      # axiom-corpus#646 as merged to main: the Israel scope il/statute @
+      # 2026-09-06-il-taxben-pilot, published as release il-rulespec-2026-09-06
+      # (pinned in .axiom/toolchain.toml).
+      axiom-corpus-ref: 996b763095ae9cae3761e685827ffd9d97c2a68d
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
       # Every atomic module here IS encoder-produced and carries an apply

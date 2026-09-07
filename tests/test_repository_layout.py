@@ -167,12 +167,26 @@ def test_no_oracle_coverage_is_claimed_while_none_is_wired() -> None:
     assert pending["entries"] == []
 
 
-def test_pilot_is_not_bound_to_a_corpus_release_that_does_not_exist() -> None:
-    """No toolchain.toml until a signed il-rulespec release exists."""
-    assert not (ROOT / ".axiom/toolchain.toml").exists()
+def test_pilot_is_bound_to_the_published_corpus_release() -> None:
+    """toolchain.toml and the coverage map name the same signed il-rulespec release."""
+    import tomllib
+
+    toolchain = tomllib.loads((ROOT / ".axiom/toolchain.toml").read_text())["toolchain"]
+    assert set(toolchain) == {
+        "axiom_corpus_release",
+        "axiom_corpus_release_content_sha256",
+        "validation_waiver_set_sha256",
+    }
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", toolchain["axiom_corpus_release"])
+    assert toolchain["axiom_corpus_release"] != "current"
+    for key in ("axiom_corpus_release_content_sha256", "validation_waiver_set_sha256"):
+        assert re.fullmatch(r"[0-9a-f]{64}", toolchain[key]), key
     payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
-    assert payload["release_candidate"]["status"] == "not_cut"
-    assert payload["corpus_scopes"] == []
+    candidate = payload["release_candidate"]
+    assert candidate["status"] == "published"
+    assert candidate["name"] == toolchain["axiom_corpus_release"]
+    assert candidate["content_sha256"] == toolchain["axiom_corpus_release_content_sha256"]
+    assert [scope["release"] for scope in payload["corpus_scopes"]] == [candidate["name"]]
 
 
 def test_registry_visibility_is_experimental() -> None:
