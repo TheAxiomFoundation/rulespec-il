@@ -4,11 +4,20 @@
   "jurisdiction": "il",
   "validation_year": 2025,
   "note": "Scaffold commit. NOTHING is encoded yet: encoded_sections is empty on main and is filled in by the first content PR (branch pilot-v0). No Israel corpus release exists, so no release is bound and .axiom/toolchain.toml is absent.",
-  "corpus_scopes": [],
+  "corpus_scopes": [
+    {
+      "jurisdiction": "il",
+      "document_class": "statute",
+      "version": "2026-09-06-il-taxben-pilot",
+      "release": "il-rulespec-2026-09-06"
+    }
+  ],
   "release_candidate": {
     "name": "il-rulespec-2026-09-06",
-    "status": "not_cut",
-    "note": "Planned name only. No ingest PR merged, no release signed, no registration, no mirror. Nothing in this repository is bound to it."
+    "status": "published",
+    "content_sha256": "eff0433c013fd241fcb73fc3a89681d7e9091708c2b2a8967d261a4f4f361519",
+    "published_from": "TheAxiomFoundation/axiom-corpus#646, merge commit 996b763095ae9cae3761e685827ffd9d97c2a68d, publish run 34071795904 (2026-09-07T01:06Z)",
+    "note": "Signed and registered. .axiom/toolchain.toml binds this repository to it; activation (serving) is a separate step and is not required for validation."
   },
   "instruments": [
     {
