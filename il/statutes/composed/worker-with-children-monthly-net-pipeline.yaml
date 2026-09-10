@@ -213,7 +213,7 @@ rules:
           excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
   versions:
   - effective_from: '2026-01-01'
-    formula: monthly_gross_wage_ils * months_in_tax_year
+    formula: max(0, monthly_gross_wage_ils * months_in_tax_year)
 - name: taxable_income_for_section_121b
   kind: derived
   entity: Person
