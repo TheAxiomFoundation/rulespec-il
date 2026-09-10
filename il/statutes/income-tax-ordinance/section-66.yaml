@@ -174,7 +174,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו
   versions:
   - effective_from: '0001-01-01'
     formula: 2 + 1 / 2
@@ -189,7 +189,7 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 41⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
+          excerpt: 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
             ועד לשנת המס שבה מלאו לו שנתיים
   versions:
   - effective_from: '0001-01-01'
@@ -206,7 +206,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 41⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
+          excerpt: 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
             ועד לשנת המס שבה מלאו לו שנתיים
       - path: versions[0].formula
         kind: import
@@ -230,7 +230,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 31⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים
+          excerpt: 3 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים
   versions:
   - effective_from: '0001-01-01'
     formula: 3 + 1 / 2
@@ -246,7 +246,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע
             שנים וחמש שנים
   versions:
   - effective_from: '0001-01-01'
@@ -296,7 +296,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 21⁄2 נקודות זיכוי בשנת לידתו של הילד
+          excerpt: 2 1⁄2 נקודות זיכוי בשנת לידתו של הילד
   versions:
   - effective_from: '0001-01-01'
     formula: 2 + 1 / 2
@@ -311,7 +311,7 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 41⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
             המס שבה מלאו לו שנתיים
   versions:
   - effective_from: '0001-01-01'
@@ -328,7 +328,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 41⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
             המס שבה מלאו לו שנתיים
       - path: versions[0].formula
         kind: import
@@ -352,7 +352,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 31⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים
+          excerpt: 3 1⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים
   versions:
   - effective_from: '0001-01-01'
     formula: 3 + 1 / 2
@@ -368,7 +368,7 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: ו־21⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+          excerpt: ו־2 1⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
   versions:
   - effective_from: '0001-01-01'
     formula: 2 + 1 / 2
@@ -523,10 +523,10 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 21⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו, ו־1⁄2 נקודת זיכוי
-            בעד כל אחד מילדיה בשנת בגרותו, 41⁄2 נקודות זיכוי בעד כל אחד מילדיה החל
-            בשנת המס שלאחר שנת לידתו ועד לשנת המס שבה מלאו לו שנתיים, 31⁄2 נקודות
-            זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים, 21⁄2 נקודות זיכוי
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו, ו־ 1⁄2 נקודת זיכוי
+            בעד כל אחד מילדיה בשנת בגרותו, 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל
+            בשנת המס שלאחר שנת לידתו ועד לשנת המס שבה מלאו לו שנתיים, 3 1⁄2 נקודות
+            זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים, 2 1⁄2 נקודות זיכוי
             בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים, ושתי נקודות
             זיכוי בעד כל אחד מילדיה החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס
             שקדמה לשנת בגרותו
@@ -552,14 +552,14 @@ rules:
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 21⁄2 נקודות זיכוי בשנת לידתו של הילד
+          excerpt: 2 1⁄2 נקודות זיכוי בשנת לידתו של הילד
       - path: versions[0].values
         kind: amount
         source:
           corpus_citation_path: il/statute/income-tax-ordinance/section-66
-          excerpt: 41⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
-            המס שבה מלאו לו שנתיים, 31⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים,
-            ו־21⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+            המס שבה מלאו לו שנתיים, 3 1⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים,
+            ו־2 1⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
       - path: versions[0].values
         kind: amount
         source:
