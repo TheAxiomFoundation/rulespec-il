@@ -51,14 +51,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_father_two_children_aged_two_and_eight_fifteen_thousand_a_month
   period:
     period_kind: month
@@ -112,14 +112,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: minimum_wage_working_mother_two_children_aged_two_and_eight
   period:
     period_kind: month
@@ -173,14 +173,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: woman_with_no_children_fifteen_thousand_a_month
   period:
     period_kind: month
@@ -234,14 +234,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: high_earner_mother_two_children_sixty_thousand_a_month
   period:
     period_kind: month
@@ -295,12 +295,12 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
 - name: working_mother_child_in_its_birth_year_and_child_in_its_maturity_year
   period:
     period_kind: month
@@ -354,14 +354,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_father_child_in_its_birth_year_and_child_in_its_maturity_year
   period:
     period_kind: month
@@ -415,14 +415,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_children_aged_three_and_five_twenty_thousand_a_month
   period:
     period_kind: month
@@ -476,14 +476,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_child_past_its_maturity_year_and_child_aged_eight
   period:
     period_kind: month
@@ -537,14 +537,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_two_children_the_elder_one_outside_israel
   period:
     period_kind: month
@@ -598,14 +598,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_two_children_aged_seventeen_and_eight
   period:
     period_kind: month
@@ -659,14 +659,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_child_turning_three_this_year_and_child_aged_eight
   period:
     period_kind: month
@@ -720,14 +720,14 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
 - name: working_mother_maturity_year_child_before_its_eighteenth_birthday
   period:
     period_kind: month
@@ -781,11 +781,101 @@
     : 0
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
     : 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
-    : false
+    : not_holds
+- name: woman_aged_sixty_with_no_children_fifteen_thousand_a_month
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 15000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+  output:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : not_holds
+- name: mother_above_the_additional_tax_threshold
+  period:
+    period_kind: month
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.monthly_gross_wage_ils: 74000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.number_of_children: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_a_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_israeli_resident: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_an_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_is_at_least_60_years_old: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.books_of_account_required_but_not_kept: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.credit_point_value_for_tax_year_ils: 2904
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_first_and_fifth_plus_ils: 173
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_second_third_fourth_ils: 219
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_age_at_month_years: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_1_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_age_at_month_years: 8
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+  output:
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 888000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 888000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 888000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 888000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : holds
