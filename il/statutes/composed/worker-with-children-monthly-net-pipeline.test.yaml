@@ -1,65 +1,4 @@
-# Companion fixtures for the composed monthly-net pipeline.
-#
-# WHAT YEAR THIS SPEAKS FOR. The Israel corpus holds ONE expression of each provision —
-# the Income Tax Ordinance as of 2026-06-08 and the National Insurance Law as of
-# 2026-06-15 — so the ITO §121 bands encoded here are the post-amendment-288 text that
-# takes effect on 1 January 2026: 84,120 / 120,720 / 228,000 / 301,200 / 560,280. These
-# fixtures are evaluated in 2026 for that reason. This repository cannot compute a 2025
-# liability, and the OECD TaxBEN Israel 2025 table is therefore not a like-for-like
-# comparison in the middle of the schedule. See docs/ENCODING-GAPS.md,
-# `corpus-holds-one-expression-per-provision`.
-#
-# SUPPLIED VALUES AND THEIR PROVENANCE — none of these is law as stated here:
-#   credit_point_value_for_tax_year_ils = 2,904. From the OECD TaxBEN Israel 2025
-#     description, a REFERENCE and not a source of law. ITO §120ב(ה)(1) freezes the
-#     indexed amounts for tax years 2025 to 2027 at their 1 January 2024 level, and that
-#     freeze IS encoded, so the same figure stands for 2026. The statute's own nominal
-#     figure — 504 ILS, ITO §33א — is encoded in this repository as
-#     `tax_credit_point_amount`.
-#   current_basic_amount_first_and_fifth_plus_ils = 173 and
-#   current_basic_amount_second_third_fourth_ils = 219. From the National Insurance
-#     Institute's published rate table, effective 01.01.2026, read during this pilot.
-#     That table is NOT carried in this repository: a policy capture is not
-#     encoder-generated content. The statute's own nominal figures — 150 and 188, NII
-#     §1(2)(א) and (ב) — ARE encoded, are imported by this pipeline, and every case
-#     asserts `statutory_nominal_monthly_child_allowance_ils` next to the amount actually
-#     paid so the distance between them is visible.
-#
-# TWO AGE TESTS, NOT ONE. Every case supplies each child's age twice over, because the two
-# instruments ask different questions about it. ITO §66(ג)(4)-(5) reads age bands that run
-# to the maturity year, for the annual credit points. NII §65(א) defines ”ילד“ for the whole
-# child-allowance chapter and admits a child only `ובלבד שהילד נמצא בישראל ולא מלאו לו 18 שנים`,
-# so `child_N_is_present_in_israel` and `child_N_age_at_month_years < 18` decide
-# `children_in_parent_child_count`, and THAT is what the §68(א)/§1(2) birth-order amounts are
-# read against. Where the elder child fails the §65 test the younger becomes the FIRST child
-# in the count and draws the first-child amount, which is 173 paid / 150 nominal, not 219/188.
-#
-# THE §121ב THRESHOLD IS NOT SUPPLIED. This pipeline applies the 640,000 ILS the section
-# prints. The current-year threshold is higher, so the high-earner case below crosses a
-# nominal line rather than the year's line. That is a narrower claim than an indexed
-# figure would be, and it is the encoder's module that makes it: §121ב has no threshold
-# input to override.
-#
-# THE COUPLING IS DERIVED. `taxable_income_for_section_121b` is derived here from the
-# monthly wage; §121ב computes the additional tax from it; and the fact NII §66 excludes
-# on — `insured_parent_has_income_subject_to_additional_tax_under_section_121b` — is
-# derived from that tax being positive. No fixture sets it. Raise the wage past the
-# threshold and the child allowance goes to zero because of NII §66's own encoded
-# judgment.
-#
-# READ docs/ENCODING-GAPS.md BEFORE PRESENTING THE HIGH-EARNER CASE. The OECD TaxBEN
-# Israel description says this benefit "is not means-tested", which cannot be reconciled
-# with §66's exclusion. Nothing captured resolves it. This fixture demonstrates the
-# encoded provision; it is NOT a verified description of what the National Insurance
-# Institute pays.
-
 - name: working_mother_two_children_aged_two_and_eight_fifteen_thousand_a_month
-  # The base case. 180,000 a year on the §121(ב)(1) reduced schedule is
-  # 10% x 84,120 + 14% x 36,600 + 20% x 59,280 = 25,392. The mother's credit points are
-  # §34's two, §36's quarter, §36א's half, and the §66(ג)(4)(א) ladder's 4.5 for a child
-  # between the year after birth and the year it turns two plus 2 for a child from the year
-  # it turns six — 9.25 points, 26,862 ILS, which exceeds the tax. Net is the wage plus the
-  # child allowance.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -102,11 +41,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15392.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_father_two_children_aged_two_and_eight_fifteen_thousand_a_month
-  # The same household with the §66(ג)(5) ladder instead. The man gets no §36א
-  # half point and one point rather than two for the eight-year-old: 7.75 points, 22,506 ILS,
-  # and 2,886 ILS of tax survives the credit. This is the divergence §66(ג)(4)(א) and
-  # §66(ג)(5) print, and it is why both ladders are encoded.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -149,10 +102,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15151.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: minimum_wage_working_mother_two_children_aged_two_and_eight
-  # 5,880.02 a month is the statutory minimum monthly wage for a full-time
-  # employee as it stood in 2025. 70,560.24 a year falls entirely in the 10% band, and the
-  # credit points wipe the tax out completely.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -195,10 +163,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 6272.02
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 70560.24
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 70560.24
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 70560.24
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 70560.24
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: woman_with_no_children_fifteen_thousand_a_month
-  # No children, so no §66 points and no child allowance — and this person is not
-  # an insured parent, so NII §66's judgment does not hold either. The zero branch of every
-  # child rule.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -241,14 +224,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 13549.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: high_earner_mother_two_children_sixty_thousand_a_month
-  # The point of the whole pipeline. 720,000 a year crosses the 640,000 ILS that
-  # ITO §121ב prints, so the additional tax is 3% x 80,000 = 2,400 — and NII §66 excludes an
-  # insured parent with income liable to that tax from the child allowance outright. The
-  # allowance goes to zero because of a provision in the National Insurance Law, computed
-  # from income through the Income Tax Ordinance. Nothing here models it; the captured
-  # statutory text says it. Read docs/ENCODING-GAPS.md,
-  # `child-allowance-surtax-exclusion-vs-oecd`, before showing this to anyone.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -291,13 +285,23 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 43419.3
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 720000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 720000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 720000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 720000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
 - name: working_mother_child_in_its_birth_year_and_child_in_its_maturity_year
-  # The two ends of the woman's ladder — 2.5 points in the child's birth year and half a
-  # point in its maturity year — and, on the same two children, the National Insurance
-  # answer diverging from the tax answer. The elder child has turned 18, so ITO §66(ג)(4)(א)
-  # still grants it half a point for the maturity year while NII §65(א) has already stopped
-  # treating it as a ילד. The count falls to one, and the baby — now the FIRST child in the
-  # count — draws the first-child amount: 173 paid, 150 nominal.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -340,11 +344,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 150
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14448.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_father_child_in_its_birth_year_and_child_in_its_maturity_year
-  # The same two children on the man's ladder. §66(ג)(5) grants 2.5 points in the
-  # birth year exactly as §66(ג)(4)(א) does, and grants NOTHING in the maturity year, where
-  # the woman gets half a point. The allowance is the same 173 as for the mother: the
-  # §65(א) count does not read the parent's sex.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -387,9 +405,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 150
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14206.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_children_aged_three_and_five_twenty_thousand_a_month
-  # The middle rungs: 3.5 points in the tax year the child turns three, 2.5 in
-  # the years it turns four and five. 240,000 a year reaches the 31% reduced band.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -432,11 +466,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 19283.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 240000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 240000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 240000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 240000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_child_past_its_maturity_year_and_child_aged_eight
-  # A 19-year-old is outside both ITO §66(ג) ladders and carries no points, and it is
-  # outside the NII count too, because §65(א) admits a child only `ולא מלאו לו 18 שנים`.
-  # So the count is one, and the eight-year-old — the only child in it — is the FIRST child
-  # for §1(2)(א): 173 paid, 150 nominal, not 392/338.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -479,15 +527,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 150
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14206.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_two_children_the_elder_one_outside_israel
-  # The other half of NII §65(א)'s test, on the base case's household. Nothing about the
-  # tax changes: ITO §66(ג) grants credit points for a child on age alone and asks nothing
-  # about where the child is, so both ladders still run and the credit still wipes out the
-  # tax. The National Insurance count does drop to one, because §65(א) admits a child only
-  # `ובלבד שהילד נמצא בישראל`, and the remaining child is the first in the count. The two
-  # instruments answer differently about the same two children, which is the point.
-  # §65(ב) — a child out of Israel for up to three months is still treated as in Israel —
-  # is NOT modelled; this fixture supplies the conclusion, not the three-month arithmetic.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -530,13 +588,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 173
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 150
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15173.0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: false
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_two_children_aged_seventeen_and_eight
-  # The INCLUDED side of NII §65(א)'s `ולא מלאו לו 18 שנים`. A seventeen-year-old that has
-  # not reached its maturity year is still a child for the allowance — count two, 392 paid —
-  # and still draws the §66(ג)(4)(א) two points for a woman, `החל בשנת המס שבה מלאו לו שש
-  # שנים ועד לשנת המס שקדמה לשנת בגרותו`. Without this case the `< 18` boundary is pinned
-  # only from above (18, 19), so a regression to `<= 18` would flip the maturity-year
-  # fixtures while every remaining case still passed.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -579,14 +649,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14909.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_child_turning_three_this_year_and_child_aged_eight
-  # The two ages diverge around a birthday. The younger child is two at the allowance month
-  # but turns three later in the tax year: ITO §66(ג)(4)(א) reads the age ATTAINED in the tax
-  # year, so it draws the year-turning-three points — 3.5 for a mother — not the 4.5 of the
-  # year after birth through age two, while NII §65(א) reads the age at the month and still
-  # counts it. Points 2 + 0.25 + 0.5 + 3.5 + 2 = 8.25; 8.25 x 2,904 = 23,958, against 25,392 of
-  # tax, leaving 1,434 for the year, 119.5 a month. Allowance 173 + 219 = 392 (338 nominal).
-  # Net 15,000 - 119.5 + 392 = 15,272.5.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -629,13 +710,25 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 15272.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
 - name: working_mother_maturity_year_child_before_its_eighteenth_birthday
-  # The same two children as the maturity-year case, in a month BEFORE the elder child's
-  # eighteenth birthday. ITO §66(ג)(4)(א) still grants the maturity-year half point either
-  # way (5.75 points, 16,698, tax after credits 8,694), but NII §65(א) now still counts the
-  # elder child — it has not yet reached 18 at the month — so the count is two and the
-  # allowance is 173 + 219 = 392 (338 nominal). Net 15,000 - 724.5 + 392 = 14,667.5. Compare
-  # 14,448.5 in the month after the birthday.
   period:
     period_kind: month
     start: '2026-01-01'
@@ -678,3 +771,21 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils: 392
     il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils: 338
     il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils: 14667.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2: 180000
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion: 180000
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_personal_exertion_not_under_section_2_1_or_2
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
+    : 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_woman: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_is_israeli_resident_in_tax_year: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: true
+    ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
