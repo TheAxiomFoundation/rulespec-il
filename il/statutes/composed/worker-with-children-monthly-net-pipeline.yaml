@@ -184,15 +184,15 @@ rules:
   kind: parameter
   dtype: Integer
   period: Year
-  source: הרכבה — שנת המס היא שנה קלנדרית בת שנים־עשר חודשים; המקדם שבו מוכפל שכר חודשי לשנה ומחולק מס שנתי לחודש
+  source: הרכבה — שנת המס היא תקופה של שנים עשר חדשים רצופים (סעיף 1 לפקודה); המקדם שבו מוכפל שכר חודשי לשנה ומחולק מס שנתי לחודש
   metadata:
     proof:
       atoms:
       - path: versions[0].formula
         kind: parameter
         source:
-          corpus_citation_path: il/statute/income-tax-ordinance/section-121
-          excerpt: המס על הכנסתו החייבת של יחיד בשנת המס יהיה כלהלן
+          corpus_citation_path: il/statute/income-tax-ordinance/section-1
+          excerpt: תקופה של שנים עשר חדשים רצופים, שתחילתה ב־1 בינואר
   versions:
   - effective_from: '2026-01-01'
     formula: '12'
