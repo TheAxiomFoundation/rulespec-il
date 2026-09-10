@@ -1,0 +1,18 @@
+- name: woman_receives_half_credit_point
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-36a#input.individual_is_woman: true
+  output:
+    il:statutes/income-tax-ordinance/section-36a#tax_credit_points_for_woman: 0.5
+- name: non_woman_does_not_receive_woman_credit_point
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-36a#input.individual_is_woman: false
+  output:
+    il:statutes/income-tax-ordinance/section-36a#tax_credit_points_for_woman: 0

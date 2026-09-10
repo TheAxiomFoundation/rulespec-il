@@ -1,0 +1,33 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-66
+  summary: |-
+    הורה מבוטח זכאי לקצבת ילדים חודשית לפי פרק זה בעד כל ילד, למעט הורה מבוטח שיש לו הכנסה החייבת במס נוסף כמשמעותה בסעיף 121ב לפקודת מס הכנסה.
+rules:
+  - name: insured_parent_eligible_for_monthly_child_allowance
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Insurance Law, 1995, section 66
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-66
+              excerpt: "הורה מבוטח זכאי לקצבת ילדים חודשית לפי פרק זה בעד כל ילד"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-66
+              excerpt: "למעט הורה מבוטח שיש לו הכנסה החייבת במס נוסף כמשמעותה בסעיף 121ב לפקודת מס הכנסה"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          person_is_insured_parent
+          and not insured_parent_has_income_subject_to_additional_tax_under_section_121b

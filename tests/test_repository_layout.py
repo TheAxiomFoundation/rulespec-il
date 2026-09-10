@@ -135,13 +135,15 @@ def test_empty_ratchets_have_current_shapes() -> None:
     missing_money = yaml.safe_load((ROOT / "known-missing-money-atoms.yaml").read_text())
     assert missing_money == {"total_allowed": 0}
 
+    # The oracle-coverage pending ratchet is no longer empty: with the pilot's
+    # modules merged, every executable output is declared pending
+    # classification (there is no PolicyEngine Israel model to map it to), so
+    # the shape is pinned instead of the emptiness.
     pending = yaml.safe_load((ROOT / "oracle-coverage-pending.yaml").read_text())
-    assert pending == {
-        "version": 1,
-        "issue": "https://github.com/TheAxiomFoundation/rulespec-il/issues/1",
-        "ceiling": 0,
-        "entries": [],
-    }
+    assert set(pending) == {"version", "issue", "ceiling", "entries"}
+    assert pending["version"] == 1
+    assert pending["issue"] == "https://github.com/TheAxiomFoundation/rulespec-il/issues/2"
+    assert pending["ceiling"] == len(pending["entries"])
 
 
 def test_scoped_indexes() -> None:
@@ -162,9 +164,23 @@ def test_no_reference_is_declared_executable() -> None:
 
 
 def test_no_oracle_coverage_is_claimed_while_none_is_wired() -> None:
+    """A pending declaration is visible debt, not a coverage claim.
+
+    Israel has no wired oracle, so every executable output the classifier finds
+    is declared pending classification: each entry names one `il:` output with
+    its source and date and nothing else -- no PolicyEngine variable, parameter
+    or mapping type, which would be a claim of coverage this pilot cannot make.
+    The ceiling equals the declared count, so the ratchet can only drain.
+    """
     pending = yaml.safe_load((ROOT / "oracle-coverage-pending.yaml").read_text())
-    assert pending["ceiling"] == 0
-    assert pending["entries"] == []
+    entries = pending["entries"]
+    assert entries, "the pilot's executable outputs must be declared pending"
+    assert pending["ceiling"] == len(entries)
+    for entry in entries:
+        assert set(entry) == {"legal_id", "source", "since"}, entry
+        assert entry["legal_id"].startswith("il:statutes/"), entry["legal_id"]
+        assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", entry["since"]), entry
+    assert len({entry["legal_id"] for entry in entries}) == len(entries)
 
 
 def test_pilot_is_bound_to_the_published_corpus_release() -> None:
@@ -189,16 +205,23 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
     assert [scope["release"] for scope in payload["corpus_scopes"]] == [candidate["name"]]
 
 
-def test_registry_visibility_is_experimental() -> None:
+def test_registry_visibility_is_public() -> None:
+    # Flipped from "experimental" on 2026-09-07 together with the app's family
+    # entry (the two-key promotion axiom.org's check-rulespec-drift.mjs enforces).
     text = (ROOT / ".axiom/registry.toml").read_text()
-    assert 'app_visibility = "experimental"' in text
+    assert 'app_visibility = "public"' in text
 
 
-def test_module_paths_use_ordinal_hebrew_suffix_transliteration() -> None:
-    """section-121b, not section-121v; section-36a, not section-36alef."""
+def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> None:
+    """section-121b, not section-121v; section-36a, not section-36alef.
+
+    Statute modules are named for the section they encode. Composed pipelines and
+    policy-publication modules under il/policies/ are named for what they are, so
+    they are outside this contract.
+    """
     allowed = set(HEBREW_SUFFIX_ORDINALS.values())
     for path in rulespec_files():
-        if path.parent.name == "composed":
+        if path.parent.name == "composed" or "policies" in path.parts:
             continue
         match = re.fullmatch(r"section-(\d+)([a-z]*)", path.stem)
         assert match is not None, path
@@ -226,3 +249,81 @@ def test_source_map_names_only_sections_that_are_encoded() -> None:
                 HEBREW_SUFFIX_ORDINALS.get(character, character) for character in number
             )
             assert slug in on_disk, (instrument["id"], section, slug)
+
+
+def test_policy_modules_carry_an_official_publisher_capture() -> None:
+    """A current-year amount may only enter through il/policies/.
+
+    The coverage map must record the publication behind every policy module, with
+    a sha256 and a retrieval time, so a supplied number can always be traced.
+    """
+    policy_modules = sorted(
+        path
+        for path in (ROOT / "il" / "policies").rglob("*.yaml")
+        if not path.name.endswith(".test.yaml")
+    )
+    payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
+    recorded = {item["module"] for item in payload.get("policy_publications", [])}
+    for path in policy_modules:
+        relative = str(path.relative_to(ROOT))
+        assert relative in recorded, relative
+    for item in payload.get("policy_publications", []):
+        assert len(item["sha256"]) == 64, item["id"]
+        assert item["url"].startswith("https://"), item["id"]
+        assert item["retrieved_at"].endswith("Z"), item["id"]
+
+
+def _cited_corpus_paths() -> set[str]:
+    """Every corpus_citation_path reached from any proof atom in any module."""
+    found: set[str] = set()
+
+    def walk(node) -> None:
+        if isinstance(node, dict):
+            value = node.get("corpus_citation_path")
+            if isinstance(value, str):
+                found.add(value)
+            for child in node.values():
+                walk(child)
+        elif isinstance(node, list):
+            for child in node:
+                walk(child)
+
+    for path in rulespec_files():
+        walk(yaml.safe_load(path.read_text(encoding="utf-8")))
+    return found
+
+
+def test_source_map_accounts_for_every_provision_the_modules_cite() -> None:
+    """The other direction: nothing may be cited without being declared.
+
+    `test_source_map_names_only_sections_that_are_encoded` stops the map claiming a
+    module that does not exist. This stops the reverse — a provision a shipped number
+    actually depends on that the map never mentions, so anything built from the map
+    under-reports the law behind the answer. NII §65 and ITO §2 are exactly that case:
+    both are applied in the composition and neither is a module, so both are declared
+    under `applied_without_a_module`.
+    """
+    payload = json.loads((ROOT / "data/coverage/tax-benefit-source-map.json").read_text())
+    declared = set()
+    for instrument in payload["instruments"]:
+        prefix = f"il/statute/{instrument['id']}"
+        declared.add(prefix)
+        for section in instrument["encoded_sections"]:
+            declared.add(f"{prefix}/section-{section.split(' ')[0]}")
+        for entry in instrument.get("applied_without_a_module") or []:
+            declared.add(entry["corpus_citation_path"])
+
+    # encoded_sections prints Hebrew suffixes (33א); citation paths transliterate (33a).
+    ordinals = {hebrew: latin for hebrew, latin in HEBREW_SUFFIX_ORDINALS.items()}
+    expanded = set(declared)
+    for value in declared:
+        for hebrew, latin in ordinals.items():
+            if value.endswith(hebrew):
+                expanded.add(value[: -len(hebrew)] + latin)
+
+    missing = sorted(_cited_corpus_paths() - expanded)
+    assert not missing, (
+        "these provisions are cited by a proof atom but appear nowhere in "
+        "data/coverage/tax-benefit-source-map.json, so the map under-reports the law "
+        "behind a computed number:\n  " + "\n  ".join(missing)
+    )

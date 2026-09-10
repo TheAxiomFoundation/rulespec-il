@@ -7,17 +7,36 @@
       "id": "oecd-taxben-israel-2025",
       "name": "OECD: Tax and Benefit Policy Descriptions for Israel (rules as of 1 January 2025)",
       "url": "https://www.oecd.org/en/topics/sub-issues/benefits-and-wages.html",
-      "role": "Independent narrative description of the 2025 Israeli income tax schedule, credit points, and child allowance. Used to cross-check the hand-derived 2025 fixtures. It is a policy description, not a model run, and it is not law.",
-      "coverage": ["income_tax", "tax_credits", "child_allowance"],
+      "role": "Independent narrative description of the 2025 Israeli income tax schedule, credit points and child allowance. It is a policy description, not a model run, and it is not law. It describes 2025; this repository encodes the current expression the corpus holds, so the two are not like-for-like in the middle of the ITO §121 schedule — see docs/ENCODING-GAPS.md, `corpus-holds-one-expression-per-provision`. Exactly one fixture value is taken from it, and it is labelled wherever it appears.",
+      "coverage": [
+        "income_tax",
+        "tax_credits",
+        "child_allowance"
+      ],
       "kind": "reference",
-      "executable": false
+      "executable": false,
+      "document": "Tax and Benefit Policy Descriptions for Israel (OECD, 2025) — rules as of 1 January 2025",
+      "local_capture": "ops/il-lane/oecd-taxben-israel-2025.pdf (dispatching workspace; not committed here)",
+      "sha256": "8d4bd48dd4e3cc10865ddd0f74690db7cec65310ce8d947e0b738347d5ca61f4",
+      "retrieved_at": "2026-09-06T11:41:55Z",
+      "supplies_fixture_values": [
+        "credit point value 2,904 — the only number in this repository sourced from a reference"
+      ],
+      "no_longer_supplies": [
+        "additional-tax threshold 721,560 — the encoder's §121ב module applies the 640,000 the section prints, so no inference from TaxBEN's 50% top band is made here",
+        "child allowance 169 / 214 (2025) — the fixtures are written for the current expression and use the Institute's published 2026 figures instead",
+        "special basic amount 153 — inconsistent with the Institute's own published increment; used nowhere"
+      ]
     },
     {
       "id": "oecd-taxben-calculator",
       "name": "OECD TaxBEN web calculator",
       "url": "https://taxben.oecd.org",
       "role": "Candidate household-level oracle. NOT wired: no automated comparison runs against it, and no fixture in this repository was produced by it.",
-      "coverage": ["income_tax", "child_allowance"],
+      "coverage": [
+        "income_tax",
+        "child_allowance"
+      ],
       "kind": "candidate_oracle",
       "executable": false
     },
@@ -26,7 +45,9 @@
       "name": "רשות המסים income tax simulator",
       "url": "https://secapp.taxes.gov.il/srsimulatorNZ/#/simulatorMasHachnasah",
       "role": "The Tax Authority's own public calculator, linked from the consolidated text of ITO §121. Candidate oracle for a later wave. NOT wired and not used to produce any fixture here.",
-      "coverage": ["income_tax"],
+      "coverage": [
+        "income_tax"
+      ],
       "kind": "candidate_oracle",
       "executable": false
     }

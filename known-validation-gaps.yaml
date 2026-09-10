@@ -1,4 +1,11 @@
 # Exact combined validator + independently executed companion failures.
 # Decrement-only: records may be consumed or removed, never added outside the
-# sanctioned pending -> active path. Empty: the pilot modules validate clean.
+# sanctioned pending -> active path.
+#
+# EMPTY DOES NOT MEAN "validate passed". `axiom-encode validate` cannot run here
+# at all: it is fail-closed on .axiom/toolchain.toml, which cannot exist before
+# the Israel corpus release is cut. This file is empty because no validator
+# failure has been declared and waived, not because the shipped validator ran
+# and was clean. What DID run, and its results, are in docs/ENCODING-GAPS.md
+# under `validators-not-run-as-shipped`.
 validate_failures: {}

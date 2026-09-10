@@ -1,7 +1,8 @@
 # App-surface visibility for this repository's encodings.
-# Public visibility requires the listing gates documented in the project.
-# This is a bounded pilot: two instruments, a handful of sections, no coverage
-# claim. It stays experimental until an Israel corpus release exists, the
-# toolchain is bound, and an executable oracle is wired.
+# Public on Max's call of 2026-09-07 ("similar treatment to Belgium"): the
+# pilot is served and listed in the app like every other public family. It
+# remains a bounded, uncertified pilot with no executable oracle wired; the
+# app presents it, it does not certify it. The corpus release exists
+# (il-rulespec-2026-09-06) and the toolchain is bound (.axiom/toolchain.toml).
 [registry]
-app_visibility = "experimental"
+app_visibility = "public"

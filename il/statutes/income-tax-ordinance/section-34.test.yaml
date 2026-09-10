@@ -1,0 +1,18 @@
+- name: israeli_resident_receives_two_tax_credit_points
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: true
+  output:
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 2
+- name: nonresident_does_not_receive_resident_tax_credit_points
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    il:statutes/income-tax-ordinance/section-34#input.individual_is_israeli_resident_in_tax_year: false
+  output:
+    il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident: 0

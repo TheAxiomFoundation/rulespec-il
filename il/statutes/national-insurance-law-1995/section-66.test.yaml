@@ -1,0 +1,24 @@
+- name: insured_parent_without_additional_tax_income_is_eligible
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-66#input.person_is_insured_parent: true
+    ? il:statutes/national-insurance-law-1995/section-66#input.insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
+  output:
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
+- name: insured_parent_with_additional_tax_income_is_excluded
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-66#input.person_is_insured_parent: true
+    ? il:statutes/national-insurance-law-1995/section-66#input.insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : true
+  output:
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds
+- name: person_who_is_not_an_insured_parent_is_not_eligible
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-66#input.person_is_insured_parent: false
+    ? il:statutes/national-insurance-law-1995/section-66#input.insured_parent_has_income_subject_to_additional_tax_under_section_121b
+    : false
+  output:
+    il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds

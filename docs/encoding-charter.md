@@ -32,14 +32,19 @@ Chartered 2026-09-06 as a bounded Israel proof of concept.
    corpus main.
 4. **Toolchain binding.** Dedicated gated PR adding `.axiom/toolchain.toml` and
    repinning the shared validate workflow. Never combined with content changes.
-5. **Encoding.** The pilot modules in this repository were hand-authored against
-   the captured snapshots. Superseding work goes through the supervised encoder
-   with encoding manifests, and turns the generated-content guard on.
+5. **Encoding.** Every atomic module in this repository is produced by the
+   supervised encoder — `axiom-encode encode <corpus citation> --backend codex
+   --apply` — and carries an apply manifest under `.axiom/encoding-manifests/`.
+   Hand-written YAML is never a module. The only hand work is a findings file
+   handed back to the encoder for a repair round, and the composed pipeline,
+   which is assembled rather than encoded.
 
-Steps 2–4 had not completed when the pilot modules were written. The pilot
-therefore validates against a local snapshot rather than a signed release, and
-its citation paths need a re-anchor pass once the release exists. That is
-recorded in `docs/ENCODING-GAPS.md` rather than papered over.
+Step 3 has not completed. The pilot therefore encodes from, and validates
+against, the corpus ingest branch rather than a signed release; the encoder used
+is a local bootstrap build, because the pinned ref refuses to run without one;
+and the apply manifests are signed with a throwaway local key, which is why the
+shared generated-content guard stays off until the release exists. Each of those
+is written up in `docs/ENCODING-GAPS.md` rather than papered over.
 
 ## Deliberately out of scope
 

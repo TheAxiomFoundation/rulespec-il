@@ -1,0 +1,48 @@
+- name: pre_cutoff_fourth_child_with_income_support
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-68#input.child_was_born_before_statutory_cutoff_date: true
+    il:statutes/national-insurance-law-1995/section-68#input.child_position_in_parent_child_count: 4
+    il:statutes/national-insurance-law-1995/section-68#input.parent_is_entitled_to_child_allowance_for_current_child: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_benefit: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_monthly_maintenance_payment: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_child_count: 3
+  output:
+    il:statutes/national-insurance-law-1995/section-68#monthly_child_allowance_for_child: 336
+    il:statutes/national-insurance-law-1995/section-68#income_support_or_maintenance_child_allowance_supplement: 98
+- name: pre_cutoff_fifth_child_without_supplement_conditions
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-68#input.child_was_born_before_statutory_cutoff_date: true
+    il:statutes/national-insurance-law-1995/section-68#input.child_position_in_parent_child_count: 5
+    il:statutes/national-insurance-law-1995/section-68#input.parent_is_entitled_to_child_allowance_for_current_child: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_benefit: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_monthly_maintenance_payment: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_child_count: 5
+  output:
+    il:statutes/national-insurance-law-1995/section-68#monthly_child_allowance_for_child: 354
+    il:statutes/national-insurance-law-1995/section-68#income_support_or_maintenance_child_allowance_supplement: 0
+- name: post_cutoff_fourth_child_with_maintenance_payment
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-68#input.child_was_born_before_statutory_cutoff_date: false
+    il:statutes/national-insurance-law-1995/section-68#input.child_position_in_parent_child_count: 4
+    il:statutes/national-insurance-law-1995/section-68#input.parent_is_entitled_to_child_allowance_for_current_child: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_benefit: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_monthly_maintenance_payment: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_child_count: 3
+  output:
+    il:statutes/national-insurance-law-1995/section-68#monthly_child_allowance_for_child: 188
+    il:statutes/national-insurance-law-1995/section-68#income_support_or_maintenance_child_allowance_supplement: 98
+- name: third_child_when_parent_is_not_entitled
+  period: 2024-01
+  input:
+    il:statutes/national-insurance-law-1995/section-68#input.child_was_born_before_statutory_cutoff_date: false
+    il:statutes/national-insurance-law-1995/section-68#input.child_position_in_parent_child_count: 3
+    il:statutes/national-insurance-law-1995/section-68#input.parent_is_entitled_to_child_allowance_for_current_child: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_income_support_benefit: true
+    il:statutes/national-insurance-law-1995/section-68#input.parent_receives_monthly_maintenance_payment: false
+    il:statutes/national-insurance-law-1995/section-68#input.parent_child_count: 3
+  output:
+    il:statutes/national-insurance-law-1995/section-68#monthly_child_allowance_for_child: 188
+    il:statutes/national-insurance-law-1995/section-68#income_support_or_maintenance_child_allowance_supplement: 0

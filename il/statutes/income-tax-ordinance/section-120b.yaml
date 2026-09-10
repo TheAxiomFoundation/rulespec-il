@@ -1,0 +1,27 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+  summary: |-
+    ב־1 בינואר של שנות המס 2025 עד 2027 לא יתואמו הסכומים; ביום 1 בינואר 2028 יתואמו הסכומים לפי המדד של שנת המס 2027.
+rules:
+  - name: annual_amounts_indexation_suspended
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: Income Tax Ordinance, section 120ב(ה)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-120b
+              excerpt: "ב־1 בינואר של שנות המס 2025 עד 2027 לא יתואמו הסכומים"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          tax_year_is_in_indexation_freeze_period

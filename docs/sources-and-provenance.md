@@ -52,23 +52,58 @@ bodies. Amendment history is preserved as provision metadata, not as text.
 | `nii-law-wikisource.html` | consolidation-knesset-linked | `https://he.wikisource.org/wiki/חוק_הביטוח_הלאומי` | `7dbaaa757912c71b361381640d2578bf2c6ab52f2002817b85d677c2267f0715` | 2026-09-06T11:41:55Z |
 | `amend-2026-economic-efficiency-law-sefer-hachukim-3511.pdf` | official-gazette | `https://fs.knesset.gov.il/25/law/25_lsr_12846863.pdf` | `4196057aa7d796bf64935647f4f3e3d02511fa00eaa215dc5ad914601b4e6583` | 2026-09-06T11:41:55Z |
 | `ito-nevo.html` | consolidation-secondary | `https://www.nevo.co.il/law_html/law01/255_001.htm` | `fe4abf24f639f5270f73095129b87cfcbe750249287576b89becf1e1df1378dd` | 2026-09-06T11:41:55Z |
+| `btl-child-allowance-rates.html` | policy-publication | `https://www.btl.gov.il/benefits/children/Pages/שיעורי הקצבה.aspx` | `4bbf76244b622d4925e88cab0193dd4df56c8a1f59961c24122bee72dbb63785` | 2026-09-06T12:10:00Z |
+
+The last row is the pilot's only official current-amount capture: the National
+Insurance Institute's published child allowance table, which states
+"(החל מ- 01.01.2026)". It is **not** encoded in this repository. Every module here
+is encoder-generated from a corpus citation, and no `il/policy` scope has been
+ingested for the Institute's publication, so the current-year child-allowance
+amounts enter the composed pipeline as supplied inputs with their provenance
+stated in the fixtures. `btl.gov.il` answers a request carrying a browser
+User-Agent; `gov.il` (the Tax Authority) does not, so no Tax Authority
+עדכון סכומים notice was captured either, and the credit-point value is supplied
+the same way.
+
+## From snapshot to corpus to encoding
+
+The snapshots above were ingested into axiom-corpus as
+`il/statute/income-tax-ordinance/...` and
+`il/statute/national-insurance-law-1995/...` on branch `ingest/il-taxben-pilot`,
+1,414 provisions, one expression each: the Ordinance as of 2026-06-08 and the
+National Insurance Law as of 2026-06-15. **The corpus is the source of record for
+provision text**, and every module in this repository was encoded from a corpus
+citation, not from a snapshot file. Every proof excerpt is a verbatim NFC
+substring of a corpus body.
 
 The snapshots themselves live in the dispatching workspace
-(`ops/il-lane/sources/`) pending corpus ingestion; they are not committed here.
-Once the `il-rulespec-*` corpus release exists, each module's
-`source_verification.source_sha256` is re-anchored to the corpus provision hash.
-Until then the modules carry the snapshot's provision hash and this is recorded
-in `docs/ENCODING-GAPS.md`.
+(`ops/il-lane/sources/`); they are not committed here. What is still missing is a
+signed, immutable `il-rulespec-*` release: until it exists, the modules declare a
+`corpus_citation_path` and no `source_sha256`, because there is no release digest
+to pin to. See `docs/ENCODING-GAPS.md`, `no-signed-corpus-release` and
+`no-source-sha256-pins`.
 
-## Two revisions of one page, on purpose
+## Two revisions of one page, and only one of them is encoded
 
-The pilot encodes tax years 2025 and 2026, whose §121 bracket amounts differ.
-The current Wikisource revision carries the 2026 amounts; the last revision of
-calendar 2025 (`oldid=2971879`) carries the 2025 amounts. Both are captured, and
-each `effective_from` cites the revision that states its amounts. The *cause* of
-the difference is taken from the gazette, not from either consolidation: ס״ח
-3511, פרק ג׳ "ריווח מדרגות מס הכנסה", §5 (ITO amendment 288) with §6 setting
-תחילה at 1 January 2026.
+The §121 bracket amounts differ between tax year 2025 and tax year 2026. The
+current Wikisource revision carries the 2026 amounts; the last revision of
+calendar 2025 (`oldid=2971879`) carries the 2025 amounts. Both pages are
+captured, but **only the 2026 expression was ingested into the corpus, and so
+only tax year 2026 is encoded.** The §121 module's versions all commence
+2026-01-01 and a request for an earlier period finds no version in force — it is
+not answered with the 2026 schedule. The composed pipeline commences on the same
+date for the same reason.
+
+The commencement is taken from the gazette, not from either consolidation: ס״ח
+3511 of י״ג בניסן התשפ״ו, פרק ג׳ "ריווח מדרגות מס הכנסה", §5 (ITO amendment 288),
+whose §6 reads
+
+    תחילתו של פרק זה ביום י״ב בטבת התשפ״ו (1 בינואר 2026) והוא יחול על הכנסה שהופקה או נצמחה ביום האמור או לאחריו
+
+The 2025 revision is retained in the capture set so that the second expression
+can be ingested and encoded without re-fetching a page that will have moved on.
+See `docs/ENCODING-GAPS.md`, `corpus-holds-one-expression-per-provision` and
+`effective-from-is-not-commencement`.
 
 ## Text normalization
 

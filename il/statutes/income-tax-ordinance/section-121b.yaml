@@ -1,0 +1,289 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+  summary: |-
+    (א) יחיד אשר הכנסתו החייבת בשנת המס עלתה על 640,000 שקלים חדשים, יהיה חייב במס נוסף על חלק הכנסתו החייבת העולה על 640,000 שקלים חדשים, בשיעור של 3%.
+    (א1) נוסף על האמור בסעיף קטן (א), יחיד אשר הכנסתו החייבת ממקורות הוניים בשנת המס עלתה על הסכום הקבוע באותו סעיף קטן, יהיה חייב במס נוסף על חלק הכנסתו החייבת ממקורות הוניים העולה על הסכום האמור, בשיעור של 2%.
+    (ב) על הכנסה החייבת במס נוסף לפי סעיפים קטנים (א) או (א1) לא יחולו הוראות סעיף 91(ד) לעניין מקדמות.
+    (ג) הוראות סעיף זה יחולו על אף האמור בכל חיקוק.
+    (ד) הוראות סעיף 8(ג) יחולו לגבי ההכנסות הקבועות בו, בחישוב ההכנסה החייבת לעניין סעיף זה.
+  deferred_outputs:
+    - output: il:statutes/income-tax-ordinance/section-121b/e#adjusted_residential_property_sale_threshold
+      reason: >-
+        Adjustment requires section 9(c2) of the Real Estate Taxation Law,
+        which is not supplied. The source specifies the index published on
+        15 January 2027 as the basic index. This date is an index reference,
+        not an effective date for the additional tax.
+      source_values:
+        - il:statutes/income-tax-ordinance/section-121b#statutory_residential_property_sale_threshold
+    - output: il:statutes/income-tax-ordinance/section-121b/e#computed_additional_tax_income_base
+      reason: >-
+        Computing the income base from its underlying components requires
+        the referenced income definitions, the section 8(c) allocation
+        mechanics, and the adjusted residential-property sale threshold.
+        The executable taxes consume taxable_income_for_section_121b as a
+        completed person-level annual legal base. That boundary amount must
+        already exclude both specified inflationary amounts and include
+        residential-property appreciation only where the same sale exceeds
+        the adjusted threshold and is not tax-exempt under any law.
+rules:
+  - name: additional_tax_threshold
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: עלתה על 640,000 שקלים חדשים
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          640000
+
+  - name: general_additional_tax_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Income Tax Ordinance §121B(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: בשיעור של 3%
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          0.03
+
+  - name: capital_source_additional_tax_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Income Tax Ordinance §121B(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: בשיעור של 2%
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          0.02
+
+  - name: statutory_residential_property_sale_threshold
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: שווי מכירתה עולה על 5,385,285 שקלים חדשים
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          5385285
+
+  # Both excluded income amounts are components of the completed annual base.
+  # The personal-exertion component excludes income already in the first category.
+  - name: taxable_income_from_capital_sources
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(e), capital-source income definition
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: הכנסה לפי סעיף 2(1) או (2)
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: הכנסה מיגיעה אישית שאינה הכנסה כאמור בפסקה (1)
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          max(0, taxable_income_for_section_121b - taxable_income_from_sources_under_section_2_1_or_2 - taxable_income_from_personal_exertion_not_under_section_2_1_or_2)
+
+  - name: taxable_income_excess_over_additional_tax_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#additional_tax_threshold
+              output: additional_tax_threshold
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          max(0, taxable_income_for_section_121b - additional_tax_threshold)
+
+  - name: general_additional_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: יהיה חייב במס נוסף על חלק הכנסתו החייבת
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#taxable_income_excess_over_additional_tax_threshold
+              output: taxable_income_excess_over_additional_tax_threshold
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#general_additional_tax_rate
+              output: general_additional_tax_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          taxable_income_excess_over_additional_tax_threshold * general_additional_tax_rate
+
+  - name: capital_source_taxable_income_excess_over_additional_tax_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: על חלק הכנסתו החייבת ממקורות הוניים העולה על הסכום האמור
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#taxable_income_from_capital_sources
+              output: taxable_income_from_capital_sources
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#additional_tax_threshold
+              output: additional_tax_threshold
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          max(0, taxable_income_from_capital_sources - additional_tax_threshold)
+
+  - name: capital_source_additional_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: יהיה חייב במס נוסף על חלק הכנסתו החייבת ממקורות הוניים
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#capital_source_taxable_income_excess_over_additional_tax_threshold
+              output: capital_source_taxable_income_excess_over_additional_tax_threshold
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax_rate
+              output: capital_source_additional_tax_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          capital_source_taxable_income_excess_over_additional_tax_threshold * capital_source_additional_tax_rate
+
+  - name: total_additional_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance §121B(a)-(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-121b
+              excerpt: נוסף על האמור בסעיף קטן (א)
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#general_additional_tax
+              output: general_additional_tax
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/income-tax-ordinance/section-121b#capital_source_additional_tax
+              output: capital_source_additional_tax
+              hash: sha256:local
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          general_additional_tax + capital_source_additional_tax

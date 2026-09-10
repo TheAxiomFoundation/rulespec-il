@@ -1,0 +1,227 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+  summary: "קצבת הילדים לח\
+    ודש בעד כל ילד תה\
+    יה בסכום הבסיסי\
+    \ הקבוע לגביו. ליל\
+    ד שנולד לפני 1 ביו\
+    ני 2003 והוא הרביעי\
+    \ או החמישי ואילך\
+    \ נקבעו מכפילים מ\
+    יוחדים; להורה המ\
+    קבל גמלת הבטחת ה\
+    כנסה או תשלום חו\
+    דשי לפי חוק המזו\
+    נות מתווספת בעד\
+    \ הילד השלישי והר\
+    ביעי תוספת של 70% מ\
+    ן הסכום הבסיסי, כ\
+    אשר הוא זכאי בעד\
+    \ שלושה ילדים או י\
+    ותר."
+imports:
+- il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount
+- il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount
+- il:statutes/national-insurance-law-1995/section-1#child_allowance_income_support_or_section_68_c_base_amount
+rules:
+- name: fourth_child_position
+  kind: parameter
+  dtype: Count
+  source: National Insurance Law, 1995, section 68(b)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "לגבי ילד כאמ\
+            ור שהוא הילד הר\
+            ביעי במניין יל\
+            דיו של ההורה"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '4'
+- name: fifth_child_position
+  kind: parameter
+  dtype: Count
+  source: National Insurance Law, 1995, section 68(b)(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "לגבי ילד כאמ\
+            ור שהוא הילד הח\
+            מישי ואילך במנ\
+            יין ילדיו של הה\
+            ורה"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '5'
+- name: fourth_child_pre_cutoff_multiplier
+  kind: parameter
+  dtype: Rate
+  source: National Insurance Law, 1995, section 68(b)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "כשהוא מוכפל\
+            \ ב־2.24"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '2.24'
+- name: fifth_and_later_child_pre_cutoff_multiplier
+  kind: parameter
+  dtype: Rate
+  source: National Insurance Law, 1995, section 68(b)(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "כשהוא מוכפל\
+            \ ב־2.36"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '2.36'
+- name: minimum_parent_child_count_for_supplement
+  kind: parameter
+  dtype: Count
+  source: National Insurance Law, 1995, section 68(c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "בעד שלושה יל\
+            דים או יותר"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '3'
+- name: income_support_or_maintenance_supplement_rate
+  kind: parameter
+  dtype: Rate
+  source: National Insurance Law, 1995, section 68(c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "תוספת בסכום\
+            \ השווה ל־70% מן הס\
+            כום הבסיסי"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '0.70'
+- name: monthly_child_allowance_for_child
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: National Insurance Law, 1995, section 68(a)-(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "קצבת הילדים\
+            \ לחודש בעד כל י\
+            לד שבמנין ילדי\
+            ו של ההורה תהיה\
+            \ בסכום השווה ל\
+            סכום הבסיסי הק\
+            בוע לגביו"
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "ילד שנולד לפ\
+            ני יום א׳ בסיון\
+            \ התשס״ג (1 ביוני\
+            \ 2003), והוא הילד הר\
+            ביעי ואילך"
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount
+          output: child_allowance_first_and_fifth_onward_base_amount
+          hash: sha256:ec1a280a4f477e1a311543e7d7cdd51f09e5a561b64d8e2038f7d7dc002ddec1
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount
+          output: child_allowance_second_third_and_fourth_base_amount
+          hash: sha256:ec1a280a4f477e1a311543e7d7cdd51f09e5a561b64d8e2038f7d7dc002ddec1
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if child_was_born_before_statutory_cutoff_date and child_position_in_parent_child_count
+      == fourth_child_position: child_allowance_first_and_fifth_onward_base_amount
+      * fourth_child_pre_cutoff_multiplier else: if child_was_born_before_statutory_cutoff_date
+      and child_position_in_parent_child_count >= fifth_child_position: child_allowance_first_and_fifth_onward_base_amount
+      * fifth_and_later_child_pre_cutoff_multiplier else: if child_position_in_parent_child_count
+      == 1 or child_position_in_parent_child_count >= fifth_child_position: child_allowance_first_and_fifth_onward_base_amount
+      else: child_allowance_second_third_and_fourth_base_amount'
+- name: income_support_or_maintenance_child_allowance_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: National Insurance Law, 1995, section 68(c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "והוא זכאי בע\
+            ד אותו חודש לקצ\
+            בת ילדים כאמור\
+            \ בסעיפים קטנים\
+            \ (א) או (ב) בעד שלו\
+            שה ילדים או יות\
+            ר"
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-68
+          excerpt: "בעד הילד השל\
+            ישי ובעד הילד ה\
+            רביעי שבמנין י\
+            לדיו תוספת בסכ\
+            ום השווה ל־70% מן\
+            \ הסכום הבסיסי"
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/national-insurance-law-1995/section-1#child_allowance_income_support_or_section_68_c_base_amount
+          output: child_allowance_income_support_or_section_68_c_base_amount
+          hash: sha256:ec1a280a4f477e1a311543e7d7cdd51f09e5a561b64d8e2038f7d7dc002ddec1
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if parent_is_entitled_to_child_allowance_for_current_child and (parent_receives_income_support_benefit
+      or parent_receives_monthly_maintenance_payment) and parent_child_count >= minimum_parent_child_count_for_supplement
+      and (child_position_in_parent_child_count == 3 or child_position_in_parent_child_count
+      == fourth_child_position): income_support_or_maintenance_supplement_rate * child_allowance_income_support_or_section_68_c_base_amount
+      else: 0'

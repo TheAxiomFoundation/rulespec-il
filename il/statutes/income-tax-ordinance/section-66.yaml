@@ -1,0 +1,738 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  summary: 'רשאי בן זוג שאיננו בן זוג רשום לתבוע כי ייעשה חישוב נפרד של המס על הכנסתו
+    מיגיעה אישית בעסק או משלח יד או מעבודה
+
+    אלה ההוראות שיחולו לגבי החישוב הנפרד:
+
+    האשה תהא זכאית ל־1⁄2 נקודת זיכוי לפי סעיף 36א, ובנוסף וכנגד המס החל על הכנסתה
+    מיגיעה אישית – לנקודות זיכוי בעד ילדיה כלהלן:
+
+    הגבר יהא זכאי, כנגד המס החל על הכנסתו מיגיעה אישית, לנקודות זיכוי בעד כל אחד מילדיו,
+    כלהלן:'
+  deferred_outputs:
+  - output: il:statutes/income-tax-ordinance/section-66/a/2#non_personal_exertion_income_allocation
+    reason: Allocation requires identifying both spouses, comparing their personal-exertion
+      taxable incomes, and coordinating property income separately calculated under
+      subsection (b). No compatible spouse and income-allocation relation is supplied.
+      The source supplies no tie-breaker for equal positive personal-exertion incomes.
+  - output: il:statutes/income-tax-ordinance/section-66/a/3#child_income_attributed_to_registered_spouse
+    reason: The age condition is executable. The amount additionally requires a relation
+      connecting the registered spouse to that spouse's children and their transparent
+      company, real-estate investment fund, interest and capital-gain income.
+    source_values:
+    - il:statutes/income-tax-ordinance/section-66#child_income_attribution_age_limit
+  - output: il:statutes/income-tax-ordinance/section-66/b#separately_calculated_property_income
+    reason: The property-owner and marriage-history relation, the income from each
+      qualifying asset, and coordination with the same spouse's other separately calculated
+      income are not supplied.
+    source_values:
+    - il:statutes/income-tax-ordinance/section-66#premarital_property_ownership_years
+  - output: il:statutes/income-tax-ordinance/section-66/c/1#other_separate_calculation_deductions_and_reliefs
+    reason: Sections 34 and 36 are composed below. Computing the remaining deductions,
+      credits and reliefs requires the unavailable mechanics of sections 35, 45A,
+      47, 47A, 121A, 10 and 11.
+  - output: il:statutes/income-tax-ordinance/section-66/c/2#favored_individual_spouse_credit_points
+    reason: Applying the half-point entitlement requires the favored-individual entitlement
+      under section 37, which is not supplied.
+    source_values:
+    - il:statutes/income-tax-ordinance/section-66#favored_individual_separate_calculation_points
+  - output: il:statutes/income-tax-ordinance/section-66/c/3#registered_spouse_pension_points
+    reason: Only the registered spouse may receive the section 40(a) pension points.
+      Computing those points requires the unavailable section 40(a) entitlement.
+  - output: il:statutes/income-tax-ordinance/section-66/c/4#woman_additional_credit_points
+    reason: The half-point figure is retained. Applying the referenced section 36A
+      entitlement requires that provision's unavailable mechanics.
+    source_values:
+    - il:statutes/income-tax-ordinance/section-66#woman_separate_calculation_additional_points
+  - output: il:statutes/income-tax-ordinance/section-66/c/4/a#child_birth_and_maturity_year_classification
+    reason: Section 40(b)(3) supplies the definitions of birth year and maturity year.
+      The schedules below consume those classifications as child-level boundary facts
+      and do not infer a maturity year from an invented age.
+  - output: il:statutes/income-tax-ordinance/section-66/c/4/a1#mother_child_points_after_birth_year_election
+    reason: The schedules below are explicitly before the mother's election. Applying
+      the election requires connecting the same mother and child across the birth
+      year and following tax year, including the prior election.
+    source_values:
+    - il:statutes/income-tax-ordinance/section-66#mother_birth_year_deferrable_points
+  - output: il:statutes/income-tax-ordinance/section-66/c#separate_calculation_parent_child_credit_points
+    reason: Parent totals require child-parent relations, the special treatment of
+      children of a deceased spouse under paragraphs (4A) and (6), the mother's election,
+      and application against the recipient's personal-exertion income tax. The executable
+      per-child schedules are not parent totals or monetary tax credits.
+imports:
+- il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident
+- il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel
+rules:
+- name: pension_separate_calculation_lookback_years
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(a)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בחמש השנים האחרונות שלפני תחילת תשלום הקיצבה
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '5'
+- name: child_income_attribution_age_limit
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(a)(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ילדו שטרם מלאו לו בשנת המס 18 שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '18'
+- name: premarital_property_ownership_years
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: מרכוש שהיה בבעלותו שנה לפני נישואיו
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '1'
+- name: favored_individual_separate_calculation_points
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: תובא בחשבון 1⁄2 נקודת זיכוי בלבד
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 1 / 2
+- name: woman_separate_calculation_additional_points
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: האשה תהא זכאית ל־1⁄2 נקודת זיכוי לפי סעיף 36א
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 1 / 2
+- name: mother_birth_year_deferrable_points
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: אמו של ילד תהיה זכאית לבחור אם נקודת זיכוי אחת מתוך נקודות הזיכוי
+            שלהן היא זכאית
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '1'
+- name: woman_credit_points_birth_year
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 2 + 1 / 2
+- name: woman_credit_points_year_after_birth_through_age_two_scalar_limit
+  kind: parameter
+  dtype: Count
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
+            ועד לשנת המס שבה מלאו לו שנתיים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '4'
+- name: woman_credit_points_year_after_birth_through_age_two
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שלאחר שנת לידתו
+            ועד לשנת המס שבה מלאו לו שנתיים
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/income-tax-ordinance/section-66#woman_credit_points_year_after_birth_through_age_two_scalar_limit
+          output: woman_credit_points_year_after_birth_through_age_two_scalar_limit
+          hash: sha256:local
+  versions:
+  - effective_from: '0001-01-01'
+    formula: woman_credit_points_year_after_birth_through_age_two_scalar_limit + 1
+      / 2
+- name: woman_credit_points_year_turning_three
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 3 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 3 + 1 / 2
+- name: woman_credit_points_years_turning_four_and_five
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע
+            שנים וחמש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 2 + 1 / 2
+- name: woman_credit_points_from_age_six_until_maturity_year
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ושתי נקודות זיכוי בעד כל אחד מילדיה החל בשנת המס שבה מלאו לו שש
+            שנים ועד לשנת המס שקדמה לשנת בגרותו
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '2'
+- name: woman_credit_points_maturity_year
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ו־1⁄2 נקודת זיכוי בעד כל אחד מילדיה בשנת בגרותו
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 1 / 2
+- name: man_credit_points_birth_year
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 2 1⁄2 נקודות זיכוי בשנת לידתו של הילד
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 2 + 1 / 2
+- name: man_credit_points_year_after_birth_through_age_two_scalar_limit
+  kind: parameter
+  dtype: Count
+  source: Income Tax Ordinance §66(c)(5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+            המס שבה מלאו לו שנתיים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '4'
+- name: man_credit_points_year_after_birth_through_age_two
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+            המס שבה מלאו לו שנתיים
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/income-tax-ordinance/section-66#man_credit_points_year_after_birth_through_age_two_scalar_limit
+          output: man_credit_points_year_after_birth_through_age_two_scalar_limit
+          hash: sha256:local
+  versions:
+  - effective_from: '0001-01-01'
+    formula: man_credit_points_year_after_birth_through_age_two_scalar_limit + 1 /
+      2
+- name: man_credit_points_year_turning_three
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 3 1⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 3 + 1 / 2
+- name: man_credit_points_years_turning_four_and_five
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ו־2 1⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 2 + 1 / 2
+- name: man_credit_points_from_age_six_until_maturity_year
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)(c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: נקודת זיכוי אחת בעד כל אחד מילדיו החל בשנת המס שבה מלאו לו שש שנים
+            ועד לשנת המס שקדמה לשנת בגרותו
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '1'
+- name: toddler_credit_band_maximum_age
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(c)(4)(a), (5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ועד לשנת המס שבה מלאו לו שנתיים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '2'
+- name: middle_preschool_credit_age
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(c)(4)(a), (5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בשנת המס שבה מלאו לו שלוש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '3'
+- name: older_preschool_credit_minimum_age
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(c)(4)(a), (5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '4'
+- name: older_preschool_credit_maximum_age
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(c)(4)(a), (5)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '5'
+- name: school_age_credit_minimum_age
+  kind: parameter
+  dtype: Integer
+  source: Income Tax Ordinance §66(c)(4)(a), (5)(c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: החל בשנת המס שבה מלאו לו שש שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '6'
+- name: woman_child_credit_schedule_band
+  kind: derived
+  entity: Person
+  dtype: Integer
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "if child_is_in_birth_year: 0\nelse: if child_is_in_maturity_year: 5\n\
+      else: if child_is_before_maturity_year:\n  (if child_age_attained_in_tax_year\
+      \ >= 1 and child_age_attained_in_tax_year <= toddler_credit_band_maximum_age:\
+      \ 1\n   else: if child_age_attained_in_tax_year == middle_preschool_credit_age:\
+      \ 2\n   else: if child_age_attained_in_tax_year >= older_preschool_credit_minimum_age\
+      \ and child_age_attained_in_tax_year <= older_preschool_credit_maximum_age:\
+      \ 3\n   else: if child_age_attained_in_tax_year >= school_age_credit_minimum_age:\
+      \ 4\n   else: -1)\nelse: -1"
+- name: man_child_credit_schedule_band
+  kind: derived
+  entity: Person
+  dtype: Integer
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "if child_is_in_birth_year: 0\nelse: if child_is_in_maturity_year: -1\n\
+      else: if child_is_before_maturity_year:\n  (if child_age_attained_in_tax_year\
+      \ >= 1 and child_age_attained_in_tax_year <= toddler_credit_band_maximum_age:\
+      \ 1\n   else: if child_age_attained_in_tax_year == middle_preschool_credit_age:\
+      \ 2\n   else: if child_age_attained_in_tax_year >= older_preschool_credit_minimum_age\
+      \ and child_age_attained_in_tax_year <= older_preschool_credit_maximum_age:\
+      \ 3\n   else: if child_age_attained_in_tax_year >= school_age_credit_minimum_age:\
+      \ 4\n   else: -1)\nelse: -1"
+- name: woman_child_credit_point_schedule
+  kind: parameter
+  dtype: Count
+  period: Year
+  indexed_by: woman_child_credit_schedule_band
+  source: Income Tax Ordinance §66(c)(4)(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 2 1⁄2 נקודות זיכוי בעד כל אחד מילדיה בשנת לידתו, ו־ 1⁄2 נקודת זיכוי
+            בעד כל אחד מילדיה בשנת בגרותו, 4 1⁄2 נקודות זיכוי בעד כל אחד מילדיה החל
+            בשנת המס שלאחר שנת לידתו ועד לשנת המס שבה מלאו לו שנתיים, 3 1⁄2 נקודות
+            זיכוי בעד כל אחד מילדיה בשנת המס שבה מלאו לו שלוש שנים, 2 1⁄2 נקודות זיכוי
+            בעד כל אחד מילדיה בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים, ושתי נקודות
+            זיכוי בעד כל אחד מילדיה החל בשנת המס שבה מלאו לו שש שנים ועד לשנת המס
+            שקדמה לשנת בגרותו
+  versions:
+  - effective_from: '0001-01-01'
+    values:
+      0: 2.5
+      1: 4.5
+      2: 3.5
+      3: 2.5
+      4: 2
+      5: 0.5
+- name: man_child_credit_point_schedule
+  kind: parameter
+  dtype: Count
+  period: Year
+  indexed_by: man_child_credit_schedule_band
+  source: Income Tax Ordinance §66(c)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 2 1⁄2 נקודות זיכוי בשנת לידתו של הילד
+      - path: versions[0].values
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: 4 1⁄2 נקודות זיכוי בשל כל ילד החל בשנת המס שלאחר לידתו ועד לשנת
+            המס שבה מלאו לו שנתיים, 3 1⁄2 נקודות זיכוי בשנת המס שבה מלאו לו שלוש שנים,
+            ו־2 1⁄2 נקודות זיכוי בשנות המס שבהן מלאו לו ארבע שנים וחמש שנים
+      - path: versions[0].values
+        kind: amount
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: נקודת זיכוי אחת בעד כל אחד מילדיו החל בשנת המס שבה מלאו לו שש שנים
+            ועד לשנת המס שקדמה לשנת בגרותו
+  versions:
+  - effective_from: '0001-01-01'
+    values:
+      0: 2.5
+      1: 4.5
+      2: 3.5
+      3: 2.5
+      4: 1
+- name: woman_child_credit_points_before_birth_year_election
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(4)(a), subject to (a1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if woman_child_credit_schedule_band < 0: 0 else: woman_child_credit_point_schedule[woman_child_credit_schedule_band]'
+- name: man_credit_points_in_respect_of_child
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(5)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if man_child_credit_schedule_band < 0: 0 else: man_child_credit_point_schedule[man_child_credit_schedule_band]'
+- name: child_income_attribution_age_condition
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Income Tax Ordinance §66(a)(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ילדו שטרם מלאו לו בשנת המס 18 שנים
+  versions:
+  - effective_from: '0001-01-01'
+    formula: child_age_attained_in_tax_year < child_income_attribution_age_limit
+- name: shared_income_source_separate_calculation_conditions_satisfied
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Income Tax Ordinance §66(d)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "each_spouse_personal_exertion_required_for_shared_income\nand each_spouse_shared_income_directly_proportional_to_contribution\n\
+      and (\n  not shared_income_produced_at_spouses_home\n  or (\n    home_regularly_serves_shared_income_source\n\
+      \    and most_shared_source_activity_occurs_at_home\n  )\n)"
+- name: separate_tax_calculation_for_personal_exertion_income_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Income Tax Ordinance §66(a)(1), (d)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ובלבד שלגבי הכנסה כאמור שהיא קיצבה ייעשה חישוב נפרד אם היא משולמת
+            בשל הכנסת עבודה
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: בחמש השנים האחרונות שלפני תחילת תשלום הקיצבה
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "person_is_nonregistered_spouse\nand income_is_personal_exertion_from_business_profession_employment_or_section_1_paragraphs_1_to_7\n\
+      and (\n  not income_is_pension\n  or pension_paid_for_employment_entitled_to_separate_calculation\n\
+      \  or (\n    qualifying_separate_calculation_years_before_pension_started >=\
+      \ 1\n    and qualifying_separate_calculation_years_before_pension_started <=\
+      \ pension_separate_calculation_lookback_years\n  )\n)\nand (\n  not spouses_income_sources_are_dependent\n\
+      \  or shared_income_source_separate_calculation_conditions_satisfied\n)"
+- name: separate_calculation_resident_credit_points
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/income-tax-ordinance/section-34#tax_credit_points_for_israeli_resident
+          output: tax_credit_points_for_israeli_resident
+          hash: sha256:22976d03820bd028d9d8939826a536fcdc0786d0f4a5185f8faf2e6d61f102a2
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if spouse_tax_is_calculated_separately: tax_credit_points_for_israeli_resident
+      else: 0'
+- name: separate_calculation_travel_credit_points
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Year
+  source: Income Tax Ordinance §66(c)(1)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: il:statutes/income-tax-ordinance/section-36#tax_credit_points_for_travel
+          output: tax_credit_points_for_travel
+          hash: sha256:4e17d7cbd4c42317bd3f2aca17d99c8113052309b6627cecb990b3961d0f9434
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if spouse_tax_is_calculated_separately: tax_credit_points_for_travel
+      else: 0'
+- name: credit_points_under_sections_38_and_39_allowed_in_separate_calculation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Income Tax Ordinance §66(c)(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/income-tax-ordinance/section-66
+          excerpt: ולא תהא זכאות לנקודות זיכוי לפי סעיפים 38 ו־39
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'false'

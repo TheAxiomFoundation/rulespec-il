@@ -1,0 +1,77 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/income-tax-ordinance/section-121b.yaml",
+      "sha256": "a75d9db4d70d91a3aced3ea7f86c019168937c318161cd011cc9d705b7b2c183"
+    },
+    {
+      "path": "il/statutes/income-tax-ordinance/section-121b.test.yaml",
+      "sha256": "982f58d0bbcac0b7b7492d0654fd81ef690e545f7a4093cf04be803929c84d26"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "dc7baa16e0f8e01c0068ac34712e0f8a6c2fd87a",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197.4",
+    "version_commit": "dc7baa16e0f8e01c0068ac34712e0f8a6c2fd87a"
+  },
+  "axiom_encode_version": "0.2.1197.4",
+  "backend": "codex",
+  "citation": "il/statute/income-tax-ordinance/section-121b",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/_eval_workspaces/codex-gpt-6-astra/il-statute-income-tax-ordinance-section-121b/workspace/context-manifest.json",
+  "context_manifest_sha256": "ffc69ef1d56ebfc46e4a79ab7d1e936f8990fbc5331a4031c391ecff92339122",
+  "generated_at": "2026-09-06T20:17:08.997742+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/codex-gpt-6-astra/statutes/income-tax-ordinance/section-121b.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out",
+  "generated_output_sha256": "a75d9db4d70d91a3aced3ea7f86c019168937c318161cd011cc9d705b7b2c183",
+  "generation_prompt_sha256": "959348a1bebde4135027052d9858acb885c0fabdbc6d6c5f343c7f4915e03735",
+  "model": "gpt-6-astra",
+  "run_id": "17f7e7e7",
+  "runner": "codex-gpt-6-astra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "e96782c49bb78a1b634c1c9bac2170ad0432fc484b83f49395d52237d4a91ee1"
+  },
+  "supersedes": {
+    "backend": "codex",
+    "generated_at": "2026-09-06T20:03:20.172997+00:00",
+    "generation_prompt_sha256": "e89c0a8c769c4940b4dea559404ee85c0d122e3dbcc765410dda891273a6dc66",
+    "manifest_sha256": "d0724f7c4702eabddbc4222f0b1b3a67e1b1f3c67f347392768d729ad1716ca7",
+    "prior_signature": "4ab90790bcff5a02e70d118f3ab3216e0cb7450b029447e25c47cd5d77308ea1",
+    "run_id": "594fefbc",
+    "supersedes": {
+      "backend": "codex",
+      "generated_at": "2026-09-06T15:03:15.156960+00:00",
+      "generation_prompt_sha256": "c0c2fa2e46e450677286ca13703fa39f272fffc04d81df4c7ab3865e4f4320a9",
+      "manifest_sha256": "60e11106726d65361cea0d61f1a8e7fc8a39c519f501da8c0d792957cdd09120",
+      "prior_signature": "f62050c0b8ad6a90b56058d12ea34d2995dd694d2dd50a99070d73c9bbfeb050",
+      "run_id": "f9639146",
+      "supersedes": {
+        "backend": "codex",
+        "generated_at": "2026-09-06T14:55:04.750772+00:00",
+        "generation_prompt_sha256": "12ed8affca2238f2c5e13c09d0bfd61833597ff6b4997f02d90a4f0b338c2604",
+        "manifest_sha256": "cf74f7d892af07339c29d1ea9642b674494b3820f42d04abf2f2ebd7a9a7abb8",
+        "prior_signature": "f39ad760ae6365fb9f140b8a9482db33efb8e87c2ebac8501c6e9583d4ffb2eb",
+        "run_id": "6dbafd11",
+        "supersedes": {
+          "backend": "codex",
+          "generated_at": "2026-09-06T14:17:56.578567+00:00",
+          "generation_prompt_sha256": "3cdff58810ad412de492e3f425d8ae25e746a8894c0e226a541153d4945b2072",
+          "manifest_sha256": "94e70f88529f4fde3e6682853dc59bab9f16c87b77232248ffb5ce42c11a7af3",
+          "prior_signature": "b8081e868cfd75cd1cf8cfb6c93a682ecb3356a85aa60f8334baa8c4f5a2f2a6",
+          "run_id": "061cb386",
+          "tool": "axiom-encode encode --apply"
+        },
+        "tool": "axiom-encode encode --apply"
+      },
+      "tool": "axiom-encode encode --apply"
+    },
+    "tool": "axiom-encode encode --apply"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/_worktrees/il-encoder-regen/encode-out/traces/codex-gpt-6-astra/il-statute-income-tax-ordinance-section-121b.json",
+  "trace_sha256": "de360a9154787033d8984fbf89d5059ee081be758c955e485e9d6c12271b66c1"
+}

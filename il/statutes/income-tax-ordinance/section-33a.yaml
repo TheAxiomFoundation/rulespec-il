@@ -1,0 +1,54 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+  summary: |-
+    ”נקודת זיכוי“ – סכום של 504 שקלים חדשים לשנת מס, צמוד למדד כאמור בסעיף 120א.
+    ”נקודת קיצבה“ – סכום השווה לסכום נקודת זיכוי ... כשהוא מתואם לפי הוראות סעיף 120ב ... ומחולק בשנים עשר.
+  deferred_outputs:
+    - output: il:statutes/income-tax-ordinance/section-33a#tax_credit_point_amount
+      reason: The indexed tax-credit-point amount requires the indexation mechanics referenced in section 120A, which are not supplied as executable context.
+      source_values:
+        - il:statutes/income-tax-ordinance/section-33a#tax_credit_point_base_amount
+    - output: il:statutes/income-tax-ordinance/section-33a#pension_point_monthly_amount
+      reason: The pension-point amount requires the historic tax-credit-point value and adjustment mechanics referenced in section 120B, neither of which is supplied as an executable amount calculation.
+      source_values:
+        - il:statutes/income-tax-ordinance/section-33a#pension_point_monthly_divisor
+rules:
+  - name: tax_credit_point_base_amount
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: ILS
+    source: Income Tax Ordinance, section 33A, definition of tax credit point
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+              excerpt: "סכום של 504 שקלים חדשים לשנת מס"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          504
+  - name: pension_point_monthly_divisor
+    kind: parameter
+    dtype: Integer
+    period: Year
+    source: Income Tax Ordinance, section 33A, definition of pension point
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/income-tax-ordinance/section-33a
+              excerpt: "ומחולק בשנים עשר"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          12
