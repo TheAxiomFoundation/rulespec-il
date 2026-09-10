@@ -93,8 +93,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
@@ -140,8 +140,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 1
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 1
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 7.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 22506.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 2886.0
@@ -186,8 +186,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
@@ -232,8 +232,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 2.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 7986.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 17406.0
@@ -282,8 +282,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: not_holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 198968.4
@@ -331,8 +331,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 0.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 5.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 16698.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 8694.0
@@ -378,8 +378,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 4.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 13794.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 11598.0
@@ -423,8 +423,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 3.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 3.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 8.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 25410.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 13302.0
@@ -470,8 +470,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 0
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 0
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 4.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 13794.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 11598.0
@@ -521,8 +521,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 4.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 4.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 9.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 26862.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 0.0
@@ -570,8 +570,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 6.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 19602.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 5790.0
@@ -620,8 +620,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 3.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 2
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 3.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 2
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 8.25
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 23958.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 1434.0
@@ -669,8 +669,8 @@
     il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount: 150
     il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount: 188
     il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance: holds
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points: 2.5
-    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points: 0.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule: 2.5
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_credit_points_under_section_66_schedule: 0.5
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_points: 5.75
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils: 16698.0
     il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils: 8694.0

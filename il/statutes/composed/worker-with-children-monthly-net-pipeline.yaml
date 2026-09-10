@@ -138,7 +138,7 @@ module:
     elected, which is what makes §66(ג)(4)-(5) apply. Both ladders are carried and
     selected by taxpayer_is_a_woman, because §66(ג)(4)(א) and §66(ג)(5) diverge from age
     six (two points against one) and in the maturity year (half a point against none).
-    child_1_credit_points and child_2_credit_points repeat the age-band selection
+    child_1_credit_points_under_section_66_schedule and child_2_credit_points_under_section_66_schedule repeat the age-band selection
     because the pilot declares no Child entity and uses no relation aggregation, and
     because §66's own selector reads a parameter table that can be indexed only once per
     person per period; the right shape is a Child entity with sum(children.credit_points),
@@ -468,7 +468,7 @@ rules:
   - effective_from: '2026-01-01'
     formula: |-
       18
-- name: child_1_credit_points
+- name: child_1_credit_points_under_section_66_schedule
   kind: derived
   entity: Person
   dtype: Decimal
@@ -504,7 +504,7 @@ rules:
       elif child_1_age_years < child_maturity_age_years:
         (if taxpayer_is_a_woman: woman_credit_points_from_age_six_until_maturity_year else: man_credit_points_from_age_six_until_maturity_year)
       else: 0
-- name: child_2_credit_points
+- name: child_2_credit_points_under_section_66_schedule
   kind: derived
   entity: Person
   dtype: Decimal
@@ -570,8 +570,8 @@ rules:
       tax_credit_points_for_israeli_resident
       + tax_credit_points_for_travel
       + tax_credit_points_for_woman
-      + child_1_credit_points
-      + child_2_credit_points
+      + child_1_credit_points_under_section_66_schedule
+      + child_2_credit_points_under_section_66_schedule
 - name: annual_credit_amount_ils
   kind: derived
   entity: Person
