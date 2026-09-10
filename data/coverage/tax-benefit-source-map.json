@@ -62,6 +62,18 @@
           "corpus_citation_path": "il/statute/income-tax-ordinance/section-2",
           "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule taxable_income_from_sources_under_section_2_1_or_2",
           "why": "The composition has to say which §121ב(ה) category an employment wage falls in. §2(2) `השתכרות או ריווח מעבודה` is quoted as a definition atom; §2 itself is not encoded as a module."
+        },
+        {
+          "section": "1",
+          "corpus_citation_path": "il/statute/income-tax-ordinance/section-1",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule months_in_tax_year",
+          "why": "The composition converts a monthly wage to the tax year's income, so the twelve has to come from the law: §1's definition of the tax year, `תקופה של שנים עשר חדשים רצופים, שתחילתה ב־1 בינואר`, is quoted as a definition atom; §1 itself is not encoded as a module."
+        },
+        {
+          "section": "40",
+          "corpus_citation_path": "il/statute/income-tax-ordinance/section-40",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule child_maturity_age_years",
+          "why": "§66's child credit-point ladders run to the year before `שנת בגרות`, which §40 defines as the tax year the child turns eighteen; the composition quotes that definition as a definition atom to place a child on the ladder. §40 itself is not encoded as a module."
         }
       ]
     },

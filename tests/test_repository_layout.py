@@ -135,13 +135,15 @@ def test_empty_ratchets_have_current_shapes() -> None:
     missing_money = yaml.safe_load((ROOT / "known-missing-money-atoms.yaml").read_text())
     assert missing_money == {"total_allowed": 0}
 
+    # The oracle-coverage pending ratchet is no longer empty: with the pilot's
+    # modules merged, every executable output is declared pending
+    # classification (there is no PolicyEngine Israel model to map it to), so
+    # the shape is pinned instead of the emptiness.
     pending = yaml.safe_load((ROOT / "oracle-coverage-pending.yaml").read_text())
-    assert pending == {
-        "version": 1,
-        "issue": "https://github.com/TheAxiomFoundation/rulespec-il/issues/2",
-        "ceiling": 0,
-        "entries": [],
-    }
+    assert set(pending) == {"version", "issue", "ceiling", "entries"}
+    assert pending["version"] == 1
+    assert pending["issue"] == "https://github.com/TheAxiomFoundation/rulespec-il/issues/2"
+    assert pending["ceiling"] == len(pending["entries"])
 
 
 def test_scoped_indexes() -> None:
@@ -162,9 +164,23 @@ def test_no_reference_is_declared_executable() -> None:
 
 
 def test_no_oracle_coverage_is_claimed_while_none_is_wired() -> None:
+    """A pending declaration is visible debt, not a coverage claim.
+
+    Israel has no wired oracle, so every executable output the classifier finds
+    is declared pending classification: each entry names one `il:` output with
+    its source and date and nothing else -- no PolicyEngine variable, parameter
+    or mapping type, which would be a claim of coverage this pilot cannot make.
+    The ceiling equals the declared count, so the ratchet can only drain.
+    """
     pending = yaml.safe_load((ROOT / "oracle-coverage-pending.yaml").read_text())
-    assert pending["ceiling"] == 0
-    assert pending["entries"] == []
+    entries = pending["entries"]
+    assert entries, "the pilot's executable outputs must be declared pending"
+    assert pending["ceiling"] == len(entries)
+    for entry in entries:
+        assert set(entry) == {"legal_id", "source", "since"}, entry
+        assert entry["legal_id"].startswith("il:statutes/"), entry["legal_id"]
+        assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", entry["since"]), entry
+    assert len({entry["legal_id"] for entry in entries}) == len(entries)
 
 
 def test_pilot_is_bound_to_the_published_corpus_release() -> None:
