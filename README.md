@@ -85,8 +85,9 @@ file can reach. See `docs/ENCODING-GAPS.md`.
 2. **Reshumot / ספר החוקים** — official gazette PDFs on `fs.knesset.gov.il`, the
    authentic text of each amending act. Used here to establish effective dates
    and the content of the 2026 bracket amendment.
-3. **ספר החוקים הפתוח** on he.wikisource — the consolidation the Knesset database's
-   own "לחוק המלא" link points to. Tier: `consolidation-knesset-linked`. This is
+3. **ספר החוקים הפתוח** (the Open Law Book) on he.wikisource — a volunteer project of
+   [Hasadna](https://www.hasadna.org.il/openlaw/), and the consolidation the Knesset
+   database's own "לחוק המלא" link points to. Tier: `consolidation-knesset-linked`. This is
    the provision source of record for the pilot, and that is a **secondary
    tier** — recorded as such here, in `data/coverage/tax-benefit-source-map.json`
    (`source_tier: consolidation-knesset-linked`) and in the PR. No module records a
