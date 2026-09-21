@@ -11,3 +11,16 @@ Axiom Foundation — RuleSpec corpus licensing
 
 Suggested attribution: "Axiom Foundation RuleSpec corpus (CC BY 4.0),
 https://github.com/TheAxiomFoundation"
+
+Source text credit
+
+- The Hebrew provision text these encodings cite comes from ספר החוקים הפתוח
+  (the Open Law Book), a volunteer consolidation of Israeli law on Hebrew
+  Wikisource: https://he.wikisource.org/wiki/ספר_החוקים_הפתוח
+- The Open Law Book is a project of Hasadna (הסדנא לידע ציבורי, the Public
+  Knowledge Workshop): https://www.hasadna.org.il/openlaw/. Its volunteers
+  integrate each amendment into the consolidated text. Every encoding in this
+  repository rests on their work, and we thank them.
+- The Open Law Book is not an official publication. Israel publishes each
+  amending act officially in Reshumot. docs/sources-and-provenance.md records
+  the source tiers and the copyright position.

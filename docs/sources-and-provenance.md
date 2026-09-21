@@ -22,6 +22,17 @@ The database's own "לחוק המלא" link points at **ספר החוקים הפ
 he.wikisource. That is why the Wikisource consolidation, and not Nevo, is the
 provision source of record for this pilot.
 
+## Credit: ספר החוקים הפתוח and Hasadna
+
+ספר החוקים הפתוח (the Open Law Book) is a project of
+[Hasadna](https://www.hasadna.org.il/openlaw/) (הסדנא לידע ציבורי, the Public
+Knowledge Workshop). Hasadna's page states that Israel publishes law officially in
+Reshumot, amendment by amendment, without a consolidated text; that the project's
+volunteers integrate each amendment into the consolidated version; and that since
+July 2018 the national legislation database and the Open Law Book have linked to
+each other. Every provision this pilot encodes rests on that volunteer work. The
+credit also stands in `NOTICE`.
+
 ## Source tiers
 
 1. `official-gazette` — **רשומות / ספר החוקים** PDFs on `fs.knesset.gov.il`. The
