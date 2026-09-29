@@ -121,7 +121,8 @@
         "health insurance contributions (National Health Insurance Law §14), and the composed take-home output, which need the National Health Insurance Law in a corpus release",
         "the self-employed and non-employee contribution amounts under §337(א)(2) and §342(א) (§342(א)'s liability judgment is encoded)",
         "§337(ג)'s proportional change to the deduction after an order under §337(ב)",
-        "לוח א׳1, including Part D, whose birth-month age §342(ג)(2) reads: it is a supplied input to §342 (docs/ENCODING-GAPS.md, nii-schedule-a1-part-d-not-encoded)"
+        "§348(ב), (ד) and (ה), the deemed minimum income (docs/ENCODING-GAPS.md, schedule-k-monthly-minimum-and-section-348-b)",
+        "לוח א׳1, including Part D, whose birth-month age §342(ג)(2) reads; §342(ג)(1) and (ג)(2) are deferred for want of it (docs/ENCODING-GAPS.md, nii-schedule-a1-part-d-not-encoded)"
       ],
       "applied_without_a_module": [
         {

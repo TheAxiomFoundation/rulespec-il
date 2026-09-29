@@ -38,9 +38,11 @@ Three consequences, all harness-only and all disclosed:
   false. Round 5 was told it again, about round 3's §334 import. So the deferral reasons the
   applied §342 gives for (ב), (ג)(1) and (ו), "fails clean-context resolution", rest partly on
   this false report; its other reasons (Schedule A1 Part D) are real. axiom-encode main (read at
-  `e5a35516`) resolves a copied module's imports through `evals.py`
-  `_candidate_import_rule_files` → `_resolve_rulespec_target_file`, whose
-  `_candidate_rulespec_repo_roots` → `candidate_jurisdiction_content_dirs` return
+  `e5a35516`) resolves a copied module's imports through `harness/evals.py`
+  `_candidate_import_rule_files` (line 8337), which calls `_resolve_rulespec_target_file`
+  (line 8351; defined at `harness/validator_pipeline.py:33868`). That reads its roots from
+  `_candidate_rulespec_repo_roots` (`:33936`, `:33950`) → `repo_routing.py`
+  `candidate_jurisdiction_content_dirs` (line 656), which returns `base / prefix` (line 674):
   `rulespec-il/il/`.
 **Resolution:** re-encode every citation at the pinned ref after the release
 `il-rulespec-2026-09-06` is cut, signed and registered, and diff the output against what is
@@ -567,11 +569,13 @@ definition is imported per child instead of repeated.
 
 ### `schedule-j-2025-2026-deduction-heading-still-says-60-percent-of-the-average-wage` — `divergent`
 In the corpus text of לוח י׳, the temporary 2025–2026 table heads the upper employee-deduction column
-(טור ד׳) "על חלק השכר העולה על 60% מהשכר הממוצע". Its lower column, and every column of the permanent
-table, reads "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)". The encoded `schedule-j/sign-1` carries the
+(טור ד׳) "על חלק השכר העולה על 60% מהשכר הממוצע". Every other column of that table (all six טור ג׳
+columns and טור ד׳'s lower column), and every column of the permanent table, reads "מדרגת הגבייה
+המופחתת כהגדרתה בסעיף 334(א)". The encoded `schedule-j/sign-1` carries the
 heading as `temporary_employee_deduction_upper_band_average_wage_share` (0.60, from 2025-01-01).
 Read literally, that heading would levy nothing on the part of the wage between the bracket (7,703) and
-60% of the §1 average wage for contributions (13,566 × 0.6 = 8,139.60), and 7% above it. For a
+60% of the §1 average wage for contributions (13,566 from 01.01.2026 on the Institute's average-wage
+page; × 0.6 = 8,139.60), and 7% above it. For a
 ₪15,000 wage that is ₪560.34 instead of ₪590.90.
 Nothing in this repository reads that parameter, and the heading is probably not the law in
 force, for two reasons. First, the official gazette:
@@ -585,7 +589,9 @@ sources outrank a secondary consolidation. One point is not settled: §20 of the
 temporary table's own text (in Amendment 252's §7) and does not repeat the replacement there. Whether
 §19(6)'s "everywhere" reaches the temporary table is a question for the consolidation's maintainers.
 The gazette was captured by the pilot (`ops/il-lane/sources/amend-278-282-budget-2025-law-sefer-hachukim-3384.pdf`,
-fs.knesset.gov.il, sha256 `eba7e1fa…`).
+fs.knesset.gov.il, sha256 `eba7e1fa…`). The Institute's two pages are captured beside it, each with a
+provenance record: `btl-employee-contribution-rates.html` (sha256 `d4e5cbce…`) and
+`btl-average-wage.html` (sha256 `781ee526…`). None of the three is carried in this repository.
 **Resolution:** settle the reading with the Open Law Book's maintainers, correct the consolidation or the
 encoding, and re-encode לוח י׳.
 
@@ -596,8 +602,10 @@ three columns' branch rows do not add up to that total:
 | Column | Branch rows sum to | Printed total | In |
 |---|---|---|---|
 | טור ג׳, employee, above the bracket | 14.39 | 14.50 | both tables |
+| the same, at the 2024–2027 work-injury rate | 14.49 | 14.60 | both tables |
 | טור ד׳, deduction from the wage, above the bracket | 4.67 | 7.00 | both tables |
 | טור ג׳, employee, up to the bracket | 4.16 | 3.85 | the permanent table (the 2025–2026 table's rows do sum, to 5.55) |
+| the same, at the 2024–2027 work-injury rate | 4.26 | 3.95 | the permanent table |
 
 The encoding mirrors the text, branch tables and totals as printed, so the encoded `schedule-j/sign-1`
 breaks the identity exactly where the text does, and that is intended. Every other column sums
@@ -607,6 +615,38 @@ the rates the National Insurance Institute publishes for an employee (1.04% and 
 module, and by summing the corpus text directly.
 **Resolution:** compare the consolidation's table with the gazette text of לוח י׳ and its amendments,
 and correct whichever is wrong.
+
+### `schedule-j-treasury-column-is-kept-as-printed`
+טור ה׳ of לוח י׳ is headed "הקצבת אוצר המדינה לפי סעיף 32(ג1)" and prints no unit. §32(ג1)(1) says the
+Treasury's monthly amounts "יחולקו בין ענפי הביטוח השונים כאמור בלוח י׳", so the column is how that
+allocation is split among the branches, not a rate on anyone's income. The module defers the column as
+rates and keeps the figures as the table prints them (`treasury_allocation_table_figures_by_branch`,
+`treasury_allocation_table_total`: 0.09 … 0.25; 0.67), typed Decimal with no unit claimed. Nothing in
+this repository reads them. The module's deferral reason says §32(ג1) "is not supplied"; that means it was
+not in the encoder's context. §32 is in the corpus.
+**Resolution:** encode §32(ג1) and express the column as the split it is.
+
+### `nii-section-334-rate-of-rise-floor-is-an-interpretation`
+§334(א) updates the 7,522 each 1 January "לפי שיעור עליית המדד" (2026–2028) and "לפי שיעור עליית השכר
+הממוצע" (from 2029). The module wraps each ratio in `max(1, …)`, so the bracket never falls, and says so
+in the rule's `source`: "rate of rise" is read as excluding a decrease. The text does not address a fall
+in the index or the wage, so this is a disclosed reading, not a grounded figure. The module also switches
+from the 7,522 base to the previous year's bracket on 2027-01-01. The text prints no such date; it
+follows from 2026 being the first update under paragraph (1).
+**Resolution:** check how the Institute treated the bracket in a year the index fell, and encode that.
+
+### `schedule-k-monthly-minimum-and-section-348-b`
+Two loose ends around the employee's minimum insurable income (לוח י״א פרט 1, "לחודש – סכום השווה לשכר
+מינימום של החודש הראשון ברבעון").
+* `schedule-k/sign-1#employee_monthly_minimum_insurable_income` returns the minimum wage for item 1 and
+  0 for items 2 to 4. The text sets no monthly minimum for those items, which is not the same as a
+  minimum of zero.
+* `section-348` was encoded before לוח י״א gained that rule, and only its import hashes were repaired
+  afterwards. Its deferral of §348(ב) still gives as its reason that the schedule "exports quarterly and
+  annual minima, but no applicable monthly minimum". That reason is no longer true. Its deferrals of
+  §348(ד) and (ה), which need item 3's minimum, still are.
+**Resolution:** re-encode לוח י״א so the monthly minimum exists only for item 1, then re-encode §348
+against it so §348(ב) is encoded for an employee.
 
 ### `nii-schedule-a1-part-d-not-encoded`
 §342(ג)(2) stops the employee deduction for a woman at "the age set for her, by her birth month, in Part D of
