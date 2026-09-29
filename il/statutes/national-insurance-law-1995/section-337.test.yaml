@@ -1,0 +1,131 @@
+- name: employee_income_spans_both_contribution_bands
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.employee_monthly_income_counted_for_contributions: 15000
+    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: true
+    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 7522
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 10000
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 10000
+  output:
+    il:statutes/national-insurance-law-1995/section-337#employee_monthly_insurance_contributions: 1509.259
+- name: employee_income_entirely_within_reduced_band
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.employee_monthly_income_counted_for_contributions: 5000
+    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: true
+    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 7522
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 10000
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 10000
+  output:
+    il:statutes/national-insurance-law-1995/section-337#employee_monthly_insurance_contributions: 277.5
+- name: order_satisfies_all_special_procedural_requirements
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: true
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: holds
+- name: order_requires_ministerial_action
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: false
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: true
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: not_holds
+- name: order_requires_finance_committee_approval
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: false
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: true
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: not_holds
+- name: insolvency_rate_change_requires_prior_consultation
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: false
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: true
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: not_holds
+- name: long_term_care_rate_change_requires_consent
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: false
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: not_holds
+- name: consultation_not_required_for_other_rate_changes
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: false
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: false
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: true
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: holds
+- name: consent_not_required_for_other_rate_changes
+  period:
+    period_kind: custom
+    name: day
+    start: '2026-01-15'
+    end: '2026-01-15'
+  input:
+    il:statutes/national-insurance-law-1995/section-337#input.order_is_made_by_minister: true
+    il:statutes/national-insurance-law-1995/section-337#input.knesset_finance_committee_approved_order: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_employee_insolvency_rights_contribution_rate: true
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consulted_before_insolvency_rate_change: true
+    il:statutes/national-insurance-law-1995/section-337#input.order_changes_long_term_care_contribution_rate: false
+    il:statutes/national-insurance-law-1995/section-337#input.finance_minister_consented_to_long_term_care_rate_change: false
+  output:
+    il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied: holds

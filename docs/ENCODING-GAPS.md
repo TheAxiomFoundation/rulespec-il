@@ -17,18 +17,27 @@ last ref that reads roots from `AXIOM_RULESPEC_REPO_ROOTS`, plus fixes made in t
 each carrying a deliberately four-part version so it can never be read as an upstream
 three-part release.
 
-**Not one build: four.** Modules were applied as the fixes landed, so the twelve manifests
+**Not one build: four.** Modules were applied as the fixes landed, so the eighteen manifests
 record `0.2.1197` / `55beb160` (3 modules), `0.2.1197.3` / `6e8cfabb` (1), `0.2.1197.4` /
-`dc7baa16` (5) and `0.2.1197.5` / `c08cb0c0` (3 — ITO §121 and NII §67, re-encoded in review
-round 2, and ITO §66). Any statement that "the encoder" here is a single version is wrong;
+`dc7baa16` (5) and `0.2.1197.5` / `c08cb0c0` (9 — ITO §121 and NII §67, re-encoded in review
+round 2, ITO §66, and the six National Insurance contribution modules: לוח י׳, לוח י״א, §334,
+§337, §342 and §348). Any statement that "the encoder" here is a single version is wrong;
 the manifest is the authority, and it records the exact commit sha as well as the version.
 
-Two consequences, both harness-only and both disclosed:
+Three consequences, all harness-only and all disclosed:
 * A shim translates `AXIOM_RULESPEC_REPO_ROOTS` into the engine's `--rulespec-root` flags and
   stages the generated artifact at its canonical path before compiling — which is what
   axiom-encode 0.2.1695 does in-process.
 * `axiom-encode validate` and `proof-validate` cannot run as shipped; see
   `validators-not-run-as-shipped`.
+* This build resolves the imports of a copied module against `rulespec-il/statutes/…`, but the
+  modules live under `rulespec-il/il/statutes/…`. So when an existing Israel module that imports
+  another is re-encoded, the encoder is told that EVERY one of its imports "does not resolve in
+  the clean repo context", and is instructed to drop the import and defer. That is what deferred
+  NII §342(ג)(1) in its second round; the third round's findings file says the report was false.
+  axiom-encode main (read at `a1a306094d`) resolves an import through the checkout's
+  jurisdiction content directories (`_candidate_rulespec_repo_roots` →
+  `candidate_jurisdiction_content_dirs`), which include `rulespec-il/il/`.
 **Resolution:** re-encode every citation at the pinned ref after the release
 `il-rulespec-2026-09-06` is cut, signed and registered, and diff the output against what is
 here.
@@ -551,6 +560,40 @@ What is still partial:
   rather than on its birthday.
 **Resolution:** encode §65 through the encoder and give the composition a Child entity, so the
 definition is imported per child instead of repeated.
+
+### `schedule-j-rows-do-not-sum-to-printed-totals` — `unexplained`
+Each column of לוח י׳ lists a rate per insurance branch and a printed total, ”סך הכל“. In the corpus text,
+three columns' branch rows do not add up to that total:
+
+| Column | Branch rows sum to | Printed total | In |
+|---|---|---|---|
+| טור ג׳, employee, above the bracket | 14.39 | 14.50 | both tables |
+| טור ד׳, deduction from the wage, above the bracket | 4.67 | 7.00 | both tables |
+| טור ג׳, employee, up to the bracket | 4.16 | 3.85 | the permanent table (the 2025–2026 table's rows do sum, to 5.55) |
+
+The encoding mirrors the text, branch tables and totals as printed, so the encoded `schedule-j/sign-1`
+breaks the identity exactly where the text does, and that is intended. Every other column sums
+exactly. Nothing computed here reads a branch row: the pipeline reads only the totals, and those are
+the rates the National Insurance Institute publishes for an employee (1.04% and 7% withheld; 5.55% and
+14.6% in all). Checked by `ops/il-lane/contributions/pipeline/schedule_j_identity.py` over the encoded
+module, and by summing the corpus text directly.
+**Resolution:** compare the consolidation's table with the gazette text of לוח י׳ and its amendments,
+and correct whichever is wrong.
+
+### `nii-schedule-a1-part-d-not-encoded`
+§342(ג)(2) stops the employee deduction for a woman at "the age set for her, by her birth month, in Part D of
+Schedule A1" (לוח א׳1 חלק ד׳, ”גיל הזכאות לקצבת אזרח ותיק לנשים לפי חודש לידתן“, 65 for the oldest cohorts,
+rising to 70 for every woman born in May 1950 or later). Part D is in the corpus (`schedule-a1/sign-4`) but is
+not encoded. Three encoder attempts were blocked by the numeric-grounding check. The rows are ranges of birth
+months named in Hebrew ("ספטמבר 1939 עד אפריל 1940"). A month number taken as input is a literal the text does
+not print. Asked instead for a Hebrew month-name input and a direct if/else chain, the model twice built a numeric
+cohort index, and this build's embedded-literal repair lifted the index values into parameters that cannot be
+grounded either. Its absence is one reason the encoder deferred §342(ג)(1), the employee
+deduction (`section-342/c/1#employee_wage_deduction`), in all four rounds that ran; the deduction's rates are
+encoded in `schedule-j/sign-1`. The findings files are
+`ops/il-lane/contributions/review/nii-schedule-a1-part-d-findings{,-r2,-r3}.md`.
+**Resolution:** encode Part D with an encoder whose grounding accepts month ranges named in Hebrew, or whose
+selector handling does not lift structural indexes into parameters.
 
 ### `no-contributions-so-net-is-not-take-home-pay`
 The employee's National Insurance and health contributions are not encoded, so

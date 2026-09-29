@@ -1,0 +1,118 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+  summary: |-
+    ”תקופת תשלום“ – פרק זמן שלפיו משתלמים דמי ביטוח;
+    ”מועד תשלום“ – מועד לתשלום דמי ביטוח;
+    ”מדרגת גבייה מופחתת“ – סכום של 7,522 שקלים חדשים, כשהוא מעודכן ב־1 בינואר של כל שנה כלהלן:
+    (ב) לענין פרק זה רואים כעובד גם את מי ששכרו נקבע בחוק או בהחלטת הכנסת או על פיה, ואת החייב בתשלום השכר רואים כמעבידו.
+rules:
+  - name: reduced_collection_bracket_statutory_base
+    kind: parameter
+    dtype: Money
+    unit: ILS
+    source: National Insurance Law, 1995, section 334(a), reduced collection bracket
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: סכום של 7,522 שקלים חדשים
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          7522
+
+  - name: reduced_collection_bracket
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 334(a)(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: כשהוא מעודכן ב־1 בינואר של כל שנה
+          - path: versions[0].formula
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: בשנים 2026 עד 2028
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: לפי שיעור עליית המדד שפורסם לאחרונה לפני 1 בינואר, לעומת המדד שפורסם לאחרונה לפני 1 בינואר של השנה הקודמת
+          - path: versions[0].formula
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: משנת 2029 ואילך
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: לפי שיעור עליית השכר הממוצע, המעודכן ב־1 בינואר, לעומת השכר הממוצע ב־1 בינואר של השנה הקודמת
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          (if annual_update_is_first_statutory_update:
+            reduced_collection_bracket_statutory_base
+          else:
+            previous_year_reduced_collection_bracket)
+          * (if annual_update_is_in_price_index_period:
+            max(1, price_index_last_published_before_january_first / price_index_last_published_before_previous_january_first)
+          else:
+            max(1, average_wage_on_january_first / average_wage_on_previous_january_first))
+
+  - name: statutory_salary_employee_deeming_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Insurance Law, 1995, section 334(b), employee deeming
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          salary_is_fixed_by_law
+          or salary_is_fixed_by_knesset_decision
+          or salary_is_fixed_pursuant_to_knesset_decision
+
+  - name: statutory_salary_obligor_employer_deeming_applies
+    kind: derived
+    entity: Employer
+    dtype: Judgment
+    period: Month
+    source: National Insurance Law, 1995, section 334(b), employer deeming
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-334
+              excerpt: ואת החייב בתשלום השכר רואים כמעבידו
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          liable_to_pay_salary_of_person_concerned
+          and (salary_of_person_concerned_is_fixed_by_law
+          or salary_of_person_concerned_is_fixed_by_knesset_decision
+          or salary_of_person_concerned_is_fixed_pursuant_to_knesset_decision)

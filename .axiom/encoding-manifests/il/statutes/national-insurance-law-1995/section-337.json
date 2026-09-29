@@ -1,0 +1,41 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-337.yaml",
+      "sha256": "c707f0b58121ccf9b0749932247c256ab2f38322959bdce3089cc772a571808e"
+    },
+    {
+      "path": "il/statutes/national-insurance-law-1995/section-337.test.yaml",
+      "sha256": "b396ae5f28d904f523f38db2ff54f60bac51abbd69843b4ae25153b0c3b88f82"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197.5",
+    "version_commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1"
+  },
+  "axiom_encode_version": "0.2.1197.5",
+  "backend": "codex",
+  "citation": "il/statute/national-insurance-law-1995/section-337",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/_eval_workspaces/codex-gpt-6-astra/il-statute-national-insurance-law-1995-section-337/workspace/context-manifest.json",
+  "context_manifest_sha256": "f916abc6f66158458f54b76749fd19ddcba66b23ee4863083b69bad0eb8d04f3",
+  "generated_at": "2026-09-29T16:25:49.228825+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/codex-gpt-6-astra/statutes/national-insurance-law-1995/section-337.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out",
+  "generated_output_sha256": "c707f0b58121ccf9b0749932247c256ab2f38322959bdce3089cc772a571808e",
+  "generation_prompt_sha256": "c3ebb086f962e4d3ba0517520ebb6d2a97e31b66b1acc0a5c8dcfabcfc111e77",
+  "model": "gpt-6-astra",
+  "run_id": "1f07bdc9",
+  "runner": "codex-gpt-6-astra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "b6b5b4317ad2ba0de5cb42ed42434b50bec388c4e4b0d3a8e21dcb17625f2396"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/traces/codex-gpt-6-astra/il-statute-national-insurance-law-1995-section-337.json",
+  "trace_sha256": "84724f679c259c384a63e96e9529b88274da6dd06470a90cfa7da0c92bc1617b"
+}

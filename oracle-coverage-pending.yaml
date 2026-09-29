@@ -7,7 +7,7 @@
 # Maintained by: axiom-encode oracle-coverage-pending sync.
 version: 1
 issue: https://github.com/TheAxiomFoundation/rulespec-il/issues/2
-ceiling: 107
+ceiling: 148
 entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils
   source: bulk
@@ -285,6 +285,87 @@ entries:
 - legal_id: il:statutes/income-tax-ordinance/section-66#woman_separate_calculation_additional_points
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#employee_contribution_above_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#employee_contribution_within_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#employee_deduction_upper_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#employee_deduction_within_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#nonworking_insured_contribution_above_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#nonworking_insured_contribution_within_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#self_employed_contribution_above_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#self_employed_contribution_within_reduced_band_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#state_treasury_allocation_under_section_32_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#temporary_employee_deduction_upper_band_average_wage_share
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_contribution_above_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_contribution_within_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_deduction_upper_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_deduction_within_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_nonworking_insured_contribution_above_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_nonworking_insured_contribution_within_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_self_employed_contribution_above_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_self_employed_contribution_within_reduced_band
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_state_treasury_allocation_under_section_32
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_maximum_insurable_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_minimum_insurable_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#maximum_basic_amount_multiplier
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#minimum_average_wage_rate
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#months_per_quarter
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_maximum_insurable_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_minimum_insurable_income
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount
   source: bulk
   since: '2026-09-10'
@@ -294,6 +375,48 @@ entries:
 - legal_id: il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket_statutory_base
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#statutory_salary_obligor_employer_deeming_applies
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-337#contribution_rate_order_procedural_requirements_satisfied
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-337#employee_monthly_insurance_contributions
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-342#male_deduction_cessation_age
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-348#nonwork_income_excluded_from_contributions_under_section_335
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_average_wage_rate
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_threshold
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance
   source: bulk
   since: '2026-09-10'
