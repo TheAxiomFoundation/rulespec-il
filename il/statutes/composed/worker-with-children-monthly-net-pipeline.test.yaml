@@ -24,6 +24,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -59,6 +62,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 14175.037
 - name: working_father_two_children_aged_two_and_eight_fifteen_thousand_a_month
   period:
     period_kind: month
@@ -85,6 +93,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -120,6 +131,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 13934.537
 - name: minimum_wage_working_mother_two_children_aged_two_and_eight
   period:
     period_kind: month
@@ -146,6 +162,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 7056.024
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -181,6 +200,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 5880.02
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 189.924646
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 61.152208
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 251.076854
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 6020.943146
 - name: woman_with_no_children_fifteen_thousand_a_month
   period:
     period_kind: month
@@ -207,6 +231,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -242,6 +269,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 12332.537
 - name: high_earner_mother_two_children_sixty_thousand_a_month
   period:
     period_kind: month
@@ -268,6 +300,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 223430.4
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 2400.0
@@ -301,6 +336,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#person_is_insured_parent: holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_is_a_child_under_section_65: holds
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 51910
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 2534.3088
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 3174.6012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 5708.91
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 37710.39
 - name: working_mother_child_in_its_birth_year_and_child_in_its_maturity_year
   period:
     period_kind: month
@@ -327,6 +367,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 45
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -362,6 +405,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 13231.537
 - name: working_father_child_in_its_birth_year_and_child_in_its_maturity_year
   period:
     period_kind: month
@@ -388,6 +436,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 45
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -423,6 +474,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 12989.537
 - name: working_mother_children_aged_three_and_five_twenty_thousand_a_month
   period:
     period_kind: month
@@ -449,6 +505,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 38712.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -484,6 +543,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 20000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 884.5618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 940.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1825.463
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 17458.037
 - name: working_mother_child_past_its_maturity_year_and_child_aged_eight
   period:
     period_kind: month
@@ -510,6 +574,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 45
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -545,6 +612,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 12989.537
 - name: working_mother_two_children_the_elder_one_outside_israel
   period:
     period_kind: month
@@ -571,6 +643,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: false
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -606,6 +681,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 13956.037
 - name: working_mother_two_children_aged_seventeen_and_eight
   period:
     period_kind: month
@@ -632,6 +712,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 45
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -667,6 +750,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 13692.537
 - name: working_mother_child_turning_three_this_year_and_child_aged_eight
   period:
     period_kind: month
@@ -693,6 +781,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -728,6 +819,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 14055.537
 - name: working_mother_maturity_year_child_before_its_eighteenth_birthday
   period:
     period_kind: month
@@ -754,6 +850,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: true
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 45
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/income-tax-ordinance/section-121#income_tax: 25392.0
     il:statutes/income-tax-ordinance/section-121b#total_additional_tax: 0.0
@@ -789,6 +888,11 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils: 13450.537
 - name: woman_aged_sixty_with_no_children_fifteen_thousand_a_month
   period:
     period_kind: month
@@ -815,6 +919,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 60
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 180000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 180000
@@ -834,6 +941,10 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: not_holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : not_holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 15000
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 626.0618
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 590.9012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 1216.963
 - name: mother_above_the_additional_tax_threshold
   period:
     period_kind: month
@@ -860,6 +971,9 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_birth_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_in_maturity_year: false
     il:statutes/composed/worker-with-children-monthly-net-pipeline#input.child_2_is_present_in_israel: true
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.taxpayer_age_at_month_years: 35
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_basic_amount_paragraph_3_ils: 10382
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#input.current_reduced_collection_bracket_ils: 7703
   output:
     il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income: 888000
     il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_for_section_121b: 888000
@@ -879,3 +993,7 @@
     il:statutes/composed/worker-with-children-monthly-net-pipeline#child_2_is_a_child_under_section_65: holds
     ? il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
     : holds
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions: 51910
+    il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month: 2534.3088
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month: 3174.6012
+    il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils: 5708.91

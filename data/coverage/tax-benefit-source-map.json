@@ -3,7 +3,7 @@
   "generated_at": "2026-09-06",
   "jurisdiction": "il",
   "validation_year": 2025,
-  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections and encoded_schedules name exactly what this repository covers as a module on disk, and applied_without_a_module names provisions a shipped number depends on that have NO module — both directions are enforced by repository tests. The modules are bound to release il-rulespec-2026-09-06 through .axiom/toolchain.toml.",
+  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections and encoded_schedules name exactly what this repository covers as a module on disk, and applied_without_a_module names provisions a shipped number depends on that have NO module — both directions are enforced by repository tests. The pilot's modules are bound to release il-rulespec-2026-09-06 through .axiom/toolchain.toml; the contribution modules read the 2026-09-29 scope, whose release is not yet registered (docs/ENCODING-GAPS.md, no-signed-corpus-release).",
   "corpus_scopes": [
     {
       "jurisdiction": "il",
@@ -18,6 +18,15 @@
     "content_sha256": "eff0433c013fd241fcb73fc3a89681d7e9091708c2b2a8967d261a4f4f361519",
     "published_from": "TheAxiomFoundation/axiom-corpus#646, merge commit 996b763095ae9cae3761e685827ffd9d97c2a68d, publish run 34071795904 (2026-09-07T01:06Z)",
     "note": "Signed and registered. .axiom/toolchain.toml binds this repository to it; activation (serving) is a separate step and is not required for validation."
+  },
+  "pending_corpus_scope": {
+    "jurisdiction": "il",
+    "document_class": "statute",
+    "version": "2026-09-29-il-taxben-contributions",
+    "release": "il-rulespec-2026-09-29",
+    "status": "proposed in TheAxiomFoundation/axiom-corpus#767, not merged",
+    "carries": "the pilot's three instruments with identical provision bodies, plus the National Health Insurance Law 1994",
+    "note": "The contribution modules' proof excerpts were checked against this scope. corpus_scopes and release_candidate move to it in the toolchain pull request, not here."
   },
   "instruments": [
     {
@@ -95,18 +104,6 @@
         "342",
         "348"
       ],
-      "encoded_schedules": [
-        {
-          "schedule": "לוח י׳",
-          "corpus_citation_path": "il/statute/national-insurance-law-1995/schedule-j/sign-1",
-          "module": "il/statutes/national-insurance-law-1995/schedule-j/sign-1.yaml"
-        },
-        {
-          "schedule": "לוח י״א",
-          "corpus_citation_path": "il/statute/national-insurance-law-1995/schedule-k/sign-1",
-          "module": "il/statutes/national-insurance-law-1995/schedule-k/sign-1.yaml"
-        }
-      ],
       "temporal_coverage": "current_expression_only",
       "expressions": [
         {
@@ -118,7 +115,6 @@
       "not_encoded": [
         "§65 as a module — its age-and-presence proviso is applied in the composition, see applied_without_a_module; its maintained-child limb and §65(ב)'s three-month rule are not modelled at all",
         "every other benefit chapter",
-        "health insurance contributions (National Health Insurance Law §14), and the composed take-home output, which need the National Health Insurance Law in a corpus release",
         "the self-employed and non-employee contribution amounts under §337(א)(2) and §342(א) (§342(א)'s liability judgment is encoded)",
         "§337(ג)'s proportional change to the deduction after an order under §337(ב)",
         "§348(ב), (ד) and (ה), the deemed minimum income (docs/ENCODING-GAPS.md, schedule-k-monthly-minimum-and-section-348-b)",
@@ -130,6 +126,79 @@
           "corpus_citation_path": "il/statute/national-insurance-law-1995/section-65",
           "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rules child_1_is_a_child_under_section_65, child_2_is_a_child_under_section_65, children_in_parent_child_count",
           "why": "§65(א)'s `ובלבד שהילד נמצא בישראל ולא מלאו לו 18 שנים` decides the monthly allowance count. The test has to be asked once per child and this pilot declares no Child entity, so §65 has no single-answer shape an atomic module could take. It IS in the corpus and IS encodable. See docs/ENCODING-GAPS.md, nii-section-65-child-definition-partial."
+        },
+        {
+          "section": "335",
+          "corpus_citation_path": "il/statute/national-insurance-law-1995/section-335",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule contributions_payable_under_section_335",
+          "why": "§348(א)'s maximum applies to contributions payable under §335; the composition decides that a resident employee is one, quoting §335(ט). §335 is not encoded as a module."
+        },
+        {
+          "section": "341",
+          "corpus_citation_path": "il/statute/national-insurance-law-1995/section-341",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule reduced_amount_under_national_insurance_section_341",
+          "why": "Health §14(ו1) reads 'the reduced amount set under NII §341'; §341's closing words apply it up to מדרגת הגבייה המופחתת, so the composition binds it to the same supplied bracket the NII deduction reads. §341 is not encoded as a module."
+        },
+        {
+          "section": "344",
+          "corpus_citation_path": "il/statute/national-insurance-law-1995/section-344",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule employee_monthly_income",
+          "why": "§344(א) makes an employee's monthly income his §2(2) income; the composition binds the monthly wage to it. §344 is not encoded as a module."
+        }
+      ],
+      "encoded_schedules": [
+        {
+          "schedule": "לוח י׳",
+          "corpus_citation_path": "il/statute/national-insurance-law-1995/schedule-j/sign-1",
+          "module": "il/statutes/national-insurance-law-1995/schedule-j/sign-1.yaml"
+        },
+        {
+          "schedule": "לוח י״א",
+          "corpus_citation_path": "il/statute/national-insurance-law-1995/schedule-k/sign-1",
+          "module": "il/statutes/national-insurance-law-1995/schedule-k/sign-1.yaml"
+        }
+      ]
+    },
+    {
+      "id": "national-health-insurance-law-1994",
+      "official_name": "חוק ביטוח בריאות ממלכתי, התשנ״ד–1994",
+      "knesset_israel_law_id": 2000111,
+      "policy_surfaces": [
+        "employee_health_insurance_contributions"
+      ],
+      "encoded_sections": [
+        "14"
+      ],
+      "temporal_coverage": "current_expression_only",
+      "expressions": [
+        {
+          "expression_date": "2026-05-24",
+          "source_tier": "consolidation-wikisource",
+          "source": "he.wikisource revision 3073760, ingested into axiom-corpus as il/statute/national-health-insurance-law-1994/* in scope 2026-09-29-il-taxben-contributions"
+        }
+      ],
+      "not_encoded": [
+        "every other section of the Law",
+        "§14's self-payer, self-employed, non-worker, benefit, pension and residual routes (deferred in the module)"
+      ],
+      "applied_without_a_module": [
+        {
+          "section": "2",
+          "corpus_citation_path": "il/statute/national-health-insurance-law-1994/section-2",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rules is_insured and employee_monthly_income_subject_to_contributions",
+          "why": "§2 defines ”מבוטח“ and ”הכנסה“ (the employee income from which the employer owes National Insurance), which is how the health contribution reaches the NII §348 maximum. §2 is not encoded as a module."
+        },
+        {
+          "section": "3",
+          "corpus_citation_path": "il/statute/national-health-insurance-law-1994/section-3",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule is_insured",
+          "why": "§3(א): every resident is entitled to health services, so the composition binds is_insured to residency. §3 is not encoded as a module."
+        },
+        {
+          "section": "15",
+          "corpus_citation_path": "il/statute/national-health-insurance-law-1994/section-15",
+          "where": "il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml, rule employee_monthly_income_subject_to_contributions",
+          "why": "§15(ב) applies the National Insurance Law's provisions to health contributions as if they were National Insurance contributions. §15 is not encoded as a module."
         }
       ]
     }
@@ -137,7 +206,8 @@
   "policy_publications": [],
   "corpus_expression_dates": {
     "income-tax-ordinance": "2026-06-08",
-    "national-insurance-law-1995": "2026-06-15"
+    "national-insurance-law-1995": "2026-06-15",
+    "national-health-insurance-law-1994": "2026-05-24"
   },
   "corpus_expression_note": "The Israel corpus ingest holds ONE expression of each provision, dated by the consolidation's own נוסח עדכני line. This repository therefore encodes the current text and cannot compute a 2025 liability; ITO §121's bands are the post-amendment-288 text.",
   "policy_publications_note": "Empty deliberately. Every module in this repository is encoder-generated from a corpus citation, and no il/policy scope has been ingested, so no current-year regulated amount is encoded here. The composed pipeline takes those as supplied inputs and its fixtures state where each number came from."

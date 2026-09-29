@@ -17,11 +17,11 @@ last ref that reads roots from `AXIOM_RULESPEC_REPO_ROOTS`, plus fixes made in t
 each carrying a deliberately four-part version so it can never be read as an upstream
 three-part release.
 
-**Not one build: four.** Modules were applied as the fixes landed, so the eighteen manifests
+**Not one build: four.** Modules were applied as the fixes landed, so the nineteen manifests
 record `0.2.1197` / `55beb160` (3 modules), `0.2.1197.3` / `6e8cfabb` (1), `0.2.1197.4` /
-`dc7baa16` (5) and `0.2.1197.5` / `c08cb0c0` (9 — ITO §121 and NII §67, re-encoded in review
-round 2, ITO §66, and the six National Insurance contribution modules: לוח י׳, לוח י״א, §334,
-§337, §342 and §348). Any statement that "the encoder" here is a single version is wrong;
+`dc7baa16` (5) and `0.2.1197.5` / `c08cb0c0` (10 — ITO §121 and NII §67, re-encoded in review
+round 2, ITO §66, and the seven contribution modules: NII לוח י׳, לוח י״א, §334, §337, §342 and
+§348, and National Health Insurance Law §14). Any statement that "the encoder" here is a single version is wrong;
 the manifest is the authority, and it records the exact commit sha as well as the version.
 
 Three consequences, all harness-only and all disclosed:
@@ -151,15 +151,19 @@ OData for both pilot instruments. The corpus ingest therefore captured ספר ה
 **Resolution:** capture the Knesset "נוסח מלא" PDFs through a real browser, re-ingest, and
 re-encode.
 
-### `no-signed-corpus-release` — the pilot is anchored to an ingest branch
-Every proof excerpt here resolves against the Israel corpus ingest
-(`axiom-corpus`, branch `ingest/il-taxben-pilot`), which is the source of record for provision
-text: the encoder read the provisions from it, and the excerpts are verbatim NFC substrings of
-its bodies. What does not exist is a **signed, immutable release**. Until
-`il-rulespec-2026-09-06` is cut, signed and registered, an excerpt is checked against a branch
-that can still be edited.
-**Resolution:** cut and sign the release, bind `.axiom/toolchain.toml` to it in a dedicated
-PR, and re-run the shipped validators.
+### `no-signed-corpus-release` — CLOSED for the pilot, OPEN for the contribution modules
+The pilot's twelve modules are anchored to the signed corpus release `il-rulespec-2026-09-06`,
+which `.axiom/toolchain.toml` pins (rulespec-il#4), and CI validates them against it.
+
+The seven contribution modules are not covered by that release. The National Health Insurance
+Law 1994 is ingested only in the corpus scope `il/statute@2026-09-29-il-taxben-contributions`,
+which axiom-corpus#767 publishes as release `il-rulespec-2026-09-29`. That pull request is not
+merged yet. The contribution modules' proof excerpts were checked against that ingest. Until
+the release is registered and activated, and `.axiom/toolchain.toml` is bumped to it in a pull
+request of its own, the health module's citation does not resolve against the pinned release,
+and CI cannot validate the contribution modules.
+**Resolution:** merge axiom-corpus#767, activate the scope, and bump the toolchain in a
+dedicated pull request before the contribution modules merge.
 
 ### `no-source-sha256-pins` — the modules pin a citation path, not a digest
 Each module declares `source_verification.corpus_citation_path` and no `source_sha256`. That
@@ -169,25 +173,30 @@ check-source-staleness`, the only command that reads a pin, therefore has nothin
 here.
 **Resolution:** the pins arrive with the release, in the toolchain PR.
 
-### `validators-not-run-as-shipped` — `validate` and `proof-validate` are gated
-Both require `.axiom/toolchain.toml` and a signed corpus release, neither of which can
-honestly exist yet. What WAS run, with the commands, is in the pull request body and
-reproduced by `ops/il-lane/encoder-regen-v2/checks/`:
-* the encoder's own `axiom-encode test` over every companion file, against an engine build
-  carrying the ILS currency seed;
-* `axiom_encode.harness.proof_validator.validate_rulespec_proofs` with
-  `require_policy_proofs=True`, from the PINNED validator ref, invoked directly with the
-  corpus ingest bodies as `source_texts` — the same validator CI will run, differing only in
-  where the provision text comes from;
-* `find_missing_money_proof_atoms` from the same ref.
-Every module was additionally gated by the encoder before it was written: `--apply` installs a
-file only after the full ValidatorPipeline — compile plus CI plus proof validation — passes on
-it inside a policy overlay, and a module that fails is refused with
+### `validators-not-run-as-shipped` — CLOSED for the pilot
+Since the toolchain was pinned (rulespec-il#4), the shared validate workflow runs the shipped
+`axiom-encode validate`, the companion tests and `axiom-encode proof-validate` against the
+pinned release on every pull request and on main. What still applies is the note on how the
+encoder gates its own output. Every module was gated by the encoder before it was written:
+`--apply` installs a file only after the full ValidatorPipeline (compile, CI and proof
+validation) passes on it inside a policy overlay, and a module that fails is refused with
 `apply=blocked_validation:<the failing check>`. Several run logs show `ci=no` on the raw
-generation followed by `outcome=apply_applied`: that is the encoder's own deterministic repair
-pass fixing the generation and the repaired file then passing the overlay gate. Each repair is
-named in the run log (`apply=auto_repaired_<name>:<rules>`).
-**Resolution:** run all three as shipped after the toolchain PR.
+generation followed by `outcome=apply_applied`. That is either the encoder's deterministic
+repair pass fixing the generation, named in the run log as
+`apply=auto_repaired_<name>:<rules>`, or a standalone validation that could not see the
+modules the target imports, followed by the overlay gate passing.
+For the contribution modules, until the toolchain bump lets CI run the shipped commands (see
+`no-signed-corpus-release`), two of the three were run locally against the 2026-09-29 ingest: the
+companion tests, and the pinned validator's `validate_rulespec_proofs` and
+`find_missing_money_proof_atoms` called directly with the ingest's provision bodies
+(`ops/il-lane/contributions/pipeline/proofcheck.py`). The shipped `axiom-encode validate` needs the bound
+release and was not run on them.
+
+That local proof check is stricter than this encoder build's own apply gate, and it caught what the
+gate let through: the pinned validator accepts an excerpt only as one contiguous span of the text,
+beginning and ending on a whole token, while the bootstrap's gate had accepted excerpts that joined
+separate passages, or a table column read down several rows. Those atoms in לוח י׳ and לוח י״א, and one
+in §342 that began mid-word, were repaired through findings rounds before commit.
 
 ### `effective-from-is-not-commencement`
 Most module versions carry `effective_from: 0001-01-01`. That is the encoder saying the
@@ -567,6 +576,27 @@ What is still partial:
 **Resolution:** encode §65 through the encoder and give the composition a Child entity, so the
 definition is imported per child instead of repeated.
 
+### `nii-section-342-c-1-applied-in-the-composition`
+§342(ג)(1) is one sentence: the employer deducts from the employee's wage the percentages לוח י׳ sets.
+The encoder deferred that output (`section-342/c/1#employee_wage_deduction`) in all four rounds that ran. It
+accepts the table's rates, but will not encode the deduction without every §342(ג)(2) cessation as
+executable RuleSpec, and one of those, a woman's Part D age, could not be encoded (see
+`nii-schedule-a1-part-d-not-encoded`). It declined a supplied Part D age, and a statement that §245(ב2)
+is repealed, as substitutes. Rounds 2 and 5 were also told, falsely, that their §334 import did not
+resolve (see `bootstrap-encoder-ref`). The findings files are
+`ops/il-lane/contributions/review/nii-section-342-findings{,-r3,-r5}.md` (a round-4 brief was superseded before it ran).
+
+So the composition applies §342(ג)(1) itself, the way it already applies §68(א)'s per-child amounts and
+§33א's credit arithmetic. `employee_national_insurance_deduction_for_month` multiplies the ENCODED לוח י׳
+טור ד׳ totals it imports (`total_employee_deduction_within_reduced_band`, 1.04% in 2025–2026, and
+`total_employee_deduction_upper_band`, 7%) by the two parts of the income after the ENCODED §348
+maximum, split at the one supplied bracket. The composition states no rate, bracket or ceiling of its
+own. It does not apply §342(ג)(2), and it cannot need to for the person it models: an employee under
+65 (the lowest Part D age; a man stops at 70) who draws no old-age pension and is not a police or
+prison officer. That is a bound, stated in the composition's summary.
+**Resolution:** once Part D is encoded, re-encode §342 with it and import the encoded deduction in place
+of the composition's.
+
 ### `schedule-j-2025-2026-deduction-heading-still-says-60-percent-of-the-average-wage` — `divergent`
 In the corpus text of לוח י׳, the temporary 2025–2026 table heads the upper employee-deduction column
 (טור ד׳) "על חלק השכר העולה על 60% מהשכר הממוצע". Every other column of that table (all six טור ג׳
@@ -577,8 +607,7 @@ Read literally, that heading would levy nothing on the part of the wage between 
 60% of the §1 average wage for contributions (13,566 from 01.01.2026 on the Institute's average-wage
 page; × 0.6 = 8,139.60), and 7% above it. For a
 ₪15,000 wage that is ₪560.34 instead of ₪590.90.
-Nothing in this repository reads that parameter, and the heading is probably not the law in
-force, for two reasons. First, the official gazette:
+The composition does not follow the heading, for two reasons. First, the official gazette:
 ספר החוקים 3384 (27 March 2025), חוק להשגת יעדי התקציב וליישום המדיניות הכלכלית לשנת התקציב 2025 (תיקוני חקיקה), §19(6)
 (National Insurance Law amendment no. 256), replaces
 "60% מהשכר הממוצע" with "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)" "בלוח י׳, בכל מקום" (in לוח י׳,
@@ -656,28 +685,84 @@ not encoded. Three encoder attempts were blocked by the numeric-grounding check.
 months named in Hebrew ("ספטמבר 1939 עד אפריל 1940"). A month number taken as input is a literal the text does
 not print. Asked instead for a Hebrew month-name input and a direct if/else chain, the model twice built a numeric
 cohort index, and this build's embedded-literal repair lifted the index values into parameters that cannot be
-grounded either. Its absence is one reason the encoder deferred §342(ג)(1), the employee
-deduction (`section-342/c/1#employee_wage_deduction`), in all four rounds that ran; the deduction's rates are
-encoded in `schedule-j/sign-1`. The findings files are
+grounded either. Its absence is why §342(ג)(1) is applied in the composition (see
+`nii-section-342-c-1-applied-in-the-composition`). The findings files are
 `ops/il-lane/contributions/review/nii-schedule-a1-part-d-findings{,-r2,-r3}.md`.
 **Resolution:** encode Part D with an encoder whose grounding accepts month ranges named in Hebrew, or whose
 selector handling does not lift structural indexes into parameters.
 
-### `no-contributions-so-net-is-not-take-home-pay`
-The employee's National Insurance and health contributions are not encoded, so
-`monthly_net_income_ils` is net of income tax and inclusive of child allowance ONLY. **It is
-not take-home pay and must not be presented as such.**
+### `no-contributions-so-net-is-not-take-home-pay` — CLOSED, with one named exclusion
+The composed pipeline now deducts both employee contributions and reports
+`monthly_take_home_pay_before_pension_contributions_ils`:
 
-Half of that is a corpus gap rather than a choice. Israel splits the employee's payroll
-deduction between two acts: the National Insurance Law's own rate table (לוח י׳,
-`il/statute/national-insurance-law-1995/schedule-j/sign-1`, which IS in the corpus ingest) and
-the National Health Insurance Law 1994 §14, which **is not in the corpus at all** — the Israel
-ingest carries exactly two instruments, `income-tax-ordinance` (686 provisions) and
-`national-insurance-law-1995` (728). Encoding one without the other would produce a figure that
-looks even more like take-home pay than a figure that deducts neither, so this repository
-deducts neither and says so.
-**Resolution:** ingest the National Health Insurance Law 1994, encode §14 and לוח י׳, and wire
-both into the pipeline in the same change.
+    monthly_net_income_ils                                   (income tax + child allowance, as before)
+    - employee_national_insurance_deduction_for_month        (NII §342(ג)(1) on the encoded לוח י׳ rates)
+    - il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month
+    = monthly_take_home_pay_before_pension_contributions_ils
+
+`monthly_net_income_ils` is unchanged, and still is not take-home pay.
+
+* **National Insurance, NII §342(ג)(1)**: 1.04% up to the reduced collection bracket and 7% above it in
+  2025–2026, the לוח י׳ טור ד׳ totals, which are encoded (`schedule-j/sign-1`). The composition applies
+  them; see `nii-section-342-c-1-applied-in-the-composition`.
+* **Health insurance, National Health Insurance Law 1994 §14**, encoded: 3.23% up to the §341 reduced
+  amount (§14(ו1)) and 5.17% above it (§14(ב)(1)), with the §14(ז)–(ז1) exemptions and the §14(ה)
+  fixed-amount schedule for pensioners.
+* **The income both are levied on** is the wage after NII §348(א)'s maximum, which is לוח י״א פרט 1:
+  five times basic amount 3 a month (`schedule-k/sign-1`), both encoded. The health law reaches the same
+  ceiling through its own definition of ”הכנסה“ (§2: the employee income from which the employer owes
+  National Insurance) and §15(ב).
+
+**The named exclusion.** An Israeli payslip usually also deducts an employee pension contribution.
+That obligation does not come from any of the three encoded laws, and it is not in the corpus, so the
+pipeline does not deduct it. That is why the output's name says `before_pension_contributions`: the
+figure is gross, less income tax, less the two statutory contributions, plus child allowance.
+**Resolution:** ingest the instrument that imposes the pension contribution, encode it, and deduct it
+in a further output.
+
+### `contributions-bracket-and-ceiling-are-supplied`
+The contributions turn on two administered amounts, and the pipeline supplies both as inputs,
+the way it supplies the credit-point value and the child-allowance amounts:
+
+| Input | What the statute says, and whether it is encoded | Supplied value | Where it came from |
+|---|---|---|---|
+| `current_reduced_collection_bracket_ils` | NII §334: 7,522 ILS, updated each 1 January by a price-index ratio (2026–2028). Encoded (`section-334#reduced_collection_bracket`) | 7,703 | the National Insurance Institute's employee contribution-rate page, "7,703 ש״ח (החל ב־01.01.2026)" |
+| `current_basic_amount_paragraph_3_ils` | NII §1, ”הסכום הבסיסי“ paragraph (3): 6,964 ILS nominal. NOT encoded (see `nii-section-1-paragraphs-1-and-3`) | 10,382 | the Institute's basic-amount page, סכום בסיסי 3 from 1.01.2026 |
+
+The bracket is supplied rather than computed from the encoded §334 because the Institute rounds.
+§334's own formula at the Central Bureau of Statistics' published 2.4% rise in the November index
+(the rise the Institute also applies to basic amount 3 on 1.01.2026, 10,139 → 10,382) gives
+7,522 × 1.024 = 7,702.53; the Institute publishes 7,703. Supplying the published figure keeps both
+contributions on the bracket payroll actually uses, and one figure feeds both: the National Insurance
+deduction reads it directly, and health §14(ו1) reads it as `reduced_amount_under_national_insurance_section_341`,
+because §341's closing words apply the pre-2006 half-average-wage provisions to "סכום השכר או ההכנסה שאינם
+עולים על מדרגת הגבייה המופחתת". The difference the rounding makes is under 4 agorot a month.
+Neither page is carried in this repository; like the child-allowance table, they were read during the
+work and their captures are recorded outside it.
+**Resolution:** ingest the Institute's rate publications as an `il/policy` scope and encode them.
+
+### `contributions-scope-of-the-composed-person`
+The pipeline binds every fact the health module asks about. Facts about the person it models come from
+its inputs: residency (`is_insured`, via health §3(א); `contributions_payable_under_section_335`, via NII
+§335(ט)) and a new `taxpayer_age_at_month_years`. That age sits beside the existing
+`taxpayer_is_at_least_60_years_old` for the reason each child has two ages: ITO §121(ב)(1) asks whether the
+person reached 60 IN THE TAX YEAR, while health §14(ז) asks the person's age in the MONTH. The fixtures keep
+the two consistent. Facts outside the person it models are bound to `false` or `0` in the composition itself,
+each with a proof atom naming the provision it switches off: every §14(ז)–(ז1) exemption (a minor, a
+housewife, an exempt student, recruit or §351(ז1)/(יא)(2ג) person, a living organ donor), every §14(ה)
+fixed-amount route (an old-age pension, the additional disability benefit, the §261/§320 pensions), and the
+§14(ז2) inclusion of §350א(א)-exempt income.
+The person is also under 65 and draws no old-age pension, which keeps every §342(ג)(2) cessation out of reach
+(see `nii-section-342-c-1-applied-in-the-composition`).
+**§348(ב)'s minimum is not applied.** Both contributions are levied on the wage as supplied, up to the
+maximum. §348(ב) deems an insured whose income is below the לוח י״א minimum to have that minimum, which
+for an employee is the minimum wage (6,247.67 a month in January 2026, per the Institute's minimum-wage
+page). How that applies to a part-time post is set in regulations that are not in the corpus, and §348(ב)
+itself is not yet encoded (see `schedule-k-monthly-minimum-and-section-348-b`). So the pipeline answers
+for a wage at or above the minimum wage. The `minimum_wage_…` fixture is below it: its 5,880.02 is the
+pilot's figure, the minimum wage in force from April 2024 to March 2025, and its contributions are
+computed on that wage as supplied. The chapter-11 insurance age floor behind §335(ט) is
+not applied either; every fixture is an adult.
 
 Also not encoded: the pension-contribution credit (§45א), מס הכנסה שלילי (EITC), ITO §40's
 single-parent and נקודות קיצבה schedules, and every other instrument.

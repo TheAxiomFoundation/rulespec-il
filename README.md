@@ -2,9 +2,10 @@
 
 Israel RuleSpec source registry — **bounded pilot**.
 
-> **This is a pilot, not coverage.** Two instruments, a handful of sections, one
+> **This is a pilot, not coverage.** Three instruments, a handful of sections, one
 > composed capstone. Nothing here is certified, complete, or fit for
-> administrative use. `app_visibility` is `experimental`.
+> administrative use. The app lists it publicly (`.axiom/registry.toml`), as a
+> bounded, uncertified pilot.
 
 ## How this content was produced
 
@@ -54,7 +55,8 @@ against the Hebrew statute:
 | `il/statutes/national-insurance-law-1995/section-348.yaml` | §348 | the §348(א) maximum on the income contributions are levied on, and the §348(א1) exclusion of small non-work income | 4 | `acd42bb2` / gpt-6-astra, imports re-pinned by `repair-proof-import-hashes` |
 | `il/statutes/national-insurance-law-1995/schedule-j/sign-1.yaml` | לוח י׳ | the contribution and deduction rate table (טור ג׳ and ד׳), by branch and in total, for employees, the self-employed and others, with its dated temporary rates. טור ה׳, the Treasury allocation, is deferred as a rate, because its heading prints no unit; its figures are kept as printed | 19 | `1d4a7a99` / gpt-6-astra |
 | `il/statutes/national-insurance-law-1995/schedule-k/sign-1.yaml` | לוח י״א | the maximum and minimum insurable income; the employee's monthly maximum is five times basic amount 3 | 9 | `2a7325d6` / gpt-6-astra |
-| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → child allowance, counted over the children NII §65(א) admits → monthly net | 23 | assembled, not encoded |
+| `il/statutes/national-health-insurance-law-1994/section-14.yaml` | חוק ביטוח בריאות ממלכתי §14 | the employee's health insurance contribution withheld by the employer: 3.23% up to the §341 reduced amount (§14(ו1)) and 5.17% above it (§14(ב)(1)), with the §14(ז)–(ז1) exemptions, the §14(ה) pensioner schedule that displaces it, and the §14(ז2) temporary inclusion of §350א(א)-exempt income | 13 | `9c1e3dfa` / gpt-6-astra |
+| `il/statutes/composed/worker-with-children-monthly-net-pipeline.yaml` | composed | gross monthly wage → income tax after credit points → §121ב additional tax → child allowance, counted over the children NII §65(א) admits → monthly net → less the NII §342 deduction and the health §14 contribution, on the wage up to the לוח י״א maximum → monthly take-home pay before pension contributions | 54 | assembled, not encoded |
 
 Every module that reads a fact has a companion `.test.yaml` in which **every** local
 `#input` fact is assigned, including the false ones. The two modules that read none —
@@ -85,7 +87,7 @@ file can reach. See `docs/ENCODING-GAPS.md`.
 
 1. **Knesset national legislation database** (מאגר החקיקה הלאומי) — the official
    registry. The Income Tax Ordinance is `IsraelLawID` 2000944, the National
-   Insurance Law 2000198. The database renders client-side and
+   Insurance Law 2000198, the National Health Insurance Law 2000111. The database renders client-side and
    `KNS_DocumentIsraelLaw` returns empty over OData, so it is used here as the
    authority for *what the law is and how it was amended*, not as a text source.
 2. **Reshumot / ספר החוקים** — official gazette PDFs on `fs.knesset.gov.il`, the
@@ -158,12 +160,19 @@ number came from. The §121ב threshold is not supplied at all: the pipeline app
 statute's own 640,000, which is a narrower claim than an indexed figure would be. See
 `docs/ENCODING-GAPS.md`.
 
+The employee contributions add two more supplied amounts, both from the National
+Insurance Institute's published tables for 01.01.2026: the reduced collection bracket
+(7,703 ILS; NII §334 prints 7,522 and an update formula, which gives 7,702.53 at the
+published 2.4% index rise, and the Institute rounds) and basic amount 3 (10,382 ILS),
+whose fivefold is the 51,910 ILS monthly maximum of לוח י״א. One bracket figure feeds both
+contributions. See `docs/ENCODING-GAPS.md`, `contributions-bracket-and-ceiling-are-supplied`.
+
 ## Corpus anchoring
 
-Every proof excerpt in this repository is checked against the Israel corpus ingest branch
-(`axiom-corpus`, `ingest/il-taxben-pilot`), which is the source of record for provision
-text — the encoder read its provisions from there and each excerpt is a verbatim NFC
-substring of the corpus body.
+Every proof excerpt in this repository is checked against the Israel corpus: the pilot's
+modules against the signed release `il-rulespec-2026-09-06`, which `.axiom/toolchain.toml`
+pins, and the contribution modules against the 2026-09-29 scope (axiom-corpus#767). Each
+excerpt is a verbatim NFC substring of the corpus body.
 
 **No module pins a digest of the statutory text it encodes.** Each declares
 `source_verification.corpus_citation_path` and no `source_sha256`: that is what the encoder
@@ -176,38 +185,22 @@ file — what the encoder produced. Inside five module YAMLs they are `import.ha
 pinning the imported RULE definition (`sha256:local` where the import is same-module), so
 that a change to an imported rule is detectable by its consumer. Both identify RuleSpec
 artifacts. Neither would change if the corpus text did. What anchors an encoding to its text is
-therefore the citation path plus the named corpus ingest, re-checked by re-running the proof
-check against that ingest; a byte-level anchor arrives with the signed release. Until
-`il-rulespec-2026-09-06` is cut, signed and registered, an excerpt is checked against a branch
-that can still be edited. See `docs/ENCODING-GAPS.md`, `no-signed-corpus-release` and
-`no-source-sha256-pins`.
+therefore the citation path plus the corpus release CI validates against. See
+`docs/ENCODING-GAPS.md`, `no-signed-corpus-release` and `no-source-sha256-pins`.
 
 ## Toolchain binding
 
-`.axiom/toolchain.toml` is deliberately **absent**: no signed `il-rulespec-*` corpus
-release exists yet, and binding a repository to a release that does not exist would be a
-false claim. `.github/workflows/repository-checks.yml` is structurally the shared
-validate workflow used by the other jurisdiction repos, and toolchain binding lands in a
-dedicated PR after the Israel corpus release is cut, signed, and registered — never
-combined with content changes.
+`.axiom/toolchain.toml` binds the repository to the signed corpus release
+`il-rulespec-2026-09-06` (rulespec-il#4), and the shared validate workflow checks every
+pull request against it. The generated-content guard (`run-generated-guard`) is still
+off, for the reason the workflow file gives: the apply manifests were signed with a local
+key by a local encoder build (`docs/ENCODING-GAPS.md`, `bootstrap-encoder-ref`).
 
-The shared generated-content guard (`run-generated-guard`) is off for one reason and one
-only: the apply manifests here were signed with a throwaway local key, because the
-encoder ref that the guard's validator pins hard-requires a signed Israel corpus release
-that does not exist. It is turned on in the same PR that re-encodes at the pinned ref.
-The workflow file says exactly that, in a comment.
-
-**CI is red on this branch, on purpose.** The shared workflow fails with
-
-```
-RuleSpec toolchain error: a regular .axiom/toolchain.toml is required
-```
-
-because it is fail-closed on the toolchain binding. The check is behaving correctly;
-making it green would mean either pinning a release that does not exist or weakening the
-gate, and neither is acceptable. What could be verified locally was verified — see
-`docs/ENCODING-GAPS.md`, `validators-not-run-as-shipped`, for the commands and their
-results.
+The contribution modules cite the National Health Insurance Law, which only the
+2026-09-29 corpus scope carries (axiom-corpus#767, release `il-rulespec-2026-09-29`).
+The toolchain moves to that release in a pull request of its own, which changes nothing
+else, before the contribution modules can pass CI. See `docs/ENCODING-GAPS.md`,
+`no-signed-corpus-release`.
 
 ## Context
 

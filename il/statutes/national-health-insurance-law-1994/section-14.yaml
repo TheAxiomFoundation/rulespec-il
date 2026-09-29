@@ -1,0 +1,399 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+  summary: |-
+    ”סכום המינימום“ – סכום של 47 שקלים חדשים לחודש
+    המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד.
+    על החלק מההכנסה שאינו עולה על הסכום המופחת שנקבע לפי סעיף 341 לחוק הביטוח הלאומי, דמי ביטוח בריאות בשיעור של 3.23%.
+    בחישוב הכנסת מבוטח לעניין תשלום דמי ביטוח בריאות כאמור בסעיפים קטנים (ב) ו־(ג) תובא בחשבון גם הכנסה הפטורה מתשלום דמי ביטוח לאומי לפי סעיף 350א(א) לחוק הביטוח הלאומי.
+  deferred_outputs:
+    - output: il:statutes/national-health-insurance-law-1994/section-14/b#employer_health_insurance_contribution
+      reason: >-
+        The employee-level wage deduction is encoded. Employer aggregation
+        requires an employer-employee relation carrying employee-specific
+        incomes, thresholds, pension classifications and exemptions.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/b#employee_self_paid_health_insurance_contribution
+      reason: >-
+        The subsection (b)(2) self-payment route is outside the encoded
+        employer-withheld employee amount.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/c#self_employed_health_insurance_contribution
+      reason: >-
+        The subsection (c)(1) self-employed payment route is outside the
+        encoded employer-withheld employee amount.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/c#nonworker_health_insurance_contribution
+      reason: >-
+        The payable minimum requires the adjustment history under subsection
+        (c)(2), including the timetable tied to item 4 of Schedule XI of the
+        National Insurance Law. The statutory minimum is a base amount.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/d#listed_benefit_health_insurance_contribution
+      reason: >-
+        The six categories in subsection (d)(2) require benefit-specific
+        bases and applicable employee contribution mechanics. Employer-paid
+        benefits and replacement wages under (d)(3) must be treated as employee
+        income. The wage deduction output does not represent those routes.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/e#fixed_pension_health_insurance_contribution
+      reason: >-
+        Subsections (e)(1)-(3) require updated amounts. Old-age pension includes
+        the special old-age benefit. Income supplementation or the additional
+        disability benefit invokes the minimum. Otherwise the single or couple
+        amount applies, with the couple amount applying for a spouse supplement
+        or a spouse receiving old-age pension. The incorporated adjustment
+        history is unavailable; the encoded amounts are statutory bases.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/e1#early_pension_retirement_and_adjustment_contribution
+      reason: >-
+        Subsection (e1) incorporates National Insurance Law section 345b,
+        with necessary modifications, for early pensions, retirement
+        remuneration and adjustment pensions. Those computational provisions
+        are not supplied.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/f#residual_health_insurance_contribution
+      reason: >-
+        Subsection (f) requires the updated minimum and absence of contributions
+        under (b)-(e1) or (f1). The adjustment history and other payment routes
+        are unresolved.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/h#regulatory_rate_and_amount_variations
+      reason: >-
+        Subsection (h) authorizes regulations varying contributions generally
+        and service-payment exemptions or reductions, with specified approvals.
+        No implementing regulations are supplied.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/i#regulatory_collection_and_category_variations
+      reason: >-
+        Subsection (i) authorizes collection rules, exemptions and contribution
+        variations for categories of insured persons, with specified approvals.
+        No implementing regulations are supplied.
+    - output: il:statutes/national-health-insurance-law-1994/section-14/j#health_insurance_collection
+      reason: >-
+        Subsection (j)(1) permits Institute deductions from benefits or other
+        payments. Subsection (j)(2) requires specified compensation payers to
+        remit subsection (f) liabilities under prescribed rules and permits
+        deduction of amounts remitted. The prescribed rules and the residual
+        liability computation are unavailable.
+rules:
+  - name: statutory_monthly_minimum
+    kind: parameter
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "”סכום המינימום“ – סכום של 47 שקלים חדשים לחודש"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          47
+  - name: standard_contribution_rate
+    kind: parameter
+    dtype: Rate
+    source: National Health Insurance Law 1994, section 14(b), (c), and (d)(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בשיעור של 5.17% מהכנסת העובד"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          0.0517
+  - name: reduced_contribution_rate
+    kind: parameter
+    dtype: Rate
+    source: National Health Insurance Law 1994, section 14(ו1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "דמי ביטוח בריאות בשיעור של 3.23%"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "חל על דמי ביטוח בריאות הנגבים בעד חודש ינואר 2025 ואילך"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          0.0323
+  - name: statutory_single_pension_monthly_amount
+    kind: parameter
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(e)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בסכום של 88 שקלים חדשים לחודש"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          88
+  - name: statutory_couple_pension_monthly_amount
+    kind: parameter
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(e)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בסכום של 128 שקלים חדשים לחודש"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          128
+  - name: minimum_contribution_age
+    kind: parameter
+    dtype: Integer
+    source: National Health Insurance Law 1994, section 14(g)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "שטרם מלאו לו 18 שנים"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          18
+  - name: temporary_exempt_income_inclusion_indicator
+    kind: parameter
+    dtype: Integer
+    source: National Health Insurance Law 1994, section 14(ז2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "הוראת שעה מיום 1.1.2026 עד יום 31.12.2035"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          0
+      - effective_from: '2026-01-01'
+        formula: |-
+          1
+      - effective_from: '2036-01-01'
+        formula: |-
+          0
+  - name: health_insurance_exempt
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Health Insurance Law 1994, section 14(g) and (g1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "שתרם בישראל אבר, בחייו, לנתרם שהוא תושב ישראל, לתקופה שקבע שר הבריאות, בהסכמת שר האוצר"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          is_insured
+          and (
+            age < minimum_contribution_age
+            or is_housewife_under_section_238
+            or is_exempt_student_under_section_351_ia_2a
+            or is_exempt_recruit_under_section_351_ia_2b
+            or is_exempt_person_under_section_351_z1
+            or is_exempt_person_under_section_351_ia_2c
+            or (
+              is_donor_under_organ_transplant_law
+              and donated_organ_in_israel_while_alive
+              and organ_recipient_is_israeli_resident
+              and within_minister_prescribed_donor_exemption_period
+            )
+          )
+  - name: fixed_pension_schedule_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Health Insurance Law 1994, section 14(e)(1)-(3), (g), and (g1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          is_insured
+          and not health_insurance_exempt
+          and (
+            receives_old_age_pension
+            or receives_additional_disability_benefit_under_section_251
+            or income_precludes_special_old_age_benefit
+            or receives_pension_under_sections_261_and_320_d
+            or receives_pension_under_sections_261_and_320_e
+          )
+  - name: state_contribution_for_special_adaptation_allowance
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(d)(4), (e)(4), (g), and (g1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בסכום השווה למכפלה של השיעור האמור בסעיף קטן (ב)(1) בדמי ההסתגלות המיוחדים"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "לא יהיה חייב בתשלום דמי ביטוח בריאות לפי סעיפים קטנים (ב) עד (ד) ו־(ו1)"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if health_insurance_exempt: 0
+          else: if fixed_pension_schedule_applies: 0
+          else: if is_insured and receives_special_adaptation_allowance:
+            standard_contribution_rate * special_adaptation_allowance
+          else: 0
+  - name: additional_income_included_in_employee_and_self_payer_contribution_base
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(ז2), for section 14(b) and (c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "תובא בחשבון גם הכנסה הפטורה מתשלום דמי ביטוח לאומי לפי סעיף 350א(א)"
+          - path: versions[0].formula
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "הוראת שעה מיום 1.1.2026 עד יום 31.12.2035"
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if is_insured and temporary_exempt_income_inclusion_indicator == 1:
+            income_exempt_from_national_insurance_under_section_350a_a
+          else: 0
+  - name: employer_withheld_employee_contribution_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Health Insurance Law 1994, section 14(b)(1), (e)(4), (g), and (g1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בעד כל עובד מעובדיו שהוא מבוטח ושהמעביד חייב בתשלום דמי ביטוח לאומי בעדו"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          is_insured
+          and is_employee
+          and employer_owes_national_insurance_for_employee
+          and not health_insurance_exempt
+          and not fixed_pension_schedule_applies
+  - name: employee_health_insurance_contribution_for_month
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: ILS
+    source: National Health Insurance Law 1994, section 14(b)(1), (e)(4), (ו1), (g), (g1), and (ז2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "בשיעור של 5.17% מהכנסת העובד; המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד."
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "על החלק מההכנסה שאינו עולה על הסכום המופחת שנקבע לפי סעיף 341 לחוק הביטוח הלאומי, דמי ביטוח בריאות בשיעור של 3.23%."
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "תובא בחשבון גם הכנסה הפטורה מתשלום דמי ביטוח לאומי לפי סעיף 350א(א)"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+              excerpt: "חל על דמי ביטוח בריאות הנגבים בעד חודש ינואר 2025 ואילך"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          if employer_withheld_employee_contribution_applies:
+            reduced_contribution_rate
+            * min(
+                employee_monthly_income_subject_to_contributions
+                + additional_income_included_in_employee_and_self_payer_contribution_base,
+                reduced_amount_under_national_insurance_section_341
+              )
+            + standard_contribution_rate
+            * max(
+                0,
+                employee_monthly_income_subject_to_contributions
+                + additional_income_included_in_employee_and_self_payer_contribution_base
+                - reduced_amount_under_national_insurance_section_341
+              )
+          else: 0
