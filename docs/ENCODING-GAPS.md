@@ -33,11 +33,15 @@ Three consequences, all harness-only and all disclosed:
 * This build resolves the imports of a copied module against `rulespec-il/statutes/…`, but the
   modules live under `rulespec-il/il/statutes/…`. So when an existing Israel module that imports
   another is re-encoded, the encoder is told that EVERY one of its imports "does not resolve in
-  the clean repo context", and is instructed to drop the import and defer. That is what deferred
-  NII §342(ג)(1) in its second round; the third round's findings file says the report was false.
-  axiom-encode main (read at `a1a306094d`) resolves an import through the checkout's
-  jurisdiction content directories (`_candidate_rulespec_repo_roots` →
-  `candidate_jurisdiction_content_dirs`), which include `rulespec-il/il/`.
+  the clean repo context", and is instructed to drop the import and defer. It reached NII §342
+  twice. Round 2 deferred §342(ג)(1) on it; the third round's findings file says the report was
+  false. Round 5 was told it again, about round 3's §334 import. So the deferral reasons the
+  applied §342 gives for (ב), (ג)(1) and (ו), "fails clean-context resolution", rest partly on
+  this false report; its other reasons (Schedule A1 Part D) are real. axiom-encode main (read at
+  `e5a35516`) resolves a copied module's imports through `evals.py`
+  `_candidate_import_rule_files` → `_resolve_rulespec_target_file`, whose
+  `_candidate_rulespec_repo_roots` → `candidate_jurisdiction_content_dirs` return
+  `rulespec-il/il/`.
 **Resolution:** re-encode every citation at the pinned ref after the release
 `il-rulespec-2026-09-06` is cut, signed and registered, and diff the output against what is
 here.
@@ -560,6 +564,30 @@ What is still partial:
   rather than on its birthday.
 **Resolution:** encode §65 through the encoder and give the composition a Child entity, so the
 definition is imported per child instead of repeated.
+
+### `schedule-j-2025-2026-deduction-heading-still-says-60-percent-of-the-average-wage` — `divergent`
+In the corpus text of לוח י׳, the temporary 2025–2026 table heads the upper employee-deduction column
+(טור ד׳) "על חלק השכר העולה על 60% מהשכר הממוצע". Its lower column, and every column of the permanent
+table, reads "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)". The encoded `schedule-j/sign-1` carries the
+heading as `temporary_employee_deduction_upper_band_average_wage_share` (0.60, from 2025-01-01).
+Read literally, that heading would levy nothing on the part of the wage between the bracket (7,703) and
+60% of the §1 average wage for contributions (13,566 × 0.6 = 8,139.60), and 7% above it. For a
+₪15,000 wage that is ₪560.34 instead of ₪590.90.
+Nothing in this repository reads that parameter, and the heading is probably not the law in
+force, for two reasons. First, the official gazette:
+ספר החוקים 3384 (27 March 2025), חוק להשגת יעדי התקציב וליישום המדיניות הכלכלית לשנת התקציב 2025 (תיקוני חקיקה), §19(6)
+(National Insurance Law amendment no. 256), replaces
+"60% מהשכר הממוצע" with "מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)" "בלוח י׳, בכל מקום" (in לוח י׳,
+everywhere), and §21 brings that chapter into force on 1 January 2026. The words the consolidation prints
+in the other cells are exactly that replacement text. Second, the National Insurance Institute applies
+the bracket to both bands (its employee-rates page: reduced rate up to 7,703, full rate above it). Both
+sources outrank a secondary consolidation. One point is not settled: §20 of the same law amends the
+temporary table's own text (in Amendment 252's §7) and does not repeat the replacement there. Whether
+§19(6)'s "everywhere" reaches the temporary table is a question for the consolidation's maintainers.
+The gazette was captured by the pilot (`ops/il-lane/sources/amend-278-282-budget-2025-law-sefer-hachukim-3384.pdf`,
+fs.knesset.gov.il, sha256 `eba7e1fa…`).
+**Resolution:** settle the reading with the Open Law Book's maintainers, correct the consolidation or the
+encoding, and re-encode לוח י׳.
 
 ### `schedule-j-rows-do-not-sum-to-printed-totals` — `unexplained`
 Each column of לוח י׳ lists a rate per insurance branch and a printed total, ”סך הכל“. In the corpus text,

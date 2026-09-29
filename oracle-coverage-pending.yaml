@@ -7,7 +7,7 @@
 # Maintained by: axiom-encode oracle-coverage-pending sync.
 version: 1
 issue: https://github.com/TheAxiomFoundation/rulespec-il/issues/2
-ceiling: 148
+ceiling: 151
 entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils
   source: bulk
@@ -309,9 +309,6 @@ entries:
 - legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#self_employed_contribution_within_reduced_band_by_branch
   source: bulk
   since: '2026-09-29'
-- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#state_treasury_allocation_under_section_32_by_branch
-  source: bulk
-  since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#temporary_employee_deduction_upper_band_average_wage_share
   source: bulk
   since: '2026-09-29'
@@ -339,7 +336,10 @@ entries:
 - legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_self_employed_contribution_within_reduced_band
   source: bulk
   since: '2026-09-29'
-- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_state_treasury_allocation_under_section_32
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#treasury_allocation_table_figures_by_branch
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#treasury_allocation_table_total
   source: bulk
   since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_maximum_insurable_income
@@ -349,6 +349,9 @@ entries:
   source: bulk
   since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_minimum_insurable_income
   source: bulk
   since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/schedule-k/sign-1#maximum_basic_amount_multiplier
@@ -379,6 +382,12 @@ entries:
   source: bulk
   since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket_statutory_base
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#reduced_collection_initial_update_indicator
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-insurance-law-1995/section-334#reduced_collection_price_index_update_indicator
   source: bulk
   since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies

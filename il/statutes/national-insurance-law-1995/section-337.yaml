@@ -58,19 +58,19 @@ rules:
             import:
               target: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_contribution_within_reduced_band
               output: total_employee_contribution_within_reduced_band
-              hash: sha256:56c90be2331cb4ca2f50b735175ad34b94c2f325f569d469b652761d6296301b
+              hash: sha256:5ab3ec6ed45c65e338d11cdca25a7654fad8854935f090aef7b4e462f3cca9d9
           - path: versions[0].formula
             kind: import
             import:
               target: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_contribution_above_reduced_band
               output: total_employee_contribution_above_reduced_band
-              hash: sha256:56c90be2331cb4ca2f50b735175ad34b94c2f325f569d469b652761d6296301b
+              hash: sha256:5ab3ec6ed45c65e338d11cdca25a7654fad8854935f090aef7b4e462f3cca9d9
           - path: versions[0].formula
             kind: import
             import:
               target: il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
               output: reduced_collection_bracket
-              hash: sha256:f3c980323ef2936527e96f3e3c916f59921e6cb17e4520a9d51154a836106ea1
+              hash: sha256:6eace162da64d0cc57475ab68df2ae52a5ddcdc59d686f9cf4cb08d6d3970aa8
     versions:
       - effective_from: '2026-01-01'
         formula: |-

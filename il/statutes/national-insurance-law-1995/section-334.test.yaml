@@ -1,9 +1,7 @@
-- name: first_price_index_update_and_salary_fixed_by_law
+- name: first_update_uses_statutory_base_and_price_index
   period: 2026-01
   input:
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: true
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
-    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 7522
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9000
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 110
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
     il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 12000
@@ -14,11 +12,9 @@
   output:
     il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 8274.2
     il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
-- name: subsequent_price_index_update_and_knesset_decision
+- name: subsequent_update_uses_previous_bracket_and_knesset_salary_qualifies
   period: 2027-01
   input:
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: false
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
     il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 8274.2
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 121
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 110
@@ -30,13 +26,11 @@
   output:
     il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 9101.62
     il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
-- name: final_price_index_year_and_salary_pursuant_to_knesset_decision
-  period: 2028-12
+- name: final_price_index_year_preserves_bracket_when_index_falls
+  period: 2028-01
   input:
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: false
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
     il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9101.62
-    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 121
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 110
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 121
     il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 18000
     il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 15000
@@ -46,14 +40,12 @@
   output:
     il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 9101.62
     il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
-- name: average_wage_update_and_no_special_employee_deeming
+- name: wage_update_replaces_price_index_and_ordinary_salary_does_not_qualify
   period: 2029-01
   input:
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: false
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: false
     il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9101.62
-    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 121
-    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 121
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 150
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
     il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 19800
     il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 18000
     il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_law: false

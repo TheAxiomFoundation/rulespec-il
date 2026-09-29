@@ -4,257 +4,348 @@ module:
     required: true
   source_verification:
     corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-  summary: |-
-    הכנסה מרבית ומזערית לענין דמי ביטוח
-    לחודש – הסכום הבסיסי, כפול 5;
-    לחודש – סכום השווה לשכר מינימום של החודש הראשון ברבעון;
-    לשנה – סכום השווה לסך ההכנסות המרביות בכל רבעון שבאותה שנת מס.
-    ”שכר מינימום“ – שכר מינימום, שכר מינימום חלקי, שכר מינימום יומי, או שכר מינימום לשעה החל, לפי הענין, לפי הוראות חוק שכר מינימום לגבי עובד פלוני;
-    ”הסכום הבסיסי“ – כהגדרתו בפסקה (3) שבהגדרה סכום בסיסי שבסעיף 1.
+  summary: "הכנסה מרבית ומ\
+    זערית לענין דמי\
+    \ ביטוח\nלחודש – ה\
+    סכום הבסיסי, כפו\
+    ל 5;\nלחודש – סכום ה\
+    שווה לשכר מינימ\
+    ום של החודש הראש\
+    ון ברבעון;\nלשנה –\
+    \ סכום השווה לסך ה\
+    הכנסות המרביות\
+    \ בכל רבעון שבאות\
+    ה שנת מס.\n”שכר מי\
+    נימום“ – שכר מינ\
+    ימום, שכר מינימו\
+    ם חלקי, שכר מינימ\
+    ום יומי, או שכר מי\
+    נימום לשעה החל, ל\
+    פי הענין, לפי הור\
+    אות חוק שכר מיני\
+    מום לגבי עובד פל\
+    וני;\n”הסכום הבסי\
+    סי“ – כהגדרתו בפ\
+    סקה (3) שבהגדרה סכ\
+    ום בסיסי שבסעיף\
+    \ 1."
 rules:
-  - name: maximum_basic_amount_multiplier
-    kind: parameter
-    dtype: Decimal
-    source: לוח י״א, סימן א, פרטים 1–4, הכנסה מרבית
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לחודש – הסכום הבסיסי, כפול 5;"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          5
+- name: maximum_basic_amount_multiplier
+  kind: parameter
+  dtype: Decimal
+  source: "לוח י״א, סימן א\
+    , פרטים 1–4, הכנסה מ\
+    רבית"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לחודש – הסכו\
+            ם הבסיסי, כפול\
+            \ 5;"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '5'
+- name: months_per_quarter
+  kind: parameter
+  dtype: Count
+  source: "לוח י״א, סימן א\
+    , הגדרת רבעון ופר\
+    טים 1–4"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לרבעון – סכו\
+            ם השווה להכנסה\
+            \ המרבית לחודש\
+            , כפול 3;"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: '3'
+- name: minimum_average_wage_rate
+  kind: parameter
+  dtype: Rate
+  indexed_by: insured_item
+  source: "לוח י״א, סימן א\
+    , פרטים 2–4, הכנסה מ\
+    זערית"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values[2]
+        kind: table_cell
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "ל־25% מהשכר הממ\
+            וצע"
+          table:
+            header: "פרט | בעד | הכנס\
+              ה מרבית | הכנסה\
+              \ מזערית"
+            row: "2. | עובד עצמאי"
+            column: "הכנסה מזערי\
+              ת"
+      - path: versions[0].values[3]
+        kind: table_cell
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "ל־5% מהשכר הממ\
+            וצע"
+          table:
+            header: "פרט | בעד | הכנס\
+              ה מרבית | הכנסה\
+              \ מזערית"
+            row: "3. | מבוטח כאמור\
+              \ בסעיף 348(ד) ו־(ה)"
+            column: "הכנסה מזערי\
+              ת"
+      - path: versions[0].values[4]
+        kind: table_cell
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "ל־15% מהשכר הממ\
+            וצע"
+          table:
+            header: "פרט | בעד | הכנס\
+              ה מרבית | הכנסה\
+              \ מזערית"
+            row: "4. | מבוטח אחר"
+            column: "הכנסה מזערי\
+              ת"
+  versions:
+  - effective_from: '0001-01-01'
+    values:
+      2: 0.25
+      3: 0.05
+      4: 0.15
+- name: employee_monthly_maximum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרט 1, הכנסה מרבי\
+    ת לחודש"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לחודש – הסכו\
+            ם הבסיסי, כפול\
+            \ 5;"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: basic_amount_under_section_1_definition_paragraph_3 * maximum_basic_amount_multiplier
+- name: employee_monthly_minimum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרט 1, הכנסה מזער\
+    ית לחודש"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "1. | עובד"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לחודש – סכום\
+            \ השווה לשכר מי\
+            נימום של החודש\
+            \ הראשון ברבעון\
+            ;"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'if insured_item == 1: applicable_minimum_wage_first_month_of_quarter
+      else: 0'
+- name: quarterly_maximum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרטים 1–4, הכנסה מ\
+    רבית לרבעון"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לרבעון – סכו\
+            ם השווה לחמש פע\
+            מים הסכום הבסי\
+            סי, כפול 3;"
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "כאמור בפרט 1, ל\
+            פי הענין"
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "כאמור בפרט 2, ל\
+            פי הענין"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'basic_amount_under_section_1_definition_paragraph_3
 
-  - name: months_per_quarter
-    kind: parameter
-    dtype: Count
-    source: לוח י״א, סימן א, הגדרת רבעון ופרטים 1–4
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לרבעון – סכום השווה להכנסה המרבית לחודש, כפול 3;"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          3
+      * maximum_basic_amount_multiplier
 
-  - name: minimum_average_wage_rate
-    kind: parameter
-    dtype: Rate
-    indexed_by: insured_item
-    source: לוח י״א, סימן א, פרטים 2–4, הכנסה מזערית
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].values[2]
-            kind: table_cell
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "ל־25% מהשכר הממוצע"
-              table:
-                header: "פרט | בעד | הכנסה מרבית | הכנסה מזערית"
-                row: "2. | עובד עצמאי"
-                column: הכנסה מזערית
-          - path: versions[0].values[3]
-            kind: table_cell
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "ל־5% מהשכר הממוצע"
-              table:
-                header: "פרט | בעד | הכנסה מרבית | הכנסה מזערית"
-                row: "3. | מבוטח כאמור בסעיף 348(ד) ו־(ה)"
-                column: הכנסה מזערית
-          - path: versions[0].values[4]
-            kind: table_cell
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "ל־15% מהשכר הממוצע"
-              table:
-                header: "פרט | בעד | הכנסה מרבית | הכנסה מזערית"
-                row: "4. | מבוטח אחר"
-                column: הכנסה מזערית
-    versions:
-      - effective_from: '0001-01-01'
-        values:
-          2: 0.25
-          3: 0.05
-          4: 0.15
-
-  - name: employee_monthly_maximum_insurable_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Month
-    source: לוח י״א, סימן א, פרט 1, הכנסה מרבית לחודש
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לחודש – הסכום הבסיסי, כפול 5;"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          basic_amount_under_section_1_definition_paragraph_3 * maximum_basic_amount_multiplier
-
-  - name: quarterly_maximum_insurable_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Month
-    source: לוח י״א, סימן א, פרטים 1–4, הכנסה מרבית לרבעון
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לרבעון – סכום השווה לחמש פעמים הסכום הבסיסי, כפול 3;"
-          - path: versions[0].formula
-            kind: definition
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "כאמור בפרט 1, לפי הענין"
-          - path: versions[0].formula
-            kind: definition
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "כאמור בפרט 2, לפי הענין"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          basic_amount_under_section_1_definition_paragraph_3
-          * maximum_basic_amount_multiplier
-          * months_per_quarter
-
-  - name: quarterly_minimum_insurable_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Month
-    source: לוח י״א, סימן א, פרטים 1–4, הכנסה מזערית לרבעון
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לרבעון – סכום השווה להכנסה המזערית לחודש, כפול 3;"
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "25% מהשכר הממוצע של החודש הראשון ברבעון, כפול 3"
-          - path: versions[0].formula
-            kind: condition
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לרבעון שתחילתו ב־1 בינואר, ב־1 באפריל וב־1 ביולי של שנת מס"
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "מהשכר הממוצע של החודש הראשון ברבעון שתחילתו ב־1 בינואר, כפול 3"
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "ולרבעון שתחילתו ב־1 באוקטובר של שנת מס"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          if insured_item == 1:
-            applicable_minimum_wage_first_month_of_quarter * months_per_quarter
-          else:
-            minimum_average_wage_rate[insured_item]
-            * months_per_quarter
-            * (if insured_item == 2:
-                 average_wage_first_month_of_quarter
-               else:
-                 if quarter_begins_in_october:
-                   average_wage_october
-                 else:
-                   average_wage_january)
-
-  - name: annual_maximum_insurable_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    source: לוח י״א, סימן א, פרטים 1–4, הכנסה מרבית לשנה
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לשנה – סכום השווה לסך ההכנסות המרביות בכל רבעון שבאותה שנת מס."
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          maximum_basic_amount_multiplier
-          * months_per_quarter
-          * (basic_amount_for_january_quarter_under_section_1_definition_paragraph_3
-             + basic_amount_for_april_quarter_under_section_1_definition_paragraph_3
-             + basic_amount_for_july_quarter_under_section_1_definition_paragraph_3
-             + basic_amount_for_october_quarter_under_section_1_definition_paragraph_3)
-
-  - name: annual_minimum_insurable_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    source: לוח י״א, סימן א, פרטים 1–4, הכנסה מזערית לשנה
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לשנה – סכום השווה לסך ההכנסות המזעריות שבכל רבעון שבאותה שנת מס."
-          - path: versions[0].formula
-            kind: condition
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "לרבעון שתחילתו ב־1 בינואר, ב־1 באפריל וב־1 ביולי של שנת מס"
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
-              excerpt: "מהשכר הממוצע של החודש הראשון ברבעון שתחילתו ב־1 בינואר, כפול 3"
-    versions:
-      - effective_from: '0001-01-01'
-        formula: |-
-          if insured_item == 1:
-            months_per_quarter
-            * (applicable_minimum_wage_january
-               + applicable_minimum_wage_april
-               + applicable_minimum_wage_july
-               + applicable_minimum_wage_october)
-          else:
-            minimum_average_wage_rate[insured_item]
-            * months_per_quarter
-            * (if insured_item == 2:
-                 average_wage_january
-                 + average_wage_april
-                 + average_wage_july
-                 + average_wage_october
-               else:
-                 average_wage_january
-                 + average_wage_january
-                 + average_wage_january
-                 + average_wage_october)
+      * months_per_quarter'
+- name: quarterly_minimum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרטים 1–4, הכנסה מ\
+    זערית לרבעון"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לרבעון – סכו\
+            ם השווה להכנסה\
+            \ המזערית לחודש\
+            , כפול 3;"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "25% מהשכר הממוצ\
+            ע של החודש הראש\
+            ון ברבעון, כפול\
+            \ 3"
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לרבעון שתחיל\
+            תו ב־1 בינואר, ב\
+            ־1 באפריל וב־1 ב\
+            יולי של שנת מס"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "מהשכר הממוצע\
+            \ של החודש הראש\
+            ון ברבעון שתחי\
+            לתו ב־1 בינואר\
+            , כפול 3"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "ולרבעון שתחי\
+            לתו ב־1 באוקטוב\
+            ר של שנת מס"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "if insured_item == 1:\n  applicable_minimum_wage_first_month_of_quarter\
+      \ * months_per_quarter\nelse:\n  minimum_average_wage_rate[insured_item]\n \
+      \ * months_per_quarter\n  * (if insured_item == 2:\n       average_wage_first_month_of_quarter\n\
+      \     else:\n       if quarter_begins_in_october:\n         average_wage_october\n\
+      \       else:\n         average_wage_january)"
+- name: annual_maximum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרטים 1–4, הכנסה מ\
+    רבית לשנה"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לשנה – סכום ה\
+            שווה לסך ההכנס\
+            ות המרביות בכל\
+            \ רבעון שבאותה\
+            \ שנת מס."
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "maximum_basic_amount_multiplier\n* months_per_quarter\n* (basic_amount_for_january_quarter_under_section_1_definition_paragraph_3\n\
+      \   + basic_amount_for_april_quarter_under_section_1_definition_paragraph_3\n\
+      \   + basic_amount_for_july_quarter_under_section_1_definition_paragraph_3\n\
+      \   + basic_amount_for_october_quarter_under_section_1_definition_paragraph_3)"
+- name: annual_minimum_insurable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: ILS
+  source: "לוח י״א, סימן א\
+    , פרטים 1–4, הכנסה מ\
+    זערית לשנה"
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לשנה – סכום ה\
+            שווה לסך ההכנס\
+            ות המזעריות שב\
+            כל רבעון שבאות\
+            ה שנת מס."
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "לרבעון שתחיל\
+            תו ב־1 בינואר, ב\
+            ־1 באפריל וב־1 ב\
+            יולי של שנת מס"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-k/sign-1
+          excerpt: "מהשכר הממוצע\
+            \ של החודש הראש\
+            ון ברבעון שתחי\
+            לתו ב־1 בינואר\
+            , כפול 3"
+  versions:
+  - effective_from: '0001-01-01'
+    formula: "if insured_item == 1:\n  months_per_quarter\n  * (applicable_minimum_wage_january\n\
+      \     + applicable_minimum_wage_april\n     + applicable_minimum_wage_july\n\
+      \     + applicable_minimum_wage_october)\nelse:\n  minimum_average_wage_rate[insured_item]\n\
+      \  * months_per_quarter\n  * (if insured_item == 2:\n       average_wage_january\n\
+      \       + average_wage_april\n       + average_wage_july\n       + average_wage_october\n\
+      \     else:\n       average_wage_january\n       + average_wage_january\n  \
+      \     + average_wage_january\n       + average_wage_october)"

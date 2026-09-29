@@ -2,8 +2,6 @@
   period: 2026-01
   input:
     il:statutes/national-insurance-law-1995/section-337#input.employee_monthly_income_counted_for_contributions: 15000
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: true
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
     il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 7522
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 100
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
@@ -15,8 +13,6 @@
   period: 2026-01
   input:
     il:statutes/national-insurance-law-1995/section-337#input.employee_monthly_income_counted_for_contributions: 5000
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_first_statutory_update: true
-    il:statutes/national-insurance-law-1995/section-334#input.annual_update_is_in_price_index_period: true
     il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 7522
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 100
     il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100

@@ -62,7 +62,7 @@ rules:
             import:
               target: il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income
               output: employee_monthly_maximum_insurable_income
-              hash: sha256:c830a3f6f0cde684dbac9ba29b1f6e36051838b77e1f1503b660de14f0c3ad37
+              hash: sha256:139f54a058ff46c5fda3b7e115fdf1af4296e48a833f652763e27adc069a7f29
     versions:
       - effective_from: '0001-01-01'
         formula: |-

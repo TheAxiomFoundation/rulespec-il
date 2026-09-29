@@ -218,8 +218,10 @@ def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> Non
     Statute modules are named for the section they encode. Composed pipelines and
     policy-publication modules under il/policies/ are named for what they are, so
     they are outside this contract. A schedule module sits at the corpus citation path
-    of the schedule part it encodes, `schedule-<ordinal>/sign-<n>` (לוח י׳ is
-    schedule-j/sign-1), and its schedule ordinal follows the same transliteration.
+    of the schedule part it encodes, `schedule-<letter><numeral>/sign-<n>`: the schedule's
+    Hebrew ordinal as the Latin letter at the same position in the alphabet, which runs
+    past the ten letters above (לוח י׳ is schedule-j, לוח י״א is schedule-k), followed by
+    any numeral the schedule's name carries (לוח א׳1 is schedule-a1).
     """
     allowed = set(HEBREW_SUFFIX_ORDINALS.values())
     for path in rulespec_files():

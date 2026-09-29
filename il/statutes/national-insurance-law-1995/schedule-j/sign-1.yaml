@@ -8,6 +8,19 @@ module:
     שיעור דמי ביטוח בעד אפריל שנת 2011 ואילך
     (הוראת שעה לשנים 2025–2026):
     (הנוסח הקבוע):
+    הקצבת אוצר המדינה לפי סעיף 32(ג1)
+  deferred_outputs:
+    - output: il:statutes/national-insurance-law-1995/schedule-j/sign-1#state_treasury_allocation_under_section_32_by_branch
+      reason: >-
+        Column E does not specify a unit or percentage basis. Its printed
+        figures are retained as Decimal parameters, but converting them to
+        allocation rates or amounts requires section 32(c1), which is not
+        supplied.
+    - output: il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_state_treasury_allocation_under_section_32
+      reason: >-
+        The printed total 0.67 has no stated unit in column E. It is retained
+        as a Decimal parameter; its interpretation as a rate or allocation
+        amount requires the unavailable section 32(c1).
 rules:
   - name: employee_contribution_above_reduced_band_by_branch
     kind: parameter
@@ -448,11 +461,11 @@ rules:
       - effective_from: '2027-01-01'
         values: *deduction_lower_permanent
 
-  - name: state_treasury_allocation_under_section_32_by_branch
+  - name: treasury_allocation_table_figures_by_branch
     kind: parameter
-    dtype: Rate
+    dtype: Decimal
     indexed_by: insurance_branch_item
-    source: תוספת י׳, סימן א׳, טור ה׳, הקצבת אוצר המדינה לפי סעיף 32(ג1).
+    source: תוספת י׳, סימן א׳, טור ה׳, הקצבת אוצר המדינה לפי סעיף 32(ג1); המספרים כנדפסו, ללא הנחת יחידה.
     metadata:
       proof:
         atoms:
@@ -466,18 +479,23 @@ rules:
           - *p9
           - *p10
           - *commencement
+          - path: versions
+            kind: definition
+            source:
+              corpus_citation_path: *corpus
+              excerpt: הקצבת אוצר המדינה לפי סעיף 32(ג1)
     versions:
       - effective_from: '2011-04-01'
         values:
-          1: 0.0009
-          3: 0.0008
-          4: 0.0003
-          5: 0.0002
-          6: 0.0006
-          7: 0.0002
-          8: 0.0010
-          9: 0.0002
-          10: 0.0025
+          1: 0.09
+          3: 0.08
+          4: 0.03
+          5: 0.02
+          6: 0.06
+          7: 0.02
+          8: 0.10
+          9: 0.02
+          10: 0.25
 
   - name: total_employee_contribution_above_reduced_band
     kind: parameter
@@ -733,10 +751,10 @@ rules:
         formula: |-
           0.0040
 
-  - name: total_state_treasury_allocation_under_section_32
+  - name: treasury_allocation_table_total
     kind: parameter
-    dtype: Rate
-    source: תוספת י׳, סימן א׳, סך הכל, טור ה׳, הקצבת אוצר המדינה לפי סעיף 32(ג1).
+    dtype: Decimal
+    source: תוספת י׳, סימן א׳, סך הכל, טור ה׳, הקצבת אוצר המדינה לפי סעיף 32(ג1); המספר כנדפס, ללא הנחת יחידה.
     metadata:
       proof:
         atoms:
@@ -753,7 +771,7 @@ rules:
     versions:
       - effective_from: '2011-04-01'
         formula: |-
-          0.0067
+          0.67
 
   - name: temporary_employee_deduction_upper_band_average_wage_share
     kind: parameter
