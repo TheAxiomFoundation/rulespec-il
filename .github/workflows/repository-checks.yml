@@ -11,10 +11,10 @@ jobs:
     uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
     secrets: inherit
     with:
-      # axiom-encode main at 5d4562d822e6d4a53420f0f9cb0a5891a7edf6fe (encoder 0.2.1964):
-      # Hebrew proof excerpts bind across the wrap space a source sets after a maqaf, from axiom-
-      # encode #1615 (on #1585's Hebrew source text).
-      axiom-encode-ref: 5d4562d822e6d4a53420f0f9cb0a5891a7edf6fe
+      # axiom-encode main at a88eec3715319cca9f47a03db0f7443772bc8fe4 (encoder 0.2.2076):
+      # numeric grounding reads a pipe-table column under a Hebrew percent heading as
+      # percentages, and keeps a leading empty cell in its column, from axiom-encode #1744.
+      axiom-encode-ref: a88eec3715319cca9f47a03db0f7443772bc8fe4
       # axiom-rules-engine#169 (Israel ILS currency seed) as merged to main.
       axiom-rules-engine-ref: 1f824237d43c1234d88fea60c8ac2fa7b9b9da4c
       # axiom-corpus#646 as merged to main: the Israel scope il/statute @
