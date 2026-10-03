@@ -1,0 +1,70 @@
+- name: insured_dual_status_worker_owes_own_contributions_and_shortfall
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_insured: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_employee: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_self_employed: true
+    il:statutes/national-insurance-law-1995/section-342#input.insured_only_under_chapter_3_as_wife_of_insured_person: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_employee_has_multiple_employers: true
+    il:statutes/national-insurance-law-1995/section-342#input.coordinated_contributions: 500
+    il:statutes/national-insurance-law-1995/section-342#input.actual_total_monthly_deductions: 400
+  output:
+    il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions: holds
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall: 100
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund: 0
+- name: own_contribution_liability_requires_insurance
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_insured: false
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_employee: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_self_employed: true
+    il:statutes/national-insurance-law-1995/section-342#input.insured_only_under_chapter_3_as_wife_of_insured_person: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_employee_has_multiple_employers: false
+    il:statutes/national-insurance-law-1995/section-342#input.coordinated_contributions: 500
+    il:statutes/national-insurance-law-1995/section-342#input.actual_total_monthly_deductions: 400
+  output:
+    il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions: not_holds
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall: 0
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund: 0
+- name: nonworking_insured_person_owes_own_contributions
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_insured: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_employee: false
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_self_employed: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_only_under_chapter_3_as_wife_of_insured_person: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_employee_has_multiple_employers: false
+    il:statutes/national-insurance-law-1995/section-342#input.coordinated_contributions: 0
+    il:statutes/national-insurance-law-1995/section-342#input.actual_total_monthly_deductions: 0
+  output:
+    il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions: holds
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall: 0
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund: 0
+- name: chapter_three_only_wife_exemption
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_insured: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_employee: false
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_self_employed: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_only_under_chapter_3_as_wife_of_insured_person: true
+    il:statutes/national-insurance-law-1995/section-342#input.insured_employee_has_multiple_employers: false
+    il:statutes/national-insurance-law-1995/section-342#input.coordinated_contributions: 0
+    il:statutes/national-insurance-law-1995/section-342#input.actual_total_monthly_deductions: 0
+  output:
+    il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions: not_holds
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall: 0
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund: 0
+- name: employee_only_receives_excess_deduction_refund
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_insured: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_employee: true
+    il:statutes/national-insurance-law-1995/section-342#input.person_is_self_employed: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_only_under_chapter_3_as_wife_of_insured_person: false
+    il:statutes/national-insurance-law-1995/section-342#input.insured_employee_has_multiple_employers: true
+    il:statutes/national-insurance-law-1995/section-342#input.coordinated_contributions: 500
+    il:statutes/national-insurance-law-1995/section-342#input.actual_total_monthly_deductions: 650
+  output:
+    il:statutes/national-insurance-law-1995/section-342#liable_for_own_insurance_contributions: not_holds
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_shortfall: 0
+    il:statutes/national-insurance-law-1995/section-342#multiple_employer_contribution_refund: 150

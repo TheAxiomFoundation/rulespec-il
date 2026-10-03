@@ -1,0 +1,81 @@
+- name: Employee monthly minimum uses the first month of the quarter
+  period: 2024-05
+  input:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.insured_item: 1
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 10000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_first_month_of_quarter: 6000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_first_month_of_quarter: 12000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_january: 11000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_october: 14000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.quarter_begins_in_october: false
+  output:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income: 50000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_minimum_insurable_income: 6000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_maximum_insurable_income: 150000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_minimum_insurable_income: 18000
+- name: Item three October minimum uses October average wage
+  period: 2024-10
+  input:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.insured_item: 3
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 11000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_first_month_of_quarter: 6000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_first_month_of_quarter: 14000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_january: 10000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_october: 14000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.quarter_begins_in_october: true
+  output:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_minimum_insurable_income: 0
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_maximum_insurable_income: 165000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#quarterly_minimum_insurable_income: 2100
+- name: Self-employed annual limits preserve quarterly changes
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.insured_item: 2
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_january_quarter_under_section_1_definition_paragraph_3
+    : 10000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_april_quarter_under_section_1_definition_paragraph_3
+    : 11000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_july_quarter_under_section_1_definition_paragraph_3
+    : 12000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_october_quarter_under_section_1_definition_paragraph_3
+    : 13000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_january: 5000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_april: 5500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_july: 6000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_october: 6500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_january: 10000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_april: 12000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_july: 13000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_october: 14000
+  output:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_maximum_insurable_income: 690000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_minimum_insurable_income: 36750
+- name: Other insured annual minimum retains January wage for the first three quarters
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.insured_item: 4
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_january_quarter_under_section_1_definition_paragraph_3
+    : 10000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_april_quarter_under_section_1_definition_paragraph_3
+    : 11000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_july_quarter_under_section_1_definition_paragraph_3
+    : 12000
+    ? il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_for_october_quarter_under_section_1_definition_paragraph_3
+    : 13000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_january: 5000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_april: 5500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_july: 6000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.applicable_minimum_wage_october: 6500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_january: 10000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_april: 12000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_july: 13000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.average_wage_october: 14000
+  output:
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_maximum_insurable_income: 690000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#annual_minimum_insurable_income: 19800

@@ -1,0 +1,83 @@
+- name: first_update_uses_statutory_base_and_price_index
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9000
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 110
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 12000
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 10000
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_law: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 8274.2
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
+- name: subsequent_update_uses_previous_bracket_and_knesset_salary_qualifies
+  period: 2027-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 8274.2
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 121
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 110
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 15000
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 12000
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_law: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_knesset_decision: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 9101.62
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
+- name: final_price_index_year_preserves_bracket_when_index_falls
+  period: 2028-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9101.62
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 110
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 121
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 18000
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 15000
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_law: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_pursuant_to_knesset_decision: true
+  output:
+    il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 9101.62
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: holds
+- name: wage_update_replaces_price_index_and_ordinary_salary_does_not_qualify
+  period: 2029-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.previous_year_reduced_collection_bracket: 9101.62
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_january_first: 150
+    il:statutes/national-insurance-law-1995/section-334#input.price_index_last_published_before_previous_january_first: 100
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_january_first: 19800
+    il:statutes/national-insurance-law-1995/section-334#input.average_wage_on_previous_january_first: 18000
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_law: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket: 10011.782
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_employee_deeming_applies: not_holds
+- name: liable_statutory_salary_obligor_is_deemed_employer
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.liable_to_pay_salary_of_person_concerned: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_law: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_obligor_employer_deeming_applies: holds
+- name: employer_deeming_requires_liability_for_same_salary
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.liable_to_pay_salary_of_person_concerned: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_law: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_obligor_employer_deeming_applies: not_holds
+- name: ordinary_salary_liability_does_not_trigger_special_employer_deeming
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-334#input.liable_to_pay_salary_of_person_concerned: true
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_law: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_by_knesset_decision: false
+    il:statutes/national-insurance-law-1995/section-334#input.salary_of_person_concerned_is_fixed_pursuant_to_knesset_decision: false
+  output:
+    il:statutes/national-insurance-law-1995/section-334#statutory_salary_obligor_employer_deeming_applies: not_holds

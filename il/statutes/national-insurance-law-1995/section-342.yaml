@@ -1,0 +1,176 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+  summary: |-
+    מבוטח שהוא עובד עצמאי, ומבוטח שאינו עובד ואינו עובד עצמאי, חייבים בתשלום דמי ביטוח בעד עצמם; ואולם מבוטחת לפי פרק ג׳ בלבד מכוח היותה אשת מבוטח אינה חייבת בתשלום דמי הביטוח.
+    המעביד חייב בתשלום דמי ביטוח בעד עובדו;
+    יהיה העובד חייב בתשלום ההפרש שבין הניכוי בפועל לבין דמי הביטוח המתואמים;
+    היה סכום הניכוי בפועל גבוה מסכום דמי הביטוח המתואמים – יהיה העובד זכאי להחזר ההפרש שבין סכום הניכוי בפועל, לבין סכום דמי הביטוח המתואמים.
+    השר רשאי לקבוע תנאים, כללים ומועדים בדבר –
+    שר העבודה והרווחה רשאי להתקין תקנות לביצוע סעיף קטן זה.
+  deferred_outputs:
+    - output: il:statutes/national-insurance-law-1995/section-342/b#employer_contributions_for_employee
+      reason: >-
+        Each employer must pay as though it alone employed the employee.
+        The copied person-level section 337 calculation does not supply
+        separate employer-employee assessments, depends on the unresolved
+        reduced collection bracket import, and does not implement the
+        employer reduction permitted by subsection (c)(2).
+      blocked_by:
+        - il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
+    - output: il:statutes/national-insurance-law-1995/section-342/c/1#employee_wage_deduction
+      reason: >-
+        The complete deduction requires the applicable Schedule J and
+        section 337 mechanics, the female birth-month age under Schedule A1
+        Part D, and the qualification under section 245(b2). The latter
+        dependencies are not supplied as executable RuleSpec. The external
+        review's proposed table-cell inputs and repeal assertion cannot
+        replace the required legal dependencies. The reduced collection
+        bracket import also fails clean-context resolution.
+      blocked_by:
+        - il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
+    - output: il:statutes/national-insurance-law-1995/section-342/c/2#age_based_wage_deduction_prohibition
+      reason: >-
+        The male cessation age is retained independently. The complete
+        age-based prohibition requires the female birth-month age in
+        Schedule A1 Part D and the operative qualification in section
+        245(b2), neither of which is supplied as an executable dependency.
+      source_values:
+        - il:statutes/national-insurance-law-1995/section-342#male_deduction_cessation_age
+    - output: il:statutes/national-insurance-law-1995/section-342/c/2#employer_contribution_reduction
+      reason: >-
+        The permitted reduction equals the deduction that would have been
+        made absent subsection (c)(2). The complete counterfactual deduction
+        is unavailable, including applicable section 337 rate changes.
+        Subsection (c)(2) covers old-age pension entitlement, including
+        special old-age benefits, and separately prohibits the Schedule J
+        item 6 deduction for police and prison officers.
+    - output: il:statutes/national-insurance-law-1995/section-342/d#coordinated_contributions
+      reason: >-
+        Computing the coordinated assessment requires the complete deduction
+        on combined monthly income as though paid by one employer.
+        That computation is unresolved. The executable settlement rules
+        instead consume the source-defined coordinated assessment and actual
+        total monthly deductions as boundary amounts.
+    - output: il:statutes/national-insurance-law-1995/section-342/e#regulated_multiple_employer_withholding
+      reason: >-
+        Subsection (e) authorizes conditions, rules and deadlines for
+        additional-employer reporting, settlement, upper-band withholding
+        and Institute approvals. It does not itself provide the implementing
+        rules or individual approvals needed to calculate withholding.
+    - output: il:statutes/national-insurance-law-1995/section-342/e1#renewing_kibbutz_member_contributions
+      reason: >-
+        For a renewing-kibbutz member within section 3a(a) who also works
+        within section 3a(b), the kibbutz pays the coordinated contributions
+        less deductions from wages paid by the other employer for the same
+        month. The complete assessment also applies rules under subsection
+        (e)(3), with necessary modifications. Those implementing rules and
+        the complete coordinated assessment are unavailable.
+    - output: il:statutes/national-insurance-law-1995/section-342/f#dual_status_self_employment_income_at_reduced_rate
+      reason: >-
+        Subsections (f)(1)-(2) allocate the reduced-rate band remaining after
+        employment income to income under Income Tax Ordinance section
+        2(1) and (8). The exact copied reduced collection bracket export
+        does not resolve in the clean repository context. Its import is
+        removed; no replacement local threshold input is introduced.
+      blocked_by:
+        - il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
+    - output: il:statutes/national-insurance-law-1995/section-342/f#dual_status_self_employment_contributions
+      reason: >-
+        The final assessment requires the unresolved reduced-band allocation
+        and the applicable self-employment contribution and assessment-period
+        mechanics. This source does not supply those upstream computations.
+      blocked_by:
+        - il:statutes/national-insurance-law-1995/section-334#reduced_collection_bracket
+rules:
+  - name: male_deduction_cessation_age
+    kind: parameter
+    dtype: Integer
+    source: National Insurance Law, 1995, section 342(c)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+              excerpt: ובעד הזמן שלאחר הגיע המבוטח לגיל 70 שנים בגבר
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          70
+
+  - name: liable_for_own_insurance_contributions
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: National Insurance Law, 1995, section 342(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+              excerpt: מבוטחת לפי פרק ג׳ בלבד מכוח היותה אשת מבוטח אינה חייבת בתשלום דמי הביטוח
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          person_is_insured
+          and (person_is_self_employed or not person_is_employee)
+          and not insured_only_under_chapter_3_as_wife_of_insured_person
+
+  - name: multiple_employer_contribution_shortfall
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 342(d)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+              excerpt: אילו שולמה לו על ידי מעביד אחד (בסעיף זה – דמי ביטוח מתואמים)
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if insured_employee_has_multiple_employers:
+            max(0, coordinated_contributions - actual_total_monthly_deductions)
+          else: 0
+
+  - name: multiple_employer_contribution_refund
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 342(d)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if insured_employee_has_multiple_employers:
+            max(0, actual_total_monthly_deductions - coordinated_contributions)
+          else: 0

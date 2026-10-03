@@ -1,0 +1,150 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+  summary: |-
+    (א) לענין דמי ביטוח המשתלמים לפי הוראה מהוראות סעיף 335 לא יבוא בחשבון סכום ההכנסה של המבוטח העולה על הסכום המרבי המתקבל לפי האמור בלוח י״א.
+    (א1) לעניין דמי ביטוח המשתלמים לפי הוראות סעיף 335, לא תובא בחשבון ההכנסה של מבוטח מהמקורות המפורטים בסעיף 2 לפקודת מס הכנסה, שאינה הכנסה מעבודתו כעובד או כעובד עצמאי, אשר אינה פטורה מתשלום דמי ביטוח לפי סעיף 350 ואינה עולה על סכום השווה ל־25% מהשכר הממוצע.
+    (ג) השר, באישור ועדת הכספים של הכנסת, רשאי לשנות בצו את הסכומים המזעריים האמורים בלוח י״א.
+  deferred_outputs:
+    - output: il:statutes/national-insurance-law-1995/section-348/b#minimum_deemed_contribution_income
+      reason: >-
+        The copied Schedule XI module exports quarterly and annual minima,
+        but no applicable monthly minimum. The monthly minimum-income
+        deeming result requires that upstream monthly computation.
+        The employee monthly ceiling encoded here is solely the effect
+        of subsection (a), not a complete contribution base.
+    - output: il:statutes/national-insurance-law-1995/section-348/d#full_month_unemployment_deemed_contribution_income
+      reason: >-
+        Receipt of unemployment benefits for a full month under Chapter VII
+        requires deeming income equal to the Schedule XI item 3 minimum.
+        The copied schedule does not export that monthly minimum; its
+        quarterly and annual minima cannot substitute for the missing
+        monthly computation.
+    - output: il:statutes/national-insurance-law-1995/section-348/e#service_or_religious_student_deemed_contribution_income
+      reason: >-
+        The copied schedule lacks the monthly item 3 minimum needed for
+        persons with no income or income below that minimum. Permanent
+        categories are national-service volunteers, community volunteers,
+        religious-institution or yeshiva students, and civil-service
+        participants defined in section 6(a) of the cited deferment law.
+        The temporary wording also covers national-civil-service participants
+        until expiry on 2026-08-31, continuing until completion for persons
+        who began service before expiry. Neither the monthly minimum nor a
+        resulting deemed amount is inferred from quarterly or annual exports.
+imports:
+  - il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income
+rules:
+  - name: employee_monthly_income_after_contribution_ceiling
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 348(a), employee monthly ceiling
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: לענין דמי ביטוח המשתלמים לפי הוראה מהוראות סעיף 335
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: לא יבוא בחשבון סכום ההכנסה של המבוטח העולה על הסכום המרבי המתקבל לפי האמור בלוח י״א
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: il:statutes/national-insurance-law-1995/schedule-k/sign-1#employee_monthly_maximum_insurable_income
+              output: employee_monthly_maximum_insurable_income
+              hash: sha256:139f54a058ff46c5fda3b7e115fdf1af4296e48a833f652763e27adc069a7f29
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if contributions_payable_under_section_335:
+            min(employee_monthly_income, employee_monthly_maximum_insurable_income)
+          else: employee_monthly_income
+
+  - name: nonwork_income_exclusion_average_wage_rate
+    kind: parameter
+    dtype: Rate
+    source: National Insurance Law, 1995, section 348(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: סכום השווה ל־25% מהשכר הממוצע
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          0.25
+
+  - name: nonwork_income_exclusion_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 348(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: סכום השווה ל־25% מהשכר הממוצע
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          nonwork_income_exclusion_average_wage_rate * average_wage
+
+  - name: nonwork_income_excluded_from_contributions_under_section_335
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: ILS
+    period: Month
+    source: National Insurance Law, 1995, section 348(a1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: לעניין דמי ביטוח המשתלמים לפי הוראות סעיף 335
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: >-
+                מהמקורות המפורטים בסעיף 2 לפקודת מס הכנסה, שאינה הכנסה
+                מעבודתו כעובד או כעובד עצמאי, אשר אינה פטורה מתשלום
+                דמי ביטוח לפי סעיף 350
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: לא תובא בחשבון
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+              excerpt: ואינה עולה על סכום השווה ל־25% מהשכר הממוצע
+    versions:
+      - effective_from: '0001-01-01'
+        formula: |-
+          if contributions_payable_under_section_335:
+            if nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350 <= nonwork_income_exclusion_threshold:
+              max(0, nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350)
+            else: 0
+          else: 0

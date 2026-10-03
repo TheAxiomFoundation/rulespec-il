@@ -1,0 +1,52 @@
+- name: employee_income_below_ceiling_and_nonwork_income_below_threshold
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-348#input.employee_monthly_income: 15000
+    il:statutes/national-insurance-law-1995/section-348#input.average_wage: 10000
+    il:statutes/national-insurance-law-1995/section-348#input.contributions_payable_under_section_335: true
+    ? il:statutes/national-insurance-law-1995/section-348#input.nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350
+    : 2000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 10382
+  output:
+    il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling: 15000
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_threshold: 2500
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_excluded_from_contributions_under_section_335: 2000
+- name: employee_income_above_ceiling_and_nonwork_income_at_threshold
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-348#input.employee_monthly_income: 60000
+    il:statutes/national-insurance-law-1995/section-348#input.average_wage: 10000
+    il:statutes/national-insurance-law-1995/section-348#input.contributions_payable_under_section_335: true
+    ? il:statutes/national-insurance-law-1995/section-348#input.nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350
+    : 2500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 10382
+  output:
+    il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling: 51910
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_threshold: 2500
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_excluded_from_contributions_under_section_335: 2500
+- name: nonwork_income_above_threshold_receives_no_partial_exclusion
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-348#input.employee_monthly_income: 51910
+    il:statutes/national-insurance-law-1995/section-348#input.average_wage: 10000
+    il:statutes/national-insurance-law-1995/section-348#input.contributions_payable_under_section_335: true
+    ? il:statutes/national-insurance-law-1995/section-348#input.nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350
+    : 3000
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 10382
+  output:
+    il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling: 51910
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_threshold: 2500
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_excluded_from_contributions_under_section_335: 0
+- name: ceiling_and_exclusion_do_not_operate_outside_section_335
+  period: 2026-01
+  input:
+    il:statutes/national-insurance-law-1995/section-348#input.employee_monthly_income: 60000
+    il:statutes/national-insurance-law-1995/section-348#input.average_wage: 10000
+    il:statutes/national-insurance-law-1995/section-348#input.contributions_payable_under_section_335: false
+    ? il:statutes/national-insurance-law-1995/section-348#input.nonwork_income_from_sources_under_income_tax_ordinance_section_2_not_exempt_under_section_350
+    : 2500
+    il:statutes/national-insurance-law-1995/schedule-k/sign-1#input.basic_amount_under_section_1_definition_paragraph_3: 10382
+  output:
+    il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling: 60000
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_exclusion_threshold: 2500
+    il:statutes/national-insurance-law-1995/section-348#nonwork_income_excluded_from_contributions_under_section_335: 0

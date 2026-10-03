@@ -217,11 +217,20 @@ def test_statute_module_paths_use_ordinal_hebrew_suffix_transliteration() -> Non
 
     Statute modules are named for the section they encode. Composed pipelines and
     policy-publication modules under il/policies/ are named for what they are, so
-    they are outside this contract.
+    they are outside this contract. A schedule module sits at the corpus citation path
+    of the schedule part it encodes, `schedule-<letter><numeral>/sign-<n>`: the schedule's
+    Hebrew ordinal as the Latin letter at the same position in the alphabet, which runs
+    past the ten letters above (לוח י׳ is schedule-j, לוח י״א is schedule-k), followed by
+    any numeral the schedule's name carries (לוח א׳1 is schedule-a1).
     """
     allowed = set(HEBREW_SUFFIX_ORDINALS.values())
     for path in rulespec_files():
         if path.parent.name == "composed" or "policies" in path.parts:
+            continue
+        schedule = re.fullmatch(r"schedule-([a-z]+)(\d*)", path.parent.name)
+        if schedule is not None:
+            assert re.fullmatch(r"sign-\d+", path.stem), path
+            assert re.fullmatch(r"[a-z]", schedule.group(1)), path
             continue
         match = re.fullmatch(r"section-(\d+)([a-z]*)", path.stem)
         assert match is not None, path
@@ -235,6 +244,7 @@ def test_source_map_names_only_sections_that_are_encoded() -> None:
     instrument_dirs = {
         "income-tax-ordinance": ROOT / "il/statutes/income-tax-ordinance",
         "national-insurance-law-1995": ROOT / "il/statutes/national-insurance-law-1995",
+        "national-health-insurance-law-1994": ROOT / "il/statutes/national-health-insurance-law-1994",
     }
     for instrument in payload["instruments"]:
         directory = instrument_dirs[instrument["id"]]
@@ -249,6 +259,12 @@ def test_source_map_names_only_sections_that_are_encoded() -> None:
                 HEBREW_SUFFIX_ORDINALS.get(character, character) for character in number
             )
             assert slug in on_disk, (instrument["id"], section, slug)
+        for entry in instrument.get("encoded_schedules") or []:
+            module = ROOT / entry["module"]
+            assert module.is_file(), (instrument["id"], entry["schedule"], entry["module"])
+            assert entry["corpus_citation_path"].startswith(f"il/statute/{instrument['id']}/"), entry
+            relative = entry["corpus_citation_path"].removeprefix(f"il/statute/{instrument['id']}/")
+            assert module == directory / f"{relative}.yaml", (entry["module"], relative)
 
 
 def test_policy_modules_carry_an_official_publisher_capture() -> None:
@@ -310,6 +326,8 @@ def test_source_map_accounts_for_every_provision_the_modules_cite() -> None:
         declared.add(prefix)
         for section in instrument["encoded_sections"]:
             declared.add(f"{prefix}/section-{section.split(' ')[0]}")
+        for entry in instrument.get("encoded_schedules") or []:
+            declared.add(entry["corpus_citation_path"])
         for entry in instrument.get("applied_without_a_module") or []:
             declared.add(entry["corpus_citation_path"])
 
