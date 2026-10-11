@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@2b25fc0e54b41786a2ce47f98bb42420b37c7727
     secrets: inherit
     with:
       # axiom-encode main at a88eec3715319cca9f47a03db0f7443772bc8fe4 (encoder 0.2.2076):
@@ -33,5 +33,5 @@ jobs:
       # release exists. Turn this on in the same PR that re-encodes at the
       # pinned ref, after the corpus release il-rulespec-2026-09-06 is cut,
       # signed and registered.
-      run-generated-guard: false
+      run-generated-guard: true
       guard-programs-root: false
