@@ -191,11 +191,13 @@ validate workflow used by the other jurisdiction repos, and toolchain binding la
 dedicated PR after the Israel corpus release is cut, signed, and registered — never
 combined with content changes.
 
-The shared generated-content guard (`run-generated-guard`) is off for one reason and one
-only: the apply manifests here were signed with a throwaway local key, because the
-encoder ref that the guard's validator pins hard-requires a signed Israel corpus release
-that does not exist. It is turned on in the same PR that re-encodes at the pinned ref.
-The workflow file says exactly that, in a comment.
+The shared generated-content guard (`run-generated-guard`) is on. The apply manifests
+here were signed with a throwaway local key, because the encoder ref that the guard's
+validator pins hard-requires a signed Israel corpus release that does not exist yet. The
+guard checks the modules a pull request changes, so the existing modules stay as they are
+on main, and any change to them has to come from the supervised encoder at the pinned ref
+once that release is cut, signed and registered. The workflow file says the same, in a
+comment.
 
 **CI is red on this branch, on purpose.** The shared workflow fails with
 
