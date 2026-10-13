@@ -30,9 +30,9 @@ jobs:
       # manifest under .axiom/encoding-manifests/. The modules on main came
       # from a local bootstrap build of axiom-encode (the 55beb160 ref plus five
       # fixes for Hebrew source text; each manifest records the exact version
-      # and commit), signed with a throwaway local key, before a signed Israel
-      # corpus release existed. The guard checks the modules a pull request
-      # changes, so those stay as they are on main. A new or changed module has
+      # and commit), and their manifests are signed with a throwaway local key,
+      # not the production apply key the guard verifies. The guard checks the
+      # modules a pull request changes, so those stay as they are on main. A new or changed module has
       # to come from the supervised encoder (axiom-encode's "Targeted signed
       # RuleSpec re-encode"), against the release pinned in .axiom/toolchain.toml.
       run-generated-guard: true
