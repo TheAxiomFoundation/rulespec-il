@@ -205,6 +205,34 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
     assert [scope["release"] for scope in payload["corpus_scopes"]] == [candidate["name"]]
 
 
+def test_workflow_toolchain_mirrors_the_validation_workflow() -> None:
+    """workflow-toolchain.toml repeats the checkout refs repository-checks.yml pins.
+
+    Signed generation runs read this file, CI reads the workflow; a ref moved in
+    one place and not the other would encode against one toolchain and validate
+    against another.
+    """
+    import tomllib
+
+    pins = tomllib.loads((ROOT / ".axiom/workflow-toolchain.toml").read_text())
+    assert set(pins) == {"workflow_toolchain"}
+    table = pins["workflow_toolchain"]
+    workflow = (ROOT / ".github/workflows/repository-checks.yml").read_text()
+    patterns = {
+        "axiom_encode_ref": r"axiom-encode-ref:\s*([0-9a-f]{40})\b",
+        "axiom_rules_engine_ref": r"axiom-rules-engine-ref:\s*([0-9a-f]{40})\b",
+        "axiom_corpus_ref": r"axiom-corpus-ref:\s*([0-9a-f]{40})\b",
+        "rulespec_us_ref": r"rulespec-us-ref:\s*([0-9a-f]{40})\b",
+        "shared_workflow_ref": r"validate-rulespec\.yml@([0-9a-f]{40})\b",
+    }
+    # No axiom_compose_ref: axiom-compose is disabled here, as programs are.
+    assert set(table) == set(patterns)
+    for key, pattern in patterns.items():
+        found = re.findall(pattern, workflow)
+        assert len(found) == 1, key
+        assert table[key] == found[0], key
+
+
 def test_registry_visibility_is_public() -> None:
     # Flipped from "experimental" on 2026-09-07 together with the app's family
     # entry (the two-key promotion axiom.org's check-rulespec-drift.mjs enforces).
