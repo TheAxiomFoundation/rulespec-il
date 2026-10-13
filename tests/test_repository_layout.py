@@ -22,6 +22,11 @@ IGNORED_ROOT_DIRS = {
     "_axiom",
     "__pycache__",
 }
+# The shared validator (from b36f534e) also stages its dependency checkouts in
+# a mktemp directory at the repository root before running these tests, e.g.
+# .axiom-dependency-stage.n3uvX188. Like _axiom, it is transient and must hold
+# no tracked path (checked below).
+TRANSIENT_ROOT_DIR = re.compile(r"\.axiom-dependency-stage\.[A-Za-z0-9]{8}")
 ALLOWED_ROOT_DIRS = {
     ".axiom",
     ".github",
@@ -88,7 +93,9 @@ def test_root_inventory_is_allowed() -> None:
     directories = {
         child.name
         for child in ROOT.iterdir()
-        if child.is_dir() and child.name not in IGNORED_ROOT_DIRS
+        if child.is_dir()
+        and child.name not in IGNORED_ROOT_DIRS
+        and not TRANSIENT_ROOT_DIR.fullmatch(child.name)
     }
     files = {
         child.name for child in ROOT.iterdir() if child.is_file() and child.name != ".git"
@@ -105,6 +112,15 @@ def test_transient_axiom_workspace_has_no_tracked_paths() -> None:
         capture_output=True,
     ).stdout
     assert tracked == b""
+    every_path = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout.decode().split("\0")
+    assert not [
+        path for path in every_path if TRANSIENT_ROOT_DIR.fullmatch(path.split("/", 1)[0])
+    ]
 
 
 def test_programs_remain_empty_until_program_guard_is_enabled() -> None:
