@@ -11,19 +11,21 @@ oracle references.
 Two instruments — פקודת מס הכנסה (Income Tax Ordinance) and חוק הביטוח הלאומי
 [נוסח משולב], התשנ״ה–1995 — at section granularity, plus one composed monthly
 capstone. This is a proof of concept for a specific conversation, not coverage,
-and the repository says so throughout: the app lists it as a bounded, uncertified
-pilot (`app_visibility = "public"` since 2026-09-07), and no oracle coverage is
-declared. Validation is bound to the signed corpus release named in
-`.axiom/toolchain.toml`.
+and the repository says so throughout. The app lists it like every other public
+family (`app_visibility = "public"`, on Max's call of 2026-09-07); it remains a
+bounded, uncertified pilot, and no oracle coverage is declared. Validation is
+bound to the signed corpus release named in `.axiom/toolchain.toml`.
 
 **Every atomic module here is produced by the supervised encoder** and carries an
 apply manifest under `.axiom/encoding-manifests/`. With the guard on, a new or
 changed module needs a manifest signed with the production apply key, which
 axiom-encode's "Targeted signed RuleSpec re-encode" workflow produces after a
-`production-signing` approval; a local `encode --apply` manifest is refused. Hand-written YAML is never a
-module. The only hand work is a findings file handed back to the encoder for a
-repair round, and the composed pipeline under `il/statutes/composed/`, which is
-assembled rather than encoded.
+`production-signing` approval; a local `encode --apply` manifest is refused.
+Hand-written YAML is never a module. The only hand work is a findings file handed
+back to the encoder for a repair round. The composed pipeline under
+`il/statutes/composed/` is assembled rather than encoded, but the guard covers
+its path too, so a hand change to it is refused without a signed manifest that
+lists it.
 
 The shared generated-content guard is on (#12). The modules on main came from a
 local bootstrap build of axiom-encode, and their manifests are signed with a

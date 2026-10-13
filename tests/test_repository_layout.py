@@ -18,9 +18,9 @@ IGNORED_ROOT_DIRS = {
     # Shared validators before df2dfb53 (.github#120), including the 842c69d6
     # this repository pinned until b36f534e, checked immutable toolchain
     # repositories out here before running this repository's tests; later ones
-    # stage them under TRANSIENT_ROOT_DIR below and move them out of the workspace. Tracked paths
-    # are rejected by a separate test, so ignoring this transient directory does
-    # not weaken the committed layout contract.
+    # stage them under TRANSIENT_ROOT_DIR below and move them out of the
+    # workspace. Tracked paths are rejected by a separate test, so ignoring this
+    # transient directory does not weaken the committed layout contract.
     "_axiom",
     "__pycache__",
 }

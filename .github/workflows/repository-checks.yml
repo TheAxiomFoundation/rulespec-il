@@ -32,8 +32,9 @@ jobs:
       # fixes for Hebrew source text; each manifest records the exact version
       # and commit), and their manifests are signed with a throwaway local key,
       # not the production apply key the guard verifies. The guard checks the
-      # modules a pull request changes, so those stay as they are on main. A new or changed module has
-      # to come from the supervised encoder (axiom-encode's "Targeted signed
-      # RuleSpec re-encode"), against the release pinned in .axiom/toolchain.toml.
+      # modules a pull request changes, so those stay as they are on main. A new
+      # or changed module has to come from the supervised encoder (axiom-encode's
+      # "Targeted signed RuleSpec re-encode"), against the release pinned in
+      # .axiom/toolchain.toml.
       run-generated-guard: true
       guard-programs-root: false
