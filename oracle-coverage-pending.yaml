@@ -7,8 +7,11 @@
 # Maintained by: axiom-encode oracle-coverage-pending sync.
 version: 1
 issue: https://github.com/TheAxiomFoundation/rulespec-il/issues/2
-ceiling: 151
+ceiling: 191
 entries:
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#age
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_credit_amount_ils
   source: bulk
   since: '2026-09-10'
@@ -18,6 +21,9 @@ entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#annual_income_tax_after_credits_ils
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#basic_amount_under_section_1_definition_paragraph_3
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#child_1_credit_points_under_section_66_schedule
   source: bulk
   since: '2026-09-10'
@@ -36,9 +42,33 @@ entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#children_in_parent_child_count
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#contributions_payable_under_section_335
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#credit_point_age_band_four_and_five_upper_age_years
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#donated_organ_in_israel_while_alive
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_monthly_income_subject_to_contributions
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#employee_national_insurance_deduction_for_month
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#employer_owes_national_insurance_for_employee
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#income_exempt_from_national_insurance_under_section_350a_a
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#income_precludes_special_old_age_benefit
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#individual_has_reached_age_sixty
   source: bulk
   since: '2026-09-10'
@@ -51,18 +81,51 @@ entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#insured_parent_has_income_subject_to_additional_tax_under_section_121b
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_donor_under_organ_transplant_law
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_employee
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_exempt_person_under_section_351_ia_2c
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_exempt_person_under_section_351_z1
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_exempt_recruit_under_section_351_ia_2b
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_exempt_student_under_section_351_ia_2a
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_housewife_under_section_238
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#is_insured
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_child_allowance_ils
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_employee_contributions_ils
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_net_income_ils
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#monthly_take_home_pay_before_pension_contributions_ils
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#months_in_tax_year
   source: bulk
   since: '2026-09-10'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#national_insurance_child_age_limit_years
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#organ_recipient_is_israeli_resident
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#other_taxable_income_requiring_books_without_acceptable_books
   source: bulk
   since: '2026-09-10'
@@ -72,6 +135,21 @@ entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#personal_exertion_taxable_income_requiring_books_without_acceptable_books
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#receives_additional_disability_benefit_under_section_251
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#receives_old_age_pension
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#receives_pension_under_sections_261_and_320_d
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#receives_pension_under_sections_261_and_320_e
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#reduced_amount_under_national_insurance_section_341
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#statutory_nominal_monthly_child_allowance_ils
   source: bulk
   since: '2026-09-10'
@@ -90,6 +168,9 @@ entries:
 - legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#taxable_income_from_sources_under_section_2_1_or_2
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/composed/worker-with-children-monthly-net-pipeline#within_minister_prescribed_donor_exemption_period
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/income-tax-ordinance/section-120b#annual_amounts_indexation_suspended
   source: bulk
   since: '2026-09-10'
@@ -285,6 +366,45 @@ entries:
 - legal_id: il:statutes/income-tax-ordinance/section-66#woman_separate_calculation_additional_points
   source: bulk
   since: '2026-09-10'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#additional_income_included_in_employee_and_self_payer_contribution_base
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#employer_withheld_employee_contribution_applies
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#fixed_pension_schedule_applies
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#health_insurance_exempt
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#minimum_contribution_age
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#reduced_contribution_rate
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#standard_contribution_rate
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#state_contribution_for_special_adaptation_allowance
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#statutory_couple_pension_monthly_amount
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#statutory_monthly_minimum
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#statutory_single_pension_monthly_amount
+  source: bulk
+  since: '2026-09-29'
+- legal_id: il:statutes/national-health-insurance-law-1994/section-14#temporary_exempt_income_inclusion_indicator
+  source: bulk
+  since: '2026-09-29'
 - legal_id: il:statutes/national-insurance-law-1995/schedule-j/sign-1#employee_contribution_above_reduced_band_by_branch
   source: bulk
   since: '2026-09-29'

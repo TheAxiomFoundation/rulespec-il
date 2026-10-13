@@ -1,0 +1,50 @@
+{
+  "applied_files": [
+    {
+      "path": "il/statutes/national-health-insurance-law-1994/section-14.yaml",
+      "sha256": "0a498ae0b4743b7a84851dcd852c3a79e1c7c5f950a54f1e844f6c323a16f59f"
+    },
+    {
+      "path": "il/statutes/national-health-insurance-law-1994/section-14.test.yaml",
+      "sha256": "a75d8fa4b01be59e426e67023b27e94b86741f4dad7e162308f7a2afa2fa10f6"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-il-bootstrap",
+    "version": "0.2.1197.5",
+    "version_commit": "c08cb0c0b68eb898cc74f3ca596e019d4effcab1"
+  },
+  "axiom_encode_version": "0.2.1197.5",
+  "backend": "codex",
+  "citation": "il/statute/national-health-insurance-law-1994/section-14",
+  "context_manifest_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/_eval_workspaces/codex-gpt-6-astra/il-statute-national-health-insurance-law-1994-section-14/workspace/context-manifest.json",
+  "context_manifest_sha256": "102c6548f669bda61164571e5d7c744e05b1b98f405ec37b81bbb54d00ec5b66",
+  "generated_at": "2026-09-29T16:19:45.948387+00:00",
+  "generated_output_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/codex-gpt-6-astra/statutes/national-health-insurance-law-1994/section-14.yaml",
+  "generated_output_root": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out",
+  "generated_output_sha256": "0a498ae0b4743b7a84851dcd852c3a79e1c7c5f950a54f1e844f6c323a16f59f",
+  "generation_prompt_sha256": "0ca69c89d7253309083443162d751b1e03fbe560e9dd73a14fb150c11fdb0bdf",
+  "model": "gpt-6-astra",
+  "run_id": "9c1e3dfa",
+  "runner": "codex-gpt-6-astra",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "83a6c63ad779c10bc08ef45e8f389db6de26f57c9e615c1381630a4563c83aa1"
+  },
+  "supersedes": {
+    "backend": "codex",
+    "generated_at": "2026-09-29T14:22:17.976139+00:00",
+    "generation_prompt_sha256": "ba97cd266a40575ff605a72ec65bf395cd205d8372a252b33bdc46e67de4acab",
+    "manifest_sha256": "f034b7d137f22e24924c91956fb2eeec80e51b8731a2b2b6b64fb8573dd8d250",
+    "prior_signature": "268e3458bf86cd322b59d7d646e3d20c049dab94ad7b0e074c97708b0da31745",
+    "run_id": "f6bb7b24",
+    "tool": "axiom-encode encode --apply"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/Users/maxghenis/TheAxiomFoundation/ops/il-lane/contributions/encode-out/traces/codex-gpt-6-astra/il-statute-national-health-insurance-law-1994-section-14.json",
+  "trace_sha256": "e840748877a4d20fe211267a1562615102252ec2bc073b7cceb478b944caf08a"
+}
