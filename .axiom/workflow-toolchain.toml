@@ -1,0 +1,12 @@
+# Immutable checkout identities: a mirror of the refs
+# .github/workflows/repository-checks.yml pins, including the shared
+# validate-rulespec workflow ref; change both together. Of these keys, the
+# signed re-encode workflow reads only axiom_compose_ref, and only if present.
+# Signed corpus release and waiver evidence remain in toolchain.toml.
+# No axiom_compose_ref: axiom-compose stays disabled for this repository.
+[workflow_toolchain]
+axiom_encode_ref = "a88eec3715319cca9f47a03db0f7443772bc8fe4"
+axiom_rules_engine_ref = "1f824237d43c1234d88fea60c8ac2fa7b9b9da4c"
+axiom_corpus_ref = "996b763095ae9cae3761e685827ffd9d97c2a68d"
+rulespec_us_ref = "0f291b367bf7e15555f9973112278c5cbf221653"
+shared_workflow_ref = "842c69d6aa62a0d75a4da850fabc3d0df20701d7"

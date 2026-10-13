@@ -205,6 +205,38 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
     assert [scope["release"] for scope in payload["corpus_scopes"]] == [candidate["name"]]
 
 
+def test_workflow_toolchain_mirrors_the_validation_workflow() -> None:
+    """workflow-toolchain.toml repeats the checkout refs repository-checks.yml pins.
+
+    A mirror check: the two files name the same five commits. Today the signed
+    re-encode workflow reads only an optional axiom_compose_ref from this file,
+    so the refs here are a record, kept equal to the ones CI runs.
+    """
+    import tomllib
+
+    pins = tomllib.loads((ROOT / ".axiom/workflow-toolchain.toml").read_text())
+    assert set(pins) == {"workflow_toolchain"}
+    table = pins["workflow_toolchain"]
+    workflow = yaml.safe_load((ROOT / ".github/workflows/repository-checks.yml").read_text())
+    job = workflow["jobs"]["validate"]
+    uses_path, _, uses_ref = job["uses"].rpartition("@")
+    assert uses_path == "TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml"
+    inputs = job["with"]
+    actual = {
+        "axiom_encode_ref": inputs["axiom-encode-ref"],
+        "axiom_rules_engine_ref": inputs["axiom-rules-engine-ref"],
+        "axiom_corpus_ref": inputs["axiom-corpus-ref"],
+        "rulespec_us_ref": inputs["rulespec-us-ref"],
+        "shared_workflow_ref": uses_ref,
+    }
+    # No axiom_compose_ref: axiom-compose is disabled here, as programs are.
+    assert "axiom-compose-ref" not in inputs
+    assert set(table) == set(actual)
+    for key, value in actual.items():
+        assert isinstance(value, str) and re.fullmatch(r"[0-9a-f]{40}", value), key
+        assert table[key] == value, key
+
+
 def test_registry_visibility_is_public() -> None:
     # Flipped from "experimental" on 2026-09-07 together with the app's family
     # entry (the two-key promotion axiom.org's check-rulespec-drift.mjs enforces).
