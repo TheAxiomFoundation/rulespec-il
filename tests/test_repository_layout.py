@@ -208,29 +208,33 @@ def test_pilot_is_bound_to_the_published_corpus_release() -> None:
 def test_workflow_toolchain_mirrors_the_validation_workflow() -> None:
     """workflow-toolchain.toml repeats the checkout refs repository-checks.yml pins.
 
-    Signed generation runs read this file, CI reads the workflow; a ref moved in
-    one place and not the other would encode against one toolchain and validate
-    against another.
+    A mirror check: the two files name the same five commits. Today the signed
+    re-encode workflow reads only an optional axiom_compose_ref from this file,
+    so the refs here are a record, kept equal to the ones CI runs.
     """
     import tomllib
 
     pins = tomllib.loads((ROOT / ".axiom/workflow-toolchain.toml").read_text())
     assert set(pins) == {"workflow_toolchain"}
     table = pins["workflow_toolchain"]
-    workflow = (ROOT / ".github/workflows/repository-checks.yml").read_text()
-    patterns = {
-        "axiom_encode_ref": r"axiom-encode-ref:\s*([0-9a-f]{40})\b",
-        "axiom_rules_engine_ref": r"axiom-rules-engine-ref:\s*([0-9a-f]{40})\b",
-        "axiom_corpus_ref": r"axiom-corpus-ref:\s*([0-9a-f]{40})\b",
-        "rulespec_us_ref": r"rulespec-us-ref:\s*([0-9a-f]{40})\b",
-        "shared_workflow_ref": r"validate-rulespec\.yml@([0-9a-f]{40})\b",
+    workflow = yaml.safe_load((ROOT / ".github/workflows/repository-checks.yml").read_text())
+    job = workflow["jobs"]["validate"]
+    uses_path, _, uses_ref = job["uses"].rpartition("@")
+    assert uses_path == "TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml"
+    inputs = job["with"]
+    actual = {
+        "axiom_encode_ref": inputs["axiom-encode-ref"],
+        "axiom_rules_engine_ref": inputs["axiom-rules-engine-ref"],
+        "axiom_corpus_ref": inputs["axiom-corpus-ref"],
+        "rulespec_us_ref": inputs["rulespec-us-ref"],
+        "shared_workflow_ref": uses_ref,
     }
     # No axiom_compose_ref: axiom-compose is disabled here, as programs are.
-    assert set(table) == set(patterns)
-    for key, pattern in patterns.items():
-        found = re.findall(pattern, workflow)
-        assert len(found) == 1, key
-        assert table[key] == found[0], key
+    assert "axiom-compose-ref" not in inputs
+    assert set(table) == set(actual)
+    for key, value in actual.items():
+        assert isinstance(value, str) and re.fullmatch(r"[0-9a-f]{40}", value), key
+        assert table[key] == value, key
 
 
 def test_registry_visibility_is_public() -> None:
