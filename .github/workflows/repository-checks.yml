@@ -8,19 +8,22 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@b36f534e9058f45b378e6e555939e97c597ef4fe
     secrets: inherit
     with:
-      # axiom-encode main at a88eec3715319cca9f47a03db0f7443772bc8fe4 (encoder 0.2.2076):
-      # numeric grounding reads a pipe-table column under a Hebrew percent heading as
-      # percentages, and keeps a leading empty cell in its column, from axiom-encode #1744.
-      axiom-encode-ref: a88eec3715319cca9f47a03db0f7443772bc8fe4
+      # axiom-encode main at 630aa73931e5aa87c51d25fe448e38dbcfaed50f (encoder 0.2.2180),
+      # the pair rulespec-nz runs with shared workflow b36f534e. It reads corpus
+      # checkouts that keep their bytes in lock files (axiom-corpus#774), which the
+      # corpus ref below needs, and it contains axiom-encode #1744 (a Hebrew percent
+      # heading over a pipe-table column).
+      axiom-encode-ref: 630aa73931e5aa87c51d25fe448e38dbcfaed50f
       # axiom-rules-engine#169 (Israel ILS currency seed) as merged to main.
       axiom-rules-engine-ref: 1f824237d43c1234d88fea60c8ac2fa7b9b9da4c
-      # axiom-corpus#646 as merged to main: the Israel scope il/statute @
-      # 2026-09-06-il-taxben-pilot, published as release il-rulespec-2026-09-06
-      # (pinned in .axiom/toolchain.toml).
-      axiom-corpus-ref: 996b763095ae9cae3761e685827ffd9d97c2a68d
+      # axiom-corpus#767 as merged to main: the Israel scope il/statute @
+      # 2026-09-29-il-taxben-contributions, published as release
+      # il-rulespec-2026-09-29 (pinned in .axiom/toolchain.toml). The validator
+      # requires this checkout to contain the release's provenance commit.
+      axiom-corpus-ref: 6920fabd47f721ab2e18717bfb8fbb05d965be40
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
       # Every atomic module here is encoder-produced and carries an apply

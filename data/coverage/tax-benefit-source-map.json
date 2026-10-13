@@ -3,20 +3,20 @@
   "generated_at": "2026-09-06",
   "jurisdiction": "il",
   "validation_year": 2025,
-  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections and encoded_schedules name exactly what this repository covers as a module on disk, and applied_without_a_module names provisions a shipped number depends on that have NO module — both directions are enforced by repository tests. The modules are bound to release il-rulespec-2026-09-06 through .axiom/toolchain.toml.",
+  "note": "Bounded pilot inventory. Every module named here is encoder-generated and carries an apply manifest under .axiom/encoding-manifests/. A listed instrument is NOT fully encoded; encoded_sections and encoded_schedules name exactly what this repository covers as a module on disk, and applied_without_a_module names provisions a shipped number depends on that have NO module — both directions are enforced by repository tests. The modules are bound to release il-rulespec-2026-09-29 through .axiom/toolchain.toml.",
   "corpus_scopes": [
     {
       "jurisdiction": "il",
       "document_class": "statute",
-      "version": "2026-09-06-il-taxben-pilot",
-      "release": "il-rulespec-2026-09-06"
+      "version": "2026-09-29-il-taxben-contributions",
+      "release": "il-rulespec-2026-09-29"
     }
   ],
   "release_candidate": {
-    "name": "il-rulespec-2026-09-06",
+    "name": "il-rulespec-2026-09-29",
     "status": "published",
-    "content_sha256": "eff0433c013fd241fcb73fc3a89681d7e9091708c2b2a8967d261a4f4f361519",
-    "published_from": "TheAxiomFoundation/axiom-corpus#646, merge commit 996b763095ae9cae3761e685827ffd9d97c2a68d, publish run 34071795904 (2026-09-07T01:06Z)",
+    "content_sha256": "28ecce4a009cc620ed38435a07bc4c50cf66410f30cecf919c9905e4503a2e5a",
+    "published_from": "TheAxiomFoundation/axiom-corpus#767, merge commit 6920fabd47f721ab2e18717bfb8fbb05d965be40, publish run 38447030732 (2026-10-13T18:32Z)",
     "note": "Signed and registered. .axiom/toolchain.toml binds this repository to it; activation (serving) is a separate step and is not required for validation."
   },
   "instruments": [

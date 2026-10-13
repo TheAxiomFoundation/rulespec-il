@@ -3,6 +3,6 @@
 # validation waiver set. Bump deliberately — PRs that change this file
 # trigger full-repository revalidation and must carry nothing else.
 [toolchain]
-axiom_corpus_release = "il-rulespec-2026-09-06"
-axiom_corpus_release_content_sha256 = "eff0433c013fd241fcb73fc3a89681d7e9091708c2b2a8967d261a4f4f361519"
+axiom_corpus_release = "il-rulespec-2026-09-29"
+axiom_corpus_release_content_sha256 = "28ecce4a009cc620ed38435a07bc4c50cf66410f30cecf919c9905e4503a2e5a"
 validation_waiver_set_sha256 = "65f8dc38c19a7a491e81a0a158a11ce29a2a470d27b38633b1bf2ab08164678d"
