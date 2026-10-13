@@ -88,11 +88,11 @@ citation, not from a snapshot file. Every proof excerpt is a verbatim NFC
 substring of a corpus body.
 
 The snapshots themselves live in the dispatching workspace
-(`ops/il-lane/sources/`); they are not committed here. What is still missing is a
-signed, immutable `il-rulespec-*` release: until it exists, the modules declare a
-`corpus_citation_path` and no `source_sha256`, because there is no release digest
-to pin to. See `docs/ENCODING-GAPS.md`, `no-signed-corpus-release` and
-`no-source-sha256-pins`.
+(`ops/il-lane/sources/`); they are not committed here. Signed, immutable
+`il-rulespec-*` releases exist, and `.axiom/toolchain.toml` names the one the
+modules are validated against. The modules still declare a `corpus_citation_path`
+and no `source_sha256`: no module pins a digest of the text it encodes. See
+`docs/ENCODING-GAPS.md`, `no-source-sha256-pins`.
 
 ## Two revisions of one page, and only one of them is encoded
 

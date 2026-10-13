@@ -15,14 +15,16 @@ IGNORED_ROOT_DIRS = {
     ".pytest_cache",
     ".ruff_cache",
     ".venv",
-    # The shared validator checks immutable toolchain repositories out here
-    # before running this repository's tests. Tracked paths are rejected by a
-    # separate test, so ignoring this transient directory does not weaken the
-    # committed layout contract.
+    # Shared validators before df2dfb53 (.github#120), including the 842c69d6
+    # this repository pinned until b36f534e, checked immutable toolchain
+    # repositories out here before running this repository's tests; later ones
+    # stage them under TRANSIENT_ROOT_DIR below and move them out of the
+    # workspace. Tracked paths are rejected by a separate test, so ignoring this
+    # transient directory does not weaken the committed layout contract.
     "_axiom",
     "__pycache__",
 }
-# The shared validator (from b36f534e) also stages its dependency checkouts in
+# The shared validator (from df2dfb53, .github#120) stages its dependency checkouts in
 # a mktemp directory at the repository root before running these tests, e.g.
 # .axiom-dependency-stage.n3uvX188. Like _axiom, it is transient and must hold
 # no tracked path (checked below).

@@ -11,22 +11,27 @@ oracle references.
 Two instruments — פקודת מס הכנסה (Income Tax Ordinance) and חוק הביטוח הלאומי
 [נוסח משולב], התשנ״ה–1995 — at section granularity, plus one composed monthly
 capstone. This is a proof of concept for a specific conversation, not coverage,
-and every surface in the repository says so: `app_visibility = "experimental"`,
-no `.axiom/toolchain.toml`, no oracle coverage declared.
+and the repository says so throughout. The app lists it like every other public
+family (`app_visibility = "public"`, on Max's call of 2026-09-07); it remains a
+bounded, uncertified pilot, and no oracle coverage is declared. Validation is
+bound to the signed corpus release named in `.axiom/toolchain.toml`.
 
-**Every atomic module here is produced by the supervised encoder** —
-`axiom-encode encode <corpus citation> --backend codex --apply` — and carries an
-apply manifest under `.axiom/encoding-manifests/`. Hand-written YAML is never a
-module. The only hand work is a findings file handed back to the encoder for a
-repair round, and the composed pipeline under `il/statutes/composed/`, which is
-assembled rather than encoded.
+**Every atomic module here is produced by the supervised encoder** and carries an
+apply manifest under `.axiom/encoding-manifests/`. With the guard on, a new or
+changed module needs a manifest signed with the production apply key, which
+axiom-encode's "Targeted signed RuleSpec re-encode" workflow produces after a
+`production-signing` approval; a local `encode --apply` manifest is refused.
+Hand-written YAML is never a module. The only hand work is a findings file handed
+back to the encoder for a repair round. The composed pipeline under
+`il/statutes/composed/` is assembled rather than encoded, but the guard covers
+its path too, so a hand change to it is refused without a signed manifest that
+lists it.
 
-The shared generated-content guard is still pinned off in
-`.github/workflows/repository-checks.yml`, for one reason: the manifests were
-produced by a local bootstrap build of axiom-encode and signed with a throwaway
-key, because the pinned validator ref refuses to run before a signed Israel
-corpus release exists. It turns on in the same PR that re-encodes at the pinned
-ref. `docs/ENCODING-GAPS.md` records the whole of it.
+The shared generated-content guard is on (#12). The modules on main came from a
+local bootstrap build of axiom-encode, and their manifests are signed with a
+throwaway local key, not the production apply key the guard verifies. The guard
+checks only the modules a pull request changes, so those stay as they are until
+they are re-encoded. `docs/ENCODING-GAPS.md` records the whole of it.
 
 ## Do
 
@@ -63,9 +68,9 @@ ref. `docs/ENCODING-GAPS.md` records the whole of it.
 
 ## Do Not
 
-- Do not add `.axiom/toolchain.toml` or change workflow pins in a content PR.
-  Toolchain binding is a dedicated gated PR after the Israel corpus release is
-  cut, signed and registered.
+- Do not change `.axiom/toolchain.toml`, `.axiom/workflow-toolchain.toml` or
+  workflow pins in a content PR. They move only in a dedicated, independently
+  reviewed toolchain PR, as in #14.
 - Do not file issues against OECD or any other external oracle. Divergences are
   recorded here as `unexplained`.
 - Do not assert an indexed current-year amount that the statute does not state.

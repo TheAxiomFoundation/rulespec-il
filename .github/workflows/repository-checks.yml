@@ -27,15 +27,14 @@ jobs:
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
       # Every atomic module here is encoder-produced and carries an apply
-      # manifest under .axiom/encoding-manifests/. Those manifests came from a
-      # local bootstrap build of axiom-encode (the 55beb160 ref plus five fixes
-      # for Hebrew source text; each manifest records the exact version and
-      # commit), signed with a throwaway local key, because the pinned validator
-      # ref refuses to run before a signed Israel corpus release exists.
-      # The guard is on anyway. It checks the modules a pull request changes,
-      # so the existing modules stay as they are on main; any change to them
-      # has to come from the supervised encoder at the pinned ref, which first
-      # needs the corpus release il-rulespec-2026-09-06 to be cut, signed and
-      # registered. Until then no module here can change.
+      # manifest under .axiom/encoding-manifests/. The modules on main came
+      # from a local bootstrap build of axiom-encode (the 55beb160 ref plus five
+      # fixes for Hebrew source text; each manifest records the exact version
+      # and commit), and their manifests are signed with a throwaway local key,
+      # not the production apply key the guard verifies. The guard checks the
+      # modules a pull request changes, so those stay as they are on main. A new
+      # or changed module has to come from the supervised encoder (axiom-encode's
+      # "Targeted signed RuleSpec re-encode"), against the release pinned in
+      # .axiom/toolchain.toml.
       run-generated-guard: true
       guard-programs-root: false
