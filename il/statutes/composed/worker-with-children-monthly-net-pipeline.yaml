@@ -19,6 +19,10 @@ imports:
 - il:statutes/national-insurance-law-1995/section-1#child_allowance_first_and_fifth_onward_base_amount
 - il:statutes/national-insurance-law-1995/section-1#child_allowance_second_third_and_fourth_base_amount
 - il:statutes/national-insurance-law-1995/section-66#insured_parent_eligible_for_monthly_child_allowance
+- il:statutes/national-insurance-law-1995/section-348#employee_monthly_income_after_contribution_ceiling
+- il:statutes/national-health-insurance-law-1994/section-14#employee_health_insurance_contribution_for_month
+- il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_deduction_within_reduced_band
+- il:statutes/national-insurance-law-1995/schedule-j/sign-1#total_employee_deduction_upper_band
 module:
   proof_validation:
     required: true
@@ -33,8 +37,9 @@ module:
     module ... must not declare module.kind; `composition` is accepted only by the
     composed-program surface" — so the guard's report that this file and its companion have
     no apply manifest is the only signal, and it is the correct one. Both are listed in
-    docs/ENCODING-GAPS.md, `composition-has-no-machine-readable-assembled-marker`. Every atomic module under il/statutes/income-tax-ordinance/ and
-    il/statutes/national-insurance-law-1995/ was produced by the supervised encoder
+    docs/ENCODING-GAPS.md, `composition-has-no-machine-readable-assembled-marker`. Every atomic module under il/statutes/income-tax-ordinance/,
+    il/statutes/national-insurance-law-1995/ and il/statutes/national-health-insurance-law-1994/
+    was produced by the supervised encoder
     and carries an apply manifest under .axiom/encoding-manifests/. A composition
     declares imports of those encoded rules and the wiring between them. It states one
     statutory quantity of its own, and only one: the age 18 in NII §65(א)'s definition of
@@ -47,7 +52,7 @@ module:
     provision. See docs/ENCODING-GAPS.md, `nii-section-65-child-definition-partial`.
 
     ITS corpus_citation_path IS AN INSTRUMENT, NOT A PROVISION. Each atomic module
-    anchors to one provision. This one composes across two instruments, so no single
+    anchors to one provision. This one composes across three instruments, so no single
     provision is "its" source; the declared path is the instrument-level one, matching
     the rulespec-dk composed precedent, and every proof atom in it carries its own
     section-level citation path instead. Verification runs atom by atom. No module here
@@ -82,6 +87,9 @@ module:
         -> which §66 of that Law denies outright to a parent liable to the §121ב
            additional tax
         = monthly net
+        -> less the NII §342(ג)(1) employee deduction and the National Health Insurance
+           Law §14 contribution, both on the wage up to the לוח י״א maximum
+        = monthly take-home pay before pension contributions
 
     THE WAGE IS §2(2) INCOME. ITO §121ב(ה) defines the capital-source base by excluding
     (1) `הכנסה לפי סעיף 2(1) או (2)` and (2) personal-exertion income that is not within
@@ -134,7 +142,8 @@ module:
     version in force rather than being answered with the wrong year's law. See
     docs/ENCODING-GAPS.md, `corpus-holds-one-expression-per-provision`.
 
-    BOUNDS. At most two children; one earner; separate calculation (חישוב נפרד) assumed
+    BOUNDS. At most two children; one earner, an adult resident employee under 65 who receives
+    no National Insurance benefit; separate calculation (חישוב נפרד) assumed
     elected, which is what makes §66(ג)(4)-(5) apply. Both ladders are carried and
     selected by taxpayer_is_a_woman, because §66(ג)(4)(א) and §66(ג)(5) diverge from age
     six (two points against one) and in the maturity year (half a point against none).
@@ -176,9 +185,40 @@ module:
     are encoded and tested in their own modules.
 
     Annual tax is divided by twelve for presentation; this is not a model of the monthly
-    ניכוי במקור deduction rules, which are not encoded. National Insurance and health
-    contributions are NOT deducted, so this "net" is net of income tax and inclusive of
-    child allowance only. It is not take-home pay. See docs/ENCODING-GAPS.md.
+    ניכוי במקור deduction rules, which are not encoded. `monthly_net_income_ils` is net of
+    income tax and inclusive of child allowance only, as it always was. It is not take-home pay.
+
+    TAKE-HOME PAY BEFORE PENSION CONTRIBUTIONS.
+    `monthly_take_home_pay_before_pension_contributions_ils` further deducts the employee's two
+    statutory contributions:
+      * health insurance, `employee_health_insurance_contribution_for_month`, imported from the
+        encoded National Health Insurance Law §14: 3.23% up to the §341 reduced amount (§14(ו1))
+        and 5.17% above it (§14(ב)(1));
+      * National Insurance, `employee_national_insurance_deduction_for_month`, which THIS FILE
+        computes. NII §342(ג)(1) says the employer deducts the לוח י׳ percentages from the wage;
+        the encoder deferred that output in every round (docs/ENCODING-GAPS.md,
+        `nii-section-342-c-1-applied-in-the-composition`), so the composition applies it, the
+        way it applies §68(א)'s per-child amounts: the לוח י׳ טור ד׳ totals are IMPORTED from the
+        encoded table (1.04% up to the bracket and 7% above it in 2025–2026), on the income after
+        the encoded §348 maximum. No rate, bracket or ceiling is stated here. §342(ג)(2)'s
+        cessations (an old-age pension; a man at 70; a woman at her Schedule A1 Part D age, 65 at
+        the lowest) cannot reach the person this pipeline models, who is under 65 and draws no
+        pension; that is a bound, not a rule applied.
+    Both are levied on the wage after NII §348(א)'s maximum, which is לוח י״א פרט 1: five times
+    basic amount 3. The health law reaches that ceiling through its own §2 definition of
+    ”הכנסה“ and §15(ב). The reduced collection bracket and basic amount 3 are supplied, like
+    the credit-point value and the child-allowance amounts, and ONE bracket figure feeds both
+    contributions (see docs/ENCODING-GAPS.md, `contributions-bracket-and-ceiling-are-supplied`).
+    A payslip usually also deducts an employee pension contribution. No encoded law imposes
+    it, and this pipeline does not deduct it; the output's name says so.
+
+    Every fact the health module asks about is bound here. The person's residency and age in
+    the month come from inputs. Every exemption, pension route and special category the module
+    can switch on is bound to false, each with a proof atom naming the provision it switches
+    off. The age in the month, `taxpayer_age_at_month_years`, sits beside
+    `taxpayer_is_at_least_60_years_old` for the reason each child has two ages: ITO §121(ב)(1)
+    asks whether the person reached 60 in the TAX YEAR, and health §14(ז) asks the person's age
+    in the MONTH. See docs/ENCODING-GAPS.md, `contributions-scope-of-the-composed-person`.
 rules:
 - name: months_in_tax_year
   kind: parameter
@@ -759,3 +799,534 @@ rules:
   versions:
   - effective_from: '2026-01-01'
     formula: monthly_gross_wage_ils - (annual_income_tax_after_credits_ils / months_in_tax_year) + monthly_child_allowance_ils
+- name: employee_monthly_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 344(א) לחוק הביטוח הלאומי — הכנסתו החודשית של עובד היא הכנסתו מהמקורות שבסעיף 2(2) לפקודה, כאן השכר החודשי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-344
+          excerpt: יראו כהכנסתו החודשית של עובד את הכנסתו בעד החודש שקדם ל־1 בחודש שבו חל מועד התשלום, מהמקורות המפורטים בסעיף 2(2) לפקודת מס הכנסה
+  versions:
+  - effective_from: '2026-01-01'
+    formula: max(0, monthly_gross_wage_ils)
+- name: contributions_payable_under_section_335
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: סעיף 335(ט) לחוק הביטוח הלאומי — דמי ביטוח משתלמים בעד מבוטח לפי פרק י״א, כאן תושב ישראל
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-335
+          excerpt: מבוטח לפי פרק י״א למעט עקרת בית ואלמנה בת קצבה כהגדרתן בסעיף 238 ישתלמו בעדו דמי ביטוח אזרחים ותיקים ושאירים
+  versions:
+  - effective_from: '2026-01-01'
+    formula: taxpayer_is_israeli_resident
+- name: basic_amount_under_section_1_definition_paragraph_3
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: הסכום הבסיסי שבפסקה (3) להגדרה ”הסכום הבסיסי“ שבסעיף 1 לחוק הביטוח הלאומי, בסכומו המעודכן לחודש — ערך מסופק
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+          excerpt: (3) לענין כל גמלה שאינה מנויה בפסקאות (1) או (2) – 6,964 שקלים חדשים
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-1
+          excerpt: הסכום הבסיסי יעודכן כמפורט להלן
+  versions:
+  - effective_from: '2026-01-01'
+    formula: current_basic_amount_paragraph_3_ils
+- name: is_insured
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: סעיף 3(א) לחוק ביטוח בריאות ממלכתי — כל תושב זכאי לשירותי בריאות, ולכן הוא מבוטח כהגדרתו בסעיף 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-3
+          excerpt: כל תושב זכאי לשירותי בריאות לפי חוק זה
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-2
+          excerpt: ”מבוטח“ – מי שזכאי לשירותי בריאות לפי חוק זה
+  versions:
+  - effective_from: '2026-01-01'
+    formula: taxpayer_is_israeli_resident
+- name: age
+  kind: derived
+  entity: Person
+  dtype: Integer
+  period: Month
+  source: סעיף 14(ז) לחוק ביטוח בריאות ממלכתי — גיל המבוטח בחודש, בשנים שלמות
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: לא ישולמו דמי ביטוח בריאות בעד מבוטח שטרם מלאו לו 18 שנים
+  versions:
+  - effective_from: '2026-01-01'
+    formula: taxpayer_age_at_month_years
+- name: is_employee
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: סעיף 14(ב)(1) לחוק ביטוח בריאות ממלכתי — המבוטח כאן הוא עובד שמעבידו משלם לו שכר
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: מעביד חייב לשלם למוסד דמי ביטוח בריאות בעד כל עובד מעובדיו
+  versions:
+  - effective_from: '2026-01-01'
+    formula: monthly_gross_wage_ils > 0
+- name: employer_owes_national_insurance_for_employee
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: סעיף 342(ב) לחוק הביטוח הלאומי — המעביד חייב בתשלום דמי ביטוח בעד עובדו
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          excerpt: המעביד חייב בתשלום דמי ביטוח בעד עובדו
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: שהוא מבוטח ושהמעביד חייב בתשלום דמי ביטוח לאומי בעדו
+  versions:
+  - effective_from: '2026-01-01'
+    formula: is_employee and contributions_payable_under_section_335
+- name: employee_monthly_income_subject_to_contributions
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: הגדרת ”הכנסה“ שבסעיף 2 לחוק ביטוח בריאות ממלכתי וסעיף 15(ב) לו, עם סעיף 348(א) לחוק הביטוח הלאומי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-2
+          excerpt: הכנסת עובד שממנה חייב מעבידו בתשלום דמי ביטוח לאומי
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-15
+          excerpt: יחולו בשינויים המחויבים לענין דמי ביטוח בריאות כאילו היו דמי ביטוח לאומי
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+          excerpt: לא יבוא בחשבון סכום ההכנסה של המבוטח העולה על הסכום המרבי המתקבל לפי האמור בלוח י״א
+  versions:
+  - effective_from: '2026-01-01'
+    formula: employee_monthly_income_after_contribution_ceiling
+- name: reduced_amount_under_national_insurance_section_341
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 14(ו1) לחוק ביטוח בריאות ממלכתי וסעיף 341 לחוק הביטוח הלאומי — הסכום המופחת הוא מדרגת הגבייה המופחתת, בסכומה המעודכן לשנה — ערך מסופק
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: על החלק מההכנסה שאינו עולה על הסכום המופחת שנקבע לפי סעיף 341 לחוק הביטוח הלאומי
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-341
+          excerpt: יחולו לענין קביעת סכום השכר או ההכנסה שאינם עולים על מדרגת הגבייה המופחתת
+  versions:
+  - effective_from: '2026-01-01'
+    formula: current_reduced_collection_bracket_ils
+- name: income_exempt_from_national_insurance_under_section_350a_a
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: הרכבה — לעובד כאן אין הכנסה הפטורה מדמי ביטוח לאומי לפי סעיף 350א(א), ולכן סעיף 14(ז2) אינו מוסיף דבר
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: תובא בחשבון גם הכנסה הפטורה מתשלום דמי ביטוח לאומי לפי סעיף 350א(א) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: '0'
+- name: is_housewife_under_section_238
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו עקרת בית; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: בעד עקרת בית
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: is_exempt_student_under_section_351_ia_2a
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו תלמיד הפטור לפי סעיף 351(יא)(2א); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ובעד תלמיד או מתגייס שחל לגביו פטור מדמי ביטוח לאומי לפי הוראות סעיף 351(יא)(2א) או (2ב) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: is_exempt_recruit_under_section_351_ia_2b
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מתגייס הפטור לפי סעיף 351(יא)(2ב); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ובעד תלמיד או מתגייס שחל לגביו פטור מדמי ביטוח לאומי לפי הוראות סעיף 351(יא)(2א) או (2ב) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: is_exempt_person_under_section_351_z1
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אין לגביו פטור לפי סעיף 351(ז1); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ובעד מי שחל לגביו פטור מדמי ביטוח לאומי לפי הוראות סעיף 351(ז1) או (יא)(2ג) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: is_exempt_person_under_section_351_ia_2c
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אין לגביו פטור לפי סעיף 351(יא)(2ג); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ובעד מי שחל לגביו פטור מדמי ביטוח לאומי לפי הוראות סעיף 351(ז1) או (יא)(2ג) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: is_donor_under_organ_transplant_law
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו תורם אבר; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: שהוא תורם כהגדרתו בחוק השתלת אברים
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: donated_organ_in_israel_while_alive
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו תורם אבר; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: שתרם בישראל אבר, בחייו
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: organ_recipient_is_israeli_resident
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו תורם אבר; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: לנתרם שהוא תושב ישראל
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: within_minister_prescribed_donor_exemption_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו תורם אבר; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: לתקופה שקבע שר הבריאות
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: receives_old_age_pension
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מקבל קצבת אזרח ותיק; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: מבוטח שמשתלמת לו קצבת אזרח ותיק
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: receives_additional_disability_benefit_under_section_251
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מקבל גמלה נוספת לנכה; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: ומבוטח שמשתלמת לו גמלה נוספת לנכה כמשמעותה בסעיף 251 לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: income_precludes_special_old_age_benefit
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מי שהכנסתו שוללת גמלת אזרח ותיק מיוחדת; סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: על מבוטח שבשל הכנסתו אינו זכאי לגמלת אזרח ותיק מיוחדת
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: receives_pension_under_sections_261_and_320_d
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מקבל קצבה לפי סעיפים 261 ו־320(ד); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: וכן על מבוטח שמשתלמת לו קיצבה לפי סעיפים 261 ו־320(ד) או (ה) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: receives_pension_under_sections_261_and_320_e
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: גבול ההרכבה — העובד כאן אינו מקבל קצבה לפי סעיפים 261 ו־320(ה); סעיף 14 לחוק ביטוח בריאות ממלכתי
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: וכן על מבוטח שמשתלמת לו קיצבה לפי סעיפים 261 ו־320(ד) או (ה) לחוק הביטוח הלאומי
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'false'
+- name: employee_national_insurance_deduction_for_month
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 342(ג)(1) לחוק הביטוח הלאומי, מוחל על שיעורי טור ד׳ בלוח י׳ כפי שקודדו, על ההכנסה שלאחר הסכום המרבי שבסעיף 348(א), עם מדרגת הגבייה המופחתת המסופקת
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          excerpt: ינכה המעביד משכרו של העובד אחוזים מההכנסה שלפיה משתלמים דמי הביטוח כאמור בלוח י׳ ובסעיף 337
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: הניכוי משכר העובד לענין סעיף 342(ג) באחוזים
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר שאינו עולה על מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/schedule-j/sign-1
+          excerpt: על חלק השכר העולה על מדרגת הגבייה המופחתת כהגדרתה בסעיף 334(א)
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-348
+          excerpt: לא יבוא בחשבון סכום ההכנסה של המבוטח העולה על הסכום המרבי המתקבל לפי האמור בלוח י״א
+  versions:
+  - effective_from: '2026-01-01'
+    formula: |-
+      total_employee_deduction_within_reduced_band
+      * min(employee_monthly_income_after_contribution_ceiling, current_reduced_collection_bracket_ils)
+      + total_employee_deduction_upper_band
+      * max(0, employee_monthly_income_after_contribution_ceiling - current_reduced_collection_bracket_ils)
+- name: monthly_employee_contributions_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: סעיף 342(ג)(1) לחוק הביטוח הלאומי וסעיף 14(ב)(1) לחוק ביטוח בריאות ממלכתי — שני הניכויים משכר העובד
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          excerpt: ינכה המעביד משכרו של העובד אחוזים מההכנסה שלפיה משתלמים דמי הביטוח כאמור בלוח י׳ ובסעיף 337
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד
+  versions:
+  - effective_from: '2026-01-01'
+    formula: employee_national_insurance_deduction_for_month + employee_health_insurance_contribution_for_month
+- name: monthly_take_home_pay_before_pension_contributions_ils
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: ILS
+  period: Month
+  source: הרכבה — ההכנסה החודשית נטו לאחר מס הכנסה וקצבת ילדים, בניכוי דמי ביטוח לאומי ודמי ביטוח בריאות שהמעביד מנכה משכר העובד; ללא ניכוי הפקדות לפנסיה
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-insurance-law-1995/section-342
+          excerpt: ינכה המעביד משכרו של העובד אחוזים מההכנסה שלפיה משתלמים דמי הביטוח כאמור בלוח י׳ ובסעיף 337
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: il/statute/national-health-insurance-law-1994/section-14
+          excerpt: המעביד ינכה את דמי ביטוח הבריאות משכרו של העובד
+  versions:
+  - effective_from: '2026-01-01'
+    formula: monthly_net_income_ils - monthly_employee_contributions_ils
