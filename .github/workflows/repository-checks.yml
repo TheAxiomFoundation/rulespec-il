@@ -16,7 +16,6 @@ jobs:
       # checkouts that keep their bytes in lock files (axiom-corpus#774), which the
       # corpus ref below needs, and it contains axiom-encode #1744 (a Hebrew percent
       # heading over a pipe-table column).
-      axiom-compose-ref: b9606380e78733bf50d17a9c19043f63fcc8bd63
       axiom-encode-ref: 630aa73931e5aa87c51d25fe448e38dbcfaed50f
       # axiom-rules-engine#169 (Israel ILS currency seed) as merged to main.
       axiom-rules-engine-ref: 1f824237d43c1234d88fea60c8ac2fa7b9b9da4c
