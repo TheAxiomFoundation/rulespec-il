@@ -6,7 +6,7 @@
 # No axiom_compose_ref: axiom-compose stays disabled for this repository.
 [workflow_toolchain]
 axiom_encode_ref = "630aa73931e5aa87c51d25fe448e38dbcfaed50f"
-axiom_rules_engine_ref = "1f824237d43c1234d88fea60c8ac2fa7b9b9da4c"
+axiom_rules_engine_ref = "32bc1c124724ebbb2187a196a3b228cfb2a14721"
 axiom_corpus_ref = "6920fabd47f721ab2e18717bfb8fbb05d965be40"
 rulespec_us_ref = "0f291b367bf7e15555f9973112278c5cbf221653"
 shared_workflow_ref = "b36f534e9058f45b378e6e555939e97c597ef4fe"
