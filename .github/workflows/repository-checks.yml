@@ -33,10 +33,13 @@ jobs:
       # from a local bootstrap build of axiom-encode (the 55beb160 ref plus five
       # fixes for Hebrew source text; each manifest records the exact version
       # and commit), and their manifests are signed with a throwaway local key,
-      # not the production apply key the guard verifies. The guard checks the
-      # modules a pull request changes, so those stay as they are on main. A new
-      # or changed module has to come from the supervised encoder (axiom-encode's
-      # "Targeted signed RuleSpec re-encode"), against the release pinned in
-      # .axiom/toolchain.toml.
+      # not the production apply key the guard verifies. On an ordinary content
+      # pull request the guard checks the modules it changes, so those stay as
+      # they are on main. When a pull request changes a pinned dependency or the
+      # shared workflow ref, the shared workflow instead audits every manifest at
+      # base and head, each with its own encoder and corpus, and fails only on
+      # issues new at head. A new or changed module has to come from the
+      # supervised encoder (axiom-encode's "Targeted signed RuleSpec re-encode"),
+      # against the release pinned in .axiom/toolchain.toml.
       run-generated-guard: true
       guard-programs-root: false
