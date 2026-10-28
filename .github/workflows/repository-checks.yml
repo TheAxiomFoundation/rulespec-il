@@ -8,11 +8,11 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@b36f534e9058f45b378e6e555939e97c597ef4fe
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@882c5f11545ec3343fc5ed170e01d65aa2c5bb3e
     secrets: inherit
     with:
       # axiom-encode main at 630aa73931e5aa87c51d25fe448e38dbcfaed50f (encoder 0.2.2180),
-      # the pair rulespec-nz runs with shared workflow b36f534e. It reads corpus
+      # chosen as the pair rulespec-nz ran with shared workflow b36f534e. It reads corpus
       # checkouts that keep their bytes in lock files (axiom-corpus#774), which the
       # corpus ref below needs, and it contains axiom-encode #1744 (a Hebrew percent
       # heading over a pipe-table column).
@@ -33,10 +33,13 @@ jobs:
       # from a local bootstrap build of axiom-encode (the 55beb160 ref plus five
       # fixes for Hebrew source text; each manifest records the exact version
       # and commit), and their manifests are signed with a throwaway local key,
-      # not the production apply key the guard verifies. The guard checks the
-      # modules a pull request changes, so those stay as they are on main. A new
-      # or changed module has to come from the supervised encoder (axiom-encode's
-      # "Targeted signed RuleSpec re-encode"), against the release pinned in
-      # .axiom/toolchain.toml.
+      # not the production apply key the guard verifies. On an ordinary content
+      # pull request the guard checks the modules it changes, so those stay as
+      # they are on main. When a pull request changes a pinned dependency or the
+      # shared workflow ref, the shared workflow instead audits every manifest at
+      # base and head, each with its own encoder and corpus, and fails only on
+      # issues new at head. A new or changed module has to come from the
+      # supervised encoder (axiom-encode's "Targeted signed RuleSpec re-encode"),
+      # against the release pinned in .axiom/toolchain.toml.
       run-generated-guard: true
       guard-programs-root: false
