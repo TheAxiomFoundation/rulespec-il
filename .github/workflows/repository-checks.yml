@@ -17,7 +17,9 @@ jobs:
       # corpus ref below needs, and it contains axiom-encode #1744 (a Hebrew percent
       # heading over a pipe-table column).
       axiom-encode-ref: 630aa73931e5aa87c51d25fe448e38dbcfaed50f
-      # axiom-rules-engine#169 (Israel ILS currency seed) as merged to main.
+      # Engine main at engine#270 (lifetime commencement, engine#260). It
+      # contains the Israel ILS currency seed (engine#169) and dated
+      # single-version rules (engine#130).
       axiom-rules-engine-ref: 363c6a6c56f7ad130996b63f7a09cfd4c3d9b021
       # axiom-corpus#767 as merged to main: the Israel scope il/statute @
       # 2026-09-29-il-taxben-contributions, published as release
