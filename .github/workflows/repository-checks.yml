@@ -8,11 +8,11 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@b36f534e9058f45b378e6e555939e97c597ef4fe
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@882c5f11545ec3343fc5ed170e01d65aa2c5bb3e
     secrets: inherit
     with:
       # axiom-encode main at 630aa73931e5aa87c51d25fe448e38dbcfaed50f (encoder 0.2.2180),
-      # the pair rulespec-nz runs with shared workflow b36f534e. It reads corpus
+      # chosen as the pair rulespec-nz ran with shared workflow b36f534e. It reads corpus
       # checkouts that keep their bytes in lock files (axiom-corpus#774), which the
       # corpus ref below needs, and it contains axiom-encode #1744 (a Hebrew percent
       # heading over a pipe-table column).
