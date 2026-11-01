@@ -18,17 +18,12 @@ IGNORED_ROOT_DIRS = {
     # Shared validators before df2dfb53 (.github#120), including the 842c69d6
     # this repository pinned until b36f534e, checked immutable toolchain
     # repositories out here before running this repository's tests; later ones
-    # stage them under TRANSIENT_ROOT_DIR below and move them out of the
+    # stage them in a temporary directory and move them out of the
     # workspace. Tracked paths are rejected by a separate test, so ignoring this
     # transient directory does not weaken the committed layout contract.
     "_axiom",
     "__pycache__",
 }
-# The shared validator (from df2dfb53, .github#120) stages its dependency checkouts in
-# a mktemp directory at the repository root before running these tests, e.g.
-# .axiom-dependency-stage.n3uvX188. Like _axiom, it is transient and must hold
-# no tracked path (checked below).
-TRANSIENT_ROOT_DIR = re.compile(r"\.axiom-dependency-stage\.[A-Za-z0-9]{8}")
 ALLOWED_ROOT_DIRS = {
     ".axiom",
     ".github",
@@ -95,9 +90,7 @@ def test_root_inventory_is_allowed() -> None:
     directories = {
         child.name
         for child in ROOT.iterdir()
-        if child.is_dir()
-        and child.name not in IGNORED_ROOT_DIRS
-        and not TRANSIENT_ROOT_DIR.fullmatch(child.name)
+        if child.is_dir() and child.name not in IGNORED_ROOT_DIRS
     }
     files = {
         child.name for child in ROOT.iterdir() if child.is_file() and child.name != ".git"
@@ -114,15 +107,6 @@ def test_transient_axiom_workspace_has_no_tracked_paths() -> None:
         capture_output=True,
     ).stdout
     assert tracked == b""
-    every_path = subprocess.run(
-        ["git", "ls-files", "-z"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-    ).stdout.decode().split("\0")
-    assert not [
-        path for path in every_path if TRANSIENT_ROOT_DIR.fullmatch(path.split("/", 1)[0])
-    ]
 
 
 def test_programs_remain_empty_until_program_guard_is_enabled() -> None:
