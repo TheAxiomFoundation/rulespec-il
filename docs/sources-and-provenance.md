@@ -49,7 +49,9 @@ credit also stands in `NOTICE`.
 5. `reference` — comparison material (OECD TaxBEN and similar). Never law.
 
 Statutory text carries no copyright in Israel: Copyright Act 2007 §6 excludes
-"חוקים" and other edicts of government. A consolidation's editorial apparatus —
+statutes (חוקים), regulations (תקנות), the Knesset Record (דברי הכנסת), and the
+judicial decisions of a court or of any governmental authority that exercises
+judicial power by law. A consolidation's editorial apparatus —
 amendment-history brackets like `[תיקון: תשמ״ה־3]`, cross-reference styling,
 comparison tables — belongs to its publisher and is stripped from provision
 bodies. Amendment history is preserved as provision metadata, not as text.

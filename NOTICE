@@ -5,12 +5,19 @@ Axiom Foundation — RuleSpec corpus licensing
   International license (CC BY 4.0) — see LICENSE.
 - Incidental tooling and scripts (CI harnesses, runners, conversion utilities)
   are licensed under the Apache License 2.0 — see LICENSE-CODE.
-- The statutes, regulations, and other government documents these files encode
-  are edicts of government and remain in the public domain. No license is
-  claimed over the law itself.
+- We claim no rights in the statutes, regulations, and other government
+  documents these files encode. Neither license above covers them, or any of
+  their text that these files reproduce. "Source material" below cites the law
+  on their status.
 
 Suggested attribution: "Axiom Foundation RuleSpec corpus (CC BY 4.0),
 https://github.com/TheAxiomFoundation"
+
+Source material
+
+- Israeli statutes, regulations, the Knesset Record, and the judicial
+  decisions of a court or of any governmental authority that exercises
+  judicial power by law carry no copyright (Copyright Act 2007, s.6).
 
 Source text credit
 
